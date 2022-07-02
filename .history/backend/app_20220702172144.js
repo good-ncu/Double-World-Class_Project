@@ -14,7 +14,7 @@ app.use(express.urlencoded({ extended: false }))
 
 
 
-// 一定要在路由之前配置解析 Token 的中间件sss
+// 一定要在路由之前配置解析 Token 的中间件
 const expressJWT = require('express-jwt')
 const config = require('./config')
 
