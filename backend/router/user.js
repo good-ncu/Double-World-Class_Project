@@ -14,12 +14,6 @@ const  login_schema  = require('../schema/user').login_schema
 // var multer  = require('multer')
 // var upload = multer()
 
-<<<<<<< HEAD
-// 注册学科填报用户
-router.post('/register', expressJoi(register_schema), user_handler.register)
-// 登录（所有类型的用户都用该接口）
-router.post('/login', expressJoi(login_schema), user_handler.login)
-=======
 // 登录  a a a a 
 router.post('/login', user_handler.login)
 >>>>>>> 731628145568d50a8bddc88a9869d28b76d8d292
