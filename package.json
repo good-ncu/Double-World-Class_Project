@@ -1,0 +1,24 @@
+{
+  "name": "double-world-class_project",
+  "version": "1.0.0",
+  "main": "config.js",
+  "directories": {
+    "test": "test"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/good-ncu/Double-World-Class_Project.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/good-ncu/Double-World-Class_Project/issues"
+  },
+  "homepage": "https://github.com/good-ncu/Double-World-Class_Project#readme",
+  "description": ""
+}
