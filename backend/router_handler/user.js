@@ -50,6 +50,7 @@ exports.login = function(req, res){
     // const compareResult = bcrypt.compareSync(userinfo.password, results.rows[0].password)
     // if(!compareResult) return res.cc('密码错误，登录失败')
     if(userinfo.password!==results.rows[0].Passwd) return res.cc('密码错误，登录失败')
+    if(userinfo.roleid!=results.rows[0].RoleID) return res.cc('角色类别错误，登录失败')
 
     // 服务端生成Token
     const user = {...results.rows[0], password: ''}
