@@ -8,7 +8,7 @@ const user_handler = require('../router_handler/user')
 const expressJoi = require('@escook/express-joi')
 
 
-// 登录
+// 登录  a a a a 
 router.post('/login', user_handler.login)
 
 module.exports = router
