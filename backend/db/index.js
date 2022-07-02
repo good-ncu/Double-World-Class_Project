@@ -7,5 +7,5 @@ const client = new Client({
     port: 5432,
 })
 client.connect();
-//jjjj
+
 module.exports = client
