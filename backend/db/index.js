@@ -4,7 +4,9 @@ const client = new Client({
     host: 'localhost',
     database: 'Double-World-Class_Project',
     password: 'zt123456',
-    port: 5433,
+    port: 5432,
 })
 client.connect();
-export default client;
+
+
+module.exports = client

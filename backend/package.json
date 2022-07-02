@@ -5,7 +5,6 @@
   "directories": {
     "test": "test"
   },
-  "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -20,5 +19,14 @@
     "url": "https://github.com/good-ncu/Double-World-Class_Project/issues"
   },
   "homepage": "https://github.com/good-ncu/Double-World-Class_Project#readme",
-  "description": ""
+  "description": "",
+  "dependencies": {
+    "@escook/express-joi": "^1.1.1",
+    "@hapi/joi": "^17.1.1",
+    "bcryptjs": "^2.4.3",
+    "cors": "^2.8.5",
+    "express": "^4.18.1",
+    "express-jwt": "^7.7.5",
+    "pg": "^8.7.3"
+  }
 }
