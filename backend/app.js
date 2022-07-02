@@ -8,6 +8,8 @@ const joi = require('@hapi/joi')
 const cors = require('cors')
 app.use(cors())
 
+// 解析完成之后会挂载到req.body上
+app.use(express.json())
 // 配置解析表单数据的中间件，注意：这个中间件，只能解析 application/x-www-form-urlencoded 格式的表单数据
 app.use(express.urlencoded({ extended: false }))
 
@@ -42,4 +44,12 @@ app.use('/api', userRouter)
 // 启动服务器
 app.listen(3007, () => {
   console.log('api server running at http://127.0.0.1:3007')
+})
+
+// 错误中间件
+app.use(function (err, req, res, next) {
+  // 数据验证失败
+  if (err instanceof joi.ValidationError) return res.cc(err)
+  // 未知错误
+  res.cc(err)
 })
