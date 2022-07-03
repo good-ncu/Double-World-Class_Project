@@ -29,6 +29,7 @@ const jobnumber =  joi.string().min(1).max(13).required()
 // 手机号验证
 const phonenumber = joi.string().pattern(/^\d{11}$/)
 
+
 // 注册表单的验证规则对象
 exports.register_schema = {
   // 表示需要对 req.body 中的数据进行验证

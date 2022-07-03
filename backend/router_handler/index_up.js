@@ -25,8 +25,8 @@ exports.sub = function(req, res){
         if (err) return res.send({ status: 1, message: err.message })
         console.log("sql执行成功");
         // SQL 语句执行成功，但影响行数不为 1
-        console.log(results.affectedRows)
-        if (results.affectedRows != 1) {
+        console.log(results.rowCount)
+        if (results.rowCount !== 1) {
             return res.send({ status: 1, message: '填报成功失败，请稍后再试！' })
         }
         // 填报成功
