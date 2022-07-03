@@ -17,6 +17,7 @@ const  login_schema  = require('../schema/user').login_schema
 
 // 注册学科填报用户
 router.post('/register', expressJoi(register_schema), user_handler.register)
+
 // 登录（所有类型的用户都用该接口）
 router.post('/login', expressJoi(login_schema), user_handler.login)
 

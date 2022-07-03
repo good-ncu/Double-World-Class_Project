@@ -1,13 +1,11 @@
-const { Client } = require('pg')
-const client = new Client({
-    user: 'postgres',
-    host: 'localhost',
-    database: 'Double-World-Class_Project',
-    password: 'zt123456',
-    port: 5432,
-})
-client.connect();
-
-
-//test for ljh
-module.exports = client
+const { Client } = require('pg') 
+ const client = new Client({ 
+ user: 'postgres', 
+ host: '222.204.6.192', 
+ database: 'syl_proj', 
+ password: 'qwerohuo@good114', 
+ port: 8082, 
+ }) 
+ client.connect(); 
+     //test for ljh 
+ module.exports = client 
