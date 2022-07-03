@@ -7,8 +7,8 @@ const user_handler = require('../router_handler/user')
 // 1. 导入验证数据的中间件
 const expressJoi = require('@escook/express-joi')
 // 2. 导入需要的验证规则对象
-const register_schema  = require('../schema/user').register_schema
-const  login_schema  = require('../schema/user').login_schema
+const register_schema = require('../schema/user').register_schema
+const login_schema = require('../schema/user').login_schema
 
 // // multer处理multipart/form-data
 // var multer  = require('multer')
