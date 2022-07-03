@@ -68,9 +68,9 @@ exports.login = function(req, res){
           return res.cc('无该用户，登录失败')
       }
     // 判断密码是否正确
-    // const compareResult = bcrypt.compareSync(userinfo.password, results.rows[0].passwd)
-    // if(!compareResult) return res.cc('密码错误，登录失败')
-    if(userinfo.password!==results.rows[0].passwd) return res.cc('密码错误，登录失败')
+    const compareResult = bcrypt.compareSync(userinfo.password, results.rows[0].passwd)
+    if(!compareResult) return res.cc('密码错误，登录失败')
+    // if(userinfo.password!==results.rows[0].passwd) return res.cc('密码错误，登录失败')
     
     if(userinfo.roleidLogin!=results.rows[0].role_id) return res.cc('角色类别错误，登录失败')
 

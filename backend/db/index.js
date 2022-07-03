@@ -7,6 +7,6 @@ const { Client } = require('pg')
  port: 5432, 
  }) 
  client.connect(); 
-     //test for ljh 
+     //test for ljh ljs
  module.exports = client 
 
