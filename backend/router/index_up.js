@@ -18,9 +18,7 @@ const sub_schema1  = require('../schema/学科建设进展')
 
 
 // // 手动 注册学科填报用户
-router.post('/disci-cons/progress/disci-eval-situation', sub_schema1.a, index_up_handler.sub)
-
-
+router.post('/disci-cons/progress/disci-eval-situation', sub_schema1.table_1_1_2, index_up_handler.sub)
 
 
 // 手动 注册学科填报用户

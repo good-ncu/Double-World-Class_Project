@@ -1,32 +1,30 @@
-
-//数据案例1：表1-1-2
-// table_1_1_2=[{"评估轮次":"第三轮","本学科评估结果":"D+"},
-//         {"评估轮次":"第四轮","本学科评估结果":"B+"},
-//         {"评估轮次":"第五轮","本学科评估结果":"unknown"},
-//         {"评估轮次":"第六轮（预计）","本学科评估结果":"unknown"}]
-
-exports.a = function(req,res,next){
-    table_1_1_2=req.body
-    for(let i=0,len=table_1_1_2.length;i<len;i++){
+exports.table_1_1_2 = function(req,res,next){//数据案例1：表1-1-2,   此时discipline_eval_turn不用手动填报,系统自带
+    table=req.body
     
-    if (/[一二三四]/g.test(table_1_1_2[i].评估轮次)){
-        if(/A\+|A|A\-|B\+|B|B\-|C\+|C|C\-|NULL/g.test(table_1_1_2[i].本学科评估结果)){
-            console.log(table_1_1_2[i])
+    // exports.table_1_1_2 = function(req,res,next){
+        // table=req.body
+        for(let i=0,len=table.length;i<len;i++){
+            if (/[4]/g.test(table[i].discipline_eval_turn)){
+                if(/A\+|A|A\-|B\+|B|B\-|C\+|C|C\-|NULL/g.test(table[i].discipline_eval_result)){
+                    console.log(table[i]);
+                }
+                else{
+                    // console.log('1学科评估结果填报错误！')
+                    return res.cc('学科评估结果填报错误！')
+                }
+            }
+            else{
+                if(/unknown/g.test(table[i].discipline_eval_result)){
+                     console.log(table[i])
+                    continue;
+                }
+                else{
+                    return res.cc('学科评估结果填报错误！')
+                    // console.log('2学科评估结果填报错误！')
+                }
+            }
         }
-        else{
-            // console.log('a填报错误！')
-            return res.cc()
-        }
-
-    }
-    else{
-        if(/unknown/g.test(table_1_1_2[i].本学科评估结果)){
-            console.log(table_1_1_2[i])
-        }
-        else{
-            return res.cc()
-        }
-    }    
-    }
-    next()
+        next()
+    
+    //数据案例1：表1-1-2,   此时discipline_eval_turn不用手动填报,系统自带
 }
