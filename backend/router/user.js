@@ -10,7 +10,7 @@ const expressJoi = require('@escook/express-joi')
 const register_schema = require('../schema/user').register_schema
 const login_schema = require('../schema/user').login_schema
 
-// // multer处理multipart/form-data
+// // multer处理multipart/form-datas
 // var multer  = require('multer')
 // var upload = multer()
 
