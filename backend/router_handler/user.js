@@ -30,7 +30,7 @@ exports.register = function(req,res){
     const sql = "insert into user_info(id,username,passwd,univ_code,discipline_code,role_id,job_number,phone) values($1,$2,$3,$4,$5,$6,$7,$8)"
     client.query(sql, 
       [
-        uuid.v1(),
+        uuid.v1().replace(/-/g, ''),
         userinfo.username,userinfo.password,
         userinfo.unicode,userinfo.disciplinecode,
         userinfo.roleidRegister,userinfo.jobnumber,
