@@ -1,4 +1,4 @@
 /backend/node_modules
 /.history/
-/backend/db/*.js
+/backend/db/*
 /backend/apidoc/
