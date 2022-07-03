@@ -16,12 +16,18 @@ const password = joi
   .string()
   .pattern(/^[\S]{6,12}$/)
   .required()
-// 学校代码验证
-const unicode = joi.number().integer().min(5).max(5).required()
+// 学校代码验证 // ^\d{5}$ 五位数字
+const unicode = joi.string().pattern(/^\d{5}$/).required()
 // 学科代码验证
-const disciplinecode = joi.number().integer().min(4).max(4).required()
-// 角色类别验证规则
-const roleid = joi.number().integer().greater(0).less(5).required()
+const disciplinecode = joi.string().pattern(/^\d{4}$/).required()
+// 注册时角色类别验证规则
+const roleidRegister = joi.number().integer().greater(3).less(5).required()
+// 登录时角色类别验证规则
+const roleidLogin = joi.number().integer().greater(0).less(5).required()
+// 工号验证规则
+const jobnumber =  joi.string().min(1).max(13).required()
+// 手机号验证
+const phonenumber = joi.string().pattern(/^\d{11}$/)
 
 // 注册表单的验证规则对象
 exports.register_schema = {
@@ -31,7 +37,9 @@ exports.register_schema = {
     password,
     unicode,
     disciplinecode,
-    roleid,
+    roleidRegister,
+    jobnumber,
+    phonenumber
   },
 }
 
@@ -41,6 +49,6 @@ exports.login_schema = {
     body: {
       username,
       password,
-      roleid,
+      roleidLogin,
     },
 }

@@ -31,8 +31,8 @@ app.use((req,res,next)=>{
 const expressJWT = require('express-jwt')
 const config = require('./config')
 
-// api接口的不走解析token中间件
-app.use(expressJWT({secret: config.jwtSecretKey}).unless({path: [/^\/api/]}))
+// /api/login接口的不走解析token中间件，注册要携带token
+app.use(expressJWT({secret: config.jwtSecretKey}).unless({path: [/^\/api\/login/]}))
 
 // 导入并使用用户路由模块
 const userRouter = require('./router/user')
