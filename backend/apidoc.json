@@ -1,0 +1,13 @@
+{
+    "name": "syl-api",
+    "version": "1.0.0",
+    "description": "双一流项目API文档",
+    "title": "blog API",
+    "url": "http://localhost:3007",
+    "sampleUrl": "http://localhost:3007",
+    "forceLanguage": "zh-cn",
+    "template": {
+        "withCompare": true,
+        "withGenerator": true
+    }
+}
