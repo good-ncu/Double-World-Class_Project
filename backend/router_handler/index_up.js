@@ -11,10 +11,9 @@ const expressJWT = require('express-jwt')
 
 // 学科填报的处理函数
 exports.sub = function(req, res){
-    console.log(req.body);
 
     // 接收表单数据
-    const submit_info = req.body
+    const submit_info = req.body.data
     // 获取token中的user信息
     user=req.user
     for(let i=0,len=submit_info.length;i<len;i++){ 
@@ -40,11 +39,7 @@ exports.sub = function(req, res){
     res.send({ status: 0, message: '填报成功' })
    
    
-    // // 定义SQL
-    // const sql = "insert into discipline_eval(id,discipline_code,univ_code,discipline_eval_turn,discipline_eval_result) values($1,$2,$3,$4,$5)"
-    // const strUUID = uuidv4(); // ⇨ '1b9d6bcd-bbfd-4b2d-9b5d-ab8dfbbd4bed'
-    // const strUUID2 = strUUID.replace(/-/g, '');       // 去掉-字符，使用空格代替
-    
+   
 
   
   

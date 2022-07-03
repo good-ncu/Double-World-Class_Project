@@ -1,5 +1,8 @@
+
+
+
 exports.table_1_1_2 = function(req,res,next){//数据案例1：表1-1-2,   此时discipline_eval_turn不用手动填报,系统自带
-    table=req.body
+    table=req.body.data
     
     // exports.table_1_1_2 = function(req,res,next){
         // table=req.body
