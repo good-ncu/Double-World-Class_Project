@@ -13,7 +13,7 @@ exports.table_1_1_2 = function(req,res,next){//数据案例1：表1-1-2,   此�
                 }
                 else{
                     // console.log('1学科评估结果填报错误！')
-                    return res.cc('学科评估结果填报错误！')
+                    return res.cc(new Error('学科评估结果填报错误！'))
                 }
             }
             else{
@@ -22,7 +22,7 @@ exports.table_1_1_2 = function(req,res,next){//数据案例1：表1-1-2,   此�
                     continue;
                 }
                 else{
-                    return res.cc('学科评估结果填报错误！')
+                    return res.cc(new Error('错误填报数据！'))
                     // console.log('2学科评估结果填报错误！')
                 }
             }

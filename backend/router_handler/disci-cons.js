@@ -9,6 +9,8 @@ const { v4: uuidv4 } = require('uuid');
 
 const expressJWT = require('express-jwt')
 
+const async = require('async')
+
 // 学科填报的处理函数
 exports.sub = function(req, res){
 
@@ -37,10 +39,61 @@ exports.sub = function(req, res){
 
     }
     res.send({ status: 0, message: '填报成功' })
-   
-   
-   
+}   
+
+exports.query_is_time=function(req,res){
+    // 接收表单数据
+    const submit_info = req.body.id
+    // console.log(submit_info[0])
+    // console.log(submit_info.length)
+    var resultt=[]
+    
+    
+    for(let i=0,len=submit_info.length;i<len;i++){ 
+        const sql = `select flag,fill_cicle from fill_cicle where id = '${submit_info[i]}'`
+        client.query(sql,(err,results)=>{
+            // 执行 SQL 语句失败
+            if (err) return res.send({ status: 1, message: err.message })
+            
+            console.log("sql执行成功");
+            // SQL 语句执行成功，但影响行数不为 1
+            console.log(results.rowCount)
+            
+            if (results.rows.length ==0) {
+                return res.send({ status: 1, message: '填报周期查询失败，请稍后再试！' })
+            }
+            resultt[i]=results.rows[0]  
+        })
+    }
+
+    // queries =[`select flag,fill_cicle from fill_cicle where id = '1-1-2'`,`select flag,fill_cicle from fill_cicle where id = '1-1-3'`]
+    // async.forEach(queries, function(query, callback) {
+    //     console.log(query)
+    //     client.query(query, function(err, row, fields){
+    //         resultt.push(row.rows[0]);
+    //         console.log(resultt)
+    //         callback(); // this signals async that you're done with this item
+    //     });
+    // }, function(err) {
+    //     if (err) return next(err);
+     
+    //     // all queries are done here
+    // });
+
+
+    setTimeout(function() {
+        res.send({
+            result : resultt
+        })
+    }, 3000)
+
+    // console.log(resultt)
+
+    // res.send({
+    //     result : resultt
+    // })
+
+}
 
   
   
-}
