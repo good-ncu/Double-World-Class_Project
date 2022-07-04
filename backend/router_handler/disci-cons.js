@@ -11,11 +11,11 @@ const expressJWT = require('express-jwt')
 
 const async = require('async')
 
-// 学科填报的处理函数
+// 学科影响力情况处理函数 1-1-2
 exports.disci_eval_situation_sub = function(req, res){
 
     // 接收表单数据
-    const submit_info = req.body.data
+    const submit_info = req.body.data_1_1_2
     // 获取token中的user信息
     user=req.user
     for(let i=0,len=submit_info.length;i<len;i++){ 
@@ -41,7 +41,7 @@ exports.disci_eval_situation_sub = function(req, res){
     res.send({ status: 0, message: '填报成功' })
 }   
 
-// 学科影响力情况处理函数 1-1-3
+// 学科评估情况处理函数 1-1-3
 exports.disci_influence_sub = function(req,res){
     // 接收表单数据
     const submit_info = req.body.data_1_1_3
@@ -71,6 +71,7 @@ exports.disci_influence_sub = function(req,res){
     res.send({ status: 0, message: '填报成功' })
 }
 
+// 查找
 exports.query_is_time=function(req,res){
     // 接收表单数据
     const submit_info = req.body.id
