@@ -16,7 +16,7 @@ const expressJoi = require('@escook/express-joi')
 const sub_schema1  = require('../schema/学科建设进展')
 
 // 查询 当前disci-cons/progress下的表格是否可以填报
-router.post('/disci-cons/progress', disci_cons_handler.query_is_time)
+router.post('/progress', disci_cons_handler.query_is_time)
 
 
 // 手动 填写学科评估情况（1-1-2）
