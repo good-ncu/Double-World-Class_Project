@@ -31,7 +31,7 @@ exports.disci_eval_situation_sub = function(req, res){
             // SQL 语句执行成功，但影响行数不为 1
             console.log(results.rowCount)
         if (results.rowCount !== 1) {
-            return res.send({ status: 1, message: '填报成功失败，请稍后再试！' })
+            return res.send({ status: 1, message: '填报失败，请稍后再试！' })
         }
         // 填报成功
         
@@ -61,7 +61,7 @@ exports.disci_influence_sub = function(req,res){
             // SQL 语句执行成功，但影响行数不为 1
             // console.log(results.rowCount)
         if (results.rowCount !== 1) {
-            return res.send({ status: 1, message: '填报成功失败，请稍后再试！' })
+            return res.send({ status: 1, message: '填报失败，请稍后再试！' })
         }
         // 填报成功
 
