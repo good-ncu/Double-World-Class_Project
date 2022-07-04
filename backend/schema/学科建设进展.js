@@ -1,33 +1,25 @@
+const joi = require('joi')
+/**
+ * string() 值必须是字符串
+ * alphanum() 值只能是包含 a-zA-Z0-9 的字符串
+ * min(length) 最小长度
+ * max(length) 最大长度
+ * required() 值是必填项，不能为 undefined
+ * pattern(正则表达式) 值必须符合正则表达式的规则
+ */
+
+const data = joi.array().items(
+    joi.object().keys({
+        discipline_eval_turn: joi.number().integer().less(5).greater(3),
+        discipline_eval_result: joi.string().pattern(/A\+|A|A\-|B\+|B|B\-|C\+|C|C\-|NULL/)
+    })
+)
+// const discipline_eval_turn = joi.string().pattern(/[4]/)
+// const discipline_eval_result = joi.string().pattern(/A\+|A|A\-|B\+|B|B\-|C\+|C|C\-|NULL/)
 
 
-
-exports.table_1_1_2 = function(req,res,next){//数据案例1：表1-1-2,   此时discipline_eval_turn不用手动填报,系统自带
-    table=req.body.data
-    
-    // exports.table_1_1_2 = function(req,res,next){
-        // table=req.body
-        for(let i=0,len=table.length;i<len;i++){
-            if (/[4]/g.test(table[i].discipline_eval_turn)){
-                if(/A\+|A|A\-|B\+|B|B\-|C\+|C|C\-|NULL/g.test(table[i].discipline_eval_result)){
-                    console.log(table[i]);
-                }
-                else{
-                    // console.log('1学科评估结果填报错误！')
-                    return res.cc('学科评估结果填报错误！')
-                }
-            }
-            else{
-                if(/unknown/g.test(table[i].discipline_eval_result)){
-                     console.log(table[i])
-                    continue;
-                }
-                else{
-                    return res.cc('学科评估结果填报错误！')
-                    // console.log('2学科评估结果填报错误！')
-                }
-            }
-        }
-        next()
-    
-    //数据案例1：表1-1-2,   此时discipline_eval_turn不用手动填报,系统自带
+exports.table_1_1_2 = {
+    body: {
+        data
+    }
 }

@@ -11,7 +11,6 @@ const expressJWT = require('express-jwt')
 
 // 学科填报的处理函数
 exports.sub = function(req, res){
-
     // 接收表单数据
     const submit_info = req.body.data
     // 获取token中的user信息
