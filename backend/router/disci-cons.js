@@ -17,8 +17,14 @@ const sub_schema1  = require('../schema/学科建设进展')
 
 
 
-// // 手动 注册学科填报用户
-router.post('/disci-cons/progress/disci-eval-situation', expressJoi(sub_schema1.table_1_1_2), disci_cons_handler.sub)
+// 手动 填写学科评估情况（1-1-2）
+router.post('/progress/disci-eval-situation', expressJoi(sub_schema1.table_1_1_2), disci_cons_handler.disci_eval_situation_sub)
+
+// 手动 填写学科影响力情况（1-1-3）
+router.post('/progress/disci-influence', expressJoi(sub_schema1.table_1_1_2), disci_cons_handler.disci_influence_sub)
+
+// 手动 填写本学科建设经费数额（1-1-4）
+router.post('/progress/disci-funds', expressJoi(sub_schema1.table_1_1_2), disci_cons_handler.disci_funds_sub)
 
 
 
