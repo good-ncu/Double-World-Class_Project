@@ -42,7 +42,7 @@ app.use('/api', userRouter)
 
 // 导入并使用平台首页 用户 路由模块
 const indexRouter = require('./router/index_up')
-app.use('/api',indexRouter)
+app.use('/api/index',indexRouter)
 
 
 
