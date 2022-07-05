@@ -133,25 +133,44 @@ exports.political_edu_sub = function(req,res){
     console.log(submit_info);
     // 获取token中的user信息
     user=req.user
+    var sqls = []
     for(let i=0,len=submit_info.length;i<len;i++){ 
-        const sql = "insert into think_edu_proj(id, proj_type, proj_person, proj_year, univ_code, discipline_code, flag, path) values($1,$2,$3,$4,$5,$6,NULL,NULL)"
         const strUUID = uuidv4(); // ⇨ '1b9d6bcd-bbfd-4b2d-9b5d-ab8dfbbd4bed'
-        const strUUID2 = strUUID.replace(/-/g, '');       // 去掉-字符，使用空格代替
-        
-        // 执行SQL
-        client.query(sql,[strUUID2, submit_info[i].project_type, submit_info[i].project_person, submit_info[i].project_year, user.univ_code, user.discipline_code],(err,results)=>{
-            // 执行 SQL 语句失败
-            if (err) return res.send({ status: 1, message: err.message })
-                console.log("political_edu_sub sql执行成功");
-                // SQL 语句执行成功，但影响行数不为 1
-                console.log(results.rowCount)
-            if (results.rowCount !== 1) {
-                return res.send({ status: 1, message: '填报失败，请稍后再试！' })
-            }
-        })
-
+        const strUUID2 = strUUID.replace(/-/g, '');       // 去掉-字符
+        sqls[i] = `insert into think_edu_proj(id, proj_type, proj_person, proj_year, univ_code, discipline_code, is_seen, path) values('${strUUID2}','${submit_info[i].project_type}','${submit_info[i].project_person}','${submit_info[i].project_year}','${user.univ_code}','${user.discipline_code}',0,NULL)`
+        console.log(sqls[i])
     }
-    res.send({ status: 0, message: '填报成功' })
+    async.each(sqls, function (item, callback) {
+        // 遍历每条SQL并执行
+        client.query(item, function (err, results) {
+            if (err) {
+                // 异常后调用callback并传入err
+                callback(err);
+            }else if (results.rowCount !== 1){
+                // 当前sql影响不为1，则错误
+                err = item+"插入失败！"
+                callback(err);
+            }else{
+                console.log(item + "执行成功");
+                // 执行完成后也要调用callback，不需要参数
+                callback();
+            }
+        });
+    }, function (err) {
+        // 所有SQL执行完成后回调
+        if (err) {
+            res.send({
+                status: 1,
+                message: err
+            })
+        } else {
+            res.send({
+                status: 0,
+                message: "填报成功！！"
+            })
+            console.log("SQL全部执行成功");
+        }
+    });
 }
 
 
@@ -161,29 +180,47 @@ exports.political_edu_sub = function(req,res){
 exports.edu_awards_num_counts_sub = function(req,res){
     // 接收表单数据
     const submit_info = req.body.data_2_2_1_0
-    console.log(req.body);
     console.log(submit_info);
     // 获取token中的user信息
     user=req.user
+    var sqls = []
     for(let i=0,len=submit_info.length;i<len;i++){ 
-        const sql = "INSERT INTO teaching_achv(id, award_level, award_type, award_date, tch_name, univ_code, discipline_code, flag, path) values($1,$2,$3,$4,$5,$6,$7,NULL,NULL)"
         const strUUID = uuidv4(); // ⇨ '1b9d6bcd-bbfd-4b2d-9b5d-ab8dfbbd4bed'
-        const strUUID2 = strUUID.replace(/-/g, '');       // 去掉-字符，使用空格代替
-        
-        // 执行SQL
-        client.query(sql,[strUUID2, submit_info[i].award_level, submit_info[i].award_type, submit_info[i].award_date, submit_info[i].tch_name, user.univ_code, user.discipline_code],(err,results)=>{
-            // 执行 SQL 语句失败
-            if (err) return res.send({ status: 1, message: err.message })
-                console.log("edu_awards_num_counts sql执行成功");
-                // SQL 语句执行成功，但影响行数不为 1
-                console.log(results.rowCount)
-            if (results.rowCount !== 1) {
-                return res.send({ status: 1, message: '填报失败，请稍后再试！' })
-            }
-        })
-
+        const strUUID2 = strUUID.replace(/-/g, '');       // 去掉-字符
+        sqls[i] = `INSERT INTO teaching_achv(id, award_level, award_type, award_date, tch_name, univ_code, discipline_code, is_seen, path) values('${strUUID2}','${submit_info[i].award_level}','${submit_info[i].award_type}','${submit_info[i].award_date}','${submit_info[i].tch_name}','${user.univ_code}','${user.discipline_code}',0,NULL)`
+        console.log(sqls[i])
     }
-    res.send({ status: 0, message: '填报成功' })
+    async.each(sqls, function (item, callback) {
+        // 遍历每条SQL并执行
+        client.query(item, function (err, results) {
+            if (err) {
+                // 异常后调用callback并传入err
+                callback(err);
+            }else if (results.rowCount !== 1){
+                // 当前sql影响不为1，则错误
+                err = item+"插入失败！"
+                callback(err);
+            }else{
+                console.log(item + "执行成功");
+                // 执行完成后也要调用callback，不需要参数
+                callback();
+            }
+        });
+    }, function (err) {
+        // 所有SQL执行完成后回调
+        if (err) {
+            res.send({
+                status: 1,
+                message: err
+            })
+        } else {
+            res.send({
+                status: 0,
+                message: "填报成功！！"
+            })
+            console.log("SQL全部执行成功");
+        }
+    });
 }
 
 /**
@@ -192,29 +229,47 @@ exports.edu_awards_num_counts_sub = function(req,res){
 exports.edu_awards_num_nation_counts_sub = function(req,res){
     // 接收表单数据
     const submit_info = req.body.data_2_2_1_1
-    console.log(req.body);
     console.log(submit_info);
     // 获取token中的user信息
     user=req.user
+    var sqls = []
     for(let i=0,len=submit_info.length;i<len;i++){ 
-        const sql = "INSERT INTO teaching_achv(id, award_level, award_type, award_date, tch_name, univ_code, discipline_code, flag, path) values($1,$2,$3,$4,$5,$6,$7,NULL,NULL)"
         const strUUID = uuidv4(); // ⇨ '1b9d6bcd-bbfd-4b2d-9b5d-ab8dfbbd4bed'
-        const strUUID2 = strUUID.replace(/-/g, '');       // 去掉-字符，使用空格代替
-        
-        // 执行SQL
-        client.query(sql,[strUUID2, submit_info[i].award_level, submit_info[i].award_type, submit_info[i].award_date, submit_info[i].tch_name, user.univ_code, user.discipline_code],(err,results)=>{
-            // 执行 SQL 语句失败
-            if (err) return res.send({ status: 1, message: err.message })
-                console.log("edu_awards_num_counts sql执行成功");
-                // SQL 语句执行成功，但影响行数不为 1
-                console.log(results.rowCount)
-            if (results.rowCount !== 1) {
-                return res.send({ status: 1, message: '填报失败，请稍后再试！' })
-            }
-        })
-
+        const strUUID2 = strUUID.replace(/-/g, '');       // 去掉-字符
+        sqls[i] = `INSERT INTO teaching_achv(id, award_level, award_type, award_date, tch_name, univ_code, discipline_code, is_seen, path) values('${strUUID2}','${submit_info[i].award_level}','${submit_info[i].award_type}','${submit_info[i].award_date}','${submit_info[i].tch_name}','${user.univ_code}','${user.discipline_code}',0,NULL)`
+        console.log(sqls[i])
     }
-    res.send({ status: 0, message: '填报成功' })
+    async.each(sqls, function (item, callback) {
+        // 遍历每条SQL并执行
+        client.query(item, function (err, results) {
+            if (err) {
+                // 异常后调用callback并传入err
+                callback(err);
+            }else if (results.rowCount !== 1){
+                // 当前sql影响不为1，则错误
+                err = item+"插入失败！"
+                callback(err);
+            }else{
+                console.log(item + "执行成功");
+                // 执行完成后也要调用callback，不需要参数
+                callback();
+            }
+        });
+    }, function (err) {
+        // 所有SQL执行完成后回调
+        if (err) {
+            res.send({
+                status: 1,
+                message: err
+            })
+        } else {
+            res.send({
+                status: 0,
+                message: "填报成功！！"
+            })
+            console.log("SQL全部执行成功");
+        }
+    });
 }
 
 /**
