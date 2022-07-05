@@ -11,6 +11,21 @@ const expressJoi = require('@escook/express-joi')
 const sub_schema3  = require('../schema/建设一流师资队伍')
 
 
+
+// 查询 当前teacher-team/teacher-morality下的表格是否可以填报
+router.post('/teacher-morality', teacher_team_handler.query_is_time)
+
+// 查询 当前teacher-team/major-teacher下的表格是否可以填报
+router.post('/major-teacher', teacher_team_handler.query_is_time)
+
+// 查询 当前teacher-team/International-level下的表格是否可以填报
+router.post('/International-level', teacher_team_handler.query_is_time)
+
+
+
+
+
+
 /*
     3-1 师德师风建设
  */

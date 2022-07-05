@@ -12,6 +12,16 @@ const sub_schema4  = require('../schema/科学研究')
 
 
 
+// 查询 当前research/research-innovate下的表格是否可以填报
+router.post('/research-innovate', research_handler.query_is_time)
+
+// 查询 当前research/research-platform下的表格是否可以填报
+router.post('/research-platform', research_handler.query_is_time)
+
+// 查询 当前research/International-influence下的表格是否可以填报
+router.post('/International-influence', research_handler.query_is_time)
+
+
 /*
     4-1 师德师风建设
  */
