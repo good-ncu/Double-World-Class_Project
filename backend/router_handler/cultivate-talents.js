@@ -9,7 +9,7 @@ const { v4: uuidv4 } = require('uuid');
 var async = require('async');
 
 /**
- *  2-1下的表格是否可以填报
+ *  二级表格下的表格是否可以填报
  *  */ 
 exports.query_is_time = function(req,res){
     // 1. 在fill表内根据fill_id检查flag（1在填报周期，0不在填报周期）
