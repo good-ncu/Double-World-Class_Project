@@ -1,9 +1,9 @@
 // 导入数据库操作模块
-const client = require('../db/index')
+const client = require('../../db/index')
 // 导入 bcryptjs 这个包
 const bcrypt = require('bcryptjs')
 // 导入全局的配置文件
-const config = require('../config')
+const config = require('../../config')
 // 导入uuid包
 const { v4: uuidv4 } = require('uuid');
 
@@ -13,16 +13,15 @@ const async = require('async');
 const { query } = require('express');
 
 
-
 /**
- * 表4-1-1-0 学科入选国家优秀教师先进典型 情况处理函数
+ * 表3-1-1 学科入选国家优秀教师先进典型 情况处理函数
  * @param {*} req 
  * @param {*} res 
  */
- exports.prize_counts_sub = function(req,res){
+ exports.honor_counts_sub = function(req,res){
 
     // 接收表单数据
-    const submit_info = req.body.data_4_1_1_0
+    const submit_info = req.body.data_3_1_1
     console.log(submit_info)
     user = req.user
 
@@ -30,10 +29,9 @@ const { query } = require('express');
     for (let i = 0, len = submit_info.length; i < len; i++) {
         const strUUID = uuidv4(); // ⇨ '1b9d6bcd-bbfd-4b2d-9b5d-ab8dfbbd4bed'
         const strUUID2 = strUUID.replace(/-/g, '');       // 去掉-字符
-        sqls[i] = `INSERT INTO tch_award(id, univ_code, discipline_code, yr, tch_name, award_name,level,award_eval_org,award_eval_org_type,
-            grade) 
+        sqls[i] = `INSERT INTO tch_moral_const(id, univ_code, discipline_code, yr, tch_name, recogn_honor) 
         VALUES ('${strUUID2}','${user.univ_code}','${user.discipline_code}',${submit_info[i].yr},
-        '${submit_info[i].tch_name}','${submit_info[i].award_name}','${submit_info[i].level}','${submit_info[i].award_eval_org}','${submit_info[i].award_eval_org_type}','${submit_info[i].grade}')`
+        '${submit_info[i].tch_name}','${submit_info[i].recogn_honor}')`
         console.log(sqls[i])
     }
 
@@ -69,7 +67,28 @@ const { query } = require('express');
         }
     });
 
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

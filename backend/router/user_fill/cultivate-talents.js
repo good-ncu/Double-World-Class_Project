@@ -2,12 +2,12 @@ const express = require('express')
 const router = express.Router()
 
 // 导入并使用平台首页 培养拔尖创新人才 路由处理函数对应的模块
-const cultivate_talents_handler = require('../router_handler/cultivate-talents')
+const cultivate_talents_handler = require('../../router_handler/user_fill/cultivate-talents')
 
 // // 1. 导入验证数据的中间件
 const expressJoi = require('@escook/express-joi')
 // 2. 导入需要的验证规则对象
-const sub_schema2  = require('../schema/培养拔尖创新人才')
+const sub_schema2  = require('../../schema/培养拔尖创新人才')
 
 
 /* 

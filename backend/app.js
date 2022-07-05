@@ -42,23 +42,23 @@ const userRouter = require('./router/user')
 app.use('/api', userRouter)
 
 // 导入并使用平台首页 学科建设进展 路由模块
-const disci_consRouter = require('./router/disci-cons')
+const disci_consRouter = require('./router/user_fill/disci-cons')
 app.use('/api/index/disci-cons',disci_consRouter)
 
 // 导入并使用平台首页 培养拔尖创新人才 路由模块
-const cultivate_talentsRouter = require('./router/cultivate-talents')
+const cultivate_talentsRouter = require('./router/user_fill/cultivate-talents')
 app.use('/api/index/cultivate-talents',cultivate_talentsRouter)
 
 // 导入并使用平台首页 建设一流师资队伍 路由模块
-const teacher_teamRouter = require('./router/teacher-team')
+const teacher_teamRouter = require('./router/user_fill/teacher-team')
 app.use('/api/index/teacher-team',teacher_teamRouter)
 
 // 导入并使用平台首页 科学研究 路由模块
-const researchRouter = require('./router/research')
+const researchRouter = require('./router/user_fill/research')
 app.use('/api/index/research',researchRouter)
 
 // 导入并使用平台首页 社会服务 路由模块
-const social_servicesRouter = require('./router/social-services')
+const social_servicesRouter = require('./router/user_fill/social-services')
 app.use('/api/index/social-services',social_servicesRouter)
 
 
