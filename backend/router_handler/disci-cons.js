@@ -186,7 +186,8 @@ exports.disci_eval_situation_sub = function (req, res) {
 
 
 /**
- * 表1-1-4数据填报插入
+ * 表1-1-4 本学科建设经费数额（万元） 情况处理函数
+
  */
 exports.disci_funds_sub = function(req,res){
 
@@ -308,7 +309,11 @@ exports.disci_funds_sub = function(req,res){
 //     }, 3000)
 // }
 
-// 查找填报周期  （已完成）
+/**
+ * 查找填报周期  （唯一填报未完成）
+ * @param {*} req 
+ * @param {*} res 
+ */
 exports.query_is_time = function (req, res) {
     // 接收表单数据
     const submit_info = req.body.id
