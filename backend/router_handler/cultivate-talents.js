@@ -54,7 +54,7 @@ exports.query_is_time = function(req,res){
             var temp = 0
             // 临时变量，用于当作real_result的移动下标，不宜直接在循环中用i作下标
             var temp_for_real_result = 0
-            // 最终返回给前端的数据（无法填报的表格）
+            // 记录 无法填报的表格的id
             var real_result = []
             // 先检查填报周期，如果全部不在填报周期，就直接返回数据（所有按钮灰色）
             for(let i = 0,len = resultt.length;i<len;i++){
@@ -100,6 +100,7 @@ exports.query_is_time = function(req,res){
                             real_result[temp_for_real_result++] = resultt2[i].fill_id
                         }
                     }
+                    // 记录无法填报的表格的完整信息（id, name, cycle）
                     var unable_fill_result = []
                     var temp_unable_fill_result = 0
                     for(let i = 0,len = resultt.length;i<len;i++){
