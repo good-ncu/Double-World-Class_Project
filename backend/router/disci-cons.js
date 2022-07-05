@@ -26,7 +26,7 @@ router.post('/progress/disci-eval-situation', expressJoi(sub_schema1.table_1_1_2
 router.post('/progress/disci-influence', expressJoi(sub_schema1.table_1_1_3), disci_cons_handler.disci_influence_sub)
 
 // 手动 填写本学科建设经费数额（1-1-4）
-// router.post('/progress/disci-funds', expressJoi(sub_schema1.table_1_1_4), disci_cons_handler.disci_funds_sub)
+router.post('/progress/disci-funds', expressJoi(sub_schema1.table_1_1_4), disci_cons_handler.disci_funds_sub)
 
 
 

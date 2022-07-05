@@ -25,7 +25,7 @@ const data_1_1_3 = joi.array().items(
 
 const data_1_1_4 = joi.array().items(
     joi.object().keys({
-        year:joi.number().integer().min(2000).max(2023).required().error(new Error('年度填报错误！')),
+        yr:joi.number().integer().less(2025).greater(1950).required().error(new Error('年度填报错误！')),
         total_fund:joi.number().min(0).allow('').error(new Error('建设总经费填报错误！')),
         ctr_budg_fund:joi.number().min(0).allow('').error(new Error('中央专项预算经费！')),
         ctr_receive_fund:joi.number().min(0).allow('').error(new Error('中央专项实际到账！')),
@@ -38,7 +38,7 @@ const data_1_1_4 = joi.array().items(
         self_expend_fund:joi.number().min(0).allow('').error(new Error('学科自筹实际支出！')),
         other_budg_fund:joi.number().min(0).allow('').error(new Error('其他预算经费！')),
         other_receive_fund:joi.number().min(0).allow('').error(new Error('其他实际到账！')),
-        other_receive_fund:joi.number().min(0).allow('').error(new Error('其他实际支出！')),
+        other_expend_fund:joi.number().min(0).allow('').error(new Error('其他实际支出！')),
     })
 )
 
