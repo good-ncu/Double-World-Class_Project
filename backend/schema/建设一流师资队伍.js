@@ -1,9 +1,9 @@
-
+const joi = require('joi')
  const data_3_1_1 = joi.array().items(
     joi.object().keys({
         tch_name:joi.string().min(1).max(13).required().error(new Error('教师姓名填报错误！')),
         recogn_honor:joi.string().min(1).max(100).required().error(new Error('表彰荣誉/项目填报错误！')),
-        year:joi.number().integer().less(2025).greater(1950).required().error(new Error('填报年度填报错误！'))
+        yr:joi.number().integer().less(2025).greater(1950).required().error(new Error('填报年度填报错误！'))
     }
     )
 )
@@ -26,7 +26,7 @@ const data_3_2_2_0 = joi.array().items(
         team_name:joi.string().min(1).max(100).required().error(new Error('团队名称填报错误！')),
         level:joi.string().valid('国家级','省级').required().error(new Error(new Error('层次填报错误！'))),
         honor_name:joi.string().min(1).max(100).required().error(new Error('荣誉称号填报错误！')),
-        year:joi.number().integer().less(2025).greater(1950).required().error(new Error('获批年度填报错误！'))
+        yr:joi.number().integer().less(2025).greater(1950).required().error(new Error('获批年度填报错误！'))
     }
     )
 )
@@ -37,7 +37,7 @@ const data_3_2_2_1 = joi.array().items(
        team_name:joi.string().min(1).max(100).required().error(new Error('团队名称填报错误！')),
        level:joi.string().valid('国家级','省级').required().error(new Error(new Error('层次填报错误！'))),
        honor_name:joi.string().min(1).max(100).required().error(new Error('荣誉称号填报错误！')),
-       year:joi.number().integer().less(2025).greater(1950).required().error(new Error('获批年度填报错误！'))
+       yr:joi.number().integer().less(2025).greater(1950).required().error(new Error('获批年度填报错误！'))
    }
    )
 )
@@ -48,7 +48,7 @@ const data_3_2_2_2 = joi.array().items(
        team_name:joi.string().min(1).max(100).required().error(new Error('团队名称填报错误！')),
        level:joi.string().valid('国家级','省级').required().error(new Error(new Error('层次填报错误！'))),
        honor_name:joi.string().min(1).max(100).required().error(new Error('荣誉称号填报错误！')),
-       year:joi.number().integer().less(2023).greater(1950).required().error(new Error('获批年度填报错误！'))
+       yr:joi.number().integer().less(2023).greater(1950).required().error(new Error('获批年度填报错误！'))
    }
    )
 )
@@ -76,7 +76,7 @@ const data_3_2_3 = joi.array().items(
 
 const data_3_2_4 = joi.array().items(
     joi.object().keys({
-        year:joi.number().integer().less(2025).greater(1950).required().error(new Error('填报年度填报错误！')),
+        yr:joi.number().integer().less(2025).greater(1950).required().error(new Error('填报年度填报错误！')),
         postdoc_or_ra:joi.string().valid('博士后','科研助理').required().error(new Error(new Error('博士后/科研助理填报错误！'))),
         new_inc:joi.number().integer().required().error(new Error('今年新增填报错误！')),
     }
@@ -85,7 +85,7 @@ const data_3_2_4 = joi.array().items(
 
 const data_3_2_5 = joi.array().items(
     joi.object().keys({
-        year:joi.number().integer().less(2025).greater(1950).required().error(new Error('填报年度填报错误！')),
+        yr:joi.number().integer().less(2025).greater(1950).required().error(new Error('填报年度填报错误！')),
         full_ftch_type:joi.string().min(1).max(20).required().error(new Error('外籍专任教师类型填报错误！')),
         full_ftch_num:joi.number().min(0).integer().required().error(new Error('数量填报错误！')),
         high_prof_title:joi.number().min(0).integer().required().error(new Error('正高级职称数量填报错误！')),
@@ -109,7 +109,7 @@ const data_3_3_1 = joi.array().items(
 const data_3_3_2 = joi.array().items(
     joi.object().keys({
         tch_name:joi.string().min(1).max(13).required().error(new Error('教师姓名填报错误！')),
-        year:joi.number().integer().less(2025).greater(1950).required().error(new Error('填报年度填报错误！')),
+        yr:joi.number().integer().less(2025).greater(1950).required().error(new Error('填报年度填报错误！')),
         
         ac_org:joi.string().min(1).max(100).required().error(new Error('学术组织名称填报错误！')),
         pos:joi.string().min(1).max(50).required().error(new Error('担任职务填报错误！')),
@@ -121,7 +121,7 @@ const data_3_3_2 = joi.array().items(
 const data_3_3_3 = joi.array().items(
     joi.object().keys({
         tch_name:joi.string().min(1).max(13).required().error(new Error('教师姓名填报错误！')),
-        year:joi.number().integer().less(2025).greater(1950).required().error(new Error('填报年度填报错误！')),
+        yr:joi.number().integer().less(2025).greater(1950).required().error(new Error('填报年度填报错误！')),
         conf_name:joi.string().min(1).max(100).required().error(new Error('会议名称填报错误！')),
         rpt_name:joi.string().min(1).max(100).required().error(new Error('报告题目填报错误！')),
         rpt_time:joi.string().pattern(/^[0-9]{4}-(0[1-9]|1[0-2])$/).error(new Error('报告年月填写错误！')),

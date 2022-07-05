@@ -1,4 +1,4 @@
-
+const joi = require('joi')
 const data_5_1_1 = joi.array().items(
     joi.object().keys({
         year:joi.number().integer().less(2025).greater(1950).required().error(new Error('填报年度填报错误！')),
