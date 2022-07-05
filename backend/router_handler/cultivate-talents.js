@@ -93,10 +93,10 @@ exports.query_is_time = function(req,res){
                 if(err){
                     console.log(err);
                 } else {
-                    // 记录实际返回的数据（无法填报的表格）
                     console.log(resultt2);
                     for(let i = 0,len = resultt2.length;i<len;i++){
                         if(resultt2[i].flag===1){
+                            // 记录无法填报的表格的id
                             real_result[temp_for_real_result++] = resultt2[i].fill_id
                         }
                     }
