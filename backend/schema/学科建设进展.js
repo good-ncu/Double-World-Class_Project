@@ -10,8 +10,8 @@ const joi = require('joi')
 
 const data_1_1_2 = joi.array().items(
     joi.object().keys({
-        discipline_eval_turn: joi.number().integer().less(5).greater(3).required().error(new Error('学科评估轮次格式错误')),
-        discipline_eval_result: joi.string().valid("A+","A","A-","B+","B","B-","C+","C","C-","Unknown").error(new Error('学科评估轮次格式错误')),
+        discipline_eval_turn: joi.number().integer().less(7).greater(3).required().error(new Error('学科评估轮次格式错误')),
+        discipline_eval_result: joi.string().valid("A+","A","A-","B+","B","B-","C+","C","C-","Unknown").error(new Error('学科评估结果格式错误')),
     })
 )
 
