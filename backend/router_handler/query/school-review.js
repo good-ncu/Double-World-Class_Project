@@ -92,12 +92,14 @@ exports.query_all_discipline_current = function(req,res){
  exports.query_all_discipline_current = function(req,res){
     
     userinfo = req.user
-    console.log(userinfo)
+    discipline_code =req.query.discipline_code
+    console.log(discipline_code)
     sql = `SELECT user_fill.id,user_fill.fill_id,fill.fill_about from user_fill,fill 
     where user_fill.flag=1 and user_fill.fill_id=fill.id and 
     user_fill.user_id=(select user_info.id from user_info where 
-        user_info.univ_code='${userinfo.univ_code}' and user_info.discipline_code='${userinfo.discipline_code}'
-        and user_info.role_id='${userinfo.role_id}' )` 
+        user_info.univ_code='${userinfo.univ_code}' and user_info.discipline_code='${discipline_code}'
+        and user_info.role_id='${userinfo.role_id}' )`    //
+    console.log(sql)
     client.query(sql, function (err, results) {
         if (err) {
             // 异常后调用callback并传入err
@@ -158,7 +160,7 @@ exports.query_all_discipline_table = function(req,res){
             })
         } else {
             to_dbtable = resultt[0].to_dbtable
-            sql2 = `select * from ${to_dbtable} where t_id='${subinfo.t_id}'`
+            sql2 = `select * from ${to_dbtable} where t_id='${subinfo.id}'`
             client.query(sql2, function (err, results) {
                 if (err) {
                     res.send({
