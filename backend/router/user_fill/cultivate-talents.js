@@ -31,9 +31,9 @@ router.post('/progress/edu-awards-num/counts', expressJoi(sub_schema2.table_2_2_
 // 手动 填报国家级教学成果奖情况（2-2-1-1）
 router.post('/progress/edu-awards-num/nation-counts', expressJoi(sub_schema2.table_2_2_1_1), cultivate_talents_handler.edu_awards_num_nation_counts_sub)
 // 手动 填报中国学位与研究生教育学会教育成果奖情况（2-2-1-2）
-router.post('/progress/edu-awards-num/graduate-counts', expressJoi(sub_schema2.table_2_2_1_1), cultivate_talents_handler.edu_awards_num_graduate_counts_sub)
+router.post('/progress/edu-awards-num/graduate-counts', expressJoi(sub_schema2.table_2_2_1_2), cultivate_talents_handler.edu_awards_num_graduate_counts_sub)
 // 手动 填报省级教育成果奖情况（2-2-1-3）
-router.post('/progress/edu-awards-num/province-counts', expressJoi(sub_schema2.table_2_2_1_1), cultivate_talents_handler.edu_awards_num_province_counts_sub)
+router.post('/progress/edu-awards-num/province-counts', expressJoi(sub_schema2.table_2_2_1_3), cultivate_talents_handler.edu_awards_num_province_counts_sub)
 
 // 手动 填报出版教材质量（2-2-2-1）
 router.post('/progress/major-class/publish-quality', expressJoi(sub_schema2.table_2_2_2_1), cultivate_talents_handler.major_class_publish_quality_sub) 

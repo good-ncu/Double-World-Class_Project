@@ -127,7 +127,7 @@ exports.query_all_discipline_current = function(req,res){
 exports.query_all_discipline_table = function(req,res){
     userinfo = req.user
     subinfo =req.body
-    console.log(subinfo.t_id,subinfo.fill_id)
+    console.log(subinfo.id,subinfo.fill_id)
 
     var resultt=[]
     var sqls= []
@@ -160,7 +160,7 @@ exports.query_all_discipline_table = function(req,res){
             })
         } else {
             to_dbtable = resultt[0].to_dbtable
-            sql2 = `select * from ${to_dbtable} where t_id='${subinfo.id}'`
+            sql2 = `select * from ${to_dbtable} where user_fill_id='${subinfo.id}'`
             client.query(sql2, function (err, results) {
                 if (err) {
                     res.send({
