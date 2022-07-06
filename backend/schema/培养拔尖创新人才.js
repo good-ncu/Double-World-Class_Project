@@ -65,7 +65,7 @@ const data_2_2_2_1 = joi.array().items(
         tch_name:joi.string().min(1).max(13).required().error(new Error('教师姓名填报错误！')),
         textbook:joi.string().min(1).max(100).required().error(new Error('教材名称填报错误！')),
         au_or_tans:joi.string().min(1).max(13).required().error(new Error('作者/译者填报错误！')),
-        sig:joistring().valid('主编','系列教材总主编','系列教材分册主编','首席专家（仅对’马工程‘教材）').required().error(new Error('署名情况填报错误！')),
+        sig:joi.string().valid('主编','系列教材总主编','系列教材分册主编','首席专家（仅对’马工程‘教材）').required().error(new Error('署名情况填报错误！')),
         publish_date:joi.string().pattern(/^(1[9][5-9][0-9]|2[0][0-2][0-9])-(0[1-9]|1[0-2])$/).error(new Error('出版时间填写错误！')),
         publisher:joi.string().min(1).max(100).required().error(new Error('出版社填报错误！')),
         revision: joi.number().integer().less(1).greater(50).required().error(new Error('版次填报错误！')),
