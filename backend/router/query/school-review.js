@@ -11,4 +11,22 @@
  * 
  */
 
+ const express = require('express')
+ const router = express.Router()
+ 
+ // 导入并使用平台首页 培养拔尖创新人才 路由处理函数对应的模块
+ const school_review_handler = require('../../router_handler/query/school-review')
+ 
+ 
+/* 
+    查询 当前学校拥有的所有学科 路由
+*/
+router.post('/query-all-discipline', school_review_handler.query_all_discipline)
 
+
+/* 
+    查询 学校管理员选择某一学科后， 将所有信息按照 表格的形式展现出来 路由
+*/
+router.post('/query-single-discipline-info', school_review_handler.query_single_discipline_info)
+
+module.exports = router

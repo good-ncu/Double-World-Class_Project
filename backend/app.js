@@ -61,6 +61,10 @@ app.use('/api/index/research',researchRouter)
 const social_servicesRouter = require('./router/user_fill/social-services')
 app.use('/api/index/social-services',social_servicesRouter)
 
+// 导入 学校管理员对已填报数据的查询（审核） 路由模块
+const school_reviewRouter = require('./router/query/school-review')
+app.use('/api/index/school-query',school_reviewRouter)
+
 
 // 启动服务器
 app.listen(3007, () => {
