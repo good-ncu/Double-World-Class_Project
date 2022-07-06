@@ -19,14 +19,23 @@
  
  
 /* 
-    查询 当前学校拥有的所有学科 路由
+    1-1查询 当前学校拥有的所有学科 路由
 */
 router.post('/query-all-discipline', school_review_handler.query_all_discipline)
 
 
 /* 
-    查询 学校管理员选择某一学科后， 将所有信息按照 表格的形式展现出来 路由
+    1-2查询 学校管理员选择某一学科后， 将当前周期下，该学科 所有已经填报了的表格，将其返回 路由
 */
-router.post('/query-single-discipline-info', school_review_handler.query_single_discipline_info)
+router.post('/query-single-discipline-current', school_review_handler.query_all_discipline_current)
+
+
+
+/* 
+    1-3查询 学校管理员选择某一学科当前周期下某个已经填报的表后，将该表的数据返回 路由
+*/
+router.post('/query-single-discipline-table', school_review_handler.query_all_discipline_table)
+
+
 
 module.exports = router
