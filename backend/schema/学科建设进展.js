@@ -17,7 +17,7 @@ const data_1_1_2 = joi.array().items(
 
 const data_1_1_3 = joi.array().items(
     joi.object().keys({
-        year:joi.number().integer().greater(2000).less(2023).required().error(new Error('年度填报错误！')),
+        yr:joi.number().integer().greater(2000).less(2023).required().error(new Error('年度填报错误！')),
         rank_type:joi.string().min(1).required().error(new Error('排名类别填报错误！')),
         rank:joi.number().integer().greater(1).less(10000).required().error(new Error('排名填报错误！')),
     })
