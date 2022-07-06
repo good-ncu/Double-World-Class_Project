@@ -134,11 +134,11 @@ exports.political_edu_sub = function(req,res){
     // 获取token中的user信息
     user=req.user
     var sqls = []
-    var t_id = uuidv4().replace(/-/g, '')
+    var user_fill_id = uuidv4().replace(/-/g, '')
     for(let i=0,len=submit_info.length;i<len;i++){ 
         const strUUID = uuidv4(); // ⇨ '1b9d6bcd-bbfd-4b2d-9b5d-ab8dfbbd4bed'
         const strUUID2 = strUUID.replace(/-/g, '');       // 去掉-字符
-        sqls[i] = `insert into think_edu_proj(id, proj_type, proj_person, proj_year, univ_code, discipline_code, is_seen, path, user_fill_id) values('${strUUID2}','${submit_info[i].project_type}','${submit_info[i].project_person}','${submit_info[i].project_year}','${user.univ_code}','${user.discipline_code}',0,NULL,'${t_id}')`
+        sqls[i] = `insert into think_edu_proj(id, proj_type, proj_person, proj_year, univ_code, discipline_code, is_seen, path, user_fill_id) values('${strUUID2}','${submit_info[i].project_type}','${submit_info[i].project_person}','${submit_info[i].project_year}','${user.univ_code}','${user.discipline_code}',0,NULL,'${user_fill_id}')`
         console.log(sqls[i])
     }
     async.each(sqls, function (item, callback) {
@@ -162,7 +162,7 @@ exports.political_edu_sub = function(req,res){
         if (err) {
             return res.cc('系统繁忙,请稍后再试')
         } else {
-            client.query(`insert into user_fill(id, user_id, fill_id, flag) values('${t_id}','${user.id}','2_1_1',1)`, function(err,result){
+            client.query(`insert into user_fill(id, user_id, fill_id, flag) values('${user_fill_id}','${user.id}','2_1_1',1)`, function(err,result){
                 if(err) return res.cc('系统繁忙,请稍后再试')
                 if(result.rowCount !== 1) return res.cc('系统繁忙,请稍后再试')
                 res.send({
@@ -186,10 +186,11 @@ exports.edu_awards_num_counts_sub = function(req,res){
     // 获取token中的user信息
     user=req.user
     var sqls = []
+    var user_fill_id = uuidv4().replace(/-/g, '')
     for(let i=0,len=submit_info.length;i<len;i++){ 
         const strUUID = uuidv4(); // ⇨ '1b9d6bcd-bbfd-4b2d-9b5d-ab8dfbbd4bed'
         const strUUID2 = strUUID.replace(/-/g, '');       // 去掉-字符
-        sqls[i] = `INSERT INTO teaching_achv(id, award_level, award_type, award_date, award_ltype, tch_name, univ_code, discipline_code, is_seen, path) values('${strUUID2}','${submit_info[i].award_level}','${submit_info[i].award_type}','${submit_info[i].award_date}','${submit_info[i].award_ltype}','${submit_info[i].tch_name}','${user.univ_code}','${user.discipline_code}',0,NULL)`
+        sqls[i] = `INSERT INTO teaching_achv(id, award_level, award_type, award_date, award_ltype, tch_name, univ_code, discipline_code, is_seen, path, user_fill_id) values('${strUUID2}','${submit_info[i].award_level}','${submit_info[i].award_type}','${submit_info[i].award_date}','${submit_info[i].award_ltype}','${submit_info[i].tch_name}','${user.univ_code}','${user.discipline_code}',0,NULL,'${user_fill_id}')`
         console.log(sqls[i])
     }
     async.each(sqls, function (item, callback) {
@@ -213,7 +214,7 @@ exports.edu_awards_num_counts_sub = function(req,res){
         if (err) {
             return res.cc('系统繁忙,请稍后再试')
         } else {
-            client.query(`insert into user_fill(id, user_id, fill_id, flag) values('${uuidv4().replace(/-/g,'')}','${user.id}','2_2_1_0',1)`, function(err,result){
+            client.query(`insert into user_fill(id, user_id, fill_id, flag) values('${user_fill_id}','${user.id}','2_2_1_0',1)`, function(err,result){
                 if(err) return res.cc('系统繁忙,请稍后再试')
                 if(result.rowCount !== 1) return res.cc('系统繁忙,请稍后再试')
                 res.send({
@@ -236,10 +237,11 @@ exports.edu_awards_num_nation_counts_sub = function(req,res){
     // 获取token中的user信息
     user=req.user
     var sqls = []
+    var user_fill_id = uuidv4().replace(/-/g, '')
     for(let i=0,len=submit_info.length;i<len;i++){ 
         const strUUID = uuidv4(); // ⇨ '1b9d6bcd-bbfd-4b2d-9b5d-ab8dfbbd4bed'
         const strUUID2 = strUUID.replace(/-/g, '');       // 去掉-字符
-        sqls[i] = `INSERT INTO teaching_achv(id, award_name,award_type, award_level, award_ltype, award_date, tch_name, univ_code, discipline_code, is_seen, path) values('${strUUID2}','${submit_info[i].award_name}','${submit_info[i].award_type}','${submit_info[i].award_level}','国家级教学成果奖','${submit_info[i].award_date}','${submit_info[i].tch_name}','${user.univ_code}','${user.discipline_code}',0,NULL)`
+        sqls[i] = `INSERT INTO teaching_achv(id, award_name,award_type, award_level, award_ltype, award_date, tch_name, univ_code, discipline_code, is_seen, path, user_fill_id) values('${strUUID2}','${submit_info[i].award_name}','${submit_info[i].award_type}','${submit_info[i].award_level}','国家级教学成果奖','${submit_info[i].award_date}','${submit_info[i].tch_name}','${user.univ_code}','${user.discipline_code}',0,NULL,'${user_fill_id}')`
         console.log(sqls[i])
     }
     async.each(sqls, function (item, callback) {
@@ -266,7 +268,7 @@ exports.edu_awards_num_nation_counts_sub = function(req,res){
                 message: err
             })
         } else {
-            client.query(`insert into user_fill(id, user_id, fill_id, flag) values('${uuidv4().replace(/-/g,'')}','${user.id}','2_2_1_1',1)`, function(err,result){
+            client.query(`insert into user_fill(id, user_id, fill_id, flag) values('${user_fill_id}','${user.id}','2_2_1_1',1)`, function(err,result){
                 if(err) return res.cc('系统繁忙,请稍后再试')
                 if(result.rowCount !== 1) return res.cc('系统繁忙,请稍后再试')
                 res.send({
@@ -290,11 +292,12 @@ exports.edu_awards_num_graduate_counts_sub = function(req,res){
     // 获取token中的user信息
     user=req.user
     var sqls = []
+    var user_fill_id = uuidv4().replace(/-/g, '')
     for(let i=0,len=submit_info.length;i<len;i++){ 
         const strUUID = uuidv4(); // ⇨ '1b9d6bcd-bbfd-4b2d-9b5d-ab8dfbbd4bed'
         const strUUID2 = strUUID.replace(/-/g, '');       // 去掉-字符
-        sqls[i] = `INSERT INTO teaching_achv(id, award_level, award_type, award_name, award_date, award_ltype, tch_name, univ_code, discipline_code, is_seen, path) values(
-            '${strUUID2}','${submit_info[i].award_level}','${submit_info[i].award_type}','${submit_info[i].award_name}','${submit_info[i].award_date}','研究生教学成果奖','${submit_info[i].tch_name}','${user.univ_code}','${user.discipline_code}',0,NULL)`
+        sqls[i] = `INSERT INTO teaching_achv(id, award_level, award_type, award_name, award_date, award_ltype, tch_name, univ_code, discipline_code, is_seen, path,user_fill_id) values(
+            '${strUUID2}','${submit_info[i].award_level}','${submit_info[i].award_type}','${submit_info[i].award_name}','${submit_info[i].award_date}','研究生教学成果奖','${submit_info[i].tch_name}','${user.univ_code}','${user.discipline_code}',0,NULL,'${user_fill_id}')`
         console.log(sqls[i])
     }
     async.each(sqls, function (item, callback) {
@@ -345,11 +348,12 @@ exports.edu_awards_num_province_counts_sub = function(req,res){
     // 获取token中的user信息
     user=req.user
     var sqls = []
+    var user_fill_id = uuidv4().replace(/-/g, '')
     for(let i=0,len=submit_info.length;i<len;i++){ 
         const strUUID = uuidv4(); // ⇨ '1b9d6bcd-bbfd-4b2d-9b5d-ab8dfbbd4bed'
         const strUUID2 = strUUID.replace(/-/g, '');       // 去掉-字符
-        sqls[i] = `INSERT INTO teaching_achv(id, award_level, award_type, award_name, award_date, award_ltype, tch_name, univ_code, discipline_code, is_seen, path) values(
-            '${strUUID2}','${submit_info[i].award_level}','${submit_info[i].award_type}','${submit_info[i].award_name}','${submit_info[i].award_date}','省级教育成果奖','${submit_info[i].tch_name}','${user.univ_code}','${user.discipline_code}',0,NULL)`
+        sqls[i] = `INSERT INTO teaching_achv(id, award_level, award_type, award_name, award_date, award_ltype, tch_name, univ_code, discipline_code, is_seen, path,user_fill_id) values(
+            '${strUUID2}','${submit_info[i].award_level}','${submit_info[i].award_type}','${submit_info[i].award_name}','${submit_info[i].award_date}','省级教育成果奖','${submit_info[i].tch_name}','${user.univ_code}','${user.discipline_code}',0,NULL,'${user_fill_id}')`
         console.log(sqls[i])
     }
     async.each(sqls, function (item, callback) {
@@ -376,7 +380,7 @@ exports.edu_awards_num_province_counts_sub = function(req,res){
                 message: err
             })
         } else {
-            client.query(`insert into user_fill(id, user_id, fill_id, flag) values('${uuidv4().replace(/-/g,'')}','${user.id}','2_2_1_3',1)`, function(err,result){
+            client.query(`insert into user_fill(id, user_id, fill_id, flag) values('${user_fill_id}','${user.id}','2_2_1_3',1)`, function(err,result){
                 if(err) return res.cc('系统繁忙,请稍后再试')
                 if(result.rowCount !== 1) return res.cc('系统繁忙,请稍后再试')
                 res.send({
@@ -399,10 +403,12 @@ exports.major_class_publish_quality_sub = function(req,res){
     // 获取token中的user信息
     user=req.user
     var sqls = []
+    var user_fill_id = uuidv4().replace(/-/g, '')
     for(let i=0,len=submit_info.length;i<len;i++){ 
         const strUUID = uuidv4(); // ⇨ '1b9d6bcd-bbfd-4b2d-9b5d-ab8dfbbd4bed'
         const strUUID2 = strUUID.replace(/-/g, '');       // 去掉-字符
-        sqls[i] = `INSERT INTO publish_textbook(id, univ_code, discipline_code, textbook, au_or_tans, sig, publish_date, publisher, revision, textbook_using, remarks, is_seen, is_delete, path) VALUES ('${strUUID2}', '${user.univ_code}', '${user.discipline_code}', '${submit_info[i].textbook}', '${submit_info[i].au_or_tans}', '${submit_info[i].sig}', '${submit_info[i].publish_date}', '${submit_info[i].publisher}', ${submit_info[i].revision},'${submit_info[i].textbook_using}', '${submit_info[i].textbook_using}', 0, 0, NULL);`
+        sqls[i] = `INSERT INTO publish_textbook(id, univ_code, discipline_code, textbook, au_or_tans, sig, publish_date, publisher, revision, textbook_using, remarks, is_seen, is_delete, path,user_fill_id) 
+        VALUES ('${strUUID2}', '${user.univ_code}', '${user.discipline_code}', '${submit_info[i].textbook}', '${submit_info[i].au_or_tans}', '${submit_info[i].sig}', '${submit_info[i].publish_date}', '${submit_info[i].publisher}', ${submit_info[i].revision},'${submit_info[i].textbook_using}', '${submit_info[i].textbook_using}', 0, 0, NULL,'${user_fill_id}');`
         console.log(sqls[i])
     }
     async.each(sqls, function (item, callback) {
@@ -429,7 +435,7 @@ exports.major_class_publish_quality_sub = function(req,res){
                 message: err
             })
         } else {
-            client.query(`insert into user_fill(id, user_id, fill_id, flag) values('${uuidv4().replace(/-/g,'')}','${user.id}','2_2_2_1',1)`, function(err,result){
+            client.query(`insert into user_fill(id, user_id, fill_id, flag) values('${user_fill_id}','${user.id}','2_2_2_1',1)`, function(err,result){
                 if(err) return res.cc('系统繁忙,请稍后再试')
                 if(result.rowCount !== 1) return res.cc('系统繁忙,请稍后再试')
                 res.send({
@@ -453,11 +459,12 @@ exports.major_class_nation_counts_sub = function(req,res){
     // 获取token中的user信息
     user=req.user
     var sqls = []
+    var user_fill_id = uuidv4().replace(/-/g, '')
     for(let i=0,len=submit_info.length;i<len;i++){ 
         const strUUID = uuidv4(); // ⇨ '1b9d6bcd-bbfd-4b2d-9b5d-ab8dfbbd4bed'
         const strUUID2 = strUUID.replace(/-/g, '');       // 去掉-字符
-        sqls[i] = `INSERT INTO firstclass_course_const(id, univ_code, discipline_code, head_name, cour_name, cour_type, appro_year, cour_level, is_seen, is_delete, path) 
-        VALUES ('${strUUID2}', '${user.univ_code}', '${user.discipline_code}', '${submit_info[i].head_name}', '${submit_info[i].cour_name}', '${submit_info[i].cour_type}', ${submit_info[i].appro_year}, '国家级', 0, 0, NULL);`
+        sqls[i] = `INSERT INTO firstclass_course_const(id, univ_code, discipline_code, head_name, cour_name, cour_type, appro_year, cour_level, is_seen, is_delete, path, user_fill_id) 
+        VALUES ('${strUUID2}', '${user.univ_code}', '${user.discipline_code}', '${submit_info[i].head_name}', '${submit_info[i].cour_name}', '${submit_info[i].cour_type}', ${submit_info[i].appro_year}, '国家级', 0, 0, NULL,'${user_fill_id}');`
         console.log(sqls[i])
     }
     async.each(sqls, function (item, callback) {
@@ -481,10 +488,10 @@ exports.major_class_nation_counts_sub = function(req,res){
         if (err) {
             res.send({
                 status: 1,
-                message: err
+                message: '系统繁忙,请稍后再试'
             })
         } else {
-            client.query(`insert into user_fill(id, user_id, fill_id, flag) values('${uuidv4().replace(/-/g,'')}','${user.id}','2_2_2_3',1)`, function(err,result){
+            client.query(`insert into user_fill(id, user_id, fill_id, flag) values('${user_fill_id}','${user.id}','2_2_2_3',1)`, function(err,result){
                 if(err) return res.cc('系统繁忙,请稍后再试')
                 if(result.rowCount !== 1) return res.cc('系统繁忙,请稍后再试')
                 res.send({
@@ -508,11 +515,12 @@ exports.major_class_province_counts_sub = function(req,res){
     // 获取token中的user信息
     user=req.user
     var sqls = []
+    var user_fill_id = uuidv4().replace(/-/g, '')
     for(let i=0,len=submit_info.length;i<len;i++){ 
         const strUUID = uuidv4(); // ⇨ '1b9d6bcd-bbfd-4b2d-9b5d-ab8dfbbd4bed'
         const strUUID2 = strUUID.replace(/-/g, '');       // 去掉-字符
-        sqls[i] = `INSERT INTO firstclass_course_const(id, univ_code, discipline_code, head_name, cour_name, cour_type, appro_year, cour_level, is_seen, is_delete, path) 
-        VALUES ('${strUUID2}', '${user.univ_code}', '${user.discipline_code}', '${submit_info[i].head_name}', '${submit_info[i].cour_name}', '${submit_info[i].cour_type}', ${submit_info[i].appro_year}, '省级', 0, 0, NULL);`
+        sqls[i] = `INSERT INTO firstclass_course_const(id, univ_code, discipline_code, head_name, cour_name, cour_type, appro_year, cour_level, is_seen, is_delete, path,user_fill_id) 
+        VALUES ('${strUUID2}', '${user.univ_code}', '${user.discipline_code}', '${submit_info[i].head_name}', '${submit_info[i].cour_name}', '${submit_info[i].cour_type}', ${submit_info[i].appro_year}, '省级', 0, 0, NULL,'${user_fill_id}');`
         console.log(sqls[i])
     }
     async.each(sqls, function (item, callback) {
@@ -534,12 +542,13 @@ exports.major_class_province_counts_sub = function(req,res){
     }, function (err) {
         // 所有SQL执行完成后回调
         if (err) {
+            console.log(console.log(err.message));
             res.send({
                 status: 1,
-                message: err
+                message: '系统繁忙,请稍后再试'
             })
         } else {
-            client.query(`insert into user_fill(id, user_id, fill_id, flag) values('${uuidv4().replace(/-/g,'')}','${user.id}','2_2_2_4',1)`, function(err,result){
+            client.query(`insert into user_fill(id, user_id, fill_id, flag) values('${user_fill_id}','${user.id}','2_2_2_4',1)`, function(err,result){
                 if(err) return res.cc('系统繁忙,请稍后再试')
                 if(result.rowCount !== 1) return res.cc('系统繁忙,请稍后再试')
                 res.send({
@@ -556,14 +565,112 @@ exports.major_class_province_counts_sub = function(req,res){
  * 人才培养平台/基地建设存量情况（2-2-3-0）
  */ 
  exports.personnel_cultivate_platform_counts_sub = function(req,res){
-
+    // 接收表单数据
+    const submit_info = req.body.data_2_2_3_0
+    console.log(submit_info);
+    // 获取token中的user信息
+    user=req.user
+    var sqls = []
+    var user_fill_id = uuidv4().replace(/-/g, '')
+    for(let i=0,len=submit_info.length;i<len;i++){ 
+        const strUUID = uuidv4(); // ⇨ '1b9d6bcd-bbfd-4b2d-9b5d-ab8dfbbd4bed'
+        const strUUID2 = strUUID.replace(/-/g, '');       // 去掉-字符
+        sqls[i]= `INSERT INTO talent_platbase_const(id, univ_code, discipline_code, head_name, plat_base_level, plat_base_type, plat_base_name, yr, is_seen, is_delete, path,user_fill_id) 
+        VALUES ('${strUUID2}', '${user.univ_code}', '${user.discipline_code}', '${submit_info[i].head_name}',NULL, '${submit_info[i].plat_base_type}', '${submit_info[i].plat_base_name}', '${submit_info[i].yr}', 0, 0, NULL,'${user_fill_id}');`
+        console.log(sqls[i])
+    }
+    async.each(sqls, function (item, callback) {
+        // 遍历每条SQL并执行
+        client.query(item, function (err, results) {
+            if (err) {
+                // 异常后调用callback并传入err
+                callback(err);
+            }else if (results.rowCount !== 1){
+                // 当前sql影响不为1，则错误
+                err = item+"插入失败！"
+                callback(err);
+            }else{
+                console.log(item + "执行成功");
+                // 执行完成后也要调用callback，不需要参数
+                callback();
+            }
+        });
+    }, function (err) {
+        // 所有SQL执行完成后回调
+        if (err) {
+            console.log(console.log(err.message));
+            res.send({
+                status: 1,
+                message: '系统繁忙,请稍后再试'
+            })
+        } else {
+            client.query(`insert into user_fill(id, user_id, fill_id, flag) values('${user_fill_id}','${user.id}','2_2_3_0',1)`, function(err,result){
+                if(err) return res.cc('系统繁忙,请稍后再试')
+                if(result.rowCount !== 1) return res.cc('系统繁忙,请稍后再试')
+                res.send({
+                    status: 0,
+                    message: "填报成功！！"
+                })
+                console.log("SQL全部执行成功");
+            })
+        }
+    });
 }
 
 /**
  * 国家级人才培养平台/基地建设存量情况（2-2-3-1）
  */ 
  exports.personnel_cultivate_nation_counts_sub = function(req,res){
-
+    // 接收表单数据
+    const submit_info = req.body.data_2_2_3_1
+    console.log(submit_info);
+    // 获取token中的user信息
+    user=req.user
+    var sqls = []
+    var user_fill_id = uuidv4().replace(/-/g, '')
+    for(let i=0,len=submit_info.length;i<len;i++){ 
+        const strUUID = uuidv4(); // ⇨ '1b9d6bcd-bbfd-4b2d-9b5d-ab8dfbbd4bed'
+        const strUUID2 = strUUID.replace(/-/g, '');       // 去掉-字符
+        sqls[i]= `INSERT INTO talent_platbase_const(id, univ_code, discipline_code, head_name, plat_base_level, plat_base_type, plat_base_name, yr, is_seen, is_delete, path,user_fill_id) 
+        VALUES ('${strUUID2}', '${user.univ_code}', '${user.discipline_code}', '${submit_info[i].head_name}','国家级', '${submit_info[i].plat_base_type}', '${submit_info[i].plat_base_name}', '${submit_info[i].yr}', 0, 0, NULL,'${user_fill_id}');`
+        console.log(sqls[i])
+    }
+    async.each(sqls, function (item, callback) {
+        // 遍历每条SQL并执行
+        client.query(item, function (err, results) {
+            if (err) {
+                // 异常后调用callback并传入err
+                callback(err);
+            }else if (results.rowCount !== 1){
+                // 当前sql影响不为1，则错误
+                err = item+"插入失败！"
+                callback(err);
+            }else{
+                console.log(item + "执行成功");
+                // 执行完成后也要调用callback，不需要参数
+                callback();
+            }
+        });
+    }, function (err) {
+        // 所有SQL执行完成后回调
+        if (err) {
+            console.log(console.log(err.message));
+            res.send({
+                status: 1,
+                message: '系统繁忙,请稍后再试'
+            })
+        } else {
+            client.query(`insert into user_fill(id, user_id, fill_id, flag) values('${user_fill_id}','${user.id}','2_2_3_1',1)`, function(err,result){
+                if(err) return res.cc('系统繁忙,请稍后再试')
+                if(result.rowCount !== 1) return res.cc('系统繁忙,请稍后再试')
+                res.send({
+                    status: 0,
+                    message: "填报成功！！"
+                })
+                console.log("SQL全部执行成功");
+            })
+        }
+    });
 }
 
 /**

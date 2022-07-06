@@ -100,7 +100,7 @@ const data_2_2_2_4 = joi.array().items(
 const data_2_2_3_0 = joi.array().items(
     joi.object().keys({
         head_name:joi.string().min(1).max(13).required().error(new Error('负责人填报错误！')),
-        plat_base_level:joi.string().min(1).max(30).required().error(new Error('平台/基地级别填报错误！')),
+        plat_base_level:joi.string().min(1).max(30).error(new Error('平台/基地级别填报错误！')),
         plat_base_type:joi.string().valid('国家级人才培养基地','国家级现代产业学院','省级人才培养基地','省级现代产业学院').required().error(new Error('平台/基地类型填报错误！')),
         plat_base_name:joi.string().min(1).max(13).required().error(new Error('平台/基地名称填报错误！')),
         yr:joi.number().integer().less(2029).greater(1950).required().error(new Error('年度填报错误！')),
@@ -110,7 +110,7 @@ const data_2_2_3_0 = joi.array().items(
 const data_2_2_3_1 = joi.array().items(
     joi.object().keys({
         head_name:joi.string().min(1).max(13).required().error(new Error('负责人填报错误！')),
-        plat_base_level:joi.string().min(1).max(30).required().error(new Error('平台/基地级别填报错误！')),
+        plat_base_level:joi.string().min(1).max(30).error(new Error('平台/基地级别填报错误！')),
         plat_base_type:joi.string().valid('国家级人才培养基地','国家级现代产业学院','省级人才培养基地','省级现代产业学院').required().error(new Error('平台/基地类型填报错误！')),
         plat_base_name:joi.string().min(1).max(13).required().error(new Error('平台/基地名称填报错误！')),
         yr:joi.number().integer().less(2029).greater(1950).required().error(new Error('年度填报错误！')),
