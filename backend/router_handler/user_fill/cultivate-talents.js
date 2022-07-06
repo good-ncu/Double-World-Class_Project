@@ -43,7 +43,7 @@ exports.query_is_time = function(req,res){
         // 所有SQL执行完成后回调
         if (err) {
             // console.log(3);
-            console.log(err);
+            return res.cc('系统繁忙,请稍后再试')
         } else {
             // sqls执行没有报错，
             var sqls2 = []
@@ -159,16 +159,17 @@ exports.political_edu_sub = function(req,res){
     }, function (err) {
         // 所有SQL执行完成后回调
         if (err) {
-            res.send({
-                status: 1,
-                message: err
-            })
+            return res.cc('系统繁忙,请稍后再试')
         } else {
-            res.send({
-                status: 0,
-                message: "填报成功！！"
+            client.query(`insert into user_fill(id, user_id, fill_id, flag) values('${uuidv4().replace(/-/g,'')}','${user.id}','2_1_1',1)`, function(err,result){
+                if(err) return res.cc('系统繁忙,请稍后再试')
+                if(result.rowCount !== 1) return res.cc('系统繁忙,请稍后再试')
+                res.send({
+                    status: 0,
+                    message: "填报成功！！"
+                })
+                console.log("SQL全部执行成功");
             })
-            console.log("SQL全部执行成功");
         }
     });
 }
@@ -209,16 +210,17 @@ exports.edu_awards_num_counts_sub = function(req,res){
     }, function (err) {
         // 所有SQL执行完成后回调
         if (err) {
-            res.send({
-                status: 1,
-                message: err
-            })
+            return res.cc('系统繁忙,请稍后再试')
         } else {
-            res.send({
-                status: 0,
-                message: "填报成功！！"
+            client.query(`insert into user_fill(id, user_id, fill_id, flag) values('${uuidv4().replace(/-/g,'')}','${user.id}','2_1_1_0',1)`, function(err,result){
+                if(err) return res.cc('系统繁忙,请稍后再试')
+                if(result.rowCount !== 1) return res.cc('系统繁忙,请稍后再试')
+                res.send({
+                    status: 0,
+                    message: "填报成功！！"
+                })
+                console.log("SQL全部执行成功");
             })
-            console.log("SQL全部执行成功");
         }
     });
 }
@@ -352,6 +354,35 @@ exports.major_class_province_counts_sub = function(req,res){
  exports.student_paper_sub = function(req,res){
 
 }
+
+/**
+ * 年度授予学士、硕士、博士学位情况（2-3-1）
+ */
+exports.degree_counts_sub = function(req,res){
+
+}
+
+/**
+ * 年度授予学士、硕士、博士学位情况（2-3-2）
+ */
+exports.discipline_pioneer_sub = function(req,res){
+
+}
+
+/**
+ * 年度授予学士、硕士、博士学位情况（2-4-1）
+ */
+ exports.scholar_counts_sub = function(req,res){
+
+}
+
+/**
+ * 本科生、硕士生、博士生参加本领域国内外重要学术会议并作报告人员清单（2-4-2）
+ */
+exports.conference_counts_sub = function(req,res){
+
+}
+
 
 
 
