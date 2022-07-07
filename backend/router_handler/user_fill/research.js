@@ -140,7 +140,6 @@ const { query } = require('express');
     const submit_info = req.body.data_4_1_1_0
     console.log(submit_info)
     user = req.user
-
     var sqls = []
     var user_fill_id = uuidv4().replace(/-/g, '')
     for (let i = 0, len = submit_info.length; i < len; i++) {

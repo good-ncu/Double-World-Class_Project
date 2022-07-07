@@ -190,7 +190,7 @@ exports.edu_awards_num_counts_sub = function(req,res){
     for(let i=0,len=submit_info.length;i<len;i++){ 
         const strUUID = uuidv4(); // ⇨ '1b9d6bcd-bbfd-4b2d-9b5d-ab8dfbbd4bed'
         const strUUID2 = strUUID.replace(/-/g, '');       // 去掉-字符
-        sqls[i] = `INSERT INTO teaching_achv(id, award_level, award_type, award_date, award_ltype, tch_name, univ_code, discipline_code, path, user_fill_id) values('${strUUID2}','${submit_info[i].award_level}','${submit_info[i].award_type}','${submit_info[i].award_date}','${submit_info[i].award_ltype}','${submit_info[i].tch_name}','${user.univ_code}','${user.discipline_code}',NULL,'${user_fill_id}')`
+        sqls[i] = `INSERT INTO teaching_achv(id, award_level, award_type, award_date, award_name, award_ltype, tch_name, univ_code, discipline_code, path, user_fill_id) values('${strUUID2}','${submit_info[i].award_level}','${submit_info[i].award_type}','${submit_info[i].award_date}','${submit_info[i].award_name}','${submit_info[i].award_ltype}','${submit_info[i].tch_name}','${user.univ_code}','${user.discipline_code}',NULL,'${user_fill_id}')`
         console.log(sqls[i])
     }
     async.each(sqls, function (item, callback) {
@@ -212,6 +212,7 @@ exports.edu_awards_num_counts_sub = function(req,res){
     }, function (err) {
         // 所有SQL执行完成后回调
         if (err) {
+            console.log(err.message);
             return res.cc('系统繁忙,请稍后再试')
         } else {
             client.query(`insert into user_fill(id, user_id, fill_id, flag) values('${user_fill_id}','${user.id}','2_2_1_0',1)`, function(err,result){
