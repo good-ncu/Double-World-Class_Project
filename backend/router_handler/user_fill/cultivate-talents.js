@@ -138,7 +138,7 @@ exports.political_edu_sub = function(req,res){
     for(let i=0,len=submit_info.length;i<len;i++){ 
         const strUUID = uuidv4(); // ⇨ '1b9d6bcd-bbfd-4b2d-9b5d-ab8dfbbd4bed'
         const strUUID2 = strUUID.replace(/-/g, '');       // 去掉-字符
-        sqls[i] = `insert into think_edu_proj(id, proj_type, proj_person, proj_year, univ_code, discipline_code, is_seen, path, user_fill_id) values('${strUUID2}','${submit_info[i].project_type}','${submit_info[i].project_person}','${submit_info[i].project_year}','${user.univ_code}','${user.discipline_code}',0,NULL,'${user_fill_id}')`
+        sqls[i] = `insert into think_edu_proj(id, proj_type, proj_person, proj_year, univ_code, discipline_code, path, user_fill_id) values('${strUUID2}','${submit_info[i].project_type}','${submit_info[i].project_person}','${submit_info[i].project_year}','${user.univ_code}','${user.discipline_code}',NULL,'${user_fill_id}')`
         console.log(sqls[i])
     }
     async.each(sqls, function (item, callback) {
@@ -190,7 +190,7 @@ exports.edu_awards_num_counts_sub = function(req,res){
     for(let i=0,len=submit_info.length;i<len;i++){ 
         const strUUID = uuidv4(); // ⇨ '1b9d6bcd-bbfd-4b2d-9b5d-ab8dfbbd4bed'
         const strUUID2 = strUUID.replace(/-/g, '');       // 去掉-字符
-        sqls[i] = `INSERT INTO teaching_achv(id, award_level, award_type, award_date, award_ltype, tch_name, univ_code, discipline_code, is_seen, path, user_fill_id) values('${strUUID2}','${submit_info[i].award_level}','${submit_info[i].award_type}','${submit_info[i].award_date}','${submit_info[i].award_ltype}','${submit_info[i].tch_name}','${user.univ_code}','${user.discipline_code}',0,NULL,'${user_fill_id}')`
+        sqls[i] = `INSERT INTO teaching_achv(id, award_level, award_type, award_date, award_ltype, tch_name, univ_code, discipline_code, path, user_fill_id) values('${strUUID2}','${submit_info[i].award_level}','${submit_info[i].award_type}','${submit_info[i].award_date}','${submit_info[i].award_ltype}','${submit_info[i].tch_name}','${user.univ_code}','${user.discipline_code}',NULL,'${user_fill_id}')`
         console.log(sqls[i])
     }
     async.each(sqls, function (item, callback) {
@@ -241,7 +241,7 @@ exports.edu_awards_num_nation_counts_sub = function(req,res){
     for(let i=0,len=submit_info.length;i<len;i++){ 
         const strUUID = uuidv4(); // ⇨ '1b9d6bcd-bbfd-4b2d-9b5d-ab8dfbbd4bed'
         const strUUID2 = strUUID.replace(/-/g, '');       // 去掉-字符
-        sqls[i] = `INSERT INTO teaching_achv(id, award_name,award_type, award_level, award_ltype, award_date, tch_name, univ_code, discipline_code, is_seen, path, user_fill_id) values('${strUUID2}','${submit_info[i].award_name}','${submit_info[i].award_type}','${submit_info[i].award_level}','国家级教学成果奖','${submit_info[i].award_date}','${submit_info[i].tch_name}','${user.univ_code}','${user.discipline_code}',0,NULL,'${user_fill_id}')`
+        sqls[i] = `INSERT INTO teaching_achv(id, award_name,award_type, award_level, award_ltype, award_date, tch_name, univ_code, discipline_code, path, user_fill_id) values('${strUUID2}','${submit_info[i].award_name}','${submit_info[i].award_type}','${submit_info[i].award_level}','国家级教学成果奖','${submit_info[i].award_date}','${submit_info[i].tch_name}','${user.univ_code}','${user.discipline_code}',NULL,'${user_fill_id}')`
         console.log(sqls[i])
     }
     async.each(sqls, function (item, callback) {
@@ -296,8 +296,8 @@ exports.edu_awards_num_graduate_counts_sub = function(req,res){
     for(let i=0,len=submit_info.length;i<len;i++){ 
         const strUUID = uuidv4(); // ⇨ '1b9d6bcd-bbfd-4b2d-9b5d-ab8dfbbd4bed'
         const strUUID2 = strUUID.replace(/-/g, '');       // 去掉-字符
-        sqls[i] = `INSERT INTO teaching_achv(id, award_level, award_type, award_name, award_date, award_ltype, tch_name, univ_code, discipline_code, is_seen, path,user_fill_id) values(
-            '${strUUID2}','${submit_info[i].award_level}','${submit_info[i].award_type}','${submit_info[i].award_name}','${submit_info[i].award_date}','研究生教学成果奖','${submit_info[i].tch_name}','${user.univ_code}','${user.discipline_code}',0,NULL,'${user_fill_id}')`
+        sqls[i] = `INSERT INTO teaching_achv(id, award_level, award_type, award_name, award_date, award_ltype, tch_name, univ_code, discipline_code, path,user_fill_id) values(
+            '${strUUID2}','${submit_info[i].award_level}','${submit_info[i].award_type}','${submit_info[i].award_name}','${submit_info[i].award_date}','研究生教学成果奖','${submit_info[i].tch_name}','${user.univ_code}','${user.discipline_code}',NULL,'${user_fill_id}')`
         console.log(sqls[i])
     }
     async.each(sqls, function (item, callback) {
@@ -352,8 +352,8 @@ exports.edu_awards_num_province_counts_sub = function(req,res){
     for(let i=0,len=submit_info.length;i<len;i++){ 
         const strUUID = uuidv4(); // ⇨ '1b9d6bcd-bbfd-4b2d-9b5d-ab8dfbbd4bed'
         const strUUID2 = strUUID.replace(/-/g, '');       // 去掉-字符
-        sqls[i] = `INSERT INTO teaching_achv(id, award_level, award_type, award_name, award_date, award_ltype, tch_name, univ_code, discipline_code, is_seen, path,user_fill_id) values(
-            '${strUUID2}','${submit_info[i].award_level}','${submit_info[i].award_type}','${submit_info[i].award_name}','${submit_info[i].award_date}','省级教育成果奖','${submit_info[i].tch_name}','${user.univ_code}','${user.discipline_code}',0,NULL,'${user_fill_id}')`
+        sqls[i] = `INSERT INTO teaching_achv(id, award_level, award_type, award_name, award_date, award_ltype, tch_name, univ_code, discipline_code, path,user_fill_id) values(
+            '${strUUID2}','${submit_info[i].award_level}','${submit_info[i].award_type}','${submit_info[i].award_name}','${submit_info[i].award_date}','省级教育成果奖','${submit_info[i].tch_name}','${user.univ_code}','${user.discipline_code}',NULL,'${user_fill_id}')`
         console.log(sqls[i])
     }
     async.each(sqls, function (item, callback) {
@@ -407,8 +407,8 @@ exports.major_class_publish_quality_sub = function(req,res){
     for(let i=0,len=submit_info.length;i<len;i++){ 
         const strUUID = uuidv4(); // ⇨ '1b9d6bcd-bbfd-4b2d-9b5d-ab8dfbbd4bed'
         const strUUID2 = strUUID.replace(/-/g, '');       // 去掉-字符
-        sqls[i] = `INSERT INTO publish_textbook(id, univ_code, discipline_code, textbook, au_or_tans, sig, publish_date, publisher, revision, textbook_using, remarks, is_seen, is_delete, path,user_fill_id) 
-        VALUES ('${strUUID2}', '${user.univ_code}', '${user.discipline_code}', '${submit_info[i].textbook}', '${submit_info[i].au_or_tans}', '${submit_info[i].sig}', '${submit_info[i].publish_date}', '${submit_info[i].publisher}', ${submit_info[i].revision},'${submit_info[i].textbook_using}', '${submit_info[i].textbook_using}', 0, 0, NULL,'${user_fill_id}');`
+        sqls[i] = `INSERT INTO publish_textbook(id, univ_code, discipline_code, textbook, au_or_tans, sig, publish_date, publisher, revision, textbook_using, remarks, is_delete, path,user_fill_id) 
+        VALUES ('${strUUID2}', '${user.univ_code}', '${user.discipline_code}', '${submit_info[i].textbook}', '${submit_info[i].au_or_tans}', '${submit_info[i].sig}', '${submit_info[i].publish_date}', '${submit_info[i].publisher}', ${submit_info[i].revision},'${submit_info[i].textbook_using}', '${submit_info[i].textbook_using}', 0, NULL,'${user_fill_id}');`
         console.log(sqls[i])
     }
     async.each(sqls, function (item, callback) {
@@ -463,8 +463,8 @@ exports.major_class_nation_counts_sub = function(req,res){
     for(let i=0,len=submit_info.length;i<len;i++){ 
         const strUUID = uuidv4(); // ⇨ '1b9d6bcd-bbfd-4b2d-9b5d-ab8dfbbd4bed'
         const strUUID2 = strUUID.replace(/-/g, '');       // 去掉-字符
-        sqls[i] = `INSERT INTO firstclass_course_const(id, univ_code, discipline_code, head_name, cour_name, cour_type, appro_year, cour_level, is_seen, is_delete, path, user_fill_id) 
-        VALUES ('${strUUID2}', '${user.univ_code}', '${user.discipline_code}', '${submit_info[i].head_name}', '${submit_info[i].cour_name}', '${submit_info[i].cour_type}', ${submit_info[i].appro_year}, '国家级', 0, 0, NULL,'${user_fill_id}');`
+        sqls[i] = `INSERT INTO firstclass_course_const(id, univ_code, discipline_code, head_name, cour_name, cour_type, appro_year, cour_level, is_delete, path, user_fill_id) 
+        VALUES ('${strUUID2}', '${user.univ_code}', '${user.discipline_code}', '${submit_info[i].head_name}', '${submit_info[i].cour_name}', '${submit_info[i].cour_type}', ${submit_info[i].appro_year}, '国家级', 0, NULL,'${user_fill_id}');`
         console.log(sqls[i])
     }
     async.each(sqls, function (item, callback) {
@@ -519,8 +519,8 @@ exports.major_class_province_counts_sub = function(req,res){
     for(let i=0,len=submit_info.length;i<len;i++){ 
         const strUUID = uuidv4(); // ⇨ '1b9d6bcd-bbfd-4b2d-9b5d-ab8dfbbd4bed'
         const strUUID2 = strUUID.replace(/-/g, '');       // 去掉-字符
-        sqls[i] = `INSERT INTO firstclass_course_const(id, univ_code, discipline_code, head_name, cour_name, cour_type, appro_year, cour_level, is_seen, is_delete, path,user_fill_id) 
-        VALUES ('${strUUID2}', '${user.univ_code}', '${user.discipline_code}', '${submit_info[i].head_name}', '${submit_info[i].cour_name}', '${submit_info[i].cour_type}', ${submit_info[i].appro_year}, '省级', 0, 0, NULL,'${user_fill_id}');`
+        sqls[i] = `INSERT INTO firstclass_course_const(id, univ_code, discipline_code, head_name, cour_name, cour_type, appro_year, cour_level, is_delete, path,user_fill_id) 
+        VALUES ('${strUUID2}', '${user.univ_code}', '${user.discipline_code}', '${submit_info[i].head_name}', '${submit_info[i].cour_name}', '${submit_info[i].cour_type}', ${submit_info[i].appro_year}, '省级', 0, NULL,'${user_fill_id}');`
         console.log(sqls[i])
     }
     async.each(sqls, function (item, callback) {
@@ -575,8 +575,8 @@ exports.major_class_province_counts_sub = function(req,res){
     for(let i=0,len=submit_info.length;i<len;i++){ 
         const strUUID = uuidv4(); // ⇨ '1b9d6bcd-bbfd-4b2d-9b5d-ab8dfbbd4bed'
         const strUUID2 = strUUID.replace(/-/g, '');       // 去掉-字符
-        sqls[i]= `INSERT INTO talent_platbase_const(id, univ_code, discipline_code, head_name, plat_base_level, plat_base_type, plat_base_name, yr, is_seen, is_delete, path,user_fill_id) 
-        VALUES ('${strUUID2}', '${user.univ_code}', '${user.discipline_code}', '${submit_info[i].head_name}',NULL, '${submit_info[i].plat_base_type}', '${submit_info[i].plat_base_name}', '${submit_info[i].yr}', 0, 0, NULL,'${user_fill_id}');`
+        sqls[i]= `INSERT INTO talent_platbase_const(id, univ_code, discipline_code, head_name, plat_base_level, plat_base_type, plat_base_name, yr, is_delete, path,user_fill_id) 
+        VALUES ('${strUUID2}', '${user.univ_code}', '${user.discipline_code}', '${submit_info[i].head_name}',NULL, '${submit_info[i].plat_base_type}', '${submit_info[i].plat_base_name}', '${submit_info[i].yr}', 0, NULL,'${user_fill_id}');`
         console.log(sqls[i])
     }
     async.each(sqls, function (item, callback) {
@@ -631,8 +631,8 @@ exports.major_class_province_counts_sub = function(req,res){
     for(let i=0,len=submit_info.length;i<len;i++){ 
         const strUUID = uuidv4(); // ⇨ '1b9d6bcd-bbfd-4b2d-9b5d-ab8dfbbd4bed'
         const strUUID2 = strUUID.replace(/-/g, '');       // 去掉-字符
-        sqls[i]= `INSERT INTO talent_platbase_const(id, univ_code, discipline_code, head_name, plat_base_level, plat_base_type, plat_base_name, yr, is_seen, is_delete, path,user_fill_id) 
-        VALUES ('${strUUID2}', '${user.univ_code}', '${user.discipline_code}', '${submit_info[i].head_name}','国家级', '${submit_info[i].plat_base_type}', '${submit_info[i].plat_base_name}', '${submit_info[i].yr}', 0, 0, NULL,'${user_fill_id}');`
+        sqls[i]= `INSERT INTO talent_platbase_const(id, univ_code, discipline_code, head_name, plat_base_level, plat_base_type, plat_base_name, yr, is_delete, path,user_fill_id) 
+        VALUES ('${strUUID2}', '${user.univ_code}', '${user.discipline_code}', '${submit_info[i].head_name}','国家级', '${submit_info[i].plat_base_type}', '${submit_info[i].plat_base_name}', '${submit_info[i].yr}', 0, NULL,'${user_fill_id}');`
         console.log(sqls[i])
     }
     async.each(sqls, function (item, callback) {
@@ -687,8 +687,8 @@ exports.major_class_province_counts_sub = function(req,res){
     for(let i=0,len=submit_info.length;i<len;i++){ 
         const strUUID = uuidv4(); // ⇨ '1b9d6bcd-bbfd-4b2d-9b5d-ab8dfbbd4bed'
         const strUUID2 = strUUID.replace(/-/g, '');       // 去掉-字符
-        sqls[i]= `INSERT INTO talent_platbase_const(id, univ_code, discipline_code, head_name, plat_base_level, plat_base_type, plat_base_name, yr, is_seen, is_delete, path,user_fill_id) 
-        VALUES ('${strUUID2}', '${user.univ_code}', '${user.discipline_code}', '${submit_info[i].head_name}','省部级', '${submit_info[i].plat_base_type}', '${submit_info[i].plat_base_name}', '${submit_info[i].yr}', 0, 0, NULL,'${user_fill_id}');`
+        sqls[i]= `INSERT INTO talent_platbase_const(id, univ_code, discipline_code, head_name, plat_base_level, plat_base_type, plat_base_name, yr, is_delete, path,user_fill_id) 
+        VALUES ('${strUUID2}', '${user.univ_code}', '${user.discipline_code}', '${submit_info[i].head_name}','省部级', '${submit_info[i].plat_base_type}', '${submit_info[i].plat_base_name}', '${submit_info[i].yr}', 0, NULL,'${user_fill_id}');`
         console.log(sqls[i])
     }
     async.each(sqls, function (item, callback) {
@@ -743,8 +743,8 @@ exports.major_class_province_counts_sub = function(req,res){
     for(let i=0,len=submit_info.length;i<len;i++){ 
         const strUUID = uuidv4(); // ⇨ '1b9d6bcd-bbfd-4b2d-9b5d-ab8dfbbd4bed'
         const strUUID2 = strUUID.replace(/-/g, '');       // 去掉-字符
-        sqls[i]= `INSERT INTO mphd_tutor_const(id, univ_code, discipline_code, yr, master_tutor_num, doc_tutor_num, is_seen, is_delete, path,user_fill_id) 
-        VALUES ('${strUUID2}', '${user.univ_code}', '${user.discipline_code}', ${submit_info[i].yr}, ${submit_info[i].master_tutor_num}, ${submit_info[i].doc_tutor_num}, 0, 0, NULL, '${user_fill_id}');`
+        sqls[i]= `INSERT INTO mphd_tutor_const(id, univ_code, discipline_code, yr, master_tutor_num, doc_tutor_num, is_delete, path,user_fill_id) 
+        VALUES ('${strUUID2}', '${user.univ_code}', '${user.discipline_code}', ${submit_info[i].yr}, ${submit_info[i].master_tutor_num}, ${submit_info[i].doc_tutor_num}, 0, NULL, '${user_fill_id}');`
         console.log(sqls[i])
     }
     async.each(sqls, function (item, callback) {
@@ -798,8 +798,8 @@ exports.major_class_province_counts_sub = function(req,res){
     for(let i=0,len=submit_info.length;i<len;i++){ 
         const strUUID = uuidv4(); // ⇨ '1b9d6bcd-bbfd-4b2d-9b5d-ab8dfbbd4bed'
         const strUUID2 = strUUID.replace(/-/g, '');       // 去掉-字符
-        sqls[i]= `INSERT INTO fullprof_tch_underg(id, univ_code, discipline_code, yr, sem, num_full_prof, num_full_prof_teach_underg, is_seen, is_delete, path, user_fill_id) 
-        VALUES ('${strUUID2}','${user.univ_code}', '${user.discipline_code}', ${submit_info[i].yr}, '${submit_info[i].sem}', ${submit_info[i].num_full_prof}, ${submit_info[i].num_full_prof_teach_underg}, 0, 0, NULL,'${user_fill_id}');`
+        sqls[i]= `INSERT INTO fullprof_tch_underg(id, univ_code, discipline_code, yr, sem, num_full_prof, num_full_prof_teach_underg, is_delete, path, user_fill_id) 
+        VALUES ('${strUUID2}','${user.univ_code}', '${user.discipline_code}', ${submit_info[i].yr}, '${submit_info[i].sem}', ${submit_info[i].num_full_prof}, ${submit_info[i].num_full_prof_teach_underg}, 0, NULL,'${user_fill_id}');`
         console.log(sqls[i])
     }
     async.each(sqls, function (item, callback) {
@@ -853,8 +853,8 @@ exports.major_class_province_counts_sub = function(req,res){
     for(let i=0,len=submit_info.length;i<len;i++){ 
         const strUUID = uuidv4(); // ⇨ '1b9d6bcd-bbfd-4b2d-9b5d-ab8dfbbd4bed'
         const strUUID2 = strUUID.replace(/-/g, '');       // 去掉-字符
-        sqls[i]= `INSERT INTO stu_award_comp(id, univ_code, discipline_code, stu_name, stu_type, award_name, award_work, award_level, award_date, org_name, org_type, is_seen, is_delete, path, user_fill_id) 
-        VALUES ('${strUUID2}', '${user.univ_code}', '${user.discipline_code}','${submit_info[i].stu_name}', '${submit_info[i].stu_type}', '${submit_info[i].award_name}', '${submit_info[i].award_work}', '${submit_info[i].award_level}', '${submit_info[i].award_date}', '${submit_info[i].org_name}', '${submit_info[i].org_type}', 0, 0, NULL, '${user_fill_id}');`
+        sqls[i]= `INSERT INTO stu_award_comp(id, univ_code, discipline_code, stu_name, stu_type, award_name, award_work, award_level, award_date, org_name, org_type, is_delete, path, user_fill_id) 
+        VALUES ('${strUUID2}', '${user.univ_code}', '${user.discipline_code}','${submit_info[i].stu_name}', '${submit_info[i].stu_type}', '${submit_info[i].award_name}', '${submit_info[i].award_work}', '${submit_info[i].award_level}', '${submit_info[i].award_date}', '${submit_info[i].org_name}', '${submit_info[i].org_type}', 0, NULL, '${user_fill_id}');`
         console.log(sqls[i])
     }
     async.each(sqls, function (item, callback) {
@@ -908,8 +908,8 @@ exports.major_class_province_counts_sub = function(req,res){
     for(let i=0,len=submit_info.length;i<len;i++){ 
         const strUUID = uuidv4(); // ⇨ '1b9d6bcd-bbfd-4b2d-9b5d-ab8dfbbd4bed'
         const strUUID2 = strUUID.replace(/-/g, '');       // 去掉-字符
-        sqls[i]= `INSERT INTO stu_publish_rep_paper(id, univ_code, discipline_code, stu_name, paper_title, publish_date, stu_type, jour_name, jour_volume, jour_collec, is_seen, is_delete, path, user_fill_id) 
-        VALUES ('${strUUID2}', '${user.univ_code}', '${user.discipline_code}', '${submit_info[i].stu_name}', '${submit_info[i].paper_title}', ${submit_info[i].publish_date}, '${submit_info[i].stu_type}', '${submit_info[i].jour_name}', '${submit_info[i].jour_volume}', '${submit_info[i].jour_collec}', 0, 0, NULL, '${user_fill_id}');`
+        sqls[i]= `INSERT INTO stu_publish_rep_paper(id, univ_code, discipline_code, stu_name, paper_title, publish_date, stu_type, jour_name, jour_volume, jour_collec, is_delete, path, user_fill_id) 
+        VALUES ('${strUUID2}', '${user.univ_code}', '${user.discipline_code}', '${submit_info[i].stu_name}', '${submit_info[i].paper_title}', ${submit_info[i].publish_date}, '${submit_info[i].stu_type}', '${submit_info[i].jour_name}', '${submit_info[i].jour_volume}', '${submit_info[i].jour_collec}', 0, NULL, '${user_fill_id}');`
         console.log(sqls[i])
     }
     async.each(sqls, function (item, callback) {
@@ -966,8 +966,8 @@ exports.degree_counts_sub = function(req,res){
         const strUUID2 = strUUID.replace(/-/g, '');       // 去掉-字符
         // sqls[i]= `INSERT INTO stu_publish_rep_paper(id, univ_code, discipline_code, stu_name, paper_title, publish_date, stu_type, jour_name, jour_volume, jour_collec, is_seen, is_delete, path, user_fill_id) 
         // VALUES ('${strUUID2}', '${user.univ_code}', '${user.discipline_code}', '${submit_info[i].stu_name}', '${submit_info[i].paper_title}', ${submit_info[i].publish_date}, '${submit_info[i].stu_type}', '${submit_info[i].jour_name}', '${submit_info[i].jour_volume}', '${submit_info[i].jour_collec}', 0, 0, NULL, '${user_fill_id}');`
-        sqls[i] = `INSERT INTO ann_award_bdmdphd(id, univ_code, discipline_code, yr, award_bd_num, award_md_num, award_phd_num, is_seen, is_delete, path,user_fill_id) 
-        VALUES ('${strUUID2}', '${user.univ_code}', '${user.discipline_code}', ${submit_info[i].yr}, ${submit_info[i].award_bd_num}, ${submit_info[i].award_md_num}, ${submit_info[i].award_phd_num}, 0, 0, NULL,'${user_fill_id}');`
+        sqls[i] = `INSERT INTO ann_award_bdmdphd(id, univ_code, discipline_code, yr, award_bd_num, award_md_num, award_phd_num, is_delete, path,user_fill_id) 
+        VALUES ('${strUUID2}', '${user.univ_code}', '${user.discipline_code}', ${submit_info[i].yr}, ${submit_info[i].award_bd_num}, ${submit_info[i].award_md_num}, ${submit_info[i].award_phd_num}, 0, NULL,'${user_fill_id}');`
         console.log(sqls[i])
     }
     async.each(sqls, function (item, callback) {
@@ -1024,8 +1024,8 @@ exports.discipline_pioneer_sub = function(req,res){
         const strUUID2 = strUUID.replace(/-/g, '');       // 去掉-字符
         // sqls[i]= `INSERT INTO stu_publish_rep_paper(id, univ_code, discipline_code, stu_name, paper_title, publish_date, stu_type, jour_name, jour_volume, jour_collec, is_seen, is_delete, path, user_fill_id) 
         // VALUES ('${strUUID2}', '${user.univ_code}', '${user.discipline_code}', '${submit_info[i].stu_name}', '${submit_info[i].paper_title}', ${submit_info[i].publish_date}, '${submit_info[i].stu_type}', '${submit_info[i].jour_name}', '${submit_info[i].jour_volume}', '${submit_info[i].jour_collec}', 0, 0, NULL, '${user_fill_id}');`
-        sqls[i] = `INSERT INTO graduate_is_procontrib(id, univ_code, discipline_code, grad_year, stu_name, pro_contribute_proj, is_seen, is_delete, path, user_fill_id) 
-        VALUES ('${strUUID2}', '${user.univ_code}', '${user.discipline_code}', ${submit_info[i].grad_year}, '${submit_info[i].stu_name}', '${submit_info[i].pro_contribute_proj}', 0, 0, NULL, '${user_fill_id}');`
+        sqls[i] = `INSERT INTO graduate_is_procontrib(id, univ_code, discipline_code, grad_year, stu_name, pro_contribute_proj, is_delete, path, user_fill_id) 
+        VALUES ('${strUUID2}', '${user.univ_code}', '${user.discipline_code}', ${submit_info[i].grad_year}, '${submit_info[i].stu_name}', '${submit_info[i].pro_contribute_proj}', 0, NULL, '${user_fill_id}');`
         console.log(sqls[i])
     }
     async.each(sqls, function (item, callback) {
@@ -1082,8 +1082,8 @@ exports.discipline_pioneer_sub = function(req,res){
         const strUUID2 = strUUID.replace(/-/g, '');       // 去掉-字符
         // sqls[i]= `INSERT INTO stu_publish_rep_paper(id, univ_code, discipline_code, stu_name, paper_title, publish_date, stu_type, jour_name, jour_volume, jour_collec, is_seen, is_delete, path, user_fill_id) 
         // VALUES ('${strUUID2}', '${user.univ_code}', '${user.discipline_code}', '${submit_info[i].stu_name}', '${submit_info[i].paper_title}', ${submit_info[i].publish_date}, '${submit_info[i].stu_type}', '${submit_info[i].jour_name}', '${submit_info[i].jour_volume}', '${submit_info[i].jour_collec}', 0, 0, NULL, '${user_fill_id}');`
-        sqls[i] = `INSERT INTO intna_exch_stu(id, univ_code, discipline_code, yr, b_enroll_year, b_cur_num, m_enroll_year, m_cur_num, phd_enroll_year, phd_cur_num, exch_num, is_seen, is_delete, path, user_fill_id) 
-        VALUES ('${strUUID2}', '${user.univ_code}', '${user.discipline_code}', ${submit_info[i].yr}, ${submit_info[i].b_enroll_year}, ${submit_info[i].b_cur_num}, ${submit_info[i].m_enroll_year}, ${submit_info[i].m_cur_num}, ${submit_info[i].phd_enroll_year}, ${submit_info[i].phd_cur_num}, ${submit_info[i].exch_num}, 0, 0, NULL, '${user_fill_id}');`
+        sqls[i] = `INSERT INTO intna_exch_stu(id, univ_code, discipline_code, yr, b_enroll_year, b_cur_num, m_enroll_year, m_cur_num, phd_enroll_year, phd_cur_num, exch_num, is_delete, path, user_fill_id) 
+        VALUES ('${strUUID2}', '${user.univ_code}', '${user.discipline_code}', ${submit_info[i].yr}, ${submit_info[i].b_enroll_year}, ${submit_info[i].b_cur_num}, ${submit_info[i].m_enroll_year}, ${submit_info[i].m_cur_num}, ${submit_info[i].phd_enroll_year}, ${submit_info[i].phd_cur_num}, ${submit_info[i].exch_num}, 0, NULL, '${user_fill_id}');`
         console.log(sqls[i])
     }
     async.each(sqls, function (item, callback) {
@@ -1140,8 +1140,8 @@ exports.conference_counts_sub = function(req,res){
         const strUUID2 = strUUID.replace(/-/g, '');       // 去掉-字符
         // sqls[i]= `INSERT INTO stu_publish_rep_paper(id, univ_code, discipline_code, stu_name, paper_title, publish_date, stu_type, jour_name, jour_volume, jour_collec, is_seen, is_delete, path, user_fill_id) 
         // VALUES ('${strUUID2}', '${user.univ_code}', '${user.discipline_code}', '${submit_info[i].stu_name}', '${submit_info[i].paper_title}', ${submit_info[i].publish_date}, '${submit_info[i].stu_type}', '${submit_info[i].jour_name}', '${submit_info[i].jour_volume}', '${submit_info[i].jour_collec}', 0, 0, NULL, '${user_fill_id}');`
-        sqls[i] = `INSERT INTO stu_attdrpt_imptacconf(id, univ_code, discipline_code, yr, stu_name, stu_type, conf_name, rpt_name, rpt_time, rpt_place, is_seen, is_delete, path, user_fill_id) 
-        VALUES ('${strUUID2}', '${user.univ_code}', '${user.discipline_code}', ${submit_info[i].yr}, '${submit_info[i].stu_name}', '${submit_info[i].stu_type}', '${submit_info[i].conf_name}', '${submit_info[i].rpt_name}', '${submit_info[i].rpt_time}', '${submit_info[i].rpt_place}', 0, 0, NULL, '${user_fill_id}');`
+        sqls[i] = `INSERT INTO stu_attdrpt_imptacconf(id, univ_code, discipline_code, yr, stu_name, stu_type, conf_name, rpt_name, rpt_time, rpt_place, is_delete, path, user_fill_id) 
+        VALUES ('${strUUID2}', '${user.univ_code}', '${user.discipline_code}', ${submit_info[i].yr}, '${submit_info[i].stu_name}', '${submit_info[i].stu_type}', '${submit_info[i].conf_name}', '${submit_info[i].rpt_name}', '${submit_info[i].rpt_time}', '${submit_info[i].rpt_place}', 0, NULL, '${user_fill_id}');`
         console.log(sqls[i])
     }
     async.each(sqls, function (item, callback) {

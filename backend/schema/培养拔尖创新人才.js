@@ -143,7 +143,7 @@ const data_2_2_4 = joi.array().items(
 const data_2_2_5 = joi.array().items(
     joi.object().keys({
         yr:joi.number().integer().less(2023).greater(2020).required().error(new Error('学年度填报错误！')),
-        sem:joi.number().integer().less(9).greater(0).error(new Error('学期填报错误！')),
+        sem:joi.number().integer().less(3).greater(0).error(new Error('学期填报错误！')),
         num_full_prof:joi.number().integer().min(0).required().error(new Error('学科正教授数填报错误！')),
         num_full_prof_teach_underg:joi.number().integer().min(0).required().error(new Error('为本科生上课的正教授数填报错误！')),
     }
