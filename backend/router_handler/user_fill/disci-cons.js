@@ -140,6 +140,7 @@ exports.disci_eval_situation_sub = function (req, res) {
  * 表1-1-3 学科影响力情况处理函数
  */
 exports.disci_influence_sub = function (req, res) {
+    console.log(req.body);
     // 接收表单数据
     const submit_info = req.body.data_1_1_3
     console.log(submit_info)

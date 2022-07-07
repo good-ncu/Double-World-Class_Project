@@ -19,7 +19,7 @@ const data_1_1_3 = joi.array().items(
     joi.object().keys({
         yr:joi.number().integer().greater(2000).less(2023).required().error(new Error('年度填报错误！')),
         rank_type:joi.string().min(1).required().error(new Error('排名类别填报错误！')),
-        rank:joi.number().integer().greater(1).less(10000).required().error(new Error('排名填报错误！')),
+        rank:joi.number().integer().greater(0).less(10000).required().error(new Error('排名填报错误！')),
     })
 )
 
@@ -28,7 +28,7 @@ const data_1_1_4 = joi.array().items(
         yr:joi.number().integer().less(2025).greater(1950).required().error(new Error('年度填报错误！')),
         total_fund:joi.number().min(0).allow('').error(new Error('建设总经费填报错误！')),
         ctr_budg_fund:joi.number().min(0).allow('').error(new Error('中央专项预算经费！')),
-        ctr_receive_fund:joi.number().min(0).allow('').error(new Error('中央专项实际到账！')),
+        ctr_receive_fund:joi.number().min(0).allow('').error(new Error('中央专项实际到账！')),  
         ctr_expend_fund:joi.number().min(0).allow('').error(new Error('中央专项实际支出！')),
         lcl_budg_fund:joi.number().min(0).allow('').error(new Error('地方专项预算经费！')),
         lcl_receive_fund:joi.number().min(0).allow('').error(new Error('地方专项实际到账！')),
