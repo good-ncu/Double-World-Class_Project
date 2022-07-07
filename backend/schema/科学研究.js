@@ -82,7 +82,7 @@ const data_4_1_3_0 = joi.array().items(
 const data_4_1_3_1 = joi.array().items(
     joi.object().keys({
         yr:joi.number().integer().less(2029).greater(1950).required().error(new Error('年度填报错误！')),
-        quarter:joi.string().required().valid('第一季度','第二季度','第三季度','第四季度').required.error(new Error('季度填报错误！')),
+        quarter:joi.string().required().valid('第一季度','第二季度','第三季度','第四季度').error(new Error('季度填报错误！')),
         paper_title:joi.string().min(1).required().error(new Error('论文标题填报错误！')),
         paper_au:joi.string().min(1).max(200).required().error(new Error('作者姓名填报错误！')),
         jour_name:joi.string().min(1).max(100).required().error(new Error('发表期刊填报错误！')),
