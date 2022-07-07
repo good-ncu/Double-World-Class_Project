@@ -908,10 +908,8 @@ exports.major_class_province_counts_sub = function(req,res){
     for(let i=0,len=submit_info.length;i<len;i++){ 
         const strUUID = uuidv4(); // ⇨ '1b9d6bcd-bbfd-4b2d-9b5d-ab8dfbbd4bed'
         const strUUID2 = strUUID.replace(/-/g, '');       // 去掉-字符
-        // sqls[i]= `INSERT INTO mphd_tutor_const(id, univ_code, discipline_code, yr, master_tutor_num, doc_tutor_num, is_seen, is_delete, path,user_fill_id) 
-        // VALUES ('${strUUID2}', '${user.univ_code}', '${user.discipline_code}', ${submit_info[i].yr}, ${submit_info[i].master_tutor_num}, ${submit_info[i].doc_tutor_num}, 0, 0, NULL, '${user_fill_id}');`
-        sqls[i]= `INSERT INTO stu_publish_rep_paper(id, univ_code, discipline_code, stu_name, paper_title, publish_date, stu_type, jour_name, jour_volume, jour_collec, is_seen, is_delete, path) 
-        VALUES ('${strUUID2}', '${user.univ_code}', '${user.discipline_code}', '${submit_info[i].stu_name}', '${submit_info[i].paper_title}', ${submit_info[i].publish_date}, '${submit_info[i].stu_type}', '${submit_info[i].jour_name}', '${submit_info[i].jour_volume}', '${submit_info[i].jour_collec}', 0, 0, NULL, NULL);`
+        sqls[i]= `INSERT INTO stu_publish_rep_paper(id, univ_code, discipline_code, stu_name, paper_title, publish_date, stu_type, jour_name, jour_volume, jour_collec, is_seen, is_delete, path, user_fill_id) 
+        VALUES ('${strUUID2}', '${user.univ_code}', '${user.discipline_code}', '${submit_info[i].stu_name}', '${submit_info[i].paper_title}', ${submit_info[i].publish_date}, '${submit_info[i].stu_type}', '${submit_info[i].jour_name}', '${submit_info[i].jour_volume}', '${submit_info[i].jour_collec}', 0, 0, NULL, '${user_fill_id}');`
         console.log(sqls[i])
     }
     async.each(sqls, function (item, callback) {
@@ -956,28 +954,232 @@ exports.major_class_province_counts_sub = function(req,res){
  * 年度授予学士、硕士、博士学位情况（2-3-1）
  */
 exports.degree_counts_sub = function(req,res){
-
+    // 接收表单数据
+    const submit_info = req.body.data_2_3_1
+    console.log(submit_info);
+    // 获取token中的user信息
+    user=req.user
+    var sqls = []
+    var user_fill_id = uuidv4().replace(/-/g, '')
+    for(let i=0,len=submit_info.length;i<len;i++){ 
+        const strUUID = uuidv4(); // ⇨ '1b9d6bcd-bbfd-4b2d-9b5d-ab8dfbbd4bed'
+        const strUUID2 = strUUID.replace(/-/g, '');       // 去掉-字符
+        // sqls[i]= `INSERT INTO stu_publish_rep_paper(id, univ_code, discipline_code, stu_name, paper_title, publish_date, stu_type, jour_name, jour_volume, jour_collec, is_seen, is_delete, path, user_fill_id) 
+        // VALUES ('${strUUID2}', '${user.univ_code}', '${user.discipline_code}', '${submit_info[i].stu_name}', '${submit_info[i].paper_title}', ${submit_info[i].publish_date}, '${submit_info[i].stu_type}', '${submit_info[i].jour_name}', '${submit_info[i].jour_volume}', '${submit_info[i].jour_collec}', 0, 0, NULL, '${user_fill_id}');`
+        sqls[i] = `INSERT INTO ann_award_bdmdphd(id, univ_code, discipline_code, yr, award_bd_num, award_md_num, award_phd_num, is_seen, is_delete, path,user_fill_id) 
+        VALUES ('${strUUID2}', '${user.univ_code}', '${user.discipline_code}', ${submit_info[i].yr}, ${submit_info[i].award_bd_num}, ${submit_info[i].award_md_num}, ${submit_info[i].award_phd_num}, 0, 0, NULL,'${user_fill_id}');`
+        console.log(sqls[i])
+    }
+    async.each(sqls, function (item, callback) {
+        // 遍历每条SQL并执行
+        client.query(item, function (err, results) {
+            if (err) {
+                // 异常后调用callback并传入err
+                callback(err);
+            }else if (results.rowCount !== 1){
+                // 当前sql影响不为1，则错误
+                err = item+"插入失败！"
+                callback(err);
+            }else{
+                console.log(item + "执行成功");
+                // 执行完成后也要调用callback，不需要参数
+                callback();
+            }
+        });
+    }, function (err) {
+        // 所有SQL执行完成后回调
+        if (err) {
+            console.log(console.log(err.message));
+            res.send({
+                status: 1,
+                message: '系统繁忙,请稍后再试'
+            })
+        } else {
+            client.query(`insert into user_fill(id, user_id, fill_id, flag) values('${user_fill_id}','${user.id}','2_3_1',1)`, function(err,result){
+                if(err) return res.cc('系统繁忙,请稍后再试')
+                if(result.rowCount !== 1) return res.cc('系统繁忙,请稍后再试')
+                res.send({
+                    status: 0,
+                    message: "填报成功！！"
+                })
+                console.log("SQL全部执行成功");
+            })
+        }
+    });
 }
 
 /**
- * 年度授予学士、硕士、博士学位情况（2-3-2）
+ * 学科领域突出贡献者情况（2-3-2）
  */
 exports.discipline_pioneer_sub = function(req,res){
-
+    // 接收表单数据
+    const submit_info = req.body.data_2_3_2
+    console.log(submit_info);
+    // 获取token中的user信息
+    user=req.user
+    var sqls = []
+    var user_fill_id = uuidv4().replace(/-/g, '')
+    for(let i=0,len=submit_info.length;i<len;i++){ 
+        const strUUID = uuidv4(); // ⇨ '1b9d6bcd-bbfd-4b2d-9b5d-ab8dfbbd4bed'
+        const strUUID2 = strUUID.replace(/-/g, '');       // 去掉-字符
+        // sqls[i]= `INSERT INTO stu_publish_rep_paper(id, univ_code, discipline_code, stu_name, paper_title, publish_date, stu_type, jour_name, jour_volume, jour_collec, is_seen, is_delete, path, user_fill_id) 
+        // VALUES ('${strUUID2}', '${user.univ_code}', '${user.discipline_code}', '${submit_info[i].stu_name}', '${submit_info[i].paper_title}', ${submit_info[i].publish_date}, '${submit_info[i].stu_type}', '${submit_info[i].jour_name}', '${submit_info[i].jour_volume}', '${submit_info[i].jour_collec}', 0, 0, NULL, '${user_fill_id}');`
+        sqls[i] = `INSERT INTO graduate_is_procontrib(id, univ_code, discipline_code, grad_year, stu_name, pro_contribute_proj, is_seen, is_delete, path, user_fill_id) 
+        VALUES ('${strUUID2}', '${user.univ_code}', '${user.discipline_code}', ${submit_info[i].grad_year}, '${submit_info[i].stu_name}', '${submit_info[i].pro_contribute_proj}', 0, 0, NULL, '${user_fill_id}');`
+        console.log(sqls[i])
+    }
+    async.each(sqls, function (item, callback) {
+        // 遍历每条SQL并执行
+        client.query(item, function (err, results) {
+            if (err) {
+                // 异常后调用callback并传入err
+                callback(err);
+            }else if (results.rowCount !== 1){
+                // 当前sql影响不为1，则错误
+                err = item+"插入失败！"
+                callback(err);
+            }else{
+                console.log(item + "执行成功");
+                // 执行完成后也要调用callback，不需要参数
+                callback();
+            }
+        });
+    }, function (err) {
+        // 所有SQL执行完成后回调
+        if (err) {
+            console.log(console.log(err.message));
+            res.send({
+                status: 1,
+                message: '系统繁忙,请稍后再试'
+            })
+        } else {
+            client.query(`insert into user_fill(id, user_id, fill_id, flag) values('${user_fill_id}','${user.id}','2_3_2',1)`, function(err,result){
+                if(err) return res.cc('系统繁忙,请稍后再试')
+                if(result.rowCount !== 1) return res.cc('系统繁忙,请稍后再试')
+                res.send({
+                    status: 0,
+                    message: "填报成功！！"
+                })
+                console.log("SQL全部执行成功");
+            })
+        }
+    });
 }
 
 /**
  * 年度授予学士、硕士、博士学位情况（2-4-1）
  */
  exports.scholar_counts_sub = function(req,res){
-
+    // 接收表单数据
+    const submit_info = req.body.data_2_4_1
+    console.log(submit_info);
+    // 获取token中的user信息
+    user=req.user
+    var sqls = []
+    var user_fill_id = uuidv4().replace(/-/g, '')
+    for(let i=0,len=submit_info.length;i<len;i++){ 
+        const strUUID = uuidv4(); // ⇨ '1b9d6bcd-bbfd-4b2d-9b5d-ab8dfbbd4bed'
+        const strUUID2 = strUUID.replace(/-/g, '');       // 去掉-字符
+        // sqls[i]= `INSERT INTO stu_publish_rep_paper(id, univ_code, discipline_code, stu_name, paper_title, publish_date, stu_type, jour_name, jour_volume, jour_collec, is_seen, is_delete, path, user_fill_id) 
+        // VALUES ('${strUUID2}', '${user.univ_code}', '${user.discipline_code}', '${submit_info[i].stu_name}', '${submit_info[i].paper_title}', ${submit_info[i].publish_date}, '${submit_info[i].stu_type}', '${submit_info[i].jour_name}', '${submit_info[i].jour_volume}', '${submit_info[i].jour_collec}', 0, 0, NULL, '${user_fill_id}');`
+        sqls[i] = `INSERT INTO intna_exch_stu(id, univ_code, discipline_code, yr, b_enroll_year, b_cur_num, m_enroll_year, m_cur_num, phd_enroll_year, phd_cur_num, exch_num, is_seen, is_delete, path, user_fill_id) 
+        VALUES ('${strUUID2}', '${user.univ_code}', '${user.discipline_code}', ${submit_info[i].yr}, ${submit_info[i].b_enroll_year}, ${submit_info[i].b_cur_num}, ${submit_info[i].m_enroll_year}, ${submit_info[i].m_cur_num}, ${submit_info[i].phd_enroll_year}, ${submit_info[i].phd_cur_num}, ${submit_info[i].exch_num}, 0, 0, NULL, '${user_fill_id}');`
+        console.log(sqls[i])
+    }
+    async.each(sqls, function (item, callback) {
+        // 遍历每条SQL并执行
+        client.query(item, function (err, results) {
+            if (err) {
+                // 异常后调用callback并传入err
+                callback(err);
+            }else if (results.rowCount !== 1){
+                // 当前sql影响不为1，则错误
+                err = item+"插入失败！"
+                callback(err);
+            }else{
+                console.log(item + "执行成功");
+                // 执行完成后也要调用callback，不需要参数
+                callback();
+            }
+        });
+    }, function (err) {
+        // 所有SQL执行完成后回调
+        if (err) {
+            console.log(console.log(err.message));
+            res.send({
+                status: 1,
+                message: '系统繁忙,请稍后再试'
+            })
+        } else {
+            client.query(`insert into user_fill(id, user_id, fill_id, flag) values('${user_fill_id}','${user.id}','2_4_1',1)`, function(err,result){
+                if(err) return res.cc('系统繁忙,请稍后再试')
+                if(result.rowCount !== 1) return res.cc('系统繁忙,请稍后再试')
+                res.send({
+                    status: 0,
+                    message: "填报成功！！"
+                })
+                console.log("SQL全部执行成功");
+            })
+        }
+    });
 }
 
 /**
  * 本科生、硕士生、博士生参加本领域国内外重要学术会议并作报告人员清单（2-4-2）
  */
 exports.conference_counts_sub = function(req,res){
-
+    // 接收表单数据
+    const submit_info = req.body.data_2_4_2
+    console.log(submit_info);
+    // 获取token中的user信息
+    user=req.user
+    var sqls = []
+    var user_fill_id = uuidv4().replace(/-/g, '')
+    for(let i=0,len=submit_info.length;i<len;i++){ 
+        const strUUID = uuidv4(); // ⇨ '1b9d6bcd-bbfd-4b2d-9b5d-ab8dfbbd4bed'
+        const strUUID2 = strUUID.replace(/-/g, '');       // 去掉-字符
+        // sqls[i]= `INSERT INTO stu_publish_rep_paper(id, univ_code, discipline_code, stu_name, paper_title, publish_date, stu_type, jour_name, jour_volume, jour_collec, is_seen, is_delete, path, user_fill_id) 
+        // VALUES ('${strUUID2}', '${user.univ_code}', '${user.discipline_code}', '${submit_info[i].stu_name}', '${submit_info[i].paper_title}', ${submit_info[i].publish_date}, '${submit_info[i].stu_type}', '${submit_info[i].jour_name}', '${submit_info[i].jour_volume}', '${submit_info[i].jour_collec}', 0, 0, NULL, '${user_fill_id}');`
+        sqls[i] = `INSERT INTO stu_attdrpt_imptacconf(id, univ_code, discipline_code, yr, stu_name, stu_type, conf_name, rpt_name, rpt_time, rpt_place, is_seen, is_delete, path, user_fill_id) 
+        VALUES ('${strUUID2}', '${user.univ_code}', '${user.discipline_code}', ${submit_info[i].yr}, '${submit_info[i].stu_name}', '${submit_info[i].stu_type}', '${submit_info[i].conf_name}', '${submit_info[i].rpt_name}', '${submit_info[i].rpt_time}', '${submit_info[i].rpt_place}', 0, 0, NULL, '${user_fill_id}');`
+        console.log(sqls[i])
+    }
+    async.each(sqls, function (item, callback) {
+        // 遍历每条SQL并执行
+        client.query(item, function (err, results) {
+            if (err) {
+                // 异常后调用callback并传入err
+                callback(err);
+            }else if (results.rowCount !== 1){
+                // 当前sql影响不为1，则错误
+                err = item+"插入失败！"
+                callback(err);
+            }else{
+                console.log(item + "执行成功");
+                // 执行完成后也要调用callback，不需要参数
+                callback();
+            }
+        });
+    }, function (err) {
+        // 所有SQL执行完成后回调
+        if (err) {
+            console.log(console.log(err.message));
+            res.send({
+                status: 1,
+                message: '系统繁忙,请稍后再试'
+            })
+        } else {
+            client.query(`insert into user_fill(id, user_id, fill_id, flag) values('${user_fill_id}','${user.id}','2_4_2',1)`, function(err,result){
+                if(err) return res.cc('系统繁忙,请稍后再试')
+                if(result.rowCount !== 1) return res.cc('系统繁忙,请稍后再试')
+                res.send({
+                    status: 0,
+                    message: "填报成功！！"
+                })
+                console.log("SQL全部执行成功");
+            })
+        }
+    });
 }
 
 

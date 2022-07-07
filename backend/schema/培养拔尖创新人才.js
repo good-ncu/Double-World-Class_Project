@@ -181,9 +181,6 @@ const data_2_3_1 = joi.array().items(
         award_bd_num:joi.number().integer().min(0).required().error(new Error('授予学士学位数填报错误！')),
         award_md_num:joi.number().integer().min(0).required().error(new Error('授予硕士学位数填报错误！')),
         award_phd_num:joi.number().integer().min(0).required().error(new Error('授予博士学位数填报错误！')),
-        // jour_name:joi.string().min(1).max(100).required().error(new Error('期刊名称填报错误！')),
-        // jour_volume:joi.number().integer().min(1).required().error(new Error('期刊卷数填报错误！')),
-        // jour_collec:joi.string().min(1).max(50).required().error(new Error('期刊收录情况填报错误！')),
     }
     )
 )
@@ -199,11 +196,11 @@ const data_2_3_2 = joi.array().items(
 
 const data_2_4_1 = joi.array().items(
     joi.object().keys({
-        b_enroll_year:joi.number().integer().less(2029).greater(1950).required().error(new Error('入学年度（攻学）填报错误！')),
+        b_enroll_year:joi.number().integer().min(0).required().error(new Error('留学生数量（攻学）填报错误！')),
         b_cur_num:joi.number().integer().min(0).required().error(new Error('在校学生数量（攻学）填报错误！')),
-        m_enroll_year:joi.number().integer().less(2029).greater(1950).required().error(new Error('入学年度（攻硕）填报错误！')),
+        m_enroll_year:joi.number().integer().min(0).required().error(new Error('留学生数量（攻硕）填报错误！')),
         m_cur_num:joi.number().integer().min(0).required().error(new Error('在校学生数量（攻硕）填报错误！')),
-        phd_enroll_year:joi.number().integer().less(2029).greater(1950).required().error(new Error('入学年度（攻博）填报错误！')),
+        phd_enroll_year:joi.number().integer().min(0).required().error(new Error('留学生数量（攻博）填报错误！')),
         phd_cur_num:joi.number().integer().min(0).required().error(new Error('在校学生数量（攻博）填报错误！')),
         exch_num:joi.number().integer().min(0).required().error(new Error('交换生数量填报错误！')),
         yr:joi.number().integer().less(2029).greater(1950).required().error(new Error('填报年度填报错误！')),
