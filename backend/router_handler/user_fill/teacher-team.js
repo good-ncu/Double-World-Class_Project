@@ -14,7 +14,7 @@ const { query } = require('express');
 
 
 /**
- * 表3-1-1 学科入选国家优秀教师先进典型 情况处理函数
+ * 表3-1-1 学科入选国家优秀教师先进典型 情况处理函数   pass
  * @param {*} req 
  * @param {*} res 
  */
@@ -30,7 +30,7 @@ const { query } = require('express');
     for (let i = 0, len = submit_info.length; i < len; i++) {
         const strUUID = uuidv4(); // ⇨ '1b9d6bcd-bbfd-4b2d-9b5d-ab8dfbbd4bed'
         const strUUID2 = strUUID.replace(/-/g, '');       // 去掉-字符
-        sqls[i] = `INSERT INTO tch_moral_const(id, univ_code, discipline_code, yr, tch_name, recogn_honor,user_fill_id) 
+        sqls[i] = `INSERT INTO tch_moral(id, univ_code, discipline_code, yr, tch_name, recogn_honor,user_fill_id) 
         VALUES ('${strUUID2}','${user.univ_code}','${user.discipline_code}',${submit_info[i].yr},
         '${submit_info[i].tch_name}','${submit_info[i].recogn_honor}','${user_fill_id}')`
         console.log(sqls[i])
@@ -55,9 +55,10 @@ const { query } = require('express');
     }, function (err) {
         // 所有SQL执行完成后回调
         if (err) {
+            console.log(err.message)
             res.send({
                 status: 1,
-                message: err
+                message: err.message
             })
         } else {
             client.query(`insert into user_fill(id, user_id, fill_id, flag) values('${user_fill_id}','${user.id}','3_1_1',1)`, function (err, result) {
@@ -77,7 +78,7 @@ const { query } = require('express');
 
 
 /**
- * 表3-2-1 学科主要方向、学科带头人及中青年学术骨干清单 情况处理函数
+ * 表3-2-1 学科主要方向、学科带头人及中青年学术骨干清单 情况处理函数  pass
  * @param {*} req 
  * @param {*} res
  */
@@ -94,7 +95,7 @@ const { query } = require('express');
         const strUUID = uuidv4(); // ⇨ '1b9d6bcd-bbfd-4b2d-9b5d-ab8dfbbd4bed'
         const strUUID2 = strUUID.replace(/-/g, '');       // 去掉-字符
         sqls[i] = `INSERT INTO leader_youthcore(id, univ_code, discipline_code,user_fill_id,tch_name,tch_type,tch_title,age,rep_work,discipline) 
-        VALUES ('${strUUID2}','${user.univ_code}','${user.discipline_code}','${user_fill_id}','${submit_info.tch_name}','${submit_info.tch_type}','${submit_info.tch_title}',${submit_info.age},'${submit_info.rep_work}','${submit_info.discipline}')`
+        VALUES ('${strUUID2}','${user.univ_code}','${user.discipline_code}','${user_fill_id}','${submit_info[i].tch_name}','${submit_info[i].tch_type}','${submit_info[i].tch_title}',${submit_info[i].age},'${submit_info[i].rep_work}','${submit_info[i].discipline}')`
         console.log(sqls[i])
     }
 
@@ -138,7 +139,7 @@ const { query } = require('express');
 
 
 /**
- * 表3-2-2-0 高层次人才及团队存量清单 情况处理函数
+ * 表3-2-2-0 高层次人才及团队存量清单 情况处理函数   pass
  * @param {*} req 
  * @param {*} res
  */
@@ -153,8 +154,8 @@ const { query } = require('express');
     for (let i = 0, len = submit_info.length; i < len; i++) {
         const strUUID = uuidv4(); // ⇨ '1b9d6bcd-bbfd-4b2d-9b5d-ab8dfbbd4bed'
         const strUUID2 = strUUID.replace(/-/g, '');       // 去掉-字符
-        sqls[i] = `INSERT INTO talent_team(id, univ_code, discipline_code,user_fill_id,tch_name,team_name,level,honor_name,yr) 
-        VALUES ('${strUUID2}','${user.univ_code}','${user.discipline_code}','${user_fill_id}','${submit_info.tch_name}','${submit_info.team_name}','${submit_info.level}','${submit_info.honor_name}',${submit_info.yr})`
+        sqls[i] = `INSERT INTO talent_team(id, univ_code, discipline_code,user_fill_id,talent_team_name,level,honor_name,yr) 
+        VALUES ('${strUUID2}','${user.univ_code}','${user.discipline_code}','${user_fill_id}','${submit_info[i].talent_team_name}','${submit_info[i].level}','${submit_info[i].honor_name}',${submit_info[i].yr})`
         console.log(sqls[i])
     }
 
@@ -200,7 +201,7 @@ const { query } = require('express');
 
  
 /**
- * 表3-2-2-1 国家级团队和学术领军人才（含青年人才）清单 情况处理函数
+ * 表3-2-2-1 国家级团队和学术领军人才（含青年人才）清单 情况处理函数    pass
  * @param {*} req 
  * @param {*} res
  */
@@ -215,8 +216,8 @@ const { query } = require('express');
     for (let i = 0, len = submit_info.length; i < len; i++) {
         const strUUID = uuidv4(); // ⇨ '1b9d6bcd-bbfd-4b2d-9b5d-ab8dfbbd4bed'
         const strUUID2 = strUUID.replace(/-/g, '');       // 去掉-字符
-        sqls[i] = `INSERT INTO talent_team(id, univ_code, discipline_code,user_fill_id,tch_name,team_name,level,honor_name,yr) 
-        VALUES ('${strUUID2}','${user.univ_code}','${user.discipline_code}','${user_fill_id}','${submit_info.tch_name}','${submit_info.team_name}','${submit_info.level}','${submit_info.honor_name}',${submit_info.yr})`
+        sqls[i] = `INSERT INTO talent_team(id, univ_code, discipline_code,user_fill_id,talent_team_name,level,honor_name,yr) 
+        VALUES ('${strUUID2}','${user.univ_code}','${user.discipline_code}','${user_fill_id}','${submit_info[i].talent_team_name}','国家级','${submit_info[i].honor_name}',${submit_info[i].yr})`
         console.log(sqls[i])
     }
 
@@ -276,8 +277,8 @@ const { query } = require('express');
     for (let i = 0, len = submit_info.length; i < len; i++) {
         const strUUID = uuidv4(); // ⇨ '1b9d6bcd-bbfd-4b2d-9b5d-ab8dfbbd4bed'
         const strUUID2 = strUUID.replace(/-/g, '');       // 去掉-字符
-        sqls[i] = `INSERT INTO talent_team(id, univ_code, discipline_code,user_fill_id,tch_name,team_name,level,honor_name,yr) 
-        VALUES ('${strUUID2}','${user.univ_code}','${user.discipline_code}','${user_fill_id}','${submit_info.tch_name}','${submit_info.team_name}','${submit_info.level}','${submit_info.honor_name}',${submit_info.yr})`
+        sqls[i] = `INSERT INTO talent_team(id, univ_code, discipline_code,user_fill_id,talent_team_name,level,honor_name,yr) 
+        VALUES ('${strUUID2}','${user.univ_code}','${user.discipline_code}','${user_fill_id}','${submit_info[i].talent_team_name}','省级','${submit_info[i].honor_name}',${submit_info[i].yr})`
         console.log(sqls[i])
     }
 
@@ -322,7 +323,7 @@ const { query } = require('express');
 
  
 /**
- * 表3-2-3 学科专任教师数量及结构 情况处理函数
+ * 表3-2-3 学科专任教师数量及结构 情况处理函数    pass
  * @param {*} req 
  * @param {*} res
  */
@@ -339,8 +340,8 @@ const { query } = require('express');
         const strUUID2 = strUUID.replace(/-/g, '');       // 去掉-字符
         sqls[i] = `INSERT INTO fulltch(id, univ_code, discipline_code,user_fill_id,yr, full_tch_num, ageblow25, age2535, age3645, 
         age4660, ageup60, senior, sub_senior, mid_grade, other_grade, phd, m_degree, b_degree) 
-        VALUES ('${strUUID2}','${user.univ_code}','${user.discipline_code}','${user_fill_id}',${submit_info.yr},${submit_info.full_tch_num},${submit_info.ageblow25},${submit_info.age2535},
-        ${submit_info.age3645},${submit_info.age4660},${submit_info.ageup60},${submit_info.senior},${submit_info.sub_senior},${submit_info.mid_grade},${submit_info.other_grade},${submit_info.phd},${submit_info.m_degree},${submit_info.b_degree})`
+        VALUES ('${strUUID2}','${user.univ_code}','${user.discipline_code}','${user_fill_id}',${submit_info[i].yr},${submit_info[i].full_tch_num},${submit_info[i].ageblow25},${submit_info[i].age2535},
+        ${submit_info[i].age3645},${submit_info[i].age4660},${submit_info[i].ageup60},${submit_info[i].senior},${submit_info[i].sub_senior},${submit_info[i].mid_grade},${submit_info[i].other_grade},${submit_info[i].phd},${submit_info[i].m_degree},${submit_info[i].b_degree})`
         console.log(sqls[i])
     }
 
@@ -383,7 +384,7 @@ const { query } = require('express');
 
 
 /**
- * 表3-2-4 博士后和科研助理数量 情况处理函数
+ * 表3-2-4 博士后和科研助理数量 情况处理函数   pass
  * @param {*} req 
  * @param {*} res
  */
@@ -400,8 +401,8 @@ const { query } = require('express');
         const strUUID2 = strUUID.replace(/-/g, '');       // 去掉-字符
         sqls[i] = `INSERT INTO pdoc_ra(id, univ_code, discipline_code,user_fill_id,yr,in_postdoc_sum,in_postdoc_newinc,out_postdoc_sum,
         out_postdoc_newinc,univ_ra_sum,univ_ra_newinc,inst_ra_sum,inst_ra_newinc,task_ra_sum, task_ra_newinc) 
-        VALUES ('${strUUID2}','${user.univ_code}','${user.discipline_code}','${user_fill_id}',${submit_info.yr},${submit_info.in_postdoc_sum},${submit_info.in_postdoc_newinc},${submit_info.out_postdoc_sum},${submit_info.out_postdoc_newinc},
-        ${submit_info.univ_ra_sum},${submit_info.univ_ra_newinc},${submit_info.inst_ra_sum},${submit_info.inst_ra_newinc},${submit_info.task_ra_sum},${submit_info.task_ra_newinc})`
+        VALUES ('${strUUID2}','${user.univ_code}','${user.discipline_code}','${user_fill_id}',${submit_info[i].yr},${submit_info[i].in_postdoc_sum},${submit_info[i].in_postdoc_newinc},${submit_info[i].out_postdoc_sum},${submit_info[i].out_postdoc_newinc},
+        ${submit_info[i].univ_ra_sum},${submit_info[i].univ_ra_newinc},${submit_info[i].inst_ra_sum},${submit_info[i].inst_ra_newinc},${submit_info[i].task_ra_sum},${submit_info[i].task_ra_newinc})`
         console.log(sqls[i])
     }
 
@@ -445,7 +446,7 @@ const { query } = require('express');
 
 
 /**
- * 表3-2-5 外籍专任教师数量及结构 情况处理函数
+ * 表3-2-5 外籍专任教师数量及结构 情况处理函数   pass
  * @param {*} req 
  * @param {*} res
  */
@@ -460,10 +461,10 @@ const { query } = require('express');
     for (let i = 0, len = submit_info.length; i < len; i++) {
         const strUUID = uuidv4(); // ⇨ '1b9d6bcd-bbfd-4b2d-9b5d-ab8dfbbd4bed'
         const strUUID2 = strUUID.replace(/-/g, '');       // 去掉-字符
-        sqls[i] = `INSERT INTO foreign_fulltch(id, univ_code, discipline_code,user_fill_id,yr, sum_full_ftch, sum_high_title, lang_full_ftch, lang_high_title, prof_full_ftch, prof_high_title,) 
-        VALUES ('${strUUID2}','${user.univ_code}','${user.discipline_code}','${user_fill_id}',${submit_info.yr},${submit_info.sum_full_ftch},${submit_info.sum_high_title},
-        ${submit_info.lang_full_ftch},${submit_info.lang_high_title},${submit_info.prof_full_ftch},${submit_info.prof_high_title})`
-        console.log(sqls[i])
+        sqls[i] = `INSERT INTO foreign_fulltch(id, univ_code, discipline_code,user_fill_id,yr, sum_full_ftch, sum_high_title, lang_full_ftch, lang_high_title, prof_full_ftch, prof_high_title) 
+        VALUES ('${strUUID2}','${user.univ_code}','${user.discipline_code}','${user_fill_id}',${submit_info[i].yr},${submit_info[i].sum_full_ftch},${submit_info[i].sum_high_title},
+        ${submit_info[i].lang_full_ftch},${submit_info[i].lang_high_title},${submit_info[i].prof_full_ftch},${submit_info[i].prof_high_title})`
+        // console.log(sqls[i])
     }
 
     async.each(sqls, function (item, callback) {
@@ -513,6 +514,7 @@ const { query } = require('express');
  exports.journal_director_sub = function(req,res){
     // 接收表单数据
     const submit_info = req.body.data_3_3_1
+    console.log(req.body)
     console.log(submit_info)
     user = req.user
     var user_fill_id = uuidv4().replace(/-/g, '')
@@ -522,8 +524,8 @@ const { query } = require('express');
         const strUUID = uuidv4(); // ⇨ '1b9d6bcd-bbfd-4b2d-9b5d-ab8dfbbd4bed'
         const strUUID2 = strUUID.replace(/-/g, '');       // 去掉-字符
         sqls[i] = `INSERT INTO tch_head_jour(id, univ_code, discipline_code,user_fill_id,tch_name,jour_name,in_jour_code,out_jour_code,jour_collect,pos,tenure) 
-        VALUES ('${strUUID2}','${user.univ_code}','${user.discipline_code}','${user_fill_id}','${submit_info.tch_name}','${submit_info.jour_name}','${submit_info.in_jour_code}',
-        '${submit_info.out_jour_code}','${submit_info.jour_collect}','${submit_info.pos}','${submit_info.tenure}')`
+        VALUES ('${strUUID2}','${user.univ_code}','${user.discipline_code}','${user_fill_id}','${submit_info[i].tch_name}','${submit_info[i].jour_name}','${submit_info[i].in_jour_code}',
+        '${submit_info[i].out_jour_code}','${submit_info[i].jour_collect}','${submit_info[i].pos}','${submit_info[i].tenure}')`
         console.log(sqls[i])
     }
 
@@ -572,9 +574,9 @@ const { query } = require('express');
  * @param {*} req 
  * @param {*} res
  */
- exports.subject_counts_sub = function(req,res){
+ exports.conference_director_sub = function(req,res){
     // 接收表单数据
-    const submit_info = req.body.data_3_2_1
+    const submit_info = req.body.data_3_3_2
     console.log(submit_info)
     user = req.user
     var user_fill_id = uuidv4().replace(/-/g, '')
@@ -583,8 +585,9 @@ const { query } = require('express');
     for (let i = 0, len = submit_info.length; i < len; i++) {
         const strUUID = uuidv4(); // ⇨ '1b9d6bcd-bbfd-4b2d-9b5d-ab8dfbbd4bed'
         const strUUID2 = strUUID.replace(/-/g, '');       // 去掉-字符
-        sqls[i] = `INSERT INTO (id, univ_code, discipline_code,user_fill_id) 
-        VALUES ('${strUUID2}','${user.univ_code}','${user.discipline_code}','${user_fill_id}',)`
+        sqls[i] = `INSERT INTO tch_head_acorg(id, univ_code, discipline_code,user_fill_id,tch_name,ac_org,pos,tenure) 
+        VALUES ('${strUUID2}','${user.univ_code}','${user.discipline_code}','${user_fill_id}','${submit_info[i].tch_name}',
+        '${submit_info[i].ac_org}','${submit_info[i].pos}','${submit_info[i].tenure}')`
         console.log(sqls[i])
     }
 
@@ -612,7 +615,7 @@ const { query } = require('express');
                 message: err
             })
         } else {
-            client.query(`insert into user_fill(id, user_id, fill_id, flag) values('${user_fill_id}','${user.id}','',1)`, function (err, result) {
+            client.query(`insert into user_fill(id, user_id, fill_id, flag) values('${user_fill_id}','${user.id}','3_3_2',1)`, function (err, result) {
                 if (err) return res.cc('系统繁忙,请稍后再试')
                 if (result.rowCount !== 1) return res.cc('系统繁忙,请稍后再试')
                 res.send({
@@ -633,9 +636,9 @@ const { query } = require('express');
  * @param {*} req 
  * @param {*} res
  */
- exports.subject_counts_sub = function(req,res){
+ exports.conference_report_sub = function(req,res){
     // 接收表单数据
-    const submit_info = req.body.data_3_2_1
+    const submit_info = req.body.data_3_3_3
     console.log(submit_info)
     user = req.user
     var user_fill_id = uuidv4().replace(/-/g, '')
@@ -644,8 +647,10 @@ const { query } = require('express');
     for (let i = 0, len = submit_info.length; i < len; i++) {
         const strUUID = uuidv4(); // ⇨ '1b9d6bcd-bbfd-4b2d-9b5d-ab8dfbbd4bed'
         const strUUID2 = strUUID.replace(/-/g, '');       // 去掉-字符
-        sqls[i] = `INSERT INTO (id, univ_code, discipline_code,user_fill_id) 
-        VALUES ('${strUUID2}','${user.univ_code}','${user.discipline_code}','${user_fill_id}',)`
+        sqls[i] = `INSERT INTO tch_attdrpt_acconf(id, univ_code, discipline_code,user_fill_id,yr,tch_name,conf_name,rpt_title,
+            rpt_yr_mth,rpt_place) 
+        VALUES ('${strUUID2}','${user.univ_code}','${user.discipline_code}','${user_fill_id}',${submit_info[i].yr},'${submit_info[i].tch_name}',
+        '${submit_info[i].conf_name}','${submit_info[i].rpt_title}','${submit_info[i].rpt_yr_mth}','${submit_info[i].rpt_place}')`
         console.log(sqls[i])
     }
 
@@ -673,7 +678,7 @@ const { query } = require('express');
                 message: err
             })
         } else {
-            client.query(`insert into user_fill(id, user_id, fill_id, flag) values('${user_fill_id}','${user.id}','',1)`, function (err, result) {
+            client.query(`insert into user_fill(id, user_id, fill_id) values('${user_fill_id}','${user.id}','3_3_3')`, function (err, result) {
                 if (err) return res.cc('系统繁忙,请稍后再试')
                 if (result.rowCount !== 1) return res.cc('系统繁忙,请稍后再试')
                 res.send({
@@ -695,9 +700,9 @@ const { query } = require('express');
  * @param {*} req 
  * @param {*} res
  */
- exports.subject_counts_sub = function(req,res){
+ exports.judges_counts_sub = function(req,res){
     // 接收表单数据
-    const submit_info = req.body.data_3_2_1
+    const submit_info = req.body.data_3_3_4
     console.log(submit_info)
     user = req.user
     var user_fill_id = uuidv4().replace(/-/g, '')
@@ -706,8 +711,9 @@ const { query } = require('express');
     for (let i = 0, len = submit_info.length; i < len; i++) {
         const strUUID = uuidv4(); // ⇨ '1b9d6bcd-bbfd-4b2d-9b5d-ab8dfbbd4bed'
         const strUUID2 = strUUID.replace(/-/g, '');       // 去掉-字符
-        sqls[i] = `INSERT INTO (id, univ_code, discipline_code,user_fill_id) 
-        VALUES ('${strUUID2}','${user.univ_code}','${user.discipline_code}','${user_fill_id}',)`
+        sqls[i] = `INSERT INTO (id, univ_code, discipline_code,user_fill_id,tch_name, comp_name, comp_yr_mth, pos) 
+        VALUES ('${strUUID2}','${user.univ_code}','${user.discipline_code}','${user_fill_id}','${submit_info[i].tch_name}',
+        '${submit_info[i].comp_name}','${submit_info[i].comp_yr_mth}','${submit_info[i].pos}')`
         console.log(sqls[i])
     }
 
@@ -735,7 +741,7 @@ const { query } = require('express');
                 message: err
             })
         } else {
-            client.query(`insert into user_fill(id, user_id, fill_id, flag) values('${user_fill_id}','${user.id}','',1)`, function (err, result) {
+            client.query(`insert into user_fill(id, user_id, fill_id) values('${user_fill_id}','${user.id}','3_3_4')`, function (err, result) {
                 if (err) return res.cc('系统繁忙,请稍后再试')
                 if (result.rowCount !== 1) return res.cc('系统繁忙,请稍后再试')
                 res.send({
