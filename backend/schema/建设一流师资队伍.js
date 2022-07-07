@@ -122,9 +122,9 @@ const data_3_3_1 = joi.array().items(
         jour_name:joi.string().min(1).max(100).required().error(new Error('任职期刊名称填报错误！')),     
         in_jour_code:joi.number().integer().min(1).required().error(new Error('国内期刊编号填报错误！')),       // 期刊号需要重新编写校验规则。两个都是required  因为 国内正式期刊的刊号是由国际标准刊号（ISSN）和国内统一刊号（CN）两部分组成，“CN”是中国国别代码，只有ISSN国际刊号而无国内统一刊号的期刊在国内被视为非法出版物   
         out_jour_code:joi.number().integer().min(1).required().error(new Error('国际期刊编号填报错误！')),
-        jour_collec:joi.string().valid('CSSCI','CSCD','SCI','SSCI','EI','A&HCI','其他').required().error(new Error('期刊收录情况填报错误！')),
-        pos:joi.string().valid('会长','副会长','理事会','副理事会','秘书长','副秘书长').required().error(new Error('担任职务填报错误！')),
-        tenure:joi.string().pattern(/^((1[9][5-9][0-9]|2[0][0-2][0-9])-(1[9][5-9][0-9]|2[0][0-2][0-9]))|((1[9][5-9][0-9]|2[0][0-2][0-9])-至今)$/).required().error(new Error('任职期限填报错误！')),                   //
+        jour_collect:joi.string().valid('CSSCI','CSCD','SCI','SSCI','EI','A&HCI','其他').required().error(new Error('期刊收录情况填报错误！')),
+        pos : joi.string().valid('会长','副会长','理事会','副理事会','秘书长','副秘书长').required().error(new Error('担任职务填报错误！')), 
+        tenure:joi.string().pattern(/^((1[9][5-9][0-9]|2[0][0-2][0-9])-(1[9][5-9][0-9]|2[0][0-2][0-9]))|((1[9][5-9][0-9]|2[0][0-2][0-9])-至今)$/).required().error(new Error('任职期限填报错误！')),      
     }
     )
 )

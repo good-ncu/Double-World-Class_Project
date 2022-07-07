@@ -507,7 +507,7 @@ const { query } = require('express');
 
 
 /**
- * 表3-3-1 教师担任国内外重要期刊负责人清单 情况处理函数
+ * 表3-3-1 教师担任国内外重要期刊负责人清单 情况处理函数    NO
  * @param {*} req 
  * @param {*} res
  */
@@ -570,7 +570,7 @@ const { query } = require('express');
 
 
 /**
- * 表3-3-2 教师在国内外重要学术组织任职主要负责人清单 情况处理函数
+ * 表3-3-2 教师在国内外重要学术组织任职主要负责人清单 情况处理函数   pass
  * @param {*} req 
  * @param {*} res
  */
@@ -711,7 +711,7 @@ const { query } = require('express');
     for (let i = 0, len = submit_info.length; i < len; i++) {
         const strUUID = uuidv4(); // ⇨ '1b9d6bcd-bbfd-4b2d-9b5d-ab8dfbbd4bed'
         const strUUID2 = strUUID.replace(/-/g, '');       // 去掉-字符
-        sqls[i] = `INSERT INTO (id, univ_code, discipline_code,user_fill_id,tch_name, comp_name, comp_yr_mth, pos) 
+        sqls[i] = `INSERT INTO tch_judge_comp(id, univ_code, discipline_code,user_fill_id,tch_name, comp_name, comp_yr_mth,pos) 
         VALUES ('${strUUID2}','${user.univ_code}','${user.discipline_code}','${user_fill_id}','${submit_info[i].tch_name}',
         '${submit_info[i].comp_name}','${submit_info[i].comp_yr_mth}','${submit_info[i].pos}')`
         console.log(sqls[i])
