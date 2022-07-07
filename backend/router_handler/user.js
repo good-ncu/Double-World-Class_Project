@@ -72,7 +72,7 @@ exports.login = function(req, res){
     if(!compareResult) return res.cc('密码错误，登录失败')
     // if(userinfo.password!==results.rows[0].passwd) return res.cc('密码错误，登录失败')
     
-    if(userinfo.roleidLogin!=results.rows[0].role_id) return res.cc('角色类别错误，登录失败')
+    // if(userinfo.roleidLogin!=results.rows[0].role_id) return res.cc('角色类别错误，登录失败')
 
     // 服务端生成Token
     const user = {...results.rows[0], passwd: ''}

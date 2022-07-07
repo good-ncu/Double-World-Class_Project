@@ -101,7 +101,7 @@ const data_2_2_3_0 = joi.array().items(
     joi.object().keys({
         head_name:joi.string().min(1).max(13).required().error(new Error('负责人填报错误！')),
         plat_base_level:joi.string().min(1).max(30).error(new Error('平台/基地级别填报错误！')),
-        plat_base_type:joi.string().valid('国家级人才培养基地','国家级现代产业学院','省级人才培养基地','省级现代产业学院').required().error(new Error('平台/基地类型填报错误！')),
+        plat_base_type:joi.string().valid('国家级人才培养基地','国家级现代产业学院','省部级人才培养基地','省部级现代产业学院').required().error(new Error('平台/基地类型填报错误！')),
         plat_base_name:joi.string().min(1).max(13).required().error(new Error('平台/基地名称填报错误！')),
         yr:joi.number().integer().less(2029).greater(1950).required().error(new Error('年度填报错误！')),
     }
@@ -111,7 +111,7 @@ const data_2_2_3_1 = joi.array().items(
     joi.object().keys({
         head_name:joi.string().min(1).max(13).required().error(new Error('负责人填报错误！')),
         plat_base_level:joi.string().min(1).max(30).error(new Error('平台/基地级别填报错误！')),
-        plat_base_type:joi.string().valid('国家级人才培养基地','国家级现代产业学院','省级人才培养基地','省级现代产业学院').required().error(new Error('平台/基地类型填报错误！')),
+        plat_base_type:joi.string().valid('国家级人才培养基地','国家级现代产业学院').required().error(new Error('平台/基地类型填报错误！仅限填报：国家级人才培养基地/国家级现代产业学院')),
         plat_base_name:joi.string().min(1).max(13).required().error(new Error('平台/基地名称填报错误！')),
         yr:joi.number().integer().less(2029).greater(1950).required().error(new Error('年度填报错误！')),
     }
@@ -121,8 +121,8 @@ const data_2_2_3_1 = joi.array().items(
 const data_2_2_3_2 = joi.array().items(
     joi.object().keys({
         head_name:joi.string().min(1).max(13).required().error(new Error('负责人填报错误！')),
-        plat_base_level:joi.string().min(1).max(30).required().error(new Error('平台/基地级别填报错误！')),
-        plat_base_type:joi.string().valid('国家级人才培养基地','国家级现代产业学院','省级人才培养基地','省级现代产业学院').required().error(new Error('平台/基地类型填报错误！')),
+        plat_base_level:joi.string().min(1).max(30).error(new Error('平台/基地级别填报错误！')),
+        plat_base_type:joi.string().valid('省部级人才培养基地','省部级现代产业学院').required().error(new Error('平台/基地类型填报错误！')),
         plat_base_name:joi.string().min(1).max(13).required().error(new Error('平台/基地名称填报错误！')),
         yr:joi.number().integer().less(2029).greater(1950).required().error(new Error('年度填报错误！')),
     }
@@ -151,7 +151,7 @@ const data_2_2_5 = joi.array().items(
 const data_2_2_6 = joi.array().items(
     joi.object().keys({
         stu_name:joi.string().min(1).max(13).required().error(new Error('学生姓名填报错误！')),
-        stu_type:joi.string().valid('本科生','硕士研究生',"博士研究生（含留学生）").required().error(new Error(new Error('学生类型填报错误！'))),
+        stu_type:joi.string().valid('本科生','硕士研究生',"博士研究生").required().error(new Error(new Error('学生类型填报错误！'))),
         award_name:joi.string().min(1).max(100).required().error(new Error('奖项名称填报错误！')),
         award_work:joi.string().min(1).max(100).required().error(new Error('获奖作品填报错误！')),
         award_level:joi.string().valid('特等奖','一等奖','二等奖','团体奖','其他').required().error(new Error('奖项等级填报错误！')),
