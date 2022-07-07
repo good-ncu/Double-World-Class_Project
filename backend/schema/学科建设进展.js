@@ -8,10 +8,14 @@ const joi = require('joi')
  * pattern(正则表达式) 值必须符合正则表达式的规则
  */
 
-const data_1_1_2 = joi.array().items(
+ const data_1_1_2 = joi.array().items(
     joi.object().keys({
-        discipline_eval_turn: joi.number().integer().less(7).greater(3).required().error(new Error('学科评估轮次格式错误')),
-        discipline_eval_result: joi.string().valid("A+","A","A-","B+","B","B-","C+","C","C-","Unknown").error(new Error('学科评估结果格式错误')),
+        discipline_eval_turn: joi.number().integer().less(7).greater(3).required().error(new Error('学科评估轮次填报错误！')),
+        discipline_eval_result: joi.string()
+       .when('discipline_eval_turn',{is:4,then:joi.string().valid("A+","A","A-","B+","B","B-","C+","C","C-","无")})
+       .when('discipline_eval_turn',{is:5,then:joi.string().valid("未发布")})
+       .when('discipline_eval_turn',{is:6,then:joi.string().valid("未发布")})
+       .error(new Error('学科评估填写错误！'))
     })
 )
 

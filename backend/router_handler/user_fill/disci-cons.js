@@ -77,7 +77,7 @@ exports.disci_eval_situation_sub = function (req, res) {
         client.query(item, function (err, results) {
             if (results.rows.length !== 0) {
                 // 异常后调用callback并传入err
-                err = "重复提交！"
+                err = "请勿重复提交"
                 callback(err);
             } else {
                 console.log(item + "唯一性检测无误");
@@ -90,7 +90,7 @@ exports.disci_eval_situation_sub = function (req, res) {
         if (err) {
             res.send({
                 status: 1,
-                message: "重复提交"
+                message: "请勿重复提交"
             })
         } else {
 
@@ -118,8 +118,8 @@ exports.disci_eval_situation_sub = function (req, res) {
                     return res.cc('系统繁忙,请稍后再试')
                 } else {
                     client.query(`insert into user_fill(id, user_id, fill_id, flag) values('${user_fill_id}','${user.id}','1_1_2',1)`, function (err, result) {
-                        if (err) return res.cc('系统繁忙,请稍后再试')
-                        if (result.rowCount !== 1) return res.cc('系统繁忙,请稍后再试')
+                        if (err) return res.cc('填报错误,请稍后再试')
+                        if (result.rowCount !== 1) return res.cc('填报失败,请稍后再试')
                         res.send({
                             status: 0,
                             message: "填报成功！！"

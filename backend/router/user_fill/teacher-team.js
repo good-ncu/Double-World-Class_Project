@@ -29,12 +29,17 @@ router.post('/International-level', teacher_team_handler.query_is_time)
 /*
     3-1 师德师风建设
  */
-// 手动 填报 学科入选国家优秀教师先进典型 情况（3-1-1）
+// 手动 填报 学科入选国家优秀教师先进典型 情况路由（3-1-1）
 router.post('/teacher-morality/honor-counts',expressJoi(sub_schema3.table_3_1_1), teacher_team_handler.honor_counts_sub)
 
 
 
 
+/*
+    3-2 专任教师队伍
+ */
+// 手动 填报 学科主要方向、学科带头人及中青年学术骨干清单 情况路由（表格3-2-1）
+router.post('/major-teacher/subject-counts',expressJoi(sub_schema3.table_3_2_1), teacher_team_handler.subject_counts_sub)
 
 
 
