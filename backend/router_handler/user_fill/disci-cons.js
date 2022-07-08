@@ -119,6 +119,7 @@ exports.disci_eval_situation_sub = function (req, res) {
                 if (err) {
                     return res.cc('系统繁忙,请稍后再试')
                 } else {
+                    // 当当前用户所填数据都成功后，说明当前周期对应的excel表已经填报完成， 则在user_fill插入一条记录，flag置为1， 说明该表
                     client.query(`insert into user_fill(id, user_id, fill_id, flag) values('${user_fill_id}','${user.id}','1_1_2',1)`, function (err, result) {
                         if (err) return res.cc('填报错误,请稍后再试')
                         if (result.rowCount !== 1) return res.cc('填报失败,请稍后再试')
@@ -380,7 +381,7 @@ exports.query_is_time = function (req, res) {
             var real_result = []
             // 先检查填报周期，如果全部不在填报周期，就直接返回数据（所有按钮灰色）
             for (let i = 0, len = resultt.length; i < len; i++) {
-                if (resultt[i].flag === 0) {
+                if (resultt[i].flag == 0) {
                     count++
                     real_result[temp_for_real_result++] = resultt[i].id
                     if (count === len) {

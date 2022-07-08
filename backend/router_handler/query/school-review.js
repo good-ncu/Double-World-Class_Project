@@ -23,6 +23,7 @@ var async = require('async');
  */
 
 /**
+ * 第一步
  * 查找当前学校管理员所属学校拥有的所有学科
  * @param {*} req 
  * @param {*} res 
@@ -52,40 +53,42 @@ exports.query_all_discipline = function (req,res){
     });
 }
 
-/**
- * 查询 学校管理员选择某一学科后，将当前周期下，该学科 所有已经填报了的表格，将其返回 处理函数
- * @param {*} req 
- * @param {*} res 
- */ 
-exports.query_all_discipline_current = function(req,res){
+// /**
+//  * 第二步
+//  * 查询 学校管理员选择某一学科后，将当前周期下，该学科 所有已经填报了的表格，将其返回 处理函数
+//  * @param {*} req 
+//  * @param {*} res 
+//  */ 
+// exports.query_all_discipline_current = function(req,res){
     
-    userinfo = req.user
-    sql = `SELECT fill_id from user_fill where flag=1` 
-    client.query(sql, function (err, results) {
-        if (err) {
-            // 异常后调用callback并传入err
-            res.send({
-                status: 1,
-                message: err.message
-            })
-        }else if (results.rowCount == 0){
-            // 当前sql查询为空，则返回填报提示
-            res.send({
-                status: 0,
-                message: "当前周期下，您选择的学科还未录入任何有效信息。"
-            })
-        }else{
-            res.send({
-                status: 0,
-                data: results.rows
-            })
-        }
-    });
-}
+//     userinfo = req.user
+//     sql = `SELECT fill_id from user_fill where flag=1 and dic` 
+//     client.query(sql, function (err, results) {
+//         if (err) {
+//             // 异常后调用callback并传入err
+//             res.send({
+//                 status: 1,
+//                 message: err.message
+//             })
+//         }else if (results.rowCount == 0){
+//             // 当前sql查询为空，则返回填报提示
+//             res.send({
+//                 status: 0,
+//                 message: "当前周期下，您选择的学科还未录入任何有效信息。"
+//             })
+//         }else{
+//             res.send({
+//                 status: 0,
+//                 data: results.rows
+//             })
+//         }
+//     });
+// }
 
 
 /**
- * 查询 学校管理员选择某一学科当前周期下某个已经填报的表后，将该表的数据返回 处理函数
+ * 第二步
+ * 查询 学校管理员选择某一学科后，将当前周期下，该学科 所有已经填报了的表格，将其返回 处理函数
  * @param {*} req 
  * @param {*} res 
  */ 
@@ -123,7 +126,12 @@ exports.query_all_discipline_current = function(req,res){
 }
 
 
-
+/**
+ * 第三步
+ * 查询 学校管理员选择某一学科当前周期下某个已经填报的表后，将该表的数据返回 处理函数
+ * @param {*} req 
+ * @param {*} res 
+ */
 exports.query_all_discipline_table = function(req,res){
     userinfo = req.user
     subinfo =req.body
@@ -169,7 +177,7 @@ exports.query_all_discipline_table = function(req,res){
                     })
                 }else if (results.rowCount == 0){
                     // 当前sql影响等于0，则错误
-                    err = item+"查询失败"
+                    err = sql2+"查询失败"
                     res.send({
                         status: 1,
                         message: err
