@@ -97,7 +97,9 @@ exports.disci_eval_situation_sub = function (req, res) {
             //  注意！！！！！      上述唯一性检测没问题后，开始插入操作
             var sqls_insert = []
             for (let i = 0, len = submit_info.length; i < len; i++) {
-                sqls_insert[i] = (`insert into discipline_eval(discipline_code,univ_code,discipline_eval_turn,discipline_eval_result,user_fill_id) values('${user.discipline_code}','${user.univ_code}',${submit_info[i].discipline_eval_turn},'${submit_info[i].discipline_eval_result}','${user_fill_id}')`)
+                const strUUID = uuidv4(); // ⇨ '1b9d6bcd-bbfd-4b2d-9b5d-ab8dfbbd4bed'
+                const strUUID2 = strUUID.replace(/-/g, '');       // 去掉-字符
+                sqls_insert[i] = (`insert into discipline_eval(id,discipline_code,univ_code,discipline_eval_turn,discipline_eval_result,user_fill_id) values('${strUUID2}','${user.discipline_code}','${user.univ_code}',${submit_info[i].discipline_eval_turn},'${submit_info[i].discipline_eval_result}','${user_fill_id}')`)
             }
             console.log(sqls_insert)
             async.each(sqls_insert, function (item, callback) {
