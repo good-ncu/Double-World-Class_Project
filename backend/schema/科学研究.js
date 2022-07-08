@@ -10,7 +10,7 @@ const joi = require('joi')
         award_eval_org_type:joi.string().min(1).max(50).required().error(new Error('组织单位类型填报错误！')),
         yr:joi.number().integer().less(2021).greater(1950).required().error(new Error('获奖年份填报错误！')),
         // 层次
-        level:joi.string().valid('国家级','省部级').required().error(new Error(new Error('层次填报错误！'))),
+        level:joi.string().valid('国家级','省部级').required().error(new Error('层次填报错误！')),
     }
     )
 )
@@ -168,7 +168,7 @@ const data_4_2_1_1 = joi.array().items(
     )
 )
 
-//scir_innova_platconst 修改：增加require()         palt_level:joi.string().valid('其他国家级').required().error(new Error(new Error('平台等级填报错误！'))),
+//scir_innova_platconst 修改：增加require()         palt_level:joi.string().valid('其他国家级').required().error(new Error('平台等级填报错误！'))),
 const data_4_2_1_2 = joi.array().items(
     joi.object().keys({
         yr:joi.number().integer().less(2029).greater(2020).required().error(new Error('填报年度填报错误！')),
@@ -196,24 +196,24 @@ const data_4_2_2_0 = joi.array().items(
    joi.object().keys({
        yr:joi.number().integer().less(2021).greater(1950).required().error(new Error('填报年度填报错误！')),
        proj_name:joi.string().min(1).max(100).required().error(new Error('项目名称填报错误！')),
-       proj_level:joi.string().valid('国家级','省级').required().error(new Error(new Error('层次填报错误！'))),
-       proj_type:joi.string().valid('纵向','横向').required().error(new Error(new Error('项目类型填报错误！'))),
-       proj_fromto_ymth:joi.string().pattern(/^(1[9][5-9][0-9]|2[0][0-2][0-9])-(0[1-9]|1[0-2])$/).required().error(new Error('项目起止年月填写错误！')),
+       proj_level:joi.string().valid('国家级','省级').required().error(new Error('层次填报错误！')),
+       proj_type:joi.string().valid('纵向','横向').required().error(new Error('项目类型填报错误！')),
+       proj_fromto_ymth:joi.string().pattern(/^(1[9][5-9][0-9]|2[0][0-2][0-9])-(0[1-9]|1[0-2])至(1[9][5-9][0-9]|2[0][0-2][0-9])-(0[1-9]|1[0-2])$/).required().error(new Error('项目起止年月填写错误！')),
        proj_fund:joi.number().min(0).required().error(new Error('项目经费填报错误！')),
    }
    )
 )
 
-//host_scirproj_list 修改：增加require()
+//host_scirproj_list 
 const data_4_2_2_1 = joi.array().items(
    joi.object().keys({
-       yr:joi.number().integer().less(2029).greater(1950).required().error(new Error('填报年度填报错误！')),
+       yr:joi.number().integer().less(2023).greater(2020).required().error(new Error('填报年度填报错误！')),
        proj_name:joi.string().min(1).max(100).required().error(new Error('项目名称填报错误！')),
-       proj_type:joi.string().valid('纵向','横向').required().error(new Error(new Error('项目类型填报错误！'))),
-       proj_fromto_ymth:joi.string().pattern(/^(1[9][5-9][0-9]|2[0][0-2][0-9])-(0[1-9]|1[0-2])$/).required().error(new Error('项目起止年月填写错误！')),
+       proj_type:joi.string().valid('纵向','横向').required().error(new Error('项目类型填报错误！')),
+       proj_fromto_ymth:joi.string().pattern(/^(1[9][5-9][0-9]|2[0][0-2][0-9])-(0[1-9]|1[0-2])至(1[9][5-9][0-9]|2[0][0-2][0-9])-(0[1-9]|1[0-2])$/).required().error(new Error('项目起止年月填写错误！')),
        proj_fund:joi.number().min(0).required().error(new Error('项目经费填报错误！')),
 
-       proj_level:joi.string().valid('国家级','省级').error(new Error(new Error('项目等级填报错误！'))),
+       proj_level:joi.string().valid('国家级','省级').error(new Error('项目等级填报错误！')),
    }
    )
 )
@@ -223,11 +223,11 @@ const data_4_2_2_2 = joi.array().items(
    joi.object().keys({
        yr:joi.number().integer().less(2025).greater(1950).required().error(new Error('填报年度填报错误！')),
        proj_name:joi.string().min(1).max(100).required().error(new Error('项目名称填报错误！')),
-       proj_type:joi.string().valid('纵向','横向').required().error(new Error(new Error('项目类型填报错误！'))),
-       proj_fromto_ymth:joi.string().pattern(/^(1[9][5-9][0-9]|2[0][0-2][0-9])-(0[1-9]|1[0-2])$/).required().error(new Error('项目起止年月填写错误！')),
+       proj_type:joi.string().valid('纵向','横向').required().error(new Error('项目类型填报错误！')),
+       proj_fromto_ymth:joi.string().pattern(/^(1[9][5-9][0-9]|2[0][0-2][0-9])-(0[1-9]|1[0-2])至(1[9][5-9][0-9]|2[0][0-2][0-9])-(0[1-9]|1[0-2])$/).required().error(new Error('项目起止年月填写错误！')),
        proj_fund:joi.number().min(0).required().error(new Error('项目经费填报错误！')),
         // 删除require
-       proj_level:joi.string().valid('国家级','省级').error(new Error(new Error('项目等级填报错误！'))),
+       proj_level:joi.string().valid('国家级','省级').error(new Error('项目等级填报错误！')),
    }
    )
 )
@@ -237,11 +237,11 @@ const data_4_2_2_3 = joi.array().items(
    joi.object().keys({
        yr:joi.number().integer().less(2029).greater(1950).required().error(new Error('填报年度填报错误！')),
        proj_name:joi.string().min(1).max(100).required().error(new Error('项目名称填报错误！')),
-       proj_type:joi.string().valid('纵向','横向').required().error(new Error(new Error('项目类型填报错误！'))),
-       proj_fromto_ymth:joi.string().pattern(/^(1[9][5-9][0-9]|2[0][0-2][0-9])-(0[1-9]|1[0-2])$/).required().error(new Error('项目起止年月填写错误！')),
+       proj_type:joi.string().valid('纵向','横向').required().error(new Error('项目类型填报错误！')),
+       proj_fromto_ymth:joi.string().pattern(/^(1[9][5-9][0-9]|2[0][0-2][0-9])-(0[1-9]|1[0-2])至(1[9][5-9][0-9]|2[0][0-2][0-9])-(0[1-9]|1[0-2])$/).required().error(new Error('项目起止年月填写错误！')),
        proj_fund:joi.number().min(0).required().error(new Error('项目经费填报错误！')),
         // 删除require
-       proj_level:joi.string().valid('国家级','省级').error(new Error(new Error('项目等级填报错误！'))),
+       proj_level:joi.string().valid('国家级','省级').error(new Error('项目等级填报错误！')),
    }
    )
 )
@@ -249,11 +249,11 @@ const data_4_2_2_3 = joi.array().items(
 //total_scifund_touniv 
 const data_4_2_3_1 = joi.array().items(
    joi.object().keys({
-       yr:joi.number().integer().less(2029).greater(1950).required().error(new Error('填报年度填报错误！')),
+       yr:joi.number().integer().less(2029).greater(2020).required().error(new Error('填报年度填报错误！')),
        quarter:joi.string().valid('第一季度','第二季度','第三季度','第四季度').required().error(new Error('填报季度填报错误！')),
-       total_fund:joi.number().min(0).allow('').error(new Error('建设总经费填报错误！')),
+       total_fund:joi.number().min(0).required().error(new Error('建设总经费填报错误！')),
        
-       subj_type:joi.string().valid('纵向','横向').error(new Error(new Error('课题类型填报错误！'))),
+       subj_type:joi.string().valid('纵向','横向').error(new Error('课题类型填报错误！')),
    }
    )
 )
@@ -261,11 +261,11 @@ const data_4_2_3_1 = joi.array().items(
 //total_scifund_touniv 
 const data_4_2_3_2 = joi.array().items(
    joi.object().keys({
-       yr:joi.number().integer().less(2029).greater(1950).required().error(new Error('填报年度填报错误！')),
+       yr:joi.number().integer().less(2029).greater(2020).required().error(new Error('填报年度填报错误！')),
        quarter:joi.string().valid('第一季度','第二季度','第三季度','第四季度').required().error(new Error('填报季度填报错误！')),
-       total_fund:joi.number().min(0).allow('').error(new Error('建设总经费填报错误！')),
+       total_fund:joi.number().min(0).required().error(new Error('建设总经费填报错误！')),
        
-       subj_type:joi.string().valid('纵向','横向').error(new Error(new Error('课题类型填报错误！'))),
+       subj_type:joi.string().valid('纵向','横向').error(new Error('课题类型填报错误！')),
    }
    )
 )
@@ -276,10 +276,10 @@ const data_4_2_4 = joi.array().items(
        yr:joi.number().integer().less(2029).greater(1950).required().error(new Error('年度填报错误！')),
        jour_name:joi.string().min(1).max(100).required().error(new Error('期刊名称填报错误！')),
        jour_in_num:joi.number().integer().min(1).required().error(new Error('国内期刊编号填报错误！')),
-       jour_out_num:joi.number().integer().min(1).required().error(new Error('国外期刊编号填报错误！')),
+       jour_out_num:joi.number().integer().min(1).required().error(new Error('国际期刊编号填报错误！')),
        adopt:joi.string().valid('CSSCI','CSCD','SCI','SSCI','EI','A&HCI').required().error(new Error('期刊收录情况填报错误！')),
        create_time:joi.string().pattern(/^(1[9][5-9][0-9]|2[0][0-2][0-9])-(0[1-9]|1[0-2])$/).required().error(new Error('创刊时间填写错误！')),
-       ac_influ:joi.string().min(1).max(100).required().error(new Error('学术影响力填报错误！')),
+       ac_influ:joi.string().min(1).max(50).required().error(new Error('学术影响力填报错误！')),
        
    }
    )
@@ -288,9 +288,9 @@ const data_4_2_4 = joi.array().items(
 //tch_mk_dfstd 
 const data_4_3_1 = joi.array().items(
    joi.object().keys({
+       yr:joi.number().integer().less(2029).greater(2020).required().error(new Error('年度填报错误！')),
        proj_name:joi.string().min(1).max(100).required().error(new Error('名称填报错误！')),
-       proj_type:joi.string().valid('纵向','横向').required().error(new Error(new Error('类型填报错误！'))),
-       yr:joi.number().integer().less(2029).greater(1950).required().error(new Error('年度填报错误！')),
+       proj_type:joi.string().valid('纵向','横向').required().error(new Error('类型填报错误！')),
        quarter:joi.string().valid('第一季度','第二季度','第三季度','第四季度').required().error(new Error('季度填报错误！')),
        parti_type:joi.string().min(1).max(100).required().error(new Error('参与类型填报错误！')),              //
    }

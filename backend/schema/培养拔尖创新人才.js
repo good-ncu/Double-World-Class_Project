@@ -171,7 +171,7 @@ const data_2_2_7 = joi.array().items(
         stu_name:joi.string().min(1).max(13).required().error(new Error('学生姓名填报错误！')),
         stu_type:joi.string().valid('本科生','硕士研究生',"博士研究生").required().error(new Error(new Error('学生类型填报错误！'))),
         jour_name:joi.string().min(1).max(100).required().error(new Error('期刊名称填报错误！')),
-        jour_volume:joi.string().min(1).required().error(new Error('卷（期）数！填报错误！')),
+        jour_volume:joi.string().min(1).max(100).required().error(new Error('卷（期）数！填报错误！')),
         jour_collec:joi.string().valid('CSSCI','CSCD','SCI','SSCI','EI','A&HCI','其他').required().error(new Error('期刊收录情况填报错误！')),
     }
     )
