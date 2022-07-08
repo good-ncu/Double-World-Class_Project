@@ -117,7 +117,7 @@ exports.disci_eval_situation_sub = function (req, res) {
             }, function (err) {
                 // 所有SQL执行完成后回调
                 if (err) {
-                    return res.cc('系统繁忙,请稍后再试')
+                    return res.cc('数据填报失败，请稍后再试')
                 } else {
                     // 当当前用户所填数据都成功后，说明当前周期对应的excel表已经填报完成， 则在user_fill插入一条记录，flag置为1， 说明该表
                     client.query(`insert into user_fill(id, user_id, fill_id, flag) values('${user_fill_id}','${user.id}','1_1_2',1)`, function (err, result) {
@@ -219,12 +219,12 @@ exports.disci_funds_sub = function (req, res) {
         const strUUID = uuidv4(); // ⇨ '1b9d6bcd-bbfd-4b2d-9b5d-ab8dfbbd4bed'
         const strUUID2 = strUUID.replace(/-/g, '');       // 去掉-字符
         sqls[i] = `INSERT INTO discipline_const_fund(id, univ_code, discipline_code, yr, total_fund, ctr_budg_fund,ctr_expend_fund,lcl_budg_fund,
-            lcl_receive_fund,lcl_expend_fund,self_budg_fund,self_receive_fund,self_expend_fund,other_budg_fund,other_receive_fund,other_expend_fund,user_fill_id) 
+            lcl_receive_fund,lcl_expend_fund,self_budg_fund,self_receive_fund,self_expend_fund,other_budg_fund,other_receive_fund,other_expend_fund,ctr_receive_fund,user_fill_id) 
         VALUES ('${strUUID2}','${user.univ_code}',
         '${user.discipline_code}',${submit_info[i].yr},${submit_info[i].total_fund},${submit_info[i].ctr_budg_fund},${submit_info[i].ctr_expend_fund},${submit_info[i].lcl_budg_fund},
         ${submit_info[i].lcl_receive_fund},${submit_info[i].lcl_expend_fund},${submit_info[i].self_budg_fund},${submit_info[i].self_receive_fund},${submit_info[i].self_expend_fund},
-        ${submit_info[i].other_budg_fund},${submit_info[i].other_receive_fund},${submit_info[i].other_expend_fund},'${user_fill_id}')`
-        // console.log(sqls[i])
+        ${submit_info[i].other_budg_fund},${submit_info[i].other_receive_fund},${submit_info[i].other_expend_fund},${submit_info[i].ctr_receive_fund},'${user_fill_id}')`
+        console.log(sqls[i])
     }
 
     async.each(sqls, function (item, callback) {
