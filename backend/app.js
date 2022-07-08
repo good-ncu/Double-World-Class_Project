@@ -34,7 +34,7 @@ const config = require('./config')
 
 
 // /api/login接口的不走解析token中间件，注册要携带token
-app.use(expressJWT({secret: config.jwtSecretKey}).unless({path: [/^\/api\/login/]}))
+app.use(expressJWT({secret: config.jwtSecretKey,algorithms: ['HS256']}).unless({path: [/^\/api\/login/]}))
 
 
 // 导入并使用用户路由模块

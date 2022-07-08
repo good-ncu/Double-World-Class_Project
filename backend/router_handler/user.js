@@ -38,7 +38,7 @@ exports.register = function(req,res){
       ],
       function (err, results) {
         // 执行 SQL 语句失败
-        if (err) return res.send({ status: 1, message: err.message })
+        if (err) return res.cc(new Error('注册用户名失败！'))
         console.log("sql执行成功");
         // SQL 语句执行成功，但影响行数不为 1
         if (results.rowCount !== 1) {
