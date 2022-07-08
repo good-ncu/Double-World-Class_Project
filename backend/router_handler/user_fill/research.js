@@ -386,8 +386,8 @@ const { query } = require('express');
     for (let i = 0, len = submit_info.length; i < len; i++) {
         const strUUID = uuidv4(); // ⇨ '1b9d6bcd-bbfd-4b2d-9b5d-ab8dfbbd4bed'
         const strUUID2 = strUUID.replace(/-/g, '');       // 去掉-字符
-        sqls[i] = `INSERT INTO tch_paper(id, univ_code, discipline_code, yr, paper_title, paper_au, jour_name, jour_level, publish_yr_mth, volume_num, remarks, path, user_fill_id) 
-        VALUES ('${strUUID2}','${user.univ_code}','${user.discipline_code}', ${submit_info[i].yr}, '${submit_info[i].paper_title}', '${submit_info[i].paper_au}', '${submit_info[i].jour_name}', '${submit_info[i].jour_level}', '${submit_info[i].publish_yr_mth}', '${submit_info[i].volume_num}', '${submit_info[i].remarks}', NULL, '${user_fill_id}');`
+        sqls[i] = `INSERT INTO tch_paper(id, univ_code, discipline_code, yr, paper_title, paper_au, jour_name, jour_level, yr_mth_volum, remarks, path, user_fill_id) 
+        VALUES ('${strUUID2}','${user.univ_code}','${user.discipline_code}', ${submit_info[i].yr}, '${submit_info[i].paper_title}', '${submit_info[i].paper_au}', '${submit_info[i].jour_name}', '${submit_info[i].jour_level}', '${submit_info[i].yr_mth_volum}', '${submit_info[i].remarks}', NULL, '${user_fill_id}');`
         console.log(sqls[i])
     }
     async.each(sqls, function (item, callback) {
@@ -444,9 +444,9 @@ const { query } = require('express');
     for (let i = 0, len = submit_info.length; i < len; i++) {
         const strUUID = uuidv4(); // ⇨ '1b9d6bcd-bbfd-4b2d-9b5d-ab8dfbbd4bed'
         const strUUID2 = strUUID.replace(/-/g, '');       // 去掉-字符
-        sqls[i] = `INSERT INTO tch_paper(id, univ_code, discipline_code, yr, quarter, paper_title, paper_au, jour_name, jour_level, publish_yr_mth, volume_num, remarks, path, user_fill_id) 
+        sqls[i] = `INSERT INTO tch_paper(id, univ_code, discipline_code, yr, quarter, paper_title, paper_au, jour_name, jour_level, yr_mth_volum, remarks, path, user_fill_id) 
         VALUES ('${strUUID2}','${user.univ_code}','${user.discipline_code}', ${submit_info[i].yr}, '${submit_info[i].quarter}', 
-        '${submit_info[i].paper_title}', '${submit_info[i].paper_au}', '${submit_info[i].jour_name}', '${submit_info[i].jour_level}', '${submit_info[i].publish_yr_mth}', '${submit_info[i].volume_num}', '${submit_info[i].remarks}', NULL, '${user_fill_id}');`
+        '${submit_info[i].paper_title}', '${submit_info[i].paper_au}', '${submit_info[i].jour_name}', '${submit_info[i].jour_level}', '${submit_info[i].yr_mth_volum}', '${submit_info[i].remarks}', NULL, '${user_fill_id}');`
         console.log(sqls[i])
     }
 
@@ -506,9 +506,9 @@ const { query } = require('express');
     for (let i = 0, len = submit_info.length; i < len; i++) {
         const strUUID = uuidv4(); // ⇨ '1b9d6bcd-bbfd-4b2d-9b5d-ab8dfbbd4bed'
         const strUUID2 = strUUID.replace(/-/g, '');       // 去掉-字符
-        sqls[i] = `INSERT INTO tch_paper(id, univ_code, discipline_code, yr, quarter, paper_title, paper_au, jour_name, jour_level, publish_yr_mth, volume_num, remarks, path, user_fill_id) 
+        sqls[i] = `INSERT INTO tch_paper(id, univ_code, discipline_code, yr, quarter, paper_title, paper_au, jour_name, jour_level, yr_mth_volum, remarks, path, user_fill_id) 
         VALUES ('${strUUID2}','${user.univ_code}','${user.discipline_code}', ${submit_info[i].yr}, '${submit_info[i].quarter}', 
-        '${submit_info[i].paper_title}', '${submit_info[i].paper_au}', '${submit_info[i].jour_name}', '${submit_info[i].jour_level}', '${submit_info[i].publish_yr_mth}', '${submit_info[i].volume_num}', '${submit_info[i].remarks}', NULL, '${user_fill_id}');`
+        '${submit_info[i].paper_title}', '${submit_info[i].paper_au}', '${submit_info[i].jour_name}', '${submit_info[i].jour_level}', '${submit_info[i].yr_mth_volum}', '${submit_info[i].remarks}', NULL, '${user_fill_id}');`
         console.log(sqls[i])
     }
 
@@ -566,9 +566,9 @@ const { query } = require('express');
     for (let i = 0, len = submit_info.length; i < len; i++) {
         const strUUID = uuidv4(); // ⇨ '1b9d6bcd-bbfd-4b2d-9b5d-ab8dfbbd4bed'
         const strUUID2 = strUUID.replace(/-/g, '');       // 去掉-字符
-        sqls[i] = `INSERT INTO tch_paper(id, univ_code, discipline_code, yr, quarter, paper_title, paper_au, jour_name, jour_level, publish_yr_mth, volume_num, remarks, path, user_fill_id) 
+        sqls[i] = `INSERT INTO tch_paper(id, univ_code, discipline_code, yr, quarter, paper_title, paper_au, jour_name, jour_level, yr_mth_volum, remarks, path, user_fill_id) 
         VALUES ('${strUUID2}','${user.univ_code}','${user.discipline_code}', ${submit_info[i].yr}, '${submit_info[i].quarter}', 
-        '${submit_info[i].paper_title}', '${submit_info[i].paper_au}', '${submit_info[i].jour_name}', '${submit_info[i].jour_level}', '${submit_info[i].publish_yr_mth}', '${submit_info[i].volume_num}', '${submit_info[i].remarks}', NULL, '${user_fill_id}');`
+        '${submit_info[i].paper_title}', '${submit_info[i].paper_au}', '${submit_info[i].jour_name}', '${submit_info[i].jour_level}', '${submit_info[i].yr_mth_volum}', '${submit_info[i].remarks}', NULL, '${user_fill_id}');`
         console.log(sqls[i])
     }
 
