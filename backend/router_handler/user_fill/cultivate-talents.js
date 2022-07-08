@@ -325,7 +325,7 @@ exports.edu_awards_num_graduate_counts_sub = function(req,res){
                 message: err
             })
         } else {
-            client.query(`insert into user_fill(id, user_id, fill_id, flag) values('${uuidv4().replace(/-/g,'')}','${user.id}','2_2_1_2',1)`, function(err,result){
+            client.query(`insert into user_fill(id, user_id, fill_id, flag) values('${user_fill_id}','${user.id}','2_2_1_2',1)`, function(err,result){
                 if(err) return res.cc('系统繁忙,请稍后再试')
                 if(result.rowCount !== 1) return res.cc('系统繁忙,请稍后再试')
                 res.send({
