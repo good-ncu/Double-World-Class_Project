@@ -5,10 +5,11 @@ const joi = require('joi')
         tch_name:joi.string().min(1).max(13).required().error(new Error('教师姓名填报错误！')),
         award_name:joi.string().min(1).max(100).required().error(new Error('奖项名称填报错误！')),
         // 奖项等级
-        grade:joi.string().valid('国家特等奖','国家一等奖','国家二等奖','一等奖','二等奖','三等奖').required().error(new Error('奖项等级填报错误！')),
+        grade:joi.string().required().error(new Error('奖项等级填报错误！')),
         award_eval_org:joi.string().min(1).max(50).required().error(new Error('评奖组织单位填报错误！')),
         award_eval_org_type:joi.string().min(1).max(50).required().error(new Error('组织单位类型填报错误！')),
-        yr:joi.number().integer().less(2029).greater(1950).required().error(new Error('获奖年份填报错误！')),
+        yr:joi.number().integer().less(2021).greater(1950).required().error(new Error('获奖年份填报错误！')),
+        // 层次
         level:joi.string().valid('国家级','省部级').required().error(new Error(new Error('层次填报错误！'))),
     }
     )
@@ -19,13 +20,11 @@ const data_4_1_1_1 = joi.array().items(
    joi.object().keys({
        tch_name:joi.string().min(1).max(13).required().error(new Error('教师姓名填报错误！')),
        award_name:joi.string().min(1).max(100).required().error(new Error('奖项名称填报错误！')),
-       grade:joi.string().valid('国家特等奖','国家一等奖','国家二等奖','一等奖','二等奖','三等奖').required().error(new Error('奖项等级填报错误！')),
+       grade:joi.string().min(1).required().error(new Error('奖项等级填报错误！')),
        award_eval_org:joi.string().min(1).max(50).required().error(new Error('评奖组织单位填报错误！')),
        award_eval_org_type:joi.string().min(1).max(50).required().error(new Error('评奖组织单位类型填报错误！')),
        yr:joi.number().integer().less(2029).greater(1950).required().error(new Error('获奖年份填报错误！')),
 
-       pos:joi.string().min(1).max(50).error(new Error('担任职务填报错误！')),
-       level:joi.string().valid('国家级','省部级').error(new Error(new Error('层次填报错误！'))),
    }
    )
 )
@@ -35,13 +34,11 @@ const data_4_1_1_2 = joi.array().items(
    joi.object().keys({
        tch_name:joi.string().min(1).max(13).required().error(new Error('教师姓名填报错误！')),
        award_name:joi.string().min(1).max(100).required().error(new Error('奖项名称填报错误！')),
-       level:joi.string().valid('国家级','省部级').required().error(new Error(new Error('层次填报错误！'))),
-       pos:joi.string().min(1).max(50).required().error(new Error('担任职务填报错误！')),
+       grade:joi.string().min(1).required().error(new Error('奖项等级填报错误！')),
        award_eval_org:joi.string().min(1).max(50).required().error(new Error('评奖组织单位填报错误！')),
        award_eval_org_type:joi.string().min(1).max(50).required().error(new Error('评奖组织单位类型填报错误！')),
        yr:joi.number().integer().less(2029).greater(1950).required().error(new Error('获奖年份填报错误！')),
        
-       grade:joi.string().valid('国家特等奖','国家一等奖','国家二等奖','一等奖','二等奖','三等奖').required().error(new Error('奖项等级填报错误！')),
    }
    )
 )
@@ -49,7 +46,7 @@ const data_4_1_1_2 = joi.array().items(
 //tch_monog 
 const data_4_1_2 = joi.array().items(
     joi.object().keys({
-        yr:joi.number().integer().less(2029).greater(1950).required().error(new Error('年度填报错误！')),
+        yr:joi.number().integer().less(2029).greater(2020).required().error(new Error('年度填报错误！')),
         monograph:joi.string().min(1).max(100).required().error(new Error('专著名称填报错误！')),
         tch_name:joi.string().min(1).max(13).required().error(new Error('教师姓名填报错误！')),
         publisher:joi.string().min(1).max(100).required().error(new Error('出版社填报错误！')),
@@ -66,14 +63,13 @@ const data_4_1_3_0 = joi.array().items(
         paper_au:joi.string().min(1).max(200).required().error(new Error('作者姓名填报错误！')),
         jour_name:joi.string().min(1).max(100).required().error(new Error('发表期刊填报错误！')),
         volume_num:joi.number().integer().min(1).required().error(new Error('期刊卷（期）数填报错误！')),
-        remarks: joi.string().max(200).allow("").error(new Error('备注在200字以内！')),
+        remarks: joi.string().max(200).allow("").required().error(new Error('备注在200字以内！')),
 
         tch_name:joi.string().min(1).max(13).error(new Error('姓名填报错误！')),
         yr:joi.number().integer().less(2029).greater(1950).error(new Error('获奖年份填报错误！')),
         quarter:joi.string().valid('第一季度','第二季度','第三季度','第四季度').error(new Error('填报季度填报错误！')),
         jour_level:joi.string().valid('国内外顶级期刊','国内重要期刊','其他重要期刊').error(new Error('期刊级别填报错误！')),
         publish_yr_mth:joi.string().pattern(/^(1[9][5-9][0-9]|2[0][0-2][0-9])-(0[1-9]|1[0-2])$/).error(new Error('发表年月填写错误！')),
-        
     }
     )
 )
@@ -150,34 +146,34 @@ const data_4_1_4 = joi.array().items(
    )
 )
 
-//scir_innova_platconst 修改：增加require() 修改为省部级
+//scir_innova_platconst 修改：增加require()
 const data_4_2_1_0 = joi.array().items(
    joi.object().keys({
        yr:joi.number().integer().less(2029).greater(1950).required().error(new Error('填报年度填报错误！')),
        plat_name:joi.string().min(1).max(100).required().error(new Error('平台名称填报错误！')),
-       palt_level:joi.string().valid('科技部国家级','其他国家级','省部级').required().error(new Error(new Error('平台等级填报错误！'))),
+       palt_level:joi.string().valid('科技部国家级','其他国家级','省部级').required().error(new Error('平台等级填报错误！')),
        appro_time:joi.string().pattern(/^(1[9][5-9][0-9]|2[0][0-2][0-9])-(0[1-9]|1[0-2])$/).required().error(new Error('批准时间填写错误！')),
    }
    )
 )
 
-//scir_innova_platconst 修改：增加require() 修改为省部级
+//scir_innova_platconst 修改：增加require() 科技部国家级
 const data_4_2_1_1 = joi.array().items(
     joi.object().keys({
         yr:joi.number().integer().less(2029).greater(1950).required().error(new Error('填报年度填报错误！')),
         plat_name:joi.string().min(1).max(100).required().error(new Error('平台名称填报错误！')),
-        palt_level:joi.string().valid('科技部国家级','其他国家级','省部级').required().error(new Error(new Error('平台等级填报错误！'))),
+        palt_level:joi.string().valid('科技部国家级').required().error(new Error('平台等级填报错误！')),
         appro_time:joi.string().pattern(/^(1[9][5-9][0-9]|2[0][0-2][0-9])-(0[1-9]|1[0-2])$/).required().error(new Error('批准时间填写错误！')),
     }
     )
 )
 
-//scir_innova_platconst 修改：增加require() 修改为省部级
+//scir_innova_platconst 修改：增加require()         palt_level:joi.string().valid('其他国家级').required().error(new Error(new Error('平台等级填报错误！'))),
 const data_4_2_1_2 = joi.array().items(
     joi.object().keys({
-        yr:joi.number().integer().less(2029).greater(1950).required().error(new Error('填报年度填报错误！')),
+        yr:joi.number().integer().less(2029).greater(2020).required().error(new Error('填报年度填报错误！')),
         plat_name:joi.string().min(1).max(100).required().error(new Error('平台名称填报错误！')),
-        palt_level:joi.string().valid('科技部国家级','其他国家级','省部级').required().error(new Error(new Error('平台等级填报错误！'))),
+        palt_level:joi.string().valid('其他国家级').required().error(new Error('平台等级填报错误！')),
         appro_time:joi.string().pattern(/^(1[9][5-9][0-9]|2[0][0-2][0-9])-(0[1-9]|1[0-2])$/).required().error(new Error('批准时间填写错误！')),
     }
     )
@@ -187,9 +183,9 @@ const data_4_2_1_2 = joi.array().items(
 //scir_innova_platconst 修改：增加require() 修改为省部级
 const data_4_2_1_3 = joi.array().items(
     joi.object().keys({
-        yr:joi.number().integer().less(2029).greater(1950).required().error(new Error('填报年度填报错误！')),
+        yr:joi.number().integer().less(2029).greater(2020).required().error(new Error('填报年度填报错误！')),
         plat_name:joi.string().min(1).max(100).required().error(new Error('平台名称填报错误！')),
-        palt_level:joi.string().valid('科技部国家级','其他国家级','省部级').required().error(new Error(new Error('平台等级填报错误！'))),
+        palt_level:joi.string().valid('省部级').required().error(new Error('平台等级填报错误！')),
         appro_time:joi.string().pattern(/^(1[9][5-9][0-9]|2[0][0-2][0-9])-(0[1-9]|1[0-2])$/).required().error(new Error('批准时间填写错误！')),
     }
     )
@@ -198,7 +194,7 @@ const data_4_2_1_3 = joi.array().items(
 //host_scirproj_list 修改：增加require()
 const data_4_2_2_0 = joi.array().items(
    joi.object().keys({
-       yr:joi.number().integer().less(2029).greater(1950).required().error(new Error('填报年度填报错误！')),
+       yr:joi.number().integer().less(2021).greater(1950).required().error(new Error('填报年度填报错误！')),
        proj_name:joi.string().min(1).max(100).required().error(new Error('项目名称填报错误！')),
        proj_level:joi.string().valid('国家级','省级').required().error(new Error(new Error('层次填报错误！'))),
        proj_type:joi.string().valid('纵向','横向').required().error(new Error(new Error('项目类型填报错误！'))),

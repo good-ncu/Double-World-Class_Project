@@ -11,9 +11,22 @@ const sub_schema2  = require('../../schema/培养拔尖创新人才')
 
 
 /* 
-    查询三级表格是否可以填报，所有二级请求共用同一个处理函数
+     2-1 查询三级表格是否可以填报，所有二级请求共用同一个处理函数
 */
-router.post('/query-is-time', cultivate_talents_handler.query_is_time)
+router.post('/education', cultivate_talents_handler.query_is_time)
+/* 
+     2-2 查询三级表格是否可以填报，所有二级请求共用同一个处理函数
+*/
+router.post('/progress', cultivate_talents_handler.query_is_time)
+/* 
+     2-3 查询三级表格是否可以填报，所有二级请求共用同一个处理函数
+*/
+router.post('/graduate-employment', cultivate_talents_handler.query_is_time)
+/* 
+     2-4 查询三级表格是否可以填报，所有二级请求共用同一个处理函数
+*/
+router.post('/international-contacts', cultivate_talents_handler.query_is_time)
+
 
 
 /*

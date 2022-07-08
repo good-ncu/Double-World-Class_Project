@@ -23,7 +23,7 @@ const disciplinecode = joi.string().pattern(/^\d{4}$/).required().error(new Erro
 // 注册时角色类别验证规则
 const roleidRegister = joi.number().integer().greater(3).less(5).required().error(new Error('角色类别格式错误'))
 // 登录时角色类别验证规则
-const roleidLogin = joi.number().integer().greater(0).less(5).required().error(new Error('角色类别格式错误'))
+// const roleidLogin = joi.number().integer().greater(0).less(5).required().error(new Error('角色类别格式错误'))
 // 工号验证规则
 const jobnumber =  joi.string().min(1).max(13).required().error(new Error('工号格式错误，必须需要五位数字'))
 // 手机号验证
@@ -50,6 +50,6 @@ exports.login_schema = {
     body: {
       username,
       password,
-      roleidLogin,
+      // roleidLogin,
     },
 }

@@ -99,7 +99,7 @@ exports.login = function(req, res){
         status: 0,
         msg: '登录成功',
         username: userinfo.username,
-        roleid: userinfo.roleidLogin, 
+        roleid: results.rows[0].role_id, 
         role: roleStr,
         token:'Bearer '+ tokenStr
     })

@@ -131,7 +131,7 @@ const { query } = require('express');
 
 
 /**
- * 表4-1-1-0 学科入选国家优秀教师先进典型 情况处理函数
+ * 表4-1-1-0 教师获国内外奖项数及清单 情况处理函数
  * @param {*} req 
  * @param {*} res 
  */
@@ -209,7 +209,7 @@ const { query } = require('express');
         const strUUID = uuidv4(); // ⇨ '1b9d6bcd-bbfd-4b2d-9b5d-ab8dfbbd4bed'
         const strUUID2 = strUUID.replace(/-/g, '');       // 去掉-字符
         sqls[i] = `INSERT INTO tch_award(id, univ_code, discipline_code, yr, award_name, tch_name, level, grade, award_eval_org, award_eval_org_type, path, user_fill_id) 
-        VALUES ('${strUUID2}','${user.univ_code}','${user.discipline_code}', ${submit_info[i].yr}, '${submit_info[i].award_name}', '${submit_info[i].tch_name}', '国家级', '${submit_info[i].grade}', '${submit_info[i].award_eval_org}', '${submit_info[i].award_eval_org_type}', NULL, ${user_fill_id});`
+        VALUES ('${strUUID2}','${user.univ_code}','${user.discipline_code}', ${submit_info[i].yr}, '${submit_info[i].award_name}', '${submit_info[i].tch_name}', '国家级', '${submit_info[i].grade}', '${submit_info[i].award_eval_org}', '${submit_info[i].award_eval_org_type}', NULL, '${user_fill_id}');`
         console.log(sqls[i])
     }
 
@@ -269,7 +269,7 @@ const { query } = require('express');
         const strUUID = uuidv4(); // ⇨ '1b9d6bcd-bbfd-4b2d-9b5d-ab8dfbbd4bed'
         const strUUID2 = strUUID.replace(/-/g, '');       // 去掉-字符
         sqls[i] = `INSERT INTO tch_award(id, univ_code, discipline_code, yr, award_name, tch_name, level, grade, award_eval_org, award_eval_org_type, path, user_fill_id) 
-        VALUES ('${strUUID2}','${user.univ_code}','${user.discipline_code}', ${submit_info[i].yr}, '${submit_info[i].award_name}', '${submit_info[i].tch_name}', '省部级', '${submit_info[i].yr}', '${submit_info[i].grade}', '${submit_info[i].award_eval_org}', NULL, ${user_fill_id});`
+        VALUES ('${strUUID2}','${user.univ_code}','${user.discipline_code}', ${submit_info[i].yr}, '${submit_info[i].award_name}', '${submit_info[i].tch_name}', '省部级', '${submit_info[i].yr}', '${submit_info[i].grade}', '${submit_info[i].award_eval_org}', NULL, '${user_fill_id}');`
         console.log(sqls[i])
     }
 
@@ -328,7 +328,7 @@ const { query } = require('express');
         const strUUID = uuidv4(); // ⇨ '1b9d6bcd-bbfd-4b2d-9b5d-ab8dfbbd4bed'
         const strUUID2 = strUUID.replace(/-/g, '');       // 去掉-字符
         sqls[i] = `INSERT INTO tch_monog(id, univ_code, discipline_code, yr, tch_name, monograph, publisher, publish_date, path, user_fill_id) 
-        VALUES ('${strUUID2}','${user.univ_code}','${user.discipline_code}', ${submit_info[i].yr}, '${submit_info[i].tch_name}', '${submit_info[i].monograph}', '${submit_info[i].publisher}', '${submit_info[i].publish_date}', NULL, ${user_fill_id});`
+        VALUES ('${strUUID2}','${user.univ_code}','${user.discipline_code}', ${submit_info[i].yr}, '${submit_info[i].tch_name}', '${submit_info[i].monograph}', '${submit_info[i].publisher}', '${submit_info[i].publish_date}', NULL, '${user_fill_id}');`
         console.log(sqls[i])
     }
 
