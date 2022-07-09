@@ -83,8 +83,20 @@ const { query } = require('express');
                             } else {
                                 // 非NULL
                                 if(results.rows.length!==0){
-                                    console.log(results.rows[0]);
-                                    all_fill_period[count-1].is_filled = results.rows[0].flag
+                                    console.log(results.rows);
+                                    // 只有一条记录
+                                    if(results.rows.length==1){
+                                        all_fill_period[count-1].is_filled = results.rows[0].flag
+                                    }
+                                    var c = 0
+                                    // 还可能存在多个记录，检索所有记录，是不是user_fill中的flag都为0
+                                    for(let i = 0, len = results.rows.length; i < len; i++){
+                                        if(results.rows[i].flag == 1){
+                                            c=1
+                                            break
+                                        }
+                                    }
+                                    all_fill_period[count-1].is_filled = c
                                     // all_user_fill.push(results.rows[0])
                                 } else {
                                     all_fill_period[count-1].is_filled = 0

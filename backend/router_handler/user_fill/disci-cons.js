@@ -404,8 +404,20 @@ exports.disci_funds_sub = function (req, res) {
                             } else {
                                 // 非NULL
                                 if(results.rows.length!==0){
-                                    console.log(results.rows[0]);
-                                    all_fill_period[count-1].is_filled = results.rows[0].flag
+                                    console.log(results.rows);
+                                    // 只有一条记录
+                                    if(results.rows.length==1){
+                                        all_fill_period[count-1].is_filled = results.rows[0].flag
+                                    }
+                                    var c = 0
+                                    // 还可能存在多个记录，检索所有记录，是不是user_fill中的flag都为0
+                                    for(let i = 0, len = results.rows.length; i < len; i++){
+                                        if(results.rows[i].flag == 1){
+                                            c=1
+                                            break
+                                        }
+                                    }
+                                    all_fill_period[count-1].is_filled = c
                                     // all_user_fill.push(results.rows[0])
                                 } else {
                                     all_fill_period[count-1].is_filled = 0
@@ -428,7 +440,89 @@ exports.disci_funds_sub = function (req, res) {
                     }
                 }
             )
-
+            // return res.send({
+            //     fill_status: resultt[0]
+            // })
+        /**
+         * 旧代码 返回不能填报的表格
+         * 
+         */
+        //     // sqls执行没有报错，
+        //     var sqls2 = []
+        //     console.log(resultt[0]);
+        //     resultt = resultt[0]
+        //     var count = 0 
+        //     // 循环遍历上个查询结果时，可以顺便就把下个sql定义了
+        //     // 临时变量，用于当作sqls2的移动下标，不宜直接在循环中用i作下标
+        //     var temp = 0
+        //     // 临时变量，用于当作real_result的移动下标，不宜直接在循环中用i作下标
+        //     var temp_for_real_result = 0
+        //     // 记录 无法填报的表格的id
+        //     var real_result = []
+        //     // 先检查填报周期，如果全部不在填报周期，就直接返回数据（所有按钮灰色）
+        //     for(let i = 0,len = resultt.length;i<len;i++){
+        //         if(resultt[i].flag===0){
+        //             count++
+        //             real_result[temp_for_real_result++] = resultt[i].id
+        //             if(count===len){
+        //                 return res.send({
+        //                     result: resultt
+        //                 })
+        //             }
+        //         }
+        //         if(resultt[i].flag===1){
+        //             // 存在处于填报周期的字段
+        //             sqls2[temp]=(`select * from user_fill where user_id = '${userinfo.id}' and fill_id='${resultt[i].id}'`)
+        //         }
+        //     }
+        //     console.log("===========================");
+        //     console.log(real_result);
+        //     console.log(sqls2);
+        //     var resultt2 = []
+        //     // 否则再依次检查flag为1的fill_id是否填报过
+        //     async.each(sqls2,function(item,callback){
+        //         client.query(item, function(err,results) {
+        //             if (err) {
+        //                 callback(err)
+        //             } else {
+        //                 // 非NULL
+        //                 if(results.rows.length!==0){
+        //                     resultt2.push(results.rows[0])
+        //                 }
+        //                 callback()
+        //             }
+        //         })
+        //     }, function(err){
+        //         if(err){
+        //             console.log(err);
+        //         } else {
+        //             console.log(resultt2);
+        //             for(let i = 0,len = resultt2.length;i<len;i++){
+        //                 if(resultt2[i].flag===1){
+        //                     // 记录无法填报的表格的id
+        //                     real_result[temp_for_real_result++] = resultt2[i].fill_id
+        //                 }
+        //             }
+        //             // 记录无法填报的表格的完整信息（id, name, cycle）
+        //             var unable_fill_result = []
+        //             var temp_unable_fill_result = 0
+        //             for(let i = 0,len = resultt.length;i<len;i++){
+        //                 if(real_result.includes(resultt[i].id)){
+        //                     unable_fill_result[temp_unable_fill_result] = resultt[i]
+        //                     // flag置空 避免误解
+        //                     unable_fill_result[temp_unable_fill_result].flag = ''
+        //                     temp_unable_fill_result++
+        //                 }
+        //             }
+        //             res.send({
+        //                 unable_fill: unable_fill_result
+        //             })
+        //         }
+        //     })
+        //     // res.send({
+        //     //     result: resultt
+        //     // })
+        //     // console.log("SQL全部执行成功");
         }
     });
 }
