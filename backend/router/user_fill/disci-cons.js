@@ -29,7 +29,7 @@ router.post('/progress/disci-eval-situation', expressJoi(sub_schema1.table_1_1_2
 // 实现文件上传需要两个中间件：
 // 1. multer({dest: 'upload'}).single('file')：实现存储文件
 // 2. excel_parsing1.table_1_1_2：对文件重命名，解析内容为JSON
-router.post('/progress/disci-eval-situation-template', multer({dest: 'upload'}).single('file'), excel_parsing1.table_1_1_2,expressJoi(sub_schema1.table_1_1_2), disci_cons_handler.disci_eval_situation_sub)
+router.post('/progress/disci-eval-situation-template', multer({dest: 'upload'}).single('file'), excel_parsing1.deal_table_1_1_2,expressJoi(sub_schema1.table_1_1_2), disci_cons_handler.disci_eval_situation_sub)
 
 // 手动 填写学科影响力情况（1-1-3）
 router.post('/progress/disci-influence', expressJoi(sub_schema1.table_1_1_3), disci_cons_handler.disci_influence_sub)

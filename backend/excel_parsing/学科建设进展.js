@@ -7,7 +7,7 @@
 const nodeXlsx = require('node-xlsx')	//引用node-xlsx模块
 const fs = require('fs');
 
-exports.table_1_1_2 = function(req,res,next){
+exports.deal_table_1_1_2 = function(req,res,next){
     
     const up_file = req.file
     console.log(up_file);
