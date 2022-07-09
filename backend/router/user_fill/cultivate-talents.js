@@ -4,10 +4,13 @@ const router = express.Router()
 // 导入并使用平台首页 培养拔尖创新人才 路由处理函数对应的模块
 const cultivate_talents_handler = require('../../router_handler/user_fill/cultivate-talents')
 
-// // 1. 导入验证数据的中间件
+// 1. 导入验证数据的中间件
 const expressJoi = require('@escook/express-joi')
 // 2. 导入需要的验证规则对象
 const sub_schema2  = require('../../schema/培养拔尖创新人才')
+// 3. 导入解析文件中间件
+const excel_parsing2 = require('../../excel_parsing/培养拔尖创新人才_xls')
+const multer = require('multer')
 
 
 /* 
@@ -34,7 +37,9 @@ router.post('/international-contacts', cultivate_talents_handler.query_is_time)
  */
 // 手动 填报思想政治教育特色与成效（2-1-1）
 router.post('/education/political-edu',expressJoi(sub_schema2.table_2_1_1), cultivate_talents_handler.political_edu_sub)
-
+// 表格 填报思想政治教育特色与成效（2-1-1）
+router.post('/education/political-edu-template', multer({dest: 'upload'}).single('file'), excel_parsing2.deal_table_2_1_1, 
+expressJoi(sub_schema2.table_2_1_1), cultivate_talents_handler.political_edu_sub)
 
 /* 
     2-2 培养过程

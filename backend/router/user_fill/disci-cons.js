@@ -16,7 +16,7 @@ const expressJoi = require('@escook/express-joi')
 const sub_schema1  = require('../../schema/学科建设进展')
 
 // 3. 导入解析文件中间件
-const excel_parsing1 = require('../../excel_parsing/学科建设进展')
+const excel_parsing1 = require('../../excel_parsing/学科建设进展_xls')
 const multer = require('multer')
 
 // 查询 当前disci-cons/progress下的表格是否可以填报
