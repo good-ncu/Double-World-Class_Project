@@ -1,7 +1,7 @@
 const nodeXlsx = require('node-xlsx')	//引用node-xlsx模块
 var fs = require('fs');
 const { table } = require('console');
-//deal_table_3_1_1()
+//deal_table_3_1_1()   pass
 exports.deal_table_3_1_1=function(req,res,next){
     const up_file = req.file
     console.log(up_file);
@@ -25,7 +25,8 @@ exports.deal_table_3_1_1=function(req,res,next){
         data[i][yr]=excel_content[i][2];
     }
     var nn={}
-    nn.data=data
+    nn.data_3_1_1=data
+    req.body = nn
     console.log(nn)
     next()
 }
