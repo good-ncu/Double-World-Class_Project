@@ -13,8 +13,8 @@ const joi = require('joi')
         discipline_eval_turn: joi.number().integer().less(7).greater(3).required().error(new Error('学科评估轮次填报错误！')),
         discipline_eval_result: joi.string()
        .when('discipline_eval_turn',{is:4,then:joi.string().valid("A+","A","A-","B+","B","B-","C+","C","C-","无")})
-       .when('discipline_eval_turn',{is:5,then:joi.string().valid("未发布")})
-       .when('discipline_eval_turn',{is:6,then:joi.string().valid("未发布")})
+       .when('discipline_eval_turn',{is:5,then:joi.string().valid("A+","A","A-","B+","B","B-","C+","C","C-","无")})
+       .when('discipline_eval_turn',{is:6,then:joi.string().valid("A+","A","A-","B+","B","B-","C+","C","C-","无")})
        .error(new Error('学科评估填写错误！'))
     })
 )
@@ -30,19 +30,19 @@ const data_1_1_3 = joi.array().items(
 const data_1_1_4 = joi.array().items(
     joi.object().keys({
         yr:joi.number().integer().less(2025).greater(1950).required().error(new Error('年度填报错误！')),
-        total_fund:joi.number().min(0).allow('').error(new Error('建设总经费填报错误！')),
-        ctr_budg_fund:joi.number().min(0).allow('').error(new Error('中央专项预算经费！')),
-        ctr_receive_fund:joi.number().min(0).allow('').error(new Error('中央专项实际到账！')),  
-        ctr_expend_fund:joi.number().min(0).allow('').error(new Error('中央专项实际支出！')),
-        lcl_budg_fund:joi.number().min(0).allow('').error(new Error('地方专项预算经费！')),
-        lcl_receive_fund:joi.number().min(0).allow('').error(new Error('地方专项实际到账！')),
-        lcl_expend_fund:joi.number().min(0).allow('').error(new Error('地方专项实际支出！')),
-        self_budg_fund:joi.number().min(0).allow('').error(new Error('学科自筹预算经费！')),
-        self_receive_fund:joi.number().min(0).allow('').error(new Error('学科自筹实际到账！')),
-        self_expend_fund:joi.number().min(0).allow('').error(new Error('学科自筹实际支出！')),
-        other_budg_fund:joi.number().min(0).allow('').error(new Error('其他预算经费！')),
-        other_receive_fund:joi.number().min(0).allow('').error(new Error('其他实际到账！')),
-        other_expend_fund:joi.number().min(0).allow('').error(new Error('其他实际支出！')),
+        total_fund:joi.number().min(0).allow('').required().error(new Error('建设总经费填报错误！')),
+        ctr_budg_fund:joi.number().min(0).allow('').required().error(new Error('中央专项预算经费！')),
+        ctr_receive_fund:joi.number().min(0).allow('').required().error(new Error('中央专项实际到账！')),  
+        ctr_expend_fund:joi.number().min(0).allow('').required().error(new Error('中央专项实际支出！')),
+        lcl_budg_fund:joi.number().min(0).allow('').required().error(new Error('地方专项预算经费！')),
+        lcl_receive_fund:joi.number().min(0).allow('').required().error(new Error('地方专项实际到账！')),
+        lcl_expend_fund:joi.number().min(0).allow('').required().error(new Error('地方专项实际支出！')),
+        self_budg_fund:joi.number().min(0).allow('').required().error(new Error('学科自筹预算经费！')),
+        self_receive_fund:joi.number().min(0).allow('').required().error(new Error('学科自筹实际到账！')),
+        self_expend_fund:joi.number().min(0).allow('').required().error(new Error('学科自筹实际支出！')),
+        other_budg_fund:joi.number().min(0).allow('').required().error(new Error('其他预算经费！')),
+        other_receive_fund:joi.number().min(0).allow('').required().error(new Error('其他实际到账！')),
+        other_expend_fund:joi.number().min(0).allow('').required().error(new Error('其他实际支出！')),
     })
 )
 

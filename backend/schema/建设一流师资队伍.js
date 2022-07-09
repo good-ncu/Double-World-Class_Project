@@ -14,8 +14,8 @@ const data_3_2_1 = joi.array().items(
         discipline:joi.string().min(1).max(50).required().error(new Error('学科方向填报错误！')),
         tch_type:joi.string().valid('中青年学术骨干','学科带头人').required().error(new Error('人员性质填报错误！')),
         tch_name:joi.string().min(1).max(13).required().error(new Error('姓名填报错误！')),
-        age:joi.number().integer().min(1).max(150).error(new Error('年龄填写错误！')),
-        tch_title:joi.string().valid('助教','讲师','副教授','教授').required().error(new Error(new Error('职称填报错误！'))),
+        age:joi.number().integer().min(1).max(150).required().error(new Error('年龄填写错误！')),
+        tch_title:joi.string().valid('其他正高级',"其他副高级","其他中级","其他",'讲师','副教授','教授').required().error(new Error(new Error('职称填报错误！'))),
         rep_work:joi.string().min(1).max(300).required().error(new Error('代表性学术成果（限3项）填报错误！')),
         
     }
@@ -149,7 +149,7 @@ const data_3_3_3 = joi.array().items(
         tch_name:joi.string().min(1).max(13).required().error(new Error('教师姓名填报错误！')),
         conf_name:joi.string().min(1).max(100).required().error(new Error('会议名称填报错误！')),
         rpt_title:joi.string().min(1).max(100).required().error(new Error('报告题目填报错误！')),
-        rpt_yr_mth:joi.string().pattern(/^(2[0][2][1-2])-(0[1-9]|1[0-2])$/).error(new Error('报告年月填写错误！')),
+        rpt_yr_mth:joi.string().pattern(/^(2[0][2][1-2])-(0[1-9]|1[0-2])$/).required().error(new Error('报告年月填写错误！')),
         rpt_place:joi.string().min(1).max(100).required().error(new Error('报告地点填报错误！')), 
     }
     )
@@ -160,7 +160,7 @@ const data_3_3_4 = joi.array().items(
     joi.object().keys({
         tch_name:joi.string().min(1).max(13).required().error(new Error('教师姓名填报错误！')),
         comp_name:joi.string().min(1).max(100).required().error(new Error('比赛名称填报错误！')),
-        comp_yr_mth:joi.string().pattern(/^(2[0][1][5-9]|2[0][2][0-2])-(0[1-9]|1[0-2])$/).error(new Error('比赛年月填写错误！')),
+        comp_yr_mth:joi.string().pattern(/^(2[0][1][5-9]|2[0][2][0-2])-(0[1-9]|1[0-2])$/).required().error(new Error('比赛年月填写错误！')),
         pos:joi.string().valid('裁判','评委').required().error(new Error('担任职务填报错误！')),
     }
     )

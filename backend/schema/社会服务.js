@@ -16,7 +16,7 @@ const data_5_2_1_1 = joi.array().items(
         yr:joi.number().integer().less(2023).greater(2020).required().error(new Error('填报年度填报错误！')),
         plat_name:joi.string().min(1).max(100).required().error(new Error('平台名称填报错误！')),
         plat_level:joi.string().valid('国家级').required().error(new Error('平台级别填报错误！')),
-        appro_date:joi.string().pattern(/^(2[0][2][1-2])-(0[1-9]|1[0-2])$/).error(new Error('批准时间填写错误！')),
+        appro_date:joi.string().pattern(/^(2[0][2][1-2])-(0[1-9]|1[0-2])$/).required().error(new Error('批准时间填写错误！')),
     }
     )
 )
@@ -27,7 +27,7 @@ const data_5_2_1_2 = joi.array().items(
         yr:joi.number().integer().less(2023).greater(2020).required().error(new Error('填报年度填报错误！')),
         plat_name:joi.string().min(1).max(100).required().error(new Error('平台名称填报错误！')),
         plat_level:joi.string().valid('省部级').required().error(new Error('平台等级填报错误！')),
-        appro_date:joi.string().pattern(/^(2[0][2][1-2])-(0[1-9]|1[0-2])$/).error(new Error('批准时间填写错误！')),
+        appro_date:joi.string().pattern(/^(2[0][2][1-2])-(0[1-9]|1[0-2])$/).required().error(new Error('批准时间填写错误！')),
         
     }
     )

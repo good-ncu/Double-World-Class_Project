@@ -153,6 +153,9 @@ exports.disci_influence_sub = function (req, res) {
     var user_fill_id = uuidv4().replace(/-/g, '')
 
 
+
+
+
     var sqls = []
     for (let i = 0, len = submit_info.length; i < len; i++) {
         const strUUID = uuidv4(); // ⇨ '1b9d6bcd-bbfd-4b2d-9b5d-ab8dfbbd4bed'
@@ -213,6 +216,7 @@ exports.disci_funds_sub = function (req, res) {
     user = req.user
     // 插入所有的数据都用同一个，与user_fill表的id相匹配
     var user_fill_id = uuidv4().replace(/-/g, '')
+
 
     var sqls = []
     for (let i = 0, len = submit_info.length; i < len; i++) {
