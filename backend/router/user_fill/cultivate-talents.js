@@ -53,6 +53,10 @@ expressJoi(sub_schema2.table_2_2_1_0), cultivate_talents_handler.edu_awards_num_
 
 // 手动 填报国家级教学成果奖情况（2-2-1-1）
 router.post('/progress/edu-awards-num/nation-counts', expressJoi(sub_schema2.table_2_2_1_1), cultivate_talents_handler.edu_awards_num_nation_counts_sub)
+// 表格 填报国家级教学成果奖情况（2-2-1-1）
+router.post('/progress/edu-awards-num/nation-counts-template', public.upload_file_callback, excel_parsing2.deal_table_2_2_1_1, 
+expressJoi(sub_schema2.table_2_2_1_1), cultivate_talents_handler.edu_awards_num_nation_counts_sub)
+
 // 手动 填报中国学位与研究生教育学会教育成果奖情况（2-2-1-2）
 router.post('/progress/edu-awards-num/graduate-counts', expressJoi(sub_schema2.table_2_2_1_2), cultivate_talents_handler.edu_awards_num_graduate_counts_sub)
 // 手动 填报省级教育成果奖情况（2-2-1-3）
