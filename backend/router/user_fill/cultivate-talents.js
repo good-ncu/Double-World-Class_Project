@@ -10,6 +10,7 @@ const expressJoi = require('@escook/express-joi')
 const sub_schema2  = require('../../schema/培养拔尖创新人才')
 // 3. 导入解析文件中间件
 const excel_parsing2 = require('../../excel_parsing/培养拔尖创新人才_xls')
+const public = require('../../excel_parsing/公用中间件multer')
 const multer = require('multer')
 
 
@@ -38,7 +39,7 @@ router.post('/international-contacts', cultivate_talents_handler.query_is_time)
 // 手动 填报思想政治教育特色与成效（2-1-1）
 router.post('/education/political-edu',expressJoi(sub_schema2.table_2_1_1), cultivate_talents_handler.political_edu_sub)
 // 表格 填报思想政治教育特色与成效（2-1-1）
-router.post('/education/political-edu-template', multer({dest: 'upload'}).single('file'), excel_parsing2.deal_table_2_1_1, 
+router.post('/education/political-edu-template', public.upload_file_callback, excel_parsing2.deal_table_2_1_1, 
 expressJoi(sub_schema2.table_2_1_1), cultivate_talents_handler.political_edu_sub)
 
 /* 
