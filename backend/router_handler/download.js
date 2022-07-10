@@ -1,6 +1,8 @@
 // 导入数据库操作模块
 const client = require('../db/index')
 const fs = require('fs')
+const urlencode = require('urlencode')
+
 
 exports.download_excels = function(req,res) {
     console.log("=============下载模板================");
@@ -20,8 +22,21 @@ exports.download_excels = function(req,res) {
         }
         var filename = results.rows[0].fill_about
         console.log(filename);
+        console.log(filename);
         var path = `excels/${filename}.xlsx`
 
+        res.writeHead(200,{
+            'Content-Type':'application/octet-stream;charset=utf8',
+            'Content-Disposition': "attachment;filename*=UTF-8''"+urlencode(filename)+'.xlsx'
+        });
+        var opt = {
+            flags:'r'
+        };
+        var stream = fs.createReadStream(path, opt);
+        stream.pipe(res);
+        stream.on('end', function(){
+            res.end();
+        });
         // fs.readFile(path, function(isErr, data){
         //     if (isErr) {
         //         // res.end("Read file failed!");
@@ -29,14 +44,14 @@ exports.download_excels = function(req,res) {
         //         res.end("系统繁忙，请稍后再试！");
         //         return;
         //     }
-        //     filename = encodeURI(filename, "UTF-8")
-        //     filename = filename.toString('iso8859-1')
+        //     // filename = encodeURI(filename, "UTF-8")
+        //     // filename = filename.toString('iso8859-1')
         //     res.writeHead(200,{
         //         'Content-Type': 'application/octet-stream;', //告诉浏览器这是一个二进制文件
-        //         'Content-Disposition': 'attachment; filename='+filename, //告诉浏览器这是一个需要下载的文件
+        //         'Content-Disposition': 'attachment; filename='+ encodeURIComponent(filename), //告诉浏览器这是一个需要下载的文件
         //     });
         //     res.end(data)
         // })
-        res.download(path,"test.xslx")
+        // res.download(path,"test.xslx")
     })
 }
