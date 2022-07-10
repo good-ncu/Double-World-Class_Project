@@ -152,7 +152,7 @@ const data_2_2_5 = joi.array().items(
 //stu_award_comp 
 const data_2_2_6 = joi.array().items(
     joi.object().keys({
-        award_date:joi.string().pattern(/^(1[9][5-9][0-9]|2[0][0-2][0-9])-(0[1-9]|1[0-2])$/).error(new Error('获奖时间填写错误！')),
+        award_date:joi.string().pattern(/^(1[9][5-9][0-9]|2[0][0-2][0-9])-(0[1-9]|1[0-2])$/).required().error(new Error('获奖时间填写错误！')),
         award_name:joi.string().min(1).max(100).required().error(new Error('奖项名称填报错误！')),
         award_work:joi.string().min(1).max(100).required().error(new Error('获奖作品填报错误！')),
         award_level:joi.string().valid('特等奖','一等奖','二等奖','团体奖','其他').required().error(new Error('获奖等级填报错误！')),
@@ -166,7 +166,7 @@ const data_2_2_6 = joi.array().items(
 //stu_publish_rep_paper 
 const data_2_2_7 = joi.array().items(
     joi.object().keys({
-        publish_date:joi.string().pattern(/^(1[9][5-9][0-9]|2[0][0-2][0-9])$/).error(new Error('发表年份填写错误！')),
+        publish_date:joi.string().pattern(/^(1[9][5-9][0-9]|2[0][0-2][0-9])-(0[1-9]|1[0-2])$/).required().error(new Error('发表时间填写错误！')),
         paper_title:joi.string().min(1).required().error(new Error('论文标题填报错误！')),
         stu_name:joi.string().min(1).max(13).required().error(new Error('学生姓名填报错误！')),
         stu_type:joi.string().valid('本科生','硕士研究生',"博士研究生").required().error(new Error(new Error('学生类型填报错误！'))),
@@ -191,7 +191,7 @@ const data_2_3_2 = joi.array().items(
     joi.object().keys({
         stu_name:joi.string().min(1).max(13).required().error(new Error('学生姓名填报错误！')),
         grad_year:joi.number().integer().less(2023).greater(2010).required().error(new Error('毕业年份填报错误！')),
-        pro_contribute_proj:joi.string().min(1).max(100).required().error(new Error('突出贡献项目填报错误！')),
+        pro_contribute_proj:joi.string().min(1).max(500).required().error(new Error('突出贡献项目填报错误！')),
     }
     )
 )
