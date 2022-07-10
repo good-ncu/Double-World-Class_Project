@@ -866,6 +866,7 @@ exports.major_class_province_counts_sub = function(req,res){
  */ 
  exports.professor_counts_sub = function(req,res){
     // 接收表单数据
+    console.log(req.body)
     const submit_info = req.body.data_2_2_5
     console.log(submit_info);
     // 获取token中的user信息
