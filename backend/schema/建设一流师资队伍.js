@@ -119,7 +119,7 @@ const data_3_3_1 = joi.array().items(
     joi.object().keys({
         tch_name:joi.string().min(1).max(13).required().error(new Error('教师姓名填报错误！')),
         jour_name:joi.string().min(1).max(100).required().error(new Error('任职期刊名称填报错误！')),
-        in_jour_code:joi.string().min(9).max(9).error(new Error('国内期刊编号填报错误！')),//改
+        in_jour_code:joi.string().min(11).max(11).error(new Error('国内期刊编号填报错误！')),//改
         out_jour_code:joi.string().min(9).max(9).required().error(new Error('国际期刊编号填报错误！')),
         jour_collec:joi.string().valid('CSSCI','CSCD','SCI','SSCI','EI','A&HCI','其他').required().error(new Error('期刊收录情况填报错误！')),
         pos:joi.string().valid('会长','副会长','理事会','副理事会','秘书长','副秘书长').required().error(new Error('担任职务填报错误！')),

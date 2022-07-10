@@ -32,7 +32,7 @@ exports.deal_table_3_1_1=function(req,res,next){
 }
 
 
-//deal_table_3_2_1()
+//deal_table_3_2_1()  pass
 exports.deal_table_3_2_1=function(req,res,next){
     const up_file = req.file
     console.log(up_file);
@@ -74,14 +74,14 @@ exports.deal_table_3_2_1=function(req,res,next){
     next()
 }
 
-//deal_table_3_2_2_0()
+//deal_table_3_2_2_0()   pass 
 exports.deal_table_3_2_2_0=function(req,res,next){
     const up_file = req.file
     console.log(up_file);
     fs.renameSync(up_file.path, `upload/${up_file.originalname}`)
     const ex = nodeXlsx.parse(`upload/${up_file.originalname}`)	//读取excel表格
     let excel_content = ex[0].data	//下方ex1是读取出来的数组，数组长度取决于Excel文件的工作表(sheet),取出excel文件中的第一个工作表中的全部数据
-    let team_name = 'team_name' ;
+    let talent_team_name = 'talent_team_name' ;
     let level = 'level' ;
     let honor_name = 'honor_name' ;
     let yr = 'yr' ;
@@ -93,7 +93,7 @@ exports.deal_table_3_2_2_0=function(req,res,next){
             break
        }
         data[i]={}
-        data[i][team_name]=excel_content[i][0];
+        data[i][talent_team_name]=excel_content[i][0];
         data[i][level]=excel_content[i][1];
         data[i][honor_name]=excel_content[i][2];
         data[i][yr]=excel_content[i][3];
@@ -110,14 +110,14 @@ exports.deal_table_3_2_2_0=function(req,res,next){
     }
     next()
 }
-//deal_table_3_2_2_1()
+//deal_table_3_2_2_1()   pass 
 exports.deal_table_3_2_2_1=function(req,res,next){
     const up_file = req.file
     console.log(up_file);
     fs.renameSync(up_file.path, `upload/${up_file.originalname}`)
     const ex = nodeXlsx.parse(`upload/${up_file.originalname}`)	//读取excel表格
     let excel_content = ex[0].data	//下方ex1是读取出来的数组，数组长度取决于Excel文件的工作表(sheet),取出excel文件中的第一个工作表中的全部数据
-    let team_name = 'team_name' ;
+    let talent_team_name = 'talent_team_name' ;
     let honor_name = 'honor_name' ;
     let yr = 'yr' ;
     excel_content.splice(0,2)	//一般来说表中的第一条数据可能是标题没有用，所以删掉
@@ -128,7 +128,7 @@ exports.deal_table_3_2_2_1=function(req,res,next){
             break
        }
         data[i]={}
-        data[i][team_name]=excel_content[i][0];
+        data[i][talent_team_name]=excel_content[i][0];
         data[i][honor_name]=excel_content[i][1];
         data[i][yr]=excel_content[i][2];
     }
@@ -145,14 +145,14 @@ exports.deal_table_3_2_2_1=function(req,res,next){
     next()
 }
 
-//deal_table_3_2_2_2()
+//deal_table_3_2_2_2()    pass
 exports.deal_table_3_2_2_2=function(req,res,next){
     const up_file = req.file
     console.log(up_file);
     fs.renameSync(up_file.path, `upload/${up_file.originalname}`)
     const ex = nodeXlsx.parse(`upload/${up_file.originalname}`)	//读取excel表格
     let excel_content = ex[0].data	//下方ex1是读取出来的数组，数组长度取决于Excel文件的工作表(sheet),取出excel文件中的第一个工作表中的全部数据
-    let team_name = 'team_name' ;
+    let talent_team_name = 'talent_team_name' ;
     let honor_name = 'honor_name' ;
     let yr = 'yr' ;
     excel_content.splice(0,2)	//一般来说表中的第一条数据可能是标题没有用，所以删掉
@@ -163,13 +163,14 @@ exports.deal_table_3_2_2_2=function(req,res,next){
             break
        }
         data[i]={}
-        data[i][team_name]=excel_content[i][0];
+        data[i][talent_team_name]=excel_content[i][0];
         data[i][honor_name]=excel_content[i][1];
         data[i][yr]=excel_content[i][2];
     }
     var nn={}
     nn.data_3_2_2_2 = data
     req.body = nn
+    console.log(nn)
     // 删除文件
     try {
         fs.unlinkSync(`upload/${up_file.originalname}`)
@@ -342,14 +343,15 @@ exports.deal_table_3_3_1=function(req,res,next){
         data[i]={}
         data[i][tch_name]=excel_content[i][0];
         data[i][jour_name]=excel_content[i][1];
-        data[i][in_jour_code]=excel_content[i][2];
-        data[i][out_jour_code]=excel_content[i][3];
+        data[i][out_jour_code]=excel_content[i][2];
+        data[i][in_jour_code]=excel_content[i][3];
         data[i][jour_collec]=excel_content[i][4];
         data[i][pos]=excel_content[i][5];
         data[i][tenure]=excel_content[i][6];
     }
     var nn={}
     nn.data_3_3_1 = data
+    console.log(nn)
     req.body = nn
     // 删除文件
     try {
