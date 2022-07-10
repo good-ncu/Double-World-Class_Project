@@ -146,7 +146,7 @@ const data_3_3_2 = joi.array().items(
 const data_3_3_3 = joi.array().items(
     joi.object().keys({
         yr:joi.number().integer().less(2023).greater(2020).required().error(new Error('年度填报错误！')),
-        tch_name:joi.string().min(1).max(13).required().error(new Error('教师姓名填报错误！')),
+        tch_name:joi.string().min(1).max(50).required().error(new Error('教师姓名填报错误！')),
         conf_name:joi.string().min(1).max(100).required().error(new Error('会议名称填报错误！')),
         rpt_title:joi.string().min(1).max(100).required().error(new Error('报告题目填报错误！')),
         rpt_yr_mth:joi.string().pattern(/^(2[0][2][1-2])-(0[1-9]|1[0-2])$/).required().error(new Error('报告年月填写错误！')),

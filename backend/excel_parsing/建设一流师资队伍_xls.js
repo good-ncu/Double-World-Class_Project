@@ -351,7 +351,7 @@ exports.deal_table_3_3_1=function(req,res,next){
     }
     var nn={}
     nn.data_3_3_1 = data
-    console.log(nn)
+    // console.log(nn)
     req.body = nn
     // 删除文件
     try {
@@ -391,6 +391,7 @@ exports.deal_table_3_3_2=function(req,res,next){
     var nn={}
     nn.data_3_3_2 = data
     req.body = nn
+    // console.log(nn)
     // 删除文件
     try {
         fs.unlinkSync(`upload/${up_file.originalname}`)
@@ -433,6 +434,7 @@ exports.deal_table_3_3_3=function(req,res,next){
     var nn={}
     nn.data_3_3_3 = data
     req.body = nn
+    console.log(nn)
     // 删除文件
     try {
         fs.unlinkSync(`upload/${up_file.originalname}`)
