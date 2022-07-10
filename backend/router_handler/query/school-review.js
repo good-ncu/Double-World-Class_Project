@@ -127,6 +127,55 @@ exports.query_all_discipline = function (req,res){
 }
 
 
+
+/**
+ * 第二步之后可做的操作，check_all_discipline_current
+ * @param {*} req 
+ * @param {*} res 
+ */
+ exports.check_all_discipline_current = function(req,res){
+    userinfo = req.user
+    subinfo =req.body.id
+    console.log(subinfo)
+    var sqls= []
+    // var to_dbtable
+    for (let i = 0, len = subinfo.length; i < len; i++) {
+        sqls[i] = `update user_fill set is_seen = 1 where id = '${subinfo[i]}'`
+    }
+    async.each(sqls, function (item, callback) {
+        // 遍历每条SQL并执行
+        client.query(item, function (err, results) {
+            if (err) {
+                // 异常后调用callback并传入err
+                callback(err);
+            }else if (results.rowCount !== 1){
+                // 当前sql影响不为1，则错误
+                err = "审核失败,请刷新页面，重新操作"
+                callback(err);
+            }else{
+                console.log(item + "执行成功");
+                // 执行完成后也要调用callback，不需要参数
+                callback();
+            }
+        });
+    }, function (err) {
+        // 所有SQL执行完成后回调
+        if (err) {
+            res.send({
+                status: 1,
+                message: err
+            })
+        } else {
+           res.cc("一键审核成功！")
+        }
+    });
+}
+
+
+
+
+
+
 /**
  * 第三步
  * 查询 学校管理员选择某一学科当前周期下某个已经填报的表后，将该表的数据返回 处理函数
@@ -197,6 +246,49 @@ exports.query_all_discipline_table = function(req,res){
         }
     });
 
+}
 
 
+
+/**
+ * 第二步之后可做的操作，check_all_discipline_current
+ * @param {*} req 
+ * @param {*} res 
+ */
+ exports.delete_single_discipline_table = function(req,res){
+    userinfo = req.user
+    subinfo =req.body.id
+    console.log(subinfo)
+    var sqls= []
+    // var to_dbtable
+    for (let i = 0, len = subinfo.length; i < len; i++) {
+        sqls[i] = `update user_fill set flag = 0 , is_delete = 1 where id = '${subinfo[i]}'`
+    }
+    async.each(sqls, function (item, callback) {
+        // 遍历每条SQL并执行
+        client.query(item, function (err, results) {
+            if (err) {
+                // 异常后调用callback并传入err
+                callback(err);
+            }else if (results.rowCount !== 1){
+                // 当前sql影响不为1，则错误
+                err = "驳回失败,请刷新页面，重新操作"
+                callback(err);
+            }else{
+                console.log(item + "执行成功");
+                // 执行完成后也要调用callback，不需要参数
+                callback();
+            }
+        });
+    }, function (err) {
+        // 所有SQL执行完成后回调
+        if (err) {
+            res.send({
+                status: 1,
+                message: err
+            })
+        } else {
+           res.cc("驳回成功！")
+        }
+    });
 }

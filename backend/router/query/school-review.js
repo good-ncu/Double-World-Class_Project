@@ -44,13 +44,13 @@ router.post('/query-single-discipline-table', school_review_handler.query_all_di
  * 步骤1-4      在步骤1-2的页面下， 给予学校管理员 一键查阅 或 部分查阅 的功能       user_fill表中 ，选中id的记录   is_seen : 0 --> 1
  * 
  */
-//  router.post('/check-single-discipline-current', school_review_handler.check_all_discipline_current)
+ router.post('/check-single-discipline-current', school_review_handler.check_all_discipline_current)
 
 
 /***
  * 步骤1-5      在步骤1-4的页面下，删除该页面展示这次填报的所有数据！    即，删除当前周期 该学科、该表的数据 。   user_fill表中，选中id的记录    flag ：1-->0   is_delete : 0 -->1   
  */
-router.post('/')
+router.post('/delete-single-discipline-table',school_review_handler.delete_single_discipline_table)
 
 
 module.exports = router
