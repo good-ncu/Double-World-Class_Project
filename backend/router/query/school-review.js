@@ -18,12 +18,14 @@
  const school_review_handler = require('../../router_handler/query/school-review')
  
  
+
+// userinfo  
 /* 
     1-1查询 当前学校拥有的所有学科 路由
 */
 router.post('/query-all-discipline', school_review_handler.query_all_discipline)
 
-
+//已知： userinfo  + 学科代码 
 /* 
     1-2查询 学校管理员选择某一学科后， 将当前周期下，该学科 所有已经填报了的表格，将其返回 路由
 */

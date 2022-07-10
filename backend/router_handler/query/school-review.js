@@ -102,8 +102,7 @@ exports.query_all_discipline = function (req,res){
     sql = `SELECT user_fill.id,user_fill.fill_id,fill.fill_about from user_fill,fill 
     where user_fill.flag=1 and user_fill.fill_id=fill.id and 
     user_fill.user_id=(select user_info.id from user_info where 
-        user_info.univ_code='${userinfo.univ_code}' and user_info.discipline_code='${discipline_code}'
-        and user_info.role_id='${userinfo.role_id}' )`    //
+        user_info.univ_code='${userinfo.univ_code}' and user_info.discipline_code='${discipline_code}' )`    //
     console.log(sql)
     client.query(sql, function (err, results) {
         if (err) {

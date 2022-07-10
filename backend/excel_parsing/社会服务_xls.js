@@ -35,7 +35,6 @@ exports.deal_table_5_1_1=function(req,res,next){
         console.error(err)
     }
     next()
-    next()
 }
 //deal_table_5_2_1_1()
 exports.deal_table_5_2_1_1=function(req,res,next){    
@@ -73,7 +72,6 @@ exports.deal_table_5_2_1_1=function(req,res,next){
         console.error(err)
     }
     next()
-    next()
 }
 //deal_table_5_2_1_2()
 exports.deal_table_5_2_1_2=function(req,res,next){    
@@ -110,7 +108,6 @@ exports.deal_table_5_2_1_2=function(req,res,next){
     } catch (err) {
         console.error(err)
     }
-    next()
     next()
 }
 //deal_table_5_2_2_1()
@@ -151,7 +148,6 @@ exports.deal_table_5_2_2_1=function(req,res,next){
         console.error(err)
     }
     next()
-    next()
 }
 //deal_table_5_2_2_2()
 exports.deal_table_5_2_2_2=function(req,res,next){     
@@ -190,6 +186,5 @@ exports.deal_table_5_2_2_2=function(req,res,next){
     } catch (err) {
         console.error(err)
     }
-    next()
     next()
 }

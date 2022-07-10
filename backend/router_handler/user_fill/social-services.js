@@ -490,15 +490,15 @@ const { query } = require('express');
         client.query(item, function (err, results) {
             if (err) {
                 // 异常后调用callback并传入err
-                console.log('11')
+
                 callback(err);
             }else if (results.rowCount !== 1){
                 // 当前sql影响不为1，则错误
-                console.log('22')
+
                 err = item+"插入失败！"
                 callback(err);
             }else{
-                console.log('33')
+
                 console.log(item + "执行成功");
                 // 执行完成后也要调用callback，不需要参数
                 callback();
@@ -507,19 +507,19 @@ const { query } = require('express');
     }, function (err) {
         // 所有SQL执行完成后回调
         if (err) {
-            console.log('44')
+
             res.cc('系统繁忙，请稍后再试')
         } else {
             client.query(`insert into user_fill(id, user_id, fill_id) values('${user_fill_id}','${user.id}','5_2_2_2')`, function (err, result) {
                 if (err) return res.cc('系统繁忙,请稍后再试')
                 if (result.rowCount !== 1) return res.cc('系统繁忙,请稍后再试')
-                console.log('55')
+  
                 res.send({
                     
                     status: 0,
                     message: "填报成功！！"
                 })
-                console.log('66')
+
                 console.log("SQL全部执行成功");
             })
         }

@@ -36,7 +36,6 @@ exports.deal_table_3_1_1=function(req,res,next){
         console.error(err)
     }
     next()
-    next()
 }
 
 
