@@ -36,9 +36,9 @@ exports.register_schema = {
   body: {
     username,
     password,
-    unicode,
+    // unicode,
     disciplinecode,
-    roleidRegister,
+    // roleidRegister,
     jobnumber,
     phonenumber
   },

@@ -66,6 +66,10 @@ const school_reviewRouter = require('./router/query/school-review')
 app.use('/api/index/school-query',school_reviewRouter)
 
 
+// 导入 下载模板的路由模块
+const download_router = require('./router/download')
+app.use('/api',download_router)
+
 // 启动服务器
 app.listen(3007, () => {
   console.log('api server running at http://127.0.0.1:3007')
