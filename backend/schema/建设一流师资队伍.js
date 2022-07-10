@@ -158,7 +158,7 @@ const data_3_3_3 = joi.array().items(
 //tch_asjudge_intnacomp 
 const data_3_3_4 = joi.array().items(
     joi.object().keys({
-        tch_name:joi.string().min(1).max(13).required().error(new Error('教师姓名填报错误！')),
+        tch_name:joi.string().min(1).max(50).required().error(new Error('教师姓名填报错误！')),
         comp_name:joi.string().min(1).max(100).required().error(new Error('比赛名称填报错误！')),
         comp_yr_mth:joi.string().pattern(/^(2[0][1][5-9]|2[0][2][0-2])-(0[1-9]|1[0-2])$/).required().error(new Error('比赛年月填写错误！')),
         pos:joi.string().valid('裁判','评委').required().error(new Error('担任职务填报错误！')),
