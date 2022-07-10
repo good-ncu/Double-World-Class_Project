@@ -28,6 +28,14 @@ exports.deal_table_3_1_1=function(req,res,next){
     nn.data_3_1_1=data
     req.body = nn
     console.log(nn)
+    // 删除文件
+    try {
+        fs.unlinkSync(`upload/${up_file.originalname}`)
+        //file removed
+    } catch (err) {
+        console.error(err)
+    }
+    next()
     next()
 }
 
@@ -445,7 +453,7 @@ exports.deal_table_3_3_3=function(req,res,next){
     next()
 }
 
-//deal_table_3_3_4()
+//deal_table_3_3_4() pass
 exports.deal_table_3_3_4=function(req,res,next){
 
     const up_file = req.file

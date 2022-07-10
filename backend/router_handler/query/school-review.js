@@ -97,6 +97,8 @@ exports.query_all_discipline = function (req,res){
     userinfo = req.user
     discipline_code =req.query.discipline_code
     console.log(discipline_code)
+
+    //  约束： 账户权限必须是3 ==> 学校id    拿到它选择的学科代码     
     sql = `SELECT user_fill.id,user_fill.fill_id,fill.fill_about from user_fill,fill 
     where user_fill.flag=1 and user_fill.fill_id=fill.id and 
     user_fill.user_id=(select user_info.id from user_info where 

@@ -42,7 +42,7 @@ const data_5_2_2_1 = joi.array().items(
         adopt_sit:joi.string().valid('已采纳','未采纳').required().error(new Error('采纳情况错误！')),
         adopt_date:joi.string().when('adopt_sit',{is:'未采纳',then:joi.string().valid('')})
         .when('adopt_sit',{is:'已采纳',then:joi.string().pattern(/^(2[0][2][1-2])-(0[1-9]|1[0-2])$/)})
-        .error(new Error('层次填报错误！')),
+        .error(new Error('采纳/批示时间填报错误！')),
         
         level:joi.string().valid('国家级','省部级').error(new Error('层次填报错误！')),
         
@@ -59,7 +59,7 @@ const data_5_2_2_2 = joi.array().items(
         adopt_sit:joi.string().valid('已采纳','未采纳').required().error(new Error('采纳情况错误！')),
         adopt_date:joi.string().when('adopt_sit',{is:'未采纳',then:joi.string().valid('')})
         .when('adopt_sit',{is:'已采纳',then:joi.string().pattern(/^(2[0][2][1-2])-(0[1-9]|1[0-2])$/)})
-        .error(new Error('层次填报错误！')),
+        .error(new Error('采纳/批示时间填报错误！')),
         
         level:joi.string().valid('国家级','省部级').error(new Error('层次填报错误！')),
     }
