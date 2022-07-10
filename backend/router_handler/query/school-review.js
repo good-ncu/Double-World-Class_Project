@@ -28,9 +28,9 @@ var async = require('async');
  * @param {*} req 
  * @param {*} res 
  */
-exports.query_all_discipline = function (req,res){
+exports.query_all_discipline = function (req, res) {
     userinfo = req.user
-    sql = `select * from univ_discipline where univ_code = '${userinfo.univ_code}'` 
+    sql = `select * from univ_discipline where univ_code = '${userinfo.univ_code}'`
     client.query(sql, function (err, results) {
         if (err) {
             // 异常后调用callback并传入err
@@ -38,13 +38,13 @@ exports.query_all_discipline = function (req,res){
                 status: 1,
                 message: err.message
             })
-        }else if (results.rowCount == 0){
+        } else if (results.rowCount == 0) {
             // 当前sql查询为空，则返回填报提示
             res.send({
                 status: 0,
                 message: "还未录入您所在学校的学科信息"
             })
-        }else{
+        } else {
             res.send({
                 status: 0,
                 data: results.rows
@@ -60,7 +60,7 @@ exports.query_all_discipline = function (req,res){
 //  * @param {*} res 
 //  */ 
 // exports.query_all_discipline_current = function(req,res){
-    
+
 //     userinfo = req.user
 //     sql = `SELECT fill_id from user_fill where flag=1 and dic` 
 //     client.query(sql, function (err, results) {
@@ -91,11 +91,11 @@ exports.query_all_discipline = function (req,res){
  * 查询 学校管理员选择某一学科后，将当前周期下，该学科 所有已经填报了的表格，将其返回 处理函数
  * @param {*} req 
  * @param {*} res 
- */ 
- exports.query_all_discipline_current = function(req,res){
-    
+ */
+exports.query_all_discipline_current = function (req, res) {
+
     userinfo = req.user
-    discipline_code =req.body.discipline_code
+    discipline_code = req.body.discipline_code
     console.log(discipline_code)
 
     //  约束： 账户权限必须是3 ==> 学校id    拿到它选择的学科代码     
@@ -111,13 +111,13 @@ exports.query_all_discipline = function (req,res){
                 status: 1,
                 message: err.message
             })
-        }else if (results.rowCount == 0){
+        } else if (results.rowCount == 0) {
             // 当前sql查询为空，则返回填报提示
             res.send({
                 status: 0,
                 message: "当前周期下，您选择的学科还未录入任何有效信息。"
             })
-        }else{
+        } else {
             res.send({
                 status: 0,
                 data: results.rows
@@ -133,11 +133,11 @@ exports.query_all_discipline = function (req,res){
  * @param {*} req 
  * @param {*} res 
  */
- exports.check_all_discipline_current = function(req,res){
+exports.check_all_discipline_current = function (req, res) {
     userinfo = req.user
-    subinfo =req.body.id
+    subinfo = req.body.id
     console.log(subinfo)
-    var sqls= []
+    var sqls = []
     // var to_dbtable
     for (let i = 0, len = subinfo.length; i < len; i++) {
         sqls[i] = `update user_fill set is_seen = 1 where id = '${subinfo[i]}'`
@@ -148,11 +148,11 @@ exports.query_all_discipline = function (req,res){
             if (err) {
                 // 异常后调用callback并传入err
                 callback(err);
-            }else if (results.rowCount !== 1){
+            } else if (results.rowCount !== 1) {
                 // 当前sql影响不为1，则错误
                 err = "审核失败,请刷新页面，重新操作"
                 callback(err);
-            }else{
+            } else {
                 console.log(item + "执行成功");
                 // 执行完成后也要调用callback，不需要参数
                 callback();
@@ -166,7 +166,10 @@ exports.query_all_discipline = function (req,res){
                 message: err
             })
         } else {
-           res.cc("一键审核成功！")
+            res.send({
+                status: 0,
+                message: "已审阅！"
+            })
         }
     });
 }
@@ -182,26 +185,26 @@ exports.query_all_discipline = function (req,res){
  * @param {*} req 
  * @param {*} res 
  */
-exports.query_all_discipline_table = function(req,res){
+exports.query_all_discipline_table = function (req, res) {
     userinfo = req.user
-    subinfo =req.body
-    console.log(subinfo.id,subinfo.fill_id)
+    subinfo = req.body
+    console.log(subinfo.id, subinfo.fill_id)
 
-    var resultt=[]
-    var sqls= []
+    var resultt = []
+    var sqls = []
     var to_dbtable
-    sqls.push( `select to_dbtable from fill where id='${subinfo.fill_id}'`)
+    sqls.push(`select to_dbtable from fill where id='${subinfo.fill_id}'`)
     async.each(sqls, function (item, callback) {
         // 遍历每条SQL并执行
         client.query(item, function (err, results) {
             if (err) {
                 // 异常后调用callback并传入err
                 callback(err);
-            }else if (results.rowCount !== 1){
+            } else if (results.rowCount !== 1) {
                 // 当前sql影响不为1，则错误
-                err = item+"查询失败"
+                err = item + "查询失败"
                 callback(err);
-            }else{
+            } else {
                 console.log(item + "执行成功");
                 // 执行完成后也要调用callback，不需要参数   
                 // 将查出的对应数据库表名进行保存
@@ -221,25 +224,26 @@ exports.query_all_discipline_table = function(req,res){
             sql2 = `select * from ${to_dbtable} where user_fill_id='${subinfo.id}'`
             client.query(sql2, function (err, results) {
                 if (err) {
+                    console.log(err.message)
                     res.send({
                         status: 1,
-                        message: err.message+"服务器错误，请稍后再试"
+                        message:  "服务器错误，请稍后再试"
                     })
-                }else if (results.rowCount == 0){
+                } else if (results.rowCount == 0) {
                     // 当前sql影响等于0，则错误
-                    err = sql2+"查询失败"
+                    err = sql2 + "查询失败"
                     res.send({
                         status: 1,
                         message: err
                     })
-                }else{
+                } else {
                     console.log(sql2 + "执行成功")
                     // 将查询出的表的全部信息返回
                     res.send({
                         status: 0,
                         message: results.rows
                     })
-                
+
                     // callback();
                 }
             });
@@ -251,15 +255,15 @@ exports.query_all_discipline_table = function(req,res){
 
 
 /**
- * 第二步之后可做的操作，check_all_discipline_current
+ * 第三步之后可做的操作，check_all_discipline_current
  * @param {*} req 
  * @param {*} res 
  */
- exports.delete_single_discipline_table = function(req,res){
+exports.delete_single_discipline_table = function (req, res) {
     userinfo = req.user
-    subinfo =req.body.id
+    subinfo = req.body.user_fill_id
     console.log(subinfo)
-    var sqls= []
+    var sqls = []
     // var to_dbtable
     for (let i = 0, len = subinfo.length; i < len; i++) {
         sqls[i] = `update user_fill set flag = 0 , is_delete = 1 where id = '${subinfo[i]}'`
@@ -270,11 +274,11 @@ exports.query_all_discipline_table = function(req,res){
             if (err) {
                 // 异常后调用callback并传入err
                 callback(err);
-            }else if (results.rowCount !== 1){
+            } else if (results.rowCount !== 1) {
                 // 当前sql影响不为1，则错误
                 err = "驳回失败,请刷新页面，重新操作"
                 callback(err);
-            }else{
+            } else {
                 console.log(item + "执行成功");
                 // 执行完成后也要调用callback，不需要参数
                 callback();
@@ -288,7 +292,10 @@ exports.query_all_discipline_table = function(req,res){
                 message: err
             })
         } else {
-           res.cc("驳回成功！")
+            res.send({
+                status: 0,
+                message: "驳回成功！"
+            })
         }
     });
 }
