@@ -3,7 +3,7 @@ const joi = require('joi')
  const data_3_1_1 = joi.array().items(
     joi.object().keys({
         recogn_honor:joi.string().min(1).max(200).required().error(new Error('荣誉表彰/项目类型填报错误！')),       //因为太多了，客户自己填写
-        tch_name:joi.string().min(1).max(13).required().error(new Error('获得者姓名填报错误！')),
+        tch_name:joi.string().min(1).max(300).required().error(new Error('获得者姓名填报错误！')),
         yr:joi.number().integer().less(2023).greater(2020).required().error(new Error('获得年度填报错误！'))
     }
     )
@@ -13,7 +13,7 @@ const data_3_2_1 = joi.array().items(
     joi.object().keys({
         discipline:joi.string().min(1).max(50).required().error(new Error('学科方向填报错误！')),
         tch_type:joi.string().valid('中青年学术骨干','学科带头人').required().error(new Error('人员性质填报错误！')),
-        tch_name:joi.string().min(1).max(13).required().error(new Error('姓名填报错误！')),
+        tch_name:joi.string().min(1).max(300).required().error(new Error('姓名填报错误！')),
         age:joi.number().integer().min(1).max(150).required().error(new Error('年龄填写错误！')),
         tch_title:joi.string().valid('其他正高级',"其他副高级","其他中级","其他",'讲师','副教授','教授').required().error(new Error(new Error('职称填报错误！'))),
         rep_work:joi.string().min(1).max(300).required().error(new Error('代表性学术成果（限3项）填报错误！')),
@@ -39,7 +39,7 @@ const data_3_2_2_0 = joi.array().items(
 const data_3_2_2_1 = joi.array().items(
    joi.object().keys({
        talent_team_name:joi.string().min(1).max(100).required().error(new Error('团队/人才名称填报错误！')),
-       honor_name:joi.string().min(1).max(100).required().error(new Error('荣誉称号填报错误！')),
+       honor_name:joi.string().min(1).max(300).required().error(new Error('荣誉称号填报错误！')),
        yr:joi.number().integer().less(2023).greater(2020).required().error(new Error('获批年度填报错误！')),
        
        level:joi.string().valid('国家级').error(new Error('层次填报错误！')),
@@ -52,7 +52,7 @@ const data_3_2_2_1 = joi.array().items(
 const data_3_2_2_2 = joi.array().items(
    joi.object().keys({
        talent_team_name:joi.string().min(1).max(100).required().error(new Error('团队名称填报错误！')),
-       honor_name:joi.string().min(1).max(100).required().error(new Error('荣誉称号填报错误！')),
+       honor_name:joi.string().min(1).max(300).required().error(new Error('荣誉称号填报错误！')),
        yr:joi.number().integer().less(2023).greater(2020).required().error(new Error('获批年度填报错误！')),
 
        tch_name:joi.string().min(1).max(13).error(new Error('教师姓名填报错误！')),
@@ -119,12 +119,13 @@ const data_3_3_1 = joi.array().items(
     joi.object().keys({
         tch_name:joi.string().min(1).max(13).required().error(new Error('教师姓名填报错误！')),
         jour_name:joi.string().min(1).max(100).required().error(new Error('任职期刊名称填报错误！')),
-        in_jour_code:joi.string().min(11).max(11).error(new Error('国内期刊编号填报错误！')),//改
-        out_jour_code:joi.string().min(9).max(9).required().error(new Error('国际期刊编号填报错误！')),
+        in_jour_code:joi.string().min(1).allow('').error(new Error('国内期刊编号填报错误！')),//改
+        out_jour_code:joi.string().min(1).allow('').required().error(new Error('国际期刊编号填报错误！')),
         jour_collec:joi.string().valid('CSSCI','CSCD','SCI','SSCI','EI','A&HCI','其他').required().error(new Error('期刊收录情况填报错误！')),
         pos:joi.string().valid('会长','副会长','理事会','副理事会','秘书长','副秘书长').required().error(new Error('担任职务填报错误！')),
         ///^((1[9][5-9][0-9]|2[0][0-2][0-9])-(1[9][5-9][0-9]|2[0][0-2][0-9]))|((1[9][5-9][0-9]|2[0][0-2][0-9])-至今)$/
-        tenure:joi.string().pattern(/^((2[0][2][1-2])-(2[0][2][1-2]))|((2[0][2][1-2])-至今)$/).required().error(new Error('任职期限填报错误！')),                   //
+        //tenure:joi.string().pattern(/^((2[0][2][1-2])-(2[0][2][1-2]))|((2[0][2][1-2])-至今)$/).required().error(new Error('任职期限填报错误！')),                   
+        tenure:joi.string().min(1).max(100).required.error(new Error('担任职务填报错误！')),
     }
     )
 )
@@ -135,8 +136,9 @@ const data_3_3_2 = joi.array().items(
         tch_name:joi.string().min(1).max(13).required().error(new Error('教师姓名填报错误！')),
         ac_org:joi.string().min(1).max(100).required().error(new Error('学术组织名称填报错误！')),
         pos:joi.string().valid('会长','副会长','理事会','副理事会','秘书长','副秘书长').required().error(new Error('担任职务填报错误！')),
-        tenure:joi.string().pattern(/^((2[0][2][1-2])-(2[0][2][1-2]))|((2[0][2][1-2])-至今)$/).required().error(new Error('任职期限填报错误！')),                   //
-        
+        // tenure:joi.string().pattern(/^((2[0][2][1-2])-(2[0][2][1-2]))|((2[0][2][1-2])-至今)$/).required().error(new Error('任职期限填报错误！')),                   //
+        tenure:joi.string().min(1).max(100).required.error(new Error('担任职务填报错误！')),
+
         yr:joi.number().integer().less(2023).greater(2020).error(new Error('填报年度填报错误！')),
     }
     )
@@ -149,7 +151,7 @@ const data_3_3_3 = joi.array().items(
         tch_name:joi.string().min(1).max(50).required().error(new Error('教师姓名填报错误！')),
         conf_name:joi.string().min(1).max(100).required().error(new Error('会议名称填报错误！')),
         rpt_title:joi.string().min(1).max(100).required().error(new Error('报告题目填报错误！')),
-        rpt_yr_mth:joi.string().pattern(/^(2[0][2][1-2])-(0[1-9]|1[0-2])$/).required().error(new Error('报告年月填写错误！')),
+        rpt_yr_mth:joi.string().pattern(/^(2[0][2][1-9])-(0[1-9]|1[0-2])$/).required().error(new Error('报告年月填写错误！')),
         rpt_place:joi.string().min(1).max(100).required().error(new Error('报告地点填报错误！')), 
     }
     )
@@ -160,7 +162,7 @@ const data_3_3_4 = joi.array().items(
     joi.object().keys({
         tch_name:joi.string().min(1).max(50).required().error(new Error('教师姓名填报错误！')),
         comp_name:joi.string().min(1).max(100).required().error(new Error('比赛名称填报错误！')),
-        comp_yr_mth:joi.string().pattern(/^(2[0][1][5-9]|2[0][2][0-2])-(0[1-9]|1[0-2])$/).required().error(new Error('比赛年月填写错误！')),
+        comp_yr_mth:joi.string().pattern(/^(2[0][2][1-9]|2[0][2][0-2])-(0[1-9]|1[0-2])$/).required().error(new Error('比赛年月填写错误！')),
         pos:joi.string().valid('裁判','评委').required().error(new Error('担任职务填报错误！')),
     }
     )
