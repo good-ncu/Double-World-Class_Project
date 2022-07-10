@@ -218,7 +218,7 @@ const data_2_4_2 = joi.array().items(
         stu_name:joi.string().min(1).max(13).required().error(new Error('学生姓名填报错误！')),
         stu_type:joi.string().valid('本科生','硕士研究生',"博士研究生").required().error(new Error(new Error('学生类型填报错误！'))),
         conf_name:joi.string().min(1).max(100).required().error(new Error('会议名称填报错误！')),
-        rpt_name:joi.string().min(1).max(100).required().error(new Error('报告题目填报错误！')),
+        rpt_name:joi.string().min(1 ).max(100).required().error(new Error('报告题目填报错误！')),
         rpt_time:joi.string().pattern(/^(1[9][5-9][0-9]|2[0][0-2][0-9])-(0[1-9]|1[0-2])$/).error(new Error('报告时间填写错误！')),
         rpt_place:joi.string().min(1).max(100).required().error(new Error('报告地点填报错误！')),
     }
