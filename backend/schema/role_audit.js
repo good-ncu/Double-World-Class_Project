@@ -1,3 +1,8 @@
+/**
+ * 
+    验证角色类别，是否可以访问对应角色的接口
+ */
+
 exports.is_gov = function(req,res,next){
     if(req.user.id == 2){
         next()
