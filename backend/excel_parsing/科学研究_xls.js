@@ -2,9 +2,11 @@ const nodeXlsx = require('node-xlsx')	//引用node-xlsx模块
 var fs = require('fs');
 const { table } = require('console');
 //deal_table_4_1_1_0()
-function deal_table_4_1_1_0(){
-    ///*读取excel文件*/
-    const ex = nodeXlsx.parse("./“双一流”监测平台表格（四）.xlsx")	//读取excel表格
+exports.deal_table_4_1_1_0=function(req,res,next){
+    const up_file = req.file
+    console.log(up_file);
+    fs.renameSync(up_file.path, `upload/${up_file.originalname}`)
+    const ex = nodeXlsx.parse(`upload/${up_file.originalname}`)	//读取excel表格
     let excel_content = ex[0].data	//下方ex1是读取出来的数组，数组长度取决于Excel文件的工作表(sheet),取出excel文件中的第一个工作表中的全部数据
     let tch_name = 'tch_name' ;
     let award_name = 'award_name' ;
@@ -30,15 +32,34 @@ function deal_table_4_1_1_0(){
         data[i][yr]=excel_content[i][6];
     }
     var nn={}
-    nn.data=data
+    for(let i=0,len=data.length;i<len;i++){
+        let arr_keys=Object.keys(data[i])
+        arr_keys.forEach(item=>{
+            if (data[i][item]==undefined){
+                data[i][item]=''
+            }
+        })
+    }
+    nn.data_4_1_1_0=data
+    req.body = nn
     console.log(nn)
+    // 删除文件
+    try {
+        fs.unlinkSync(`upload/${up_file.originalname}`)
+        //file removed
+    } catch (err) {
+        console.error(err)
+    }
+    next()
 }
 
 //deal_table_4_1_1_1()
-function deal_table_4_1_1_1(){
-    ///*读取excel文件*/
-    const ex = nodeXlsx.parse("./“双一流”监测平台表格（四）.xlsx")	//读取excel表格
-    let excel_content = ex[1].data	//下方ex1是读取出来的数组，数组长度取决于Excel文件的工作表(sheet),取出excel文件中的第一个工作表中的全部数据
+exports.deal_table_4_1_1_1=function(req,res,next){
+    const up_file = req.file
+    console.log(up_file);
+    fs.renameSync(up_file.path, `upload/${up_file.originalname}`)
+    const ex = nodeXlsx.parse(`upload/${up_file.originalname}`)	//读取excel表格
+    let excel_content = ex[0].data	//下方ex1是读取出来的数组，数组长度取决于Excel文件的工作表(sheet),取出excel文件中的第一个工作表中的全部数据
     let tch_name = 'tch_name' ;
     let award_name = 'award_name' ;
     let grade = 'grade' ;
@@ -61,15 +82,34 @@ function deal_table_4_1_1_1(){
         data[i][yr]=excel_content[i][5];
     }
     var nn={}
-    nn.data=data
+    for(let i=0,len=data.length;i<len;i++){
+        let arr_keys=Object.keys(data[i])
+        arr_keys.forEach(item=>{
+            if (data[i][item]==undefined){
+                data[i][item]=''
+            }
+        })
+    }
+    nn.data_4_1_1_1=data
+    req.body = nn
     console.log(nn)
+    // 删除文件
+    try {
+        fs.unlinkSync(`upload/${up_file.originalname}`)
+        //file removed
+    } catch (err) {
+        console.error(err)
+    }
+    next()
 }
 
 //deal_table_4_1_1_2()
-function deal_table_4_1_1_2(){
-    ///*读取excel文件*/
-    const ex = nodeXlsx.parse("./“双一流”监测平台表格（四）.xlsx")	//读取excel表格
-    let excel_content = ex[2].data	//下方ex1是读取出来的数组，数组长度取决于Excel文件的工作表(sheet),取出excel文件中的第一个工作表中的全部数据
+exports.deal_table_4_1_1_2=function(req,res,next){
+    const up_file = req.file
+    console.log(up_file);
+    fs.renameSync(up_file.path, `upload/${up_file.originalname}`)
+    const ex = nodeXlsx.parse(`upload/${up_file.originalname}`)	//读取excel表格
+    let excel_content = ex[0].data	//下方ex1是读取出来的数组，数组长度取决于Excel文件的工作表(sheet),取出excel文件中的第一个工作表中的全部数据
     let tch_name = 'tch_name' ;
     let award_name = 'award_name' ;
     let grade = 'grade' ;
@@ -92,15 +132,34 @@ function deal_table_4_1_1_2(){
         data[i][yr]=excel_content[i][5];
     }
     var nn={}
-    nn.data=data
+    for(let i=0,len=data.length;i<len;i++){
+        let arr_keys=Object.keys(data[i])
+        arr_keys.forEach(item=>{
+            if (data[i][item]==undefined){
+                data[i][item]=''
+            }
+        })
+    }
+    nn.data_4_1_1_2=data
+    req.body = nn
     console.log(nn)
+    // 删除文件
+    try {
+        fs.unlinkSync(`upload/${up_file.originalname}`)
+        //file removed
+    } catch (err) {
+        console.error(err)
+    }
+    next()
 }
 
 //deal_table_4_1_2()
-function deal_table_4_1_2(){
-    ///*读取excel文件*/
-    const ex = nodeXlsx.parse("./“双一流”监测平台表格（四）.xlsx")	//读取excel表格
-    let excel_content = ex[3].data	//下方ex1是读取出来的数组，数组长度取决于Excel文件的工作表(sheet),取出excel文件中的第一个工作表中的全部数据
+exports.deal_table_4_1_2=function(req,res,next){
+    const up_file = req.file
+    console.log(up_file);
+    fs.renameSync(up_file.path, `upload/${up_file.originalname}`)
+    const ex = nodeXlsx.parse(`upload/${up_file.originalname}`)	//读取excel表格
+    let excel_content = ex[0].data	//下方ex1是读取出来的数组，数组长度取决于Excel文件的工作表(sheet),取出excel文件中的第一个工作表中的全部数据
     let yr = 'yr' ;
     let monograph = 'monograph' ;
     let tch_name = 'tch_name' ;
@@ -121,15 +180,34 @@ function deal_table_4_1_2(){
         data[i][publish_date]=excel_content[i][4];
     }
     var nn={}
-    nn.data=data
+    for(let i=0,len=data.length;i<len;i++){
+        let arr_keys=Object.keys(data[i])
+        arr_keys.forEach(item=>{
+            if (data[i][item]==undefined){
+                data[i][item]=''
+            }
+        })
+    }
+    nn.data_4_1_2=data
+    req.body = nn
     console.log(nn)
+    // 删除文件
+    try {
+        fs.unlinkSync(`upload/${up_file.originalname}`)
+        //file removed
+    } catch (err) {
+        console.error(err)
+    }
+    next()
 }
 
 //deal_table_4_1_3_0()
-function deal_table_4_1_3_0(){
-    ///*读取excel文件*/
-    const ex = nodeXlsx.parse("./“双一流”监测平台表格（四）.xlsx")	//读取excel表格
-    let excel_content = ex[4].data	//下方ex1是读取出来的数组，数组长度取决于Excel文件的工作表(sheet),取出excel文件中的第一个工作表中的全部数据
+exports.deal_table_4_1_3_0=function(req,res,next){
+    const up_file = req.file
+    console.log(up_file);
+    fs.renameSync(up_file.path, `upload/${up_file.originalname}`)
+    const ex = nodeXlsx.parse(`upload/${up_file.originalname}`)	//读取excel表格
+    let excel_content = ex[0].data	//下方ex1是读取出来的数组，数组长度取决于Excel文件的工作表(sheet),取出excel文件中的第一个工作表中的全部数据
     let yr = 'yr' ;
     let paper_title = 'paper_title' ;
     let paper_au = 'paper_au' ;
@@ -152,15 +230,34 @@ function deal_table_4_1_3_0(){
         data[i][remarks]=excel_content[i][5];
     }
     var nn={}
-    nn.data=data
+    for(let i=0,len=data.length;i<len;i++){
+        let arr_keys=Object.keys(data[i])
+        arr_keys.forEach(item=>{
+            if (data[i][item]==undefined){
+                data[i][item]=''
+            }
+        })
+    }
+    nn.data_4_1_3_0=data
+    req.body = nn
     console.log(nn)
+    // 删除文件
+    try {
+        fs.unlinkSync(`upload/${up_file.originalname}`)
+        //file removed
+    } catch (err) {
+        console.error(err)
+    }
+    next()
 }
 
 //deal_table_4_1_3_1()
-function deal_table_4_1_3_1(){
-    ///*读取excel文件*/
-    const ex = nodeXlsx.parse("./“双一流”监测平台表格（四）.xlsx")	//读取excel表格
-    let excel_content = ex[5].data	//下方ex1是读取出来的数组，数组长度取决于Excel文件的工作表(sheet),取出excel文件中的第一个工作表中的全部数据
+exports.deal_table_4_1_3_1=function(req,res,next){
+    const up_file = req.file
+    console.log(up_file);
+    fs.renameSync(up_file.path, `upload/${up_file.originalname}`)
+    const ex = nodeXlsx.parse(`upload/${up_file.originalname}`)	//读取excel表格
+    let excel_content = ex[0].data	//下方ex1是读取出来的数组，数组长度取决于Excel文件的工作表(sheet),取出excel文件中的第一个工作表中的全部数据
     let yr = 'yr' ;
     let quarter = 'quarter' ;
     let paper_title = 'paper_title' ;
@@ -185,14 +282,34 @@ function deal_table_4_1_3_1(){
         data[i][remarks]=excel_content[i][6];
     }
     var nn={}
-    nn.data=data
+    for(let i=0,len=data.length;i<len;i++){
+        let arr_keys=Object.keys(data[i])
+        arr_keys.forEach(item=>{
+            if (data[i][item]==undefined){
+                data[i][item]=''
+            }
+        })
+    }
+    nn.data_4_1_3_1=data
+    req.body = nn
     console.log(nn)
+    // 删除文件
+    try {
+        fs.unlinkSync(`upload/${up_file.originalname}`)
+        //file removed
+    } catch (err) {
+        console.error(err)
+    }
+    next()
 }
+
 //deal_table_4_1_3_2()
-function deal_table_4_1_3_2(){
-    ///*读取excel文件*/
-    const ex = nodeXlsx.parse("./“双一流”监测平台表格（四）.xlsx")	//读取excel表格
-    let excel_content = ex[6].data	//下方ex1是读取出来的数组，数组长度取决于Excel文件的工作表(sheet),取出excel文件中的第一个工作表中的全部数据
+exports.deal_table_4_1_3_2=function(req,res,next){
+    const up_file = req.file
+    console.log(up_file);
+    fs.renameSync(up_file.path, `upload/${up_file.originalname}`)
+    const ex = nodeXlsx.parse(`upload/${up_file.originalname}`)	//读取excel表格
+    let excel_content = ex[0].data	//下方ex1是读取出来的数组，数组长度取决于Excel文件的工作表(sheet),取出excel文件中的第一个工作表中的全部数据
     let yr = 'yr' ;
     let quarter = 'quarter' ;
     let paper_title = 'paper_title' ;
@@ -217,14 +334,33 @@ function deal_table_4_1_3_2(){
         data[i][remarks]=excel_content[i][6];
     }
     var nn={}
-    nn.data=data
+    for(let i=0,len=data.length;i<len;i++){
+        let arr_keys=Object.keys(data[i])
+        arr_keys.forEach(item=>{
+            if (data[i][item]==undefined){
+                data[i][item]=''
+            }
+        })
+    }
+    nn.data_4_1_3_2=data
+    req.body = nn
     console.log(nn)
+    // 删除文件
+    try {
+        fs.unlinkSync(`upload/${up_file.originalname}`)
+        //file removed
+    } catch (err) {
+        console.error(err)
+    }
+    next()
 }
 //deal_table_4_1_3_3()
-function deal_table_4_1_3_3(){
-    ///*读取excel文件*/
-    const ex = nodeXlsx.parse("./“双一流”监测平台表格（四）.xlsx")	//读取excel表格
-    let excel_content = ex[7].data	//下方ex1是读取出来的数组，数组长度取决于Excel文件的工作表(sheet),取出excel文件中的第一个工作表中的全部数据
+exports.deal_table_4_1_3_3=function(req,res,next){
+    const up_file = req.file
+    console.log(up_file);
+    fs.renameSync(up_file.path, `upload/${up_file.originalname}`)
+    const ex = nodeXlsx.parse(`upload/${up_file.originalname}`)	//读取excel表格
+    let excel_content = ex[0].data	//下方ex1是读取出来的数组，数组长度取决于Excel文件的工作表(sheet),取出excel文件中的第一个工作表中的全部数据
     let yr = 'yr' ;
     let quarter = 'quarter' ;
     let paper_title = 'paper_title' ;
@@ -249,14 +385,33 @@ function deal_table_4_1_3_3(){
         data[i][remarks]=excel_content[i][6];
     }
     var nn={}
-    nn.data=data
+    for(let i=0,len=data.length;i<len;i++){
+        let arr_keys=Object.keys(data[i])
+        arr_keys.forEach(item=>{
+            if (data[i][item]==undefined){
+                data[i][item]=''
+            }
+        })
+    }
+    nn.data_4_1_3_3=data
+    req.body = nn
     console.log(nn)
+    // 删除文件
+    try {
+        fs.unlinkSync(`upload/${up_file.originalname}`)
+        //file removed
+    } catch (err) {
+        console.error(err)
+    }
+    next()
 }
 //deal_table_4_1_4()
-function deal_table_4_1_4(){
-    ///*读取excel文件*/
-    const ex = nodeXlsx.parse("./“双一流”监测平台表格（四）.xlsx")	//读取excel表格
-    let excel_content = ex[8].data	//下方ex1是读取出来的数组，数组长度取决于Excel文件的工作表(sheet),取出excel文件中的第一个工作表中的全部数据
+exports.deal_table_4_1_4=function(req,res,next){
+    const up_file = req.file
+    console.log(up_file);
+    fs.renameSync(up_file.path, `upload/${up_file.originalname}`)
+    const ex = nodeXlsx.parse(`upload/${up_file.originalname}`)	//读取excel表格
+    let excel_content = ex[0].data	//下方ex1是读取出来的数组，数组长度取决于Excel文件的工作表(sheet),取出excel文件中的第一个工作表中的全部数据
     let yr = 'yr' ;
     let quarter = 'quarter' ;
     let major_desg_or_show_name = 'major_desg_or_show_name' ;
@@ -277,14 +432,33 @@ function deal_table_4_1_4(){
         data[i][task]=excel_content[i][4];
     }
     var nn={}
-    nn.data=data
+    for(let i=0,len=data.length;i<len;i++){
+        let arr_keys=Object.keys(data[i])
+        arr_keys.forEach(item=>{
+            if (data[i][item]==undefined){
+                data[i][item]=''
+            }
+        })
+    }
+    nn.data_4_1_4=data
+    req.body = nn
     console.log(nn)
+    // 删除文件
+    try {
+        fs.unlinkSync(`upload/${up_file.originalname}`)
+        //file removed
+    } catch (err) {
+        console.error(err)
+    }
+    next()
 }
 //deal_table_4_2_1_0()
-function deal_table_4_2_1_0(){
-    ///*读取excel文件*/
-    const ex = nodeXlsx.parse("./“双一流”监测平台表格（四）.xlsx")	//读取excel表格
-    let excel_content = ex[9].data	//下方ex1是读取出来的数组，数组长度取决于Excel文件的工作表(sheet),取出excel文件中的第一个工作表中的全部数据
+exports.deal_table_4_2_1_0=function(req,res,next){
+    const up_file = req.file
+    console.log(up_file);
+    fs.renameSync(up_file.path, `upload/${up_file.originalname}`)
+    const ex = nodeXlsx.parse(`upload/${up_file.originalname}`)	//读取excel表格
+    let excel_content = ex[0].data	//下方ex1是读取出来的数组，数组长度取决于Excel文件的工作表(sheet),取出excel文件中的第一个工作表中的全部数据
     let yr = 'yr' ;
     let plat_name = 'plat_name' ;
     let palt_level = 'palt_level' ;
@@ -303,14 +477,33 @@ function deal_table_4_2_1_0(){
         data[i][appro_time]=excel_content[i][3];
     }
     var nn={}
-    nn.data=data
+    for(let i=0,len=data.length;i<len;i++){
+        let arr_keys=Object.keys(data[i])
+        arr_keys.forEach(item=>{
+            if (data[i][item]==undefined){
+                data[i][item]=''
+            }
+        })
+    }
+    nn.data_4_2_1_0=data
+    req.body = nn
     console.log(nn)
+    // 删除文件
+    try {
+        fs.unlinkSync(`upload/${up_file.originalname}`)
+        //file removed
+    } catch (err) {
+        console.error(err)
+    }
+    next()
 }
 //deal_table_4_2_1_1()
-function deal_table_4_2_1_1(){
-    ///*读取excel文件*/
-    const ex = nodeXlsx.parse("./“双一流”监测平台表格（四）.xlsx")	//读取excel表格
-    let excel_content = ex[10].data	//下方ex1是读取出来的数组，数组长度取决于Excel文件的工作表(sheet),取出excel文件中的第一个工作表中的全部数据
+exports.deal_table_4_2_1_1=function(req,res,next){
+    const up_file = req.file
+    console.log(up_file);
+    fs.renameSync(up_file.path, `upload/${up_file.originalname}`)
+    const ex = nodeXlsx.parse(`upload/${up_file.originalname}`)	//读取excel表格
+    let excel_content = ex[0].data	//下方ex1是读取出来的数组，数组长度取决于Excel文件的工作表(sheet),取出excel文件中的第一个工作表中的全部数据
     let yr = 'yr' ;
     let plat_name = 'plat_name' ;
     let palt_level = 'palt_level' ;
@@ -329,15 +522,34 @@ function deal_table_4_2_1_1(){
         data[i][appro_time]=excel_content[i][3];
     }
     var nn={}
-    nn.data=data
+    for(let i=0,len=data.length;i<len;i++){
+        let arr_keys=Object.keys(data[i])
+        arr_keys.forEach(item=>{
+            if (data[i][item]==undefined){
+                data[i][item]=''
+            }
+        })
+    }
+    nn.data_4_2_1_1=data
+    req.body = nn
     console.log(nn)
+    // 删除文件
+    try {
+        fs.unlinkSync(`upload/${up_file.originalname}`)
+        //file removed
+    } catch (err) {
+        console.error(err)
+    }
+    next()
 }
 
 //deal_table_4_2_1_2()
-function deal_table_4_2_1_2(){
-    ///*读取excel文件*/
-    const ex = nodeXlsx.parse("./“双一流”监测平台表格（四）.xlsx")	//读取excel表格
-    let excel_content = ex[11].data	//下方ex1是读取出来的数组，数组长度取决于Excel文件的工作表(sheet),取出excel文件中的第一个工作表中的全部数据
+exports.deal_table_4_2_1_2=function(req,res,next){
+    const up_file = req.file
+    console.log(up_file);
+    fs.renameSync(up_file.path, `upload/${up_file.originalname}`)
+    const ex = nodeXlsx.parse(`upload/${up_file.originalname}`)	//读取excel表格
+    let excel_content = ex[0].data	//下方ex1是读取出来的数组，数组长度取决于Excel文件的工作表(sheet),取出excel文件中的第一个工作表中的全部数据
     let yr = 'yr' ;
     let plat_name = 'plat_name' ;
     let palt_level = 'palt_level' ;
@@ -356,14 +568,33 @@ function deal_table_4_2_1_2(){
         data[i][appro_time]=excel_content[i][3];
     }
     var nn={}
-    nn.data=data
+    for(let i=0,len=data.length;i<len;i++){
+        let arr_keys=Object.keys(data[i])
+        arr_keys.forEach(item=>{
+            if (data[i][item]==undefined){
+                data[i][item]=''
+            }
+        })
+    }
+    nn.data_4_2_1_2=data
+    req.body = nn
     console.log(nn)
+    // 删除文件
+    try {
+        fs.unlinkSync(`upload/${up_file.originalname}`)
+        //file removed
+    } catch (err) {
+        console.error(err)
+    }
+    next()
 }
 //deal_table_4_2_1_3()
-function deal_table_4_2_1_3(){
-    ///*读取excel文件*/
-    const ex = nodeXlsx.parse("./“双一流”监测平台表格（四）.xlsx")	//读取excel表格
-    let excel_content = ex[12].data	//下方ex1是读取出来的数组，数组长度取决于Excel文件的工作表(sheet),取出excel文件中的第一个工作表中的全部数据
+exports.deal_table_4_2_1_3=function(req,res,next){
+    const up_file = req.file
+    console.log(up_file);
+    fs.renameSync(up_file.path, `upload/${up_file.originalname}`)
+    const ex = nodeXlsx.parse(`upload/${up_file.originalname}`)	//读取excel表格
+    let excel_content = ex[0].data	//下方ex1是读取出来的数组，数组长度取决于Excel文件的工作表(sheet),取出excel文件中的第一个工作表中的全部数据
     let yr = 'yr' ;
     let plat_name = 'plat_name' ;
     let palt_level = 'palt_level' ;
@@ -382,40 +613,34 @@ function deal_table_4_2_1_3(){
         data[i][appro_time]=excel_content[i][3];
     }
     var nn={}
-    nn.data=data
-    console.log(nn)
-}
-//deal_table_4_2_1_3()
-function deal_table_4_2_1_3(){
-    ///*读取excel文件*/
-    const ex = nodeXlsx.parse("./“双一流”监测平台表格（四）.xlsx")	//读取excel表格
-    let excel_content = ex[12].data	//下方ex1是读取出来的数组，数组长度取决于Excel文件的工作表(sheet),取出excel文件中的第一个工作表中的全部数据
-    let yr = 'yr' ;
-    let plat_name = 'plat_name' ;
-    let palt_level = 'palt_level' ;
-    let appro_time = 'appro_time' ;
-    excel_content.splice(0,2)	//一般来说表中的第一条数据可能是标题没有用，所以删掉
-    /**将读取的数据处理成json格式 */
-    var data=[]
-    for(let i=0,len=excel_content.length;i<len;i++){
-        if(excel_content[i].length==0){         //筛选掉末尾空数据
-            break
-       }
-        data[i]={}
-        data[i][yr]=excel_content[i][0];
-        data[i][plat_name]=excel_content[i][1];
-        data[i][palt_level]=excel_content[i][2];
-        data[i][appro_time]=excel_content[i][3];
+    for(let i=0,len=data.length;i<len;i++){
+        let arr_keys=Object.keys(data[i])
+        arr_keys.forEach(item=>{
+            if (data[i][item]==undefined){
+                data[i][item]=''
+            }
+        })
     }
-    var nn={}
-    nn.data=data
+    nn.data_4_2_1_3=data
+    req.body = nn
     console.log(nn)
+    // 删除文件
+    try {
+        fs.unlinkSync(`upload/${up_file.originalname}`)
+        //file removed
+    } catch (err) {
+        console.error(err)
+    }
+    next()
 }
+
 //deal_table_4_2_2_0()
-function deal_table_4_2_2_0(){
-    ///*读取excel文件*/
-    const ex = nodeXlsx.parse("./“双一流”监测平台表格（四）.xlsx")	//读取excel表格
-    let excel_content = ex[13].data	//下方ex1是读取出来的数组，数组长度取决于Excel文件的工作表(sheet),取出excel文件中的第一个工作表中的全部数据
+exports.deal_table_4_2_2_0=function(req,res,next){
+    const up_file = req.file
+    console.log(up_file);
+    fs.renameSync(up_file.path, `upload/${up_file.originalname}`)
+    const ex = nodeXlsx.parse(`upload/${up_file.originalname}`)	//读取excel表格
+    let excel_content = ex[0].data	//下方ex1是读取出来的数组，数组长度取决于Excel文件的工作表(sheet),取出excel文件中的第一个工作表中的全部数据
     let yr = 'yr' ;
     let proj_name = 'proj_name' ;
     let proj_level = 'proj_level' ;
@@ -438,14 +663,33 @@ function deal_table_4_2_2_0(){
         data[i][proj_fromto_ymth]=excel_content[i][5];
     }
     var nn={}
-    nn.data=data
+    for(let i=0,len=data.length;i<len;i++){
+        let arr_keys=Object.keys(data[i])
+        arr_keys.forEach(item=>{
+            if (data[i][item]==undefined){
+                data[i][item]=''
+            }
+        })
+    }
+    nn.data_4_2_2_0=data
+    req.body = nn
     console.log(nn)
+    // 删除文件
+    try {
+        fs.unlinkSync(`upload/${up_file.originalname}`)
+        //file removed
+    } catch (err) {
+        console.error(err)
+    }
+    next()
 }
 //deal_table_4_2_2_1()
-function deal_table_4_2_2_1(){
-    ///*读取excel文件*/
-    const ex = nodeXlsx.parse("./“双一流”监测平台表格（四）.xlsx")	//读取excel表格
-    let excel_content = ex[14].data	//下方ex1是读取出来的数组，数组长度取决于Excel文件的工作表(sheet),取出excel文件中的第一个工作表中的全部数据
+exports.deal_table_4_2_2_1=function(req,res,next){
+    const up_file = req.file
+    console.log(up_file);
+    fs.renameSync(up_file.path, `upload/${up_file.originalname}`)
+    const ex = nodeXlsx.parse(`upload/${up_file.originalname}`)	//读取excel表格
+    let excel_content = ex[0].data	//下方ex1是读取出来的数组，数组长度取决于Excel文件的工作表(sheet),取出excel文件中的第一个工作表中的全部数据
     let yr = 'yr' ;
     let proj_name = 'proj_name' ;
     let proj_type = 'proj_type' ;
@@ -466,14 +710,33 @@ function deal_table_4_2_2_1(){
         data[i][proj_fund]=excel_content[i][4];
     }
     var nn={}
-    nn.data=data
+    for(let i=0,len=data.length;i<len;i++){
+        let arr_keys=Object.keys(data[i])
+        arr_keys.forEach(item=>{
+            if (data[i][item]==undefined){
+                data[i][item]=''
+            }
+        })
+    }
+    nn.data_4_2_2_1=data
+    req.body = nn
     console.log(nn)
+    // 删除文件
+    try {
+        fs.unlinkSync(`upload/${up_file.originalname}`)
+        //file removed
+    } catch (err) {
+        console.error(err)
+    }
+    next()
 }
 //deal_table_4_2_2_2()
-function deal_table_4_2_2_2(){
-    ///*读取excel文件*/
-    const ex = nodeXlsx.parse("./“双一流”监测平台表格（四）.xlsx")	//读取excel表格
-    let excel_content = ex[15].data	//下方ex1是读取出来的数组，数组长度取决于Excel文件的工作表(sheet),取出excel文件中的第一个工作表中的全部数据
+exports.deal_table_4_2_2_2=function(req,res,next){
+    const up_file = req.file
+    console.log(up_file);
+    fs.renameSync(up_file.path, `upload/${up_file.originalname}`)
+    const ex = nodeXlsx.parse(`upload/${up_file.originalname}`)	//读取excel表格
+    let excel_content = ex[0].data	//下方ex1是读取出来的数组，数组长度取决于Excel文件的工作表(sheet),取出excel文件中的第一个工作表中的全部数据
     let yr = 'yr' ;
     let proj_name = 'proj_name' ;
     let proj_type = 'proj_type' ;
@@ -494,14 +757,33 @@ function deal_table_4_2_2_2(){
         data[i][proj_fund]=excel_content[i][4];
     }
     var nn={}
-    nn.data=data
+    for(let i=0,len=data.length;i<len;i++){
+        let arr_keys=Object.keys(data[i])
+        arr_keys.forEach(item=>{
+            if (data[i][item]==undefined){
+                data[i][item]=''
+            }
+        })
+    }
+    nn.data_4_2_2_2=data
+    req.body = nn
     console.log(nn)
+    // 删除文件
+    try {
+        fs.unlinkSync(`upload/${up_file.originalname}`)
+        //file removed
+    } catch (err) {
+        console.error(err)
+    }
+    next()
 }
 //deal_table_4_2_2_3()
-function deal_table_4_2_2_3(){
-    ///*读取excel文件*/
-    const ex = nodeXlsx.parse("./“双一流”监测平台表格（四）.xlsx")	//读取excel表格
-    let excel_content = ex[16].data	//下方ex1是读取出来的数组，数组长度取决于Excel文件的工作表(sheet),取出excel文件中的第一个工作表中的全部数据
+exports.deal_table_4_2_2_3=function(req,res,next){
+    const up_file = req.file
+    console.log(up_file);
+    fs.renameSync(up_file.path, `upload/${up_file.originalname}`)
+    const ex = nodeXlsx.parse(`upload/${up_file.originalname}`)	//读取excel表格
+    let excel_content = ex[0].data	//下方ex1是读取出来的数组，数组长度取决于Excel文件的工作表(sheet),取出excel文件中的第一个工作表中的全部数据
     let yr = 'yr' ;
     let proj_name = 'proj_name' ;
     let proj_type = 'proj_type' ;
@@ -522,14 +804,33 @@ function deal_table_4_2_2_3(){
         data[i][proj_fund]=excel_content[i][4];
     }
     var nn={}
-    nn.data=data
+    for(let i=0,len=data.length;i<len;i++){
+        let arr_keys=Object.keys(data[i])
+        arr_keys.forEach(item=>{
+            if (data[i][item]==undefined){
+                data[i][item]=''
+            }
+        })
+    }
+    nn.data_4_2_2_3=data
+    req.body = nn
     console.log(nn)
+    // 删除文件
+    try {
+        fs.unlinkSync(`upload/${up_file.originalname}`)
+        //file removed
+    } catch (err) {
+        console.error(err)
+    }
+    next()
 }
 //deal_table_4_2_3_1()
-function deal_table_4_2_3_1(){
-    ///*读取excel文件*/
-    const ex = nodeXlsx.parse("./“双一流”监测平台表格（四）.xlsx")	//读取excel表格
-    let excel_content = ex[17].data	//下方ex1是读取出来的数组，数组长度取决于Excel文件的工作表(sheet),取出excel文件中的第一个工作表中的全部数据
+exports.deal_table_4_2_3_1=function(req,res,next){
+    const up_file = req.file
+    console.log(up_file);
+    fs.renameSync(up_file.path, `upload/${up_file.originalname}`)
+    const ex = nodeXlsx.parse(`upload/${up_file.originalname}`)	//读取excel表格
+    let excel_content = ex[0].data	//下方ex1是读取出来的数组，数组长度取决于Excel文件的工作表(sheet),取出excel文件中的第一个工作表中的全部数据
     let yr = 'yr' ;
     let quarter = 'quarter' ;
     let total_fund = 'total_fund' ;
@@ -546,14 +847,33 @@ function deal_table_4_2_3_1(){
         data[i][total_fund]=excel_content[i][2];
     }
     var nn={}
-    nn.data=data
+    for(let i=0,len=data.length;i<len;i++){
+        let arr_keys=Object.keys(data[i])
+        arr_keys.forEach(item=>{
+            if (data[i][item]==undefined){
+                data[i][item]=''
+            }
+        })
+    }
+    nn.data_4_2_3_1=data
+    req.body = nn
     console.log(nn)
+    // 删除文件
+    try {
+        fs.unlinkSync(`upload/${up_file.originalname}`)
+        //file removed
+    } catch (err) {
+        console.error(err)
+    }
+    next()
 }
 //deal_table_4_2_3_2()
-function deal_table_4_2_3_2(){
-    ///*读取excel文件*/
-    const ex = nodeXlsx.parse("./“双一流”监测平台表格（四）.xlsx")	//读取excel表格
-    let excel_content = ex[18].data	//下方ex1是读取出来的数组，数组长度取决于Excel文件的工作表(sheet),取出excel文件中的第一个工作表中的全部数据
+exports.deal_table_4_2_3_2=function(req,res,next){
+    const up_file = req.file
+    console.log(up_file);
+    fs.renameSync(up_file.path, `upload/${up_file.originalname}`)
+    const ex = nodeXlsx.parse(`upload/${up_file.originalname}`)	//读取excel表格
+    let excel_content = ex[0].data	//下方ex1是读取出来的数组，数组长度取决于Excel文件的工作表(sheet),取出excel文件中的第一个工作表中的全部数据
     let yr = 'yr' ;
     let quarter = 'quarter' ;
     let total_fund = 'total_fund' ;
@@ -570,14 +890,33 @@ function deal_table_4_2_3_2(){
         data[i][total_fund]=excel_content[i][2];
     }
     var nn={}
-    nn.data=data
+    for(let i=0,len=data.length;i<len;i++){
+        let arr_keys=Object.keys(data[i])
+        arr_keys.forEach(item=>{
+            if (data[i][item]==undefined){
+                data[i][item]=''
+            }
+        })
+    }
+    nn.data_4_2_3_2=data
+    req.body = nn
     console.log(nn)
+    // 删除文件
+    try {
+        fs.unlinkSync(`upload/${up_file.originalname}`)
+        //file removed
+    } catch (err) {
+        console.error(err)
+    }
+    next()
 }
 //deal_table_4_2_4()
-function deal_table_4_2_4(){
-    ///*读取excel文件*/
-    const ex = nodeXlsx.parse("./“双一流”监测平台表格（四）.xlsx")	//读取excel表格
-    let excel_content = ex[19].data	//下方ex1是读取出来的数组，数组长度取决于Excel文件的工作表(sheet),取出excel文件中的第一个工作表中的全部数据
+exports.deal_table_4_2_4=function(req,res,next){
+    const up_file = req.file
+    console.log(up_file);
+    fs.renameSync(up_file.path, `upload/${up_file.originalname}`)
+    const ex = nodeXlsx.parse(`upload/${up_file.originalname}`)	//读取excel表格
+    let excel_content = ex[0].data	//下方ex1是读取出来的数组，数组长度取决于Excel文件的工作表(sheet),取出excel文件中的第一个工作表中的全部数据
     let yr = 'yr' ;
     let jour_name = 'jour_name' ;
     let jour_in_num = 'jour_in_num' ;
@@ -602,14 +941,33 @@ function deal_table_4_2_4(){
         data[i][ac_influ]=excel_content[i][6];
     }
     var nn={}
-    nn.data=data
+    for(let i=0,len=data.length;i<len;i++){
+        let arr_keys=Object.keys(data[i])
+        arr_keys.forEach(item=>{
+            if (data[i][item]==undefined){
+                data[i][item]=''
+            }
+        })
+    }
+    nn.data_4_2_4=data
+    req.body = nn
     console.log(nn)
+    // 删除文件
+    try {
+        fs.unlinkSync(`upload/${up_file.originalname}`)
+        //file removed
+    } catch (err) {
+        console.error(err)
+    }
+    next()
 }
 //deal_table_4_3_1()
-function deal_table_4_3_1(){
-    ///*读取excel文件*/
-    const ex = nodeXlsx.parse("./“双一流”监测平台表格（四）.xlsx")	//读取excel表格
-    let excel_content = ex[20].data	//下方ex1是读取出来的数组，数组长度取决于Excel文件的工作表(sheet),取出excel文件中的第一个工作表中的全部数据
+exports.deal_table_4_3_1=function(req,res,next){
+    const up_file = req.file
+    console.log(up_file);
+    fs.renameSync(up_file.path, `upload/${up_file.originalname}`)
+    const ex = nodeXlsx.parse(`upload/${up_file.originalname}`)	//读取excel表格
+    let excel_content = ex[0].data	//下方ex1是读取出来的数组，数组长度取决于Excel文件的工作表(sheet),取出excel文件中的第一个工作表中的全部数据
     let proj_name = 'proj_name' ;
     let proj_type = 'proj_type' ;
     let yr = 'yr' ;
@@ -630,43 +988,35 @@ function deal_table_4_3_1(){
         data[i][parti_type]=excel_content[i][4];
     }
     var nn={}
-    nn.data=data
+    for(let i=0,len=data.length;i<len;i++){
+        let arr_keys=Object.keys(data[i])
+        arr_keys.forEach(item=>{
+            if (data[i][item]==undefined){
+                data[i][item]=''
+            }
+        })
+    }
+    nn.data_4_3_1=data
+    req.body = nn
     console.log(nn)
+    // 删除文件
+    try {
+        fs.unlinkSync(`upload/${up_file.originalname}`)
+        //file removed
+    } catch (err) {
+        console.error(err)
+    }
+    next()
 }
 
-//deal_table_4_3_1()
-function deal_table_4_3_1(){
-    ///*读取excel文件*/
-    const ex = nodeXlsx.parse("./“双一流”监测平台表格（四）.xlsx")	//读取excel表格
-    let excel_content = ex[20].data	//下方ex1是读取出来的数组，数组长度取决于Excel文件的工作表(sheet),取出excel文件中的第一个工作表中的全部数据
-    let proj_name = 'proj_name' ;
-    let proj_type = 'proj_type' ;
-    let yr = 'yr' ;
-    let quarter = 'quarter' ;
-    let parti_type = 'parti_type' ;
-    excel_content.splice(0,3)	//一般来说表中的第一条数据可能是标题没有用，所以删掉
-    /**将读取的数据处理成json格式 */
-    var data=[]
-    for(let i=0,len=excel_content.length;i<len;i++){
-        if(excel_content[i].length==0){         //筛选掉末尾空数据
-            break
-       }
-        data[i]={}
-        data[i][proj_name]=excel_content[i][0];
-        data[i][proj_type]=excel_content[i][1];
-        data[i][yr]=excel_content[i][2];
-        data[i][quarter]=excel_content[i][3];
-        data[i][parti_type]=excel_content[i][4];
-    }
-    var nn={}
-    nn.data=data
-    console.log(nn)
-}
+
 //deal_table_4_3_2()
-function deal_table_4_3_2(){
-    ///*读取excel文件*/
-    const ex = nodeXlsx.parse("./“双一流”监测平台表格（四）.xlsx")	//读取excel表格
-    let excel_content = ex[21].data	//下方ex1是读取出来的数组，数组长度取决于Excel文件的工作表(sheet),取出excel文件中的第一个工作表中的全部数据
+exports.deal_table_4_3_2=function(req,res,next){
+    const up_file = req.file
+    console.log(up_file);
+    fs.renameSync(up_file.path, `upload/${up_file.originalname}`)
+    const ex = nodeXlsx.parse(`upload/${up_file.originalname}`)	//读取excel表格
+    let excel_content = ex[0].data	//下方ex1是读取出来的数组，数组长度取决于Excel文件的工作表(sheet),取出excel文件中的第一个工作表中的全部数据
     let yr = 'yr' ;
     let quarter = 'quarter' ;
     let chn_nsci_num = 'chn_nsci_num' ;
@@ -693,6 +1043,23 @@ function deal_table_4_3_2(){
         data[i][co_hss_num]=excel_content[i][7];
     }
     var nn={}
-    nn.data=data
+    for(let i=0,len=data.length;i<len;i++){
+        let arr_keys=Object.keys(data[i])
+        arr_keys.forEach(item=>{
+            if (data[i][item]==undefined){
+                data[i][item]=''
+            }
+        })
+    }
+    nn.data_4_3_2=data
+    req.body = nn
     console.log(nn)
+    // 删除文件
+    try {
+        fs.unlinkSync(`upload/${up_file.originalname}`)
+        //file removed
+    } catch (err) {
+        console.error(err)
+    }
+    next()
 }
