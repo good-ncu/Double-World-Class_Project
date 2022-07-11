@@ -99,7 +99,7 @@ exports.query_all_discipline_current = function (req, res) {
     console.log(discipline_code)
 
     //  约束： 账户权限必须是3 ==> 学校id    拿到它选择的学科代码     
-    sql = `SELECT user_fill.id,user_fill.fill_id,fill.fill_about,user_fill.is_seen from user_fill,fill 
+    sql = `SELECT user_fill.id,user_fill.fill_id,fill.fill_about,user_fill.is_seen,fill.fill_cycle from user_fill,fill 
     where user_fill.flag=1 and user_fill.fill_id=fill.id and 
     user_fill.user_id=(select user_info.id from user_info where 
         user_info.univ_code='${userinfo.univ_code}' and user_info.discipline_code='${discipline_code}' )`    //
@@ -118,6 +118,9 @@ exports.query_all_discipline_current = function (req, res) {
                 message: "当前周期下，您选择的学科还未录入任何有效信息。"
             })
         } else {
+            for (let i = 0, len = results.rows.length; i < len; i++) { 
+                results.rows[i]["填报对象"] = "学科填报"
+            }
             res.send({
                 status: 0,
                 data: results.rows

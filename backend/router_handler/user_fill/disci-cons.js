@@ -12,6 +12,7 @@ const expressJWT = require('express-jwt')
 const async = require('async');
 const { query } = require('express');
 
+
 // 学科评估情况处理函数 1-1-2（无唯一检测）
 // exports.disci_eval_situation_sub = function (req, res) {
 //     // 对 5、6轮的数据进行校验    （春波无法完成的情况编写）
@@ -66,77 +67,61 @@ exports.disci_eval_situation_sub = function (req, res) {
     // 插入所有的数据都用同一个，与user_fill表的id相匹配
     var user_fill_id = uuidv4().replace(/-/g, '')
 
-    //开始唯一性检测
-    var sqls = []
+    
+
+    //  注意！！！！！      上述唯一性检测没问题后，开始插入操作
+    var sqls_insert = []
+    sqls_insert.push(`SELECT * FROM user_fill WHERE user_id='${user.id}' AND fill_id = '1_1_2' AND flag=1`)
     for (let i = 0, len = submit_info.length; i < len; i++) {
-        sqls[i] = (`SELECT * FROM discipline_eval WHERE discipline_code='${user.discipline_code}' AND univ_code='${user.univ_code}' AND discipline_eval_turn=${submit_info[i].discipline_eval_turn} `)
+        const strUUID = uuidv4(); // ⇨ '1b9d6bcd-bbfd-4b2d-9b5d-ab8dfbbd4bed'
+        const strUUID2 = strUUID.replace(/-/g, '');       // 去掉-字符
+        sqls_insert[i + 1] = (`insert into discipline_eval(id,discipline_code,univ_code,discipline_eval_turn,discipline_eval_result,user_fill_id) values('${strUUID2}','${user.discipline_code}','${user.univ_code}',${submit_info[i].discipline_eval_turn},'${submit_info[i].discipline_eval_result}','${user_fill_id}')`)
     }
-    console.log(sqls)
-    async.each(sqls, function (item, callback) {
+    async.eachSeries(sqls_insert, function (item, callback) {
         // 遍历每条SQL并执行
         client.query(item, function (err, results) {
-            if (results.rows.length !== 0) {
+            console.log(results.rows.length)
+            if (err) {
                 // 异常后调用callback并传入err
-                err = "请勿重复提交"
+                err = "系统错误，请刷新页面后重试"
                 callback(err);
             } else {
-                console.log(item + "唯一性检测无误");
+
+                if (results.rows.length !== 0 && results.rows[0].flag == 1){ 
+                    err = "请勿重复提交"
+                }
                 // 执行完成后也要调用callback，不需要参数
-                callback();
+                if (err == "请勿重复提交") {
+                    callback(err)
+                } else {
+                    callback();
+                }
+
+
             }
         });
     }, function (err) {
-        // 所有唯一检测性SQL执行完成后回调
+        // 所有SQL执行完成后回调
         if (err) {
-            res.send({
-                status: 1,
-                message: "请勿重复提交"
-            })
+            return res.cc(err)
         } else {
-
-            //  注意！！！！！      上述唯一性检测没问题后，开始插入操作
-            var sqls_insert = []
-            for (let i = 0, len = submit_info.length; i < len; i++) {
-                const strUUID = uuidv4(); // ⇨ '1b9d6bcd-bbfd-4b2d-9b5d-ab8dfbbd4bed'
-                const strUUID2 = strUUID.replace(/-/g, '');       // 去掉-字符
-                sqls_insert[i] = (`insert into discipline_eval(id,discipline_code,univ_code,discipline_eval_turn,discipline_eval_result,user_fill_id) values('${strUUID2}','${user.discipline_code}','${user.univ_code}',${submit_info[i].discipline_eval_turn},'${submit_info[i].discipline_eval_result}','${user_fill_id}')`)
-            }
-            console.log(sqls_insert)
-            async.each(sqls_insert, function (item, callback) {
-                // 遍历每条SQL并执行
-                client.query(item, function (err, results) {
-                    if (err) {
-                        // 异常后调用callback并传入err
-                        callback(err);
-                    } else {
-                        console.log(item + "插入完成");
-                        // 执行完成后也要调用callback，不需要参数
-                        callback();
-                    }
-                });
-            }, function (err) {
-                // 所有SQL执行完成后回调
-                if (err) {
-                    return res.cc('数据填报失败，请稍后再试')
-                } else {
-                    // 当当前用户所填数据都成功后，说明当前周期对应的excel表已经填报完成， 则在user_fill插入一条记录，flag置为1， 说明该表
-                    client.query(`insert into user_fill(id, user_id, fill_id, flag) values('${user_fill_id}','${user.id}','1_1_2',1)`, function (err, result) {
-                        if (err) return res.cc('填报错误,请稍后再试')
-                        if (result.rowCount !== 1) return res.cc('填报失败,请稍后再试')
-                        res.send({
-                            status: 0,
-                            message: "填报成功！！"
-                        })
-                        console.log("SQL全部执行成功");
-                    })
-                }
-            });
-
+            // 当当前用户所填数据都成功后，说明当前周期对应的excel表已经填报完成， 则在user_fill插入一条记录，flag置为1， 说明该表
+            client.query(`insert into user_fill(id, user_id, fill_id, flag) values('${user_fill_id}','${user.id}','1_1_2',1)`, function (err, result) {
+                if (err) return res.cc('填报错误,请稍后再试')
+                if (result.rowCount !== 1) return res.cc('填报失败,请稍后再试')
+                res.send({
+                    status: 0,
+                    message: "填报成功！！"
+                })
+                console.log("SQL全部执行成功");
+            })
         }
     });
 
-
 }
+
+
+
 
 
 /**
@@ -271,6 +256,80 @@ exports.disci_funds_sub = function (req, res) {
 }
 
 
+exports.new_disci_eval_situation_sub = function (req, res) {
+    // 接收表单数据
+    const submit_info = req.body.data_1_1_2
+    // 获取token中的user信息
+    user = req.user
+    // 插入所有的数据都用同一个，与user_fill表的id相匹配
+    var user_fill_id = uuidv4().replace(/-/g, '')
+    var sqls_insert = []
+    sqls_insert.push(`SELECT * FROM user_fill WHERE user_id='${user.id}' AND fill_id = '1_1_2' AND flag=1`)
+    for (let i = 0, len = submit_info.length; i < len; i++) {
+        const strUUID = uuidv4(); // ⇨ '1b9d6bcd-bbfd-4b2d-9b5d-ab8dfbbd4bed'
+        const strUUID2 = strUUID.replace(/-/g, '');       // 去掉-字符
+        sqls_insert[i + 1] = (`insert into discipline_eval(id,discipline_code,univ_code,discipline_eval_turn,discipline_eval_result,user_fill_id) values('${strUUID2}','${user.discipline_code}','${user.univ_code}',${submit_info[i].discipline_eval_turn},'${submit_info[i].discipline_eval_result}','${user_fill_id}')`)
+    }
+    //  ============================================================ 分界线=========================================================
+
+    // function数组，需要执行的任务列表，每个function都有一个参数callback函数并且要调用
+    var tasks = [function (callback) {
+        // 开启事务
+        client.beginTransaction(function (err) {
+            callback(err);
+        });
+    }, function (callback) {
+        async.eachSeries(sqls_insert, function (item, callback) {
+            // 遍历每条SQL并执行
+            client.query(item, function (err, results) {
+                console.log(results.rows.length)
+                if (err) {
+                    // 异常后调用callback并传入err
+                    err = "系统错误，请刷新页面后重试"
+                    callback(err);
+                } else {
+
+                    if (results.rows.length !== 0 && results.rows[0].flag == 1) {
+                        err = "请勿重复提交"
+                    }
+                    // 执行完成后也要调用callback，不需要参数
+                    if (err == "请勿重复提交") {
+                        callback(err)
+                    } else {
+                        callback();
+                    }
+                }
+            });
+        }, function (err) {
+            // 所有SQL执行完成后回调
+            if (err) {
+                return res.cc(err)
+            }
+        });
+    }, function (callback) {
+
+        client.query('insert into user_fill(id, user_id, fill_id) values(?,?,?)', [user_fill_id, user.id, '1_1_2'], function (err, result) {
+            callback(err);
+        });
+    }, function (callback) {
+        // 提交事务
+        client.commit(function (err) {
+            callback(err);
+        });
+    }];
+
+    async.series(tasks, function (err, results) {
+        if (err) {
+            console.log(err);
+            client.rollback(); // 发生错误事务回滚
+        }
+        client.end();
+    });
+
+
+}
+
+
 
 
 
@@ -337,8 +396,8 @@ exports.disci_funds_sub = function (req, res) {
 
 /**
  *  二级表格下的表格是否可以填报
- *  */ 
- exports.query_is_time = function(req,res){
+ *  */
+exports.query_is_time = function (req, res) {
     // 1. 在fill表内根据fill_id检查flag（1在填报周期，0不在填报周期）
     // 2. 根据fill_id、user_id去user_fill表内查找flag，若为1则已经填报，若为0或者null则未填报
     // 接收表单数据
@@ -349,7 +408,7 @@ exports.disci_funds_sub = function (req, res) {
     var sqls = []
     userinfo = req.user
     for (let i = 0, len = submit_info.length; i < len; i++) {
-        var t1 = submit_info[i]+'_%'
+        var t1 = submit_info[i] + '_%'
         sqls[i] = `select id,fill_about,flag,fill_cycle from fill where id like '${t1}'`
     }
     async.each(sqls, function (item, callback) {
@@ -374,7 +433,7 @@ exports.disci_funds_sub = function (req, res) {
             return res.cc('系统繁忙,请稍后再试')
         } else {
             // fill表内的记录
-            var all_fill_period = resultt[0].map(function(item) {
+            var all_fill_period = resultt[0].map(function (item) {
                 return {
                     id: item.id,
                     name: item.fill_about,
@@ -386,48 +445,48 @@ exports.disci_funds_sub = function (req, res) {
             })
             console.log(all_fill_period);
             var sqls2 = []
-            var temp  = 0
-            for(let i = 0,len = all_fill_period.length;i<len;i++){
-                sqls2[temp++]=(`select * from user_fill where user_id = '${userinfo.id}' and fill_id='${all_fill_period[i].id}'`)
+            var temp = 0
+            for (let i = 0, len = all_fill_period.length; i < len; i++) {
+                sqls2[temp++] = (`select * from user_fill where user_id = '${userinfo.id}' and fill_id='${all_fill_period[i].id}'`)
             }
             // user_fill表内的记录
             // var all_user_fill = []
-            var count = 0 
+            var count = 0
             async.each(sqls2,
-                function(item,callback){
+                function (item, callback) {
                     console.log("loulou");
                     console.log(item);
-                    client.query(item, function(err,results) {
-                            count++
-                            if (err) {
-                                callback(err)
-                            } else {
-                                // 非NULL
-                                if(results.rows.length!==0){
-                                    console.log(results.rows);
-                                    // 只有一条记录
-                                    if(results.rows.length==1){
-                                        all_fill_period[count-1].is_filled = results.rows[0].flag
-                                    }
-                                    var c = 0
-                                    // 还可能存在多个记录，检索所有记录，是不是user_fill中的flag都为0
-                                    for(let i = 0, len = results.rows.length; i < len; i++){
-                                        if(results.rows[i].flag == 1){
-                                            c=1
-                                            break
-                                        }
-                                    }
-                                    all_fill_period[count-1].is_filled = c
-                                    // all_user_fill.push(results.rows[0])
-                                } else {
-                                    all_fill_period[count-1].is_filled = 0
+                    client.query(item, function (err, results) {
+                        count++
+                        if (err) {
+                            callback(err)
+                        } else {
+                            // 非NULL
+                            if (results.rows.length !== 0) {
+                                console.log(results.rows);
+                                // 只有一条记录
+                                if (results.rows.length == 1) {
+                                    all_fill_period[count - 1].is_filled = results.rows[0].flag
                                 }
-                                callback()
+                                var c = 0
+                                // 还可能存在多个记录，检索所有记录，是不是user_fill中的flag都为0
+                                for (let i = 0, len = results.rows.length; i < len; i++) {
+                                    if (results.rows[i].flag == 1) {
+                                        c = 1
+                                        break
+                                    }
+                                }
+                                all_fill_period[count - 1].is_filled = c
+                                // all_user_fill.push(results.rows[0])
+                            } else {
+                                all_fill_period[count - 1].is_filled = 0
                             }
+                            callback()
+                        }
                     })
-                }, 
-                function(err){
-                    if(err){
+                },
+                function (err) {
+                    if (err) {
                         console.log(err);
                         res.cc('系统繁忙，请稍后再试')
                     } else {
@@ -440,89 +499,7 @@ exports.disci_funds_sub = function (req, res) {
                     }
                 }
             )
-            // return res.send({
-            //     fill_status: resultt[0]
-            // })
-        /**
-         * 旧代码 返回不能填报的表格
-         * 
-         */
-        //     // sqls执行没有报错，
-        //     var sqls2 = []
-        //     console.log(resultt[0]);
-        //     resultt = resultt[0]
-        //     var count = 0 
-        //     // 循环遍历上个查询结果时，可以顺便就把下个sql定义了
-        //     // 临时变量，用于当作sqls2的移动下标，不宜直接在循环中用i作下标
-        //     var temp = 0
-        //     // 临时变量，用于当作real_result的移动下标，不宜直接在循环中用i作下标
-        //     var temp_for_real_result = 0
-        //     // 记录 无法填报的表格的id
-        //     var real_result = []
-        //     // 先检查填报周期，如果全部不在填报周期，就直接返回数据（所有按钮灰色）
-        //     for(let i = 0,len = resultt.length;i<len;i++){
-        //         if(resultt[i].flag===0){
-        //             count++
-        //             real_result[temp_for_real_result++] = resultt[i].id
-        //             if(count===len){
-        //                 return res.send({
-        //                     result: resultt
-        //                 })
-        //             }
-        //         }
-        //         if(resultt[i].flag===1){
-        //             // 存在处于填报周期的字段
-        //             sqls2[temp]=(`select * from user_fill where user_id = '${userinfo.id}' and fill_id='${resultt[i].id}'`)
-        //         }
-        //     }
-        //     console.log("===========================");
-        //     console.log(real_result);
-        //     console.log(sqls2);
-        //     var resultt2 = []
-        //     // 否则再依次检查flag为1的fill_id是否填报过
-        //     async.each(sqls2,function(item,callback){
-        //         client.query(item, function(err,results) {
-        //             if (err) {
-        //                 callback(err)
-        //             } else {
-        //                 // 非NULL
-        //                 if(results.rows.length!==0){
-        //                     resultt2.push(results.rows[0])
-        //                 }
-        //                 callback()
-        //             }
-        //         })
-        //     }, function(err){
-        //         if(err){
-        //             console.log(err);
-        //         } else {
-        //             console.log(resultt2);
-        //             for(let i = 0,len = resultt2.length;i<len;i++){
-        //                 if(resultt2[i].flag===1){
-        //                     // 记录无法填报的表格的id
-        //                     real_result[temp_for_real_result++] = resultt2[i].fill_id
-        //                 }
-        //             }
-        //             // 记录无法填报的表格的完整信息（id, name, cycle）
-        //             var unable_fill_result = []
-        //             var temp_unable_fill_result = 0
-        //             for(let i = 0,len = resultt.length;i<len;i++){
-        //                 if(real_result.includes(resultt[i].id)){
-        //                     unable_fill_result[temp_unable_fill_result] = resultt[i]
-        //                     // flag置空 避免误解
-        //                     unable_fill_result[temp_unable_fill_result].flag = ''
-        //                     temp_unable_fill_result++
-        //                 }
-        //             }
-        //             res.send({
-        //                 unable_fill: unable_fill_result
-        //             })
-        //         }
-        //     })
-        //     // res.send({
-        //     //     result: resultt
-        //     // })
-        //     // console.log("SQL全部执行成功");
+        
         }
     });
 }

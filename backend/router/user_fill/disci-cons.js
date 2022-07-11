@@ -28,6 +28,7 @@ router.post('/progress', disci_cons_handler.query_is_time)
 
 // 手动 填写学科评估情况（1-1-2）
 router.post('/progress/disci-eval-situation', expressJoi(sub_schema1.table_1_1_2), disci_cons_handler.disci_eval_situation_sub)
+router.post('/progress/new-disci-eval-situation', expressJoi(sub_schema1.table_1_1_2), disci_cons_handler.new_disci_eval_situation_sub)
 
 // 手动 填写学科影响力情况（1-1-3）
 router.post('/progress/disci-influence', expressJoi(sub_schema1.table_1_1_3), disci_cons_handler.disci_influence_sub)
