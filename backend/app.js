@@ -37,7 +37,8 @@ const config = require('./config')
 app.use(expressJWT({secret: config.jwtSecretKey,algorithms: ['HS256']}).unless({
   path: [
     /^\/api\/login/,
-    /^\/api\/download/
+    /^\/api\/download/,
+    /^\/api\/alluniv/
   ]
 }))
 
@@ -78,6 +79,10 @@ app.use('/api/index/school-query',school_reviewRouter)
 // 导入 下载模板的路由模块
 const download_router = require('./router/download')
 app.use('/api',download_router)
+
+
+const all_univ = require('./router/all_univ')
+app.use('/api',all_univ)
 
 // 启动服务器
 app.listen(3007, () => {
