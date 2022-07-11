@@ -24,6 +24,14 @@ exports.deal_table_5_1_1=function(req,res,next){
         data[i][achv_to_univfund]=excel_content[i][2];
     }
     var nn={}
+    for(let i=0,len=data.length;i<len;i++){
+        let arr_keys=Object.keys(data[i])
+        arr_keys.forEach(item=>{
+            if (data[i][item]==undefined){
+                data[i][item]=''
+            }
+        })
+    }
     nn.data_5_1_1=data
     req.body = nn
     console.log(nn)
@@ -61,6 +69,14 @@ exports.deal_table_5_2_1_1=function(req,res,next){
         data[i][appro_date]=excel_content[i][3];
     }
     var nn={}
+    for(let i=0,len=data.length;i<len;i++){
+        let arr_keys=Object.keys(data[i])
+        arr_keys.forEach(item=>{
+            if (data[i][item]==undefined){
+                data[i][item]=''
+            }
+        })
+    }
     nn.data_5_2_1_1=data
     req.body = nn
     console.log(nn)
@@ -98,6 +114,14 @@ exports.deal_table_5_2_1_2=function(req,res,next){
         data[i][appro_date]=excel_content[i][3];
     }
     var nn={}
+    for(let i=0,len=data.length;i<len;i++){
+        let arr_keys=Object.keys(data[i])
+        arr_keys.forEach(item=>{
+            if (data[i][item]==undefined){
+                data[i][item]=''
+            }
+        })
+    }
     nn.data_5_2_1_2=data
     req.body = nn
     console.log(nn)
@@ -137,6 +161,14 @@ exports.deal_table_5_2_2_1=function(req,res,next){
         data[i][adopt_date]=excel_content[i][4];
     }
     var nn={}
+    for(let i=0,len=data.length;i<len;i++){
+        let arr_keys=Object.keys(data[i])
+        arr_keys.forEach(item=>{
+            if (data[i][item]==undefined){
+                data[i][item]=''
+            }
+        })
+    }
     nn.data_5_2_2_1=data
     req.body = nn
     console.log(nn)
@@ -176,6 +208,14 @@ exports.deal_table_5_2_2_2=function(req,res,next){
         data[i][adopt_date]=excel_content[i][4];
     }
     var nn={}
+    for(let i=0,len=data.length;i<len;i++){
+        let arr_keys=Object.keys(data[i])
+        arr_keys.forEach(item=>{
+            if (data[i][item]==undefined){
+                data[i][item]=''
+            }
+        })
+    }
     nn.data_5_2_2_2=data
     req.body = nn
     console.log(nn)

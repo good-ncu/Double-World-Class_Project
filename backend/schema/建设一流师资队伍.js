@@ -125,7 +125,7 @@ const data_3_3_1 = joi.array().items(
         pos:joi.string().valid('会长','副会长','理事会','副理事会','秘书长','副秘书长').required().error(new Error('担任职务填报错误！')),
         ///^((1[9][5-9][0-9]|2[0][0-2][0-9])-(1[9][5-9][0-9]|2[0][0-2][0-9]))|((1[9][5-9][0-9]|2[0][0-2][0-9])-至今)$/
         //tenure:joi.string().pattern(/^((2[0][2][1-2])-(2[0][2][1-2]))|((2[0][2][1-2])-至今)$/).required().error(new Error('任职期限填报错误！')),                   
-        tenure:joi.string().min(1).max(100).required.error(new Error('担任职务填报错误！')),
+        tenure:joi.string().min(1).max(100).required().error(new Error('担任职务填报错误！')),
     }
     )
 )
@@ -137,7 +137,7 @@ const data_3_3_2 = joi.array().items(
         ac_org:joi.string().min(1).max(100).required().error(new Error('学术组织名称填报错误！')),
         pos:joi.string().valid('会长','副会长','理事会','副理事会','秘书长','副秘书长').required().error(new Error('担任职务填报错误！')),
         // tenure:joi.string().pattern(/^((2[0][2][1-2])-(2[0][2][1-2]))|((2[0][2][1-2])-至今)$/).required().error(new Error('任职期限填报错误！')),                   //
-        tenure:joi.string().min(1).max(100).required.error(new Error('担任职务填报错误！')),
+        tenure:joi.string().min(1).max(100).required().error(new Error('担任职务填报错误！')),
 
         yr:joi.number().integer().less(2023).greater(2020).error(new Error('填报年度填报错误！')),
     }

@@ -25,6 +25,14 @@ exports.deal_table_3_1_1=function(req,res,next){
         data[i][yr]=excel_content[i][2];
     }
     var nn={}
+    for(let i=0,len=data.length;i<len;i++){
+        let arr_keys=Object.keys(data[i])
+        arr_keys.forEach(item=>{
+            if (data[i][item]==undefined){
+                data[i][item]=''
+            }
+        })
+    }
     nn.data_3_1_1=data
     req.body = nn
     console.log(nn)
@@ -69,6 +77,14 @@ exports.deal_table_3_2_1=function(req,res,next){
         data[i][rep_work]=excel_content[i][5];
     }
     var nn={}
+    for(let i=0,len=data.length;i<len;i++){
+        let arr_keys=Object.keys(data[i])
+        arr_keys.forEach(item=>{
+            if (data[i][item]==undefined){
+                data[i][item]=''
+            }
+        })
+    }
     nn.data_3_2_1 = data
     req.body = nn
     // 删除文件
@@ -106,6 +122,14 @@ exports.deal_table_3_2_2_0=function(req,res,next){
         data[i][yr]=excel_content[i][3];
     }
     var nn={}
+    for(let i=0,len=data.length;i<len;i++){
+        let arr_keys=Object.keys(data[i])
+        arr_keys.forEach(item=>{
+            if (data[i][item]==undefined){
+                data[i][item]=''
+            }
+        })
+    }
     nn.data_3_2_2_0 = data
     req.body = nn
     // 删除文件
@@ -140,6 +164,14 @@ exports.deal_table_3_2_2_1=function(req,res,next){
         data[i][yr]=excel_content[i][2];
     }
     var nn={}
+    for(let i=0,len=data.length;i<len;i++){
+        let arr_keys=Object.keys(data[i])
+        arr_keys.forEach(item=>{
+            if (data[i][item]==undefined){
+                data[i][item]=''
+            }
+        })
+    }
     nn.data_3_2_2_1 = data
     req.body = nn
     // 删除文件
@@ -175,6 +207,14 @@ exports.deal_table_3_2_2_2=function(req,res,next){
         data[i][yr]=excel_content[i][2];
     }
     var nn={}
+    for(let i=0,len=data.length;i<len;i++){
+        let arr_keys=Object.keys(data[i])
+        arr_keys.forEach(item=>{
+            if (data[i][item]==undefined){
+                data[i][item]=''
+            }
+        })
+    }
     nn.data_3_2_2_2 = data
     req.body = nn
     console.log(nn)
@@ -224,6 +264,14 @@ exports.deal_table_3_2_3=function(req,res,next){
         data[i][b_degree]=excel_content[i][13];
     }
     var nn={}
+    for(let i=0,len=data.length;i<len;i++){
+        let arr_keys=Object.keys(data[i])
+        arr_keys.forEach(item=>{
+            if (data[i][item]==undefined){
+                data[i][item]=''
+            }
+        })
+    }
     nn.data_3_2_3 = data
     req.body = nn
     // 删除文件
@@ -274,6 +322,14 @@ exports.deal_table_3_2_4=function(req,res,next){
         data[i][task_ra_newinc]=excel_content[i][10];
     }
     var nn={}
+    for(let i=0,len=data.length;i<len;i++){
+        let arr_keys=Object.keys(data[i])
+        arr_keys.forEach(item=>{
+            if (data[i][item]==undefined){
+                data[i][item]=''
+            }
+        })
+    }
     nn.data_3_2_4 = data
     req.body = nn
     // 删除文件
@@ -317,6 +373,14 @@ exports.deal_table_3_2_5=function(req,res,next){
         data[i][prof_high_title]=excel_content[i][6];
     }
     var nn={}
+    for(let i=0,len=data.length;i<len;i++){
+        let arr_keys=Object.keys(data[i])
+        arr_keys.forEach(item=>{
+            if (data[i][item]==undefined){
+                data[i][item]=''
+            }
+        })
+    }
     nn.data_3_2_5 = data
     req.body = nn
     // 删除文件
@@ -357,6 +421,14 @@ exports.deal_table_3_3_1=function(req,res,next){
         data[i][tenure]=excel_content[i][6];
     }
     var nn={}
+    for(let i=0,len=data.length;i<len;i++){
+        let arr_keys=Object.keys(data[i])
+        arr_keys.forEach(item=>{
+            if (data[i][item]==undefined){
+                data[i][item]=''
+            }
+        })
+    }
     nn.data_3_3_1 = data
     // console.log(nn)
     req.body = nn
@@ -396,6 +468,14 @@ exports.deal_table_3_3_2=function(req,res,next){
         data[i][tenure]=excel_content[i][3];
     }
     var nn={}
+    for(let i=0,len=data.length;i<len;i++){
+        let arr_keys=Object.keys(data[i])
+        arr_keys.forEach(item=>{
+            if (data[i][item]==undefined){
+                data[i][item]=''
+            }
+        })
+    }
     nn.data_3_3_2 = data
     req.body = nn
     // console.log(nn)
@@ -439,6 +519,14 @@ exports.deal_table_3_3_3=function(req,res,next){
         
     }
     var nn={}
+    for(let i=0,len=data.length;i<len;i++){
+        let arr_keys=Object.keys(data[i])
+        arr_keys.forEach(item=>{
+            if (data[i][item]==undefined){
+                data[i][item]=''
+            }
+        })
+    }
     nn.data_3_3_3 = data
     req.body = nn
     console.log(nn)
@@ -478,6 +566,15 @@ exports.deal_table_3_3_4=function(req,res,next){
         data[i][pos]=excel_content[i][3];
     }
     var nn={}
+    for(let i=0,len=data.length;i<len;i++){
+        let arr_keys=Object.keys(data[i])
+        arr_keys.forEach(item=>{
+            if (data[i][item]==undefined){
+                data[i][item]=''
+            }
+        })
+    }
+    
     nn.data_3_3_4 = data
     req.body = nn
     // 删除文件

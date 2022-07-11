@@ -41,7 +41,16 @@ exports.deal_table_1_1_2 = function (req, res, next) {
     }
 
     var nn = {}
+    for(let i=0,len=data.length;i<len;i++){
+        let arr_keys=Object.keys(data[i])
+        arr_keys.forEach(item=>{
+            if (data[i][item]==undefined){
+                data[i][item]=''
+            }
+        })
+    }
     nn.data_1_1_2 = data
+
     console.log(nn);
     req.body = nn
     // 删除文件
@@ -79,9 +88,19 @@ exports.deal_table_1_1_3 = function (req, res, next) {
     }
 
     var nn = {}
+    for(let i=0,len=data.length;i<len;i++){
+        let arr_keys=Object.keys(data[i])
+        arr_keys.forEach(item=>{
+            if (data[i][item]==undefined){
+                data[i][item]=''
+            }
+        })
+    }
     nn.data_1_1_3 = data
+
     console.log(nn);
     req.body = nn
+
     // 删除文件
     try {
         fs.unlinkSync(`upload/${up_file.originalname}`)
@@ -123,7 +142,16 @@ exports.deal_table_1_1_4 = function (req, res, next) {
         data[i][other_receive_fund] = excel_content[i][12]; data[i][other_expend_fund] = excel_content[i][13];
     }
     var nn = {}
+    for(let i=0,len=data.length;i<len;i++){
+        let arr_keys=Object.keys(data[i])
+        arr_keys.forEach(item=>{
+            if (data[i][item]==undefined){
+                data[i][item]=''
+            }
+        })
+    }
     nn.data_1_1_4 = data
+
     req.body = nn
     // 删除文件
     try {
