@@ -261,6 +261,7 @@ exports.new_disci_eval_situation_sub = function (req, res) {
     const submit_info = req.body.data_1_1_2
     // 获取token中的user信息
     user = req.user
+    
     // 插入所有的数据都用同一个，与user_fill表的id相匹配
     var user_fill_id = uuidv4().replace(/-/g, '')
     var sqls_insert = []
