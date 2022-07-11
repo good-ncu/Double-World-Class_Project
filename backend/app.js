@@ -47,8 +47,8 @@ const userRouter = require('./router/user')
 app.use('/api', userRouter)
 
 // 导入并使用主页展示指标模块
-const home_show = require('./router/query/home')
-app.use('/api',home_show)
+const chart_show = require('./router/query/chart')
+app.use('/api/chart',chart_show)
 
 // 导入并使用平台首页 学科建设进展 路由模块
 const disci_consRouter = require('./router/user_fill/disci-cons')
