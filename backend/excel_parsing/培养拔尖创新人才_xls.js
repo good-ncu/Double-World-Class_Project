@@ -5,6 +5,7 @@
 const nodeXlsx = require('node-xlsx')	//引用node-xlsx模块
 var fs = require('fs');
 
+
 //deal_table_2_1_1() pass
 exports.deal_table_2_1_1 = function(req,res,next){
     const up_file = req.file
@@ -24,9 +25,18 @@ exports.deal_table_2_1_1 = function(req,res,next){
             break
        }
         data[i]={}
-        data[i][project_type]=excel_content[i][0]
-        data[i][project_person]=excel_content[i][1]
-        data[i][project_year]=excel_content[i][2]
+        data[i][project_type]=excel_content[i][0];
+        data[i][project_person]=excel_content[i][1];
+        data[i][project_year]=excel_content[i][2];
+    }
+
+    for(let i=0,len=data.length;i<len;i++){
+        let arr_keys=Object.keys(data[i])
+        arr_keys.forEach(item=>{
+            if (data[i][item]==undefined){
+                data[i][item]=''
+            }
+        })
     }
 
     var nn={}
@@ -72,6 +82,15 @@ exports.deal_table_2_2_1_0 = function(req,res,next){
         data[i][award_date]=excel_content[i][5]
     }
 
+    for(let i=0,len=data.length;i<len;i++){
+        let arr_keys=Object.keys(data[i])
+        arr_keys.forEach(item=>{
+            if (data[i][item]==undefined){
+                data[i][item]=''
+            }
+        })
+    }
+
     var nn={}
     console.log(data);
     nn.data_2_2_1_0=data
@@ -109,6 +128,15 @@ exports.deal_table_2_2_1_1 = function(req,res,next){
         data[i][award_level]=excel_content[i][2]
         data[i][tch_name]=excel_content[i][3];
         data[i][award_date]=excel_content[i][4]  
+    }
+
+    for(let i=0,len=data.length;i<len;i++){
+        let arr_keys=Object.keys(data[i])
+        arr_keys.forEach(item=>{
+            if (data[i][item]==undefined){
+                data[i][item]=''
+            }
+        })
     }
 
     var nn={}
@@ -153,6 +181,15 @@ exports.deal_table_2_2_1_2 = function(req,res,next){
         data[i][award_date]=excel_content[i][4]  
     }
 
+    for(let i=0,len=data.length;i<len;i++){
+        let arr_keys=Object.keys(data[i])
+        arr_keys.forEach(item=>{
+            if (data[i][item]==undefined){
+                data[i][item]=''
+            }
+        })
+    }
+
     var nn={}
     nn.data_2_2_1_2=data
     console.log(nn)
@@ -193,6 +230,15 @@ exports.deal_table_2_2_1_3 = function(req,res,next){
         data[i][award_level]=excel_content[i][2];
         data[i][tch_name]=excel_content[i][3];
         data[i][award_date]=excel_content[i][4]  
+    }
+
+    for(let i=0,len=data.length;i<len;i++){
+        let arr_keys=Object.keys(data[i])
+        arr_keys.forEach(item=>{
+            if (data[i][item]==undefined){
+                data[i][item]=''
+            }
+        })
     }
 
     var nn={}
@@ -243,6 +289,15 @@ exports.deal_table_2_2_2_1 = function(req,res,next){
         data[i][remarks]=excel_content[i][7]  
     }
 
+    for(let i=0,len=data.length;i<len;i++){
+        let arr_keys=Object.keys(data[i])
+        arr_keys.forEach(item=>{
+            if (data[i][item]==undefined){
+                data[i][item]=''
+            }
+        })
+    }
+
     var nn={}
     nn.data_2_2_2_1=data
     console.log(nn)
@@ -282,6 +337,15 @@ exports.deal_table_2_2_2_3 = function(req,res,next){
         data[i][cour_name]=excel_content[i][1];
         data[i][head_name]=excel_content[i][2];
         data[i][appro_year]=excel_content[i][3];
+    }
+
+    for(let i=0,len=data.length;i<len;i++){
+        let arr_keys=Object.keys(data[i])
+        arr_keys.forEach(item=>{
+            if (data[i][item]==undefined){
+                data[i][item]=''
+            }
+        })
     }
 
     var nn={}
@@ -324,6 +388,15 @@ exports.deal_table_2_2_2_4 = function(req,res,next){
         data[i][appro_year]=excel_content[i][3];
     }
 
+    for(let i=0,len=data.length;i<len;i++){
+        let arr_keys=Object.keys(data[i])
+        arr_keys.forEach(item=>{
+            if (data[i][item]==undefined){
+                data[i][item]=''
+            }
+        })
+    }
+
     var nn={}
     nn.data_2_2_2_4=data
     console.log(nn)
@@ -362,6 +435,16 @@ exports.deal_table_2_2_3_0 = function(req,res,next){
         data[i][plat_base_name]=excel_content[i][1];
         data[i][head_name]=excel_content[i][2];
         data[i][yr]=excel_content[i][3];
+    }
+
+
+    for(let i=0,len=data.length;i<len;i++){
+        let arr_keys=Object.keys(data[i])
+        arr_keys.forEach(item=>{
+            if (data[i][item]==undefined){
+                data[i][item]=''
+            }
+        })
     }
 
     var nn={}
@@ -404,6 +487,15 @@ exports.deal_table_2_2_3_1 = function(req,res,next){
         data[i][yr]=excel_content[i][3];
     }
 
+    for(let i=0,len=data.length;i<len;i++){
+        let arr_keys=Object.keys(data[i])
+        arr_keys.forEach(item=>{
+            if (data[i][item]==undefined){
+                data[i][item]=''
+            }
+        })
+    }
+
     var nn={}
     nn.data_2_2_3_1=data
     console.log(nn)
@@ -444,6 +536,15 @@ exports.deal_table_2_2_3_2 = function(req,res,next){
         data[i][yr]=excel_content[i][3];
     }
 
+    for(let i=0,len=data.length;i<len;i++){
+        let arr_keys=Object.keys(data[i])
+        arr_keys.forEach(item=>{
+            if (data[i][item]==undefined){
+                data[i][item]=''
+            }
+        })
+    }
+
     var nn={}
     nn.data_2_2_3_2=data
     console.log(nn)
@@ -480,6 +581,15 @@ exports.deal_table_2_2_4 = function(req,res,next){
         data[i][yr]=excel_content[i][0];
         data[i][master_tutor_num]=excel_content[i][1];
         data[i][doc_tutor_num]=excel_content[i][2];
+    }
+
+    for(let i=0,len=data.length;i<len;i++){
+        let arr_keys=Object.keys(data[i])
+        arr_keys.forEach(item=>{
+            if (data[i][item]==undefined){
+                data[i][item]=''
+            }
+        })
     }
 
     var nn={}
@@ -520,6 +630,15 @@ exports.deal_table_2_2_5 = function(req,res,next){
         data[i][sem]=excel_content[i][1];
         data[i][num_full_prof]=excel_content[i][2];
         data[i][num_full_prof_teach_underg]=excel_content[i][3];
+    }
+
+    for(let i=0,len=data.length;i<len;i++){
+        let arr_keys=Object.keys(data[i])
+        arr_keys.forEach(item=>{
+            if (data[i][item]==undefined){
+                data[i][item]=''
+            }
+        })
     }
 
     var nn={}
@@ -570,6 +689,16 @@ exports.deal_table_2_2_6 = function(req,res,next){
         data[i][stu_name]=excel_content[i][6];
         data[i][stu_type]=excel_content[i][7];
     }
+
+    for(let i=0,len=data.length;i<len;i++){
+        let arr_keys=Object.keys(data[i])
+        arr_keys.forEach(item=>{
+            if (data[i][item]==undefined){
+                data[i][item]=''
+            }
+        })
+    }
+
     var nn={}
     nn.data_2_2_6=data
     console.log(nn)
@@ -616,6 +745,15 @@ exports.deal_table_2_2_7 = function(req,res,next){
         data[i][jour_collec]=excel_content[i][6];
     }
 
+    for(let i=0,len=data.length;i<len;i++){
+        let arr_keys=Object.keys(data[i])
+        arr_keys.forEach(item=>{
+            if (data[i][item]==undefined){
+                data[i][item]=''
+            }
+        })
+    }
+
     var nn={}
     nn.data_2_2_7=data
     console.log(nn)
@@ -659,6 +797,15 @@ exports.deal_table_2_3_1 = function(req,res,next){
         data[i][award_phd_num]=excel_content[i][3];
     }
 
+    for(let i=0,len=data.length;i<len;i++){
+        let arr_keys=Object.keys(data[i])
+        arr_keys.forEach(item=>{
+            if (data[i][item]==undefined){
+                data[i][item]=''
+            }
+        })
+    }
+
     var nn={}
     nn.data_2_3_1=data
     console.log(nn)
@@ -694,6 +841,15 @@ exports.deal_table_2_3_2 = function(req,res,next){
         data[i][stu_name]=excel_content[i][0];
         data[i][grad_year]=excel_content[i][1];
         data[i][pro_contribute_proj]=excel_content[i][2];
+    }
+
+    for(let i=0,len=data.length;i<len;i++){
+        let arr_keys=Object.keys(data[i])
+        arr_keys.forEach(item=>{
+            if (data[i][item]==undefined){
+                data[i][item]=''
+            }
+        })
     }
 
     var nn={}
@@ -744,6 +900,16 @@ exports.deal_table_2_4_1 = function(req,res,next){
         data[i][phd_cur_num]=excel_content[i][6];
         data[i][exch_num]=excel_content[i][7];
     }
+
+    for(let i=0,len=data.length;i<len;i++){
+        let arr_keys=Object.keys(data[i])
+        arr_keys.forEach(item=>{
+            if (data[i][item]==undefined){
+                data[i][item]=''
+            }
+        })
+    }
+
     var nn={}
     nn.data_2_4_1=data
     console.log(nn)
@@ -790,6 +956,16 @@ exports.deal_table_2_4_2 = function(req,res,next){
         data[i][rpt_time]=excel_content[i][5];
         data[i][rpt_place]=excel_content[i][6];
     }
+
+    for(let i=0,len=data.length;i<len;i++){
+        let arr_keys=Object.keys(data[i])
+        arr_keys.forEach(item=>{
+            if (data[i][item]==undefined){
+                data[i][item]=''
+            }
+        })
+    }
+
     var nn={}
     nn.data_2_4_2=data
     console.log(nn)

@@ -2,11 +2,14 @@
 const client = require('../db/index')
 const fs = require('fs')
 const urlencode = require('urlencode')
+var URL = require('url').URL;
 
 
 exports.download_excels = function(req,res) {
     console.log("=============下载模板================");
-    var id = req.body.id
+    console.log(req.url);
+    console.log(req.query);
+    var id = req.query.id
     // 根据表格id(1_1_1)去找它的中文名
     const sql = `select * from fill where id = '${id}'`
     console.log(sql);
@@ -26,6 +29,7 @@ exports.download_excels = function(req,res) {
         var path = `excels/${filename}.xlsx`
 
         res.writeHead(200,{
+            'Access-Control-Expose-Headers' : 'Authorization',
             'Content-Type':'application/octet-stream;charset=utf8',
             'Content-Disposition': "attachment;filename*=UTF-8''"+urlencode(filename)+'.xlsx'
         });

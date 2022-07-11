@@ -4,7 +4,7 @@ const data_2_1_1 = joi.array().items(
     joi.object().keys({
         project_type:joi.string().min(1).required().error(new Error('荣誉表彰和项目类型填报错误！')),
         project_person:joi.string().min(1).max(100).required().error(new Error('获得者格式填报错误！')),
-        project_year:joi.number().integer().less(2023).greater(2020).required().error(new Error('获得年份填报错误！')),
+        project_year:joi.number().integer().less(2029).greater(2020).required().error(new Error('获得年份填报错误！')),
     })
 ) 
 //teaching_achv 
@@ -76,7 +76,7 @@ const data_2_2_2_3 = joi.array().items(
         cour_type: joi.string().valid('国家级一流本科课程','国家级课程思政示范课程','教育部来华留学英语授课品牌课程','中国专业学位教学案例中心入库案例课程').required().error(new Error('课程类别填报错误！')),
         cour_name:joi.string().min(1).max(100).required().error(new Error('课程名称填报错误！')),
         head_name:joi.string().min(1).max(13).required().error(new Error('负责人填报错误！')),
-        appro_year:joi.number().integer().less(2023).greater(2020).required().error(new Error('批准年度填报错误！')),
+        appro_year:joi.number().integer().less(2029).greater(2020).required().error(new Error('批准年度填报错误！')),
         
         cour_level:joi.string().valid('国家级').error(new Error('课程级别填报错误！')),
     }
@@ -88,7 +88,7 @@ const data_2_2_2_4 = joi.array().items(
         cour_type: joi.string().valid('省级一流本科课程','省级课程思政示范课程').required().error(new Error('课程类别填报错误！')),
         cour_name:joi.string().min(1).max(100).required().error(new Error('课程名称填报错误！')),
         head_name:joi.string().min(1).max(13).required().error(new Error('负责人填报错误！')),
-        appro_year:joi.number().integer().less(2023).greater(2020).required().error(new Error('批准年度填报错误！')),
+        appro_year:joi.number().integer().less(2029).greater(2020).required().error(new Error('批准年度填报错误！')),
         
         cour_level:joi.string().valid('省级').error(new Error('课程级别填报错误！')),
     }
@@ -112,7 +112,7 @@ const data_2_2_3_1 = joi.array().items(
         plat_base_type:joi.string().valid('国家级人才培养基地','国家级现代产业学院').required().error(new Error('平台/基地类别填报错误！')),
         plat_base_name:joi.string().min(1).max(100).required().error(new Error('平台/基地名称填报错误！')),
         head_name:joi.string().min(1).max(13).required().error(new Error('负责人填报错误！')),
-        yr:joi.number().integer().less(2023).greater(2020).required().error(new Error('获批填报错误！')),
+        yr:joi.number().integer().less(2029).greater(2020).required().error(new Error('获批填报错误！')),
 
         plat_base_level:joi.string().valid('国家级').error(new Error('平台/基地级别填报错误！')),
     }
@@ -124,7 +124,7 @@ const data_2_2_3_2 = joi.array().items(
         plat_base_type:joi.string().valid('省部级人才培养基地','省级现代产业学院').required().error(new Error('平台/基地类别填报错误！')),
         plat_base_name:joi.string().min(1).max(13).required().error(new Error('平台/基地名称填报错误！')),
         head_name:joi.string().min(1).max(13).required().error(new Error('负责人填报错误！')),
-        yr:joi.number().integer().less(2023).greater(2020).required().error(new Error('年度填报错误！')),
+        yr:joi.number().integer().less(2029).greater(2020).required().error(new Error('年度填报错误！')),
 
         plat_base_level:joi.string().valid('省级').error(new Error('平台/基地级别填报错误！')),
     }
@@ -133,7 +133,7 @@ const data_2_2_3_2 = joi.array().items(
 //mphd_tutor_const 
 const data_2_2_4 = joi.array().items(
     joi.object().keys({
-        yr:joi.number().integer().less(2023).greater(2020).required().error(new Error('学年度填报错误！')),
+        yr:joi.number().integer().less(2029).greater(2020).required().error(new Error('学年度填报错误！')),
         master_tutor_num:joi.number().integer().min(0).required().error(new Error('硕士研究生导师数量填报错误！')),
         doc_tutor_num:joi.number().integer().min(0).required().error(new Error('博士研究生导师数量填报错误！')),
     }
@@ -142,7 +142,7 @@ const data_2_2_4 = joi.array().items(
 //fullprof_tch_underg 
 const data_2_2_5 = joi.array().items(
     joi.object().keys({
-        yr:joi.number().integer().less(2023).greater(2020).required().error(new Error('学年度填报错误！')),
+        yr:joi.number().integer().less(2029).greater(2020).required().error(new Error('学年度填报错误！')),
         sem:joi.number().integer().less(3).greater(0).error(new Error('学期填报错误！')),
         num_full_prof:joi.number().integer().min(0).required().error(new Error('学科正教授数填报错误！')),
         num_full_prof_teach_underg:joi.number().integer().min(0).required().error(new Error('为本科生上课的正教授数填报错误！')),
@@ -179,7 +179,7 @@ const data_2_2_7 = joi.array().items(
 //ann_award_bdmdphd 
 const data_2_3_1 = joi.array().items(
     joi.object().keys({
-        yr:joi.number().integer().less(2023).greater(2020).required().error(new Error('年度填报错误！')),
+        yr:joi.number().integer().less(2029).greater(2020).required().error(new Error('年度填报错误！')),
         award_bd_num:joi.number().integer().min(0).required().error(new Error('授予学士学位数填报错误！')),
         award_md_num:joi.number().integer().min(0).required().error(new Error('授予硕士学位数填报错误！')),
         award_phd_num:joi.number().integer().min(0).required().error(new Error('授予博士学位数填报错误！')),
@@ -190,7 +190,7 @@ const data_2_3_1 = joi.array().items(
 const data_2_3_2 = joi.array().items(
     joi.object().keys({
         stu_name:joi.string().min(1).max(13).required().error(new Error('学生姓名填报错误！')),
-        grad_year:joi.number().integer().less(2023).greater(2010).required().error(new Error('毕业年份填报错误！')),
+        grad_year:joi.number().integer().less(2029).greater(2010).required().error(new Error('毕业年份填报错误！')),
         pro_contribute_proj:joi.string().min(1).max(500).required().error(new Error('突出贡献项目填报错误！')),
     }
     )
@@ -198,7 +198,7 @@ const data_2_3_2 = joi.array().items(
 //intna_exch_stu 
 const data_2_4_1 = joi.array().items(
     joi.object().keys({
-        yr:joi.number().integer().less(2023).greater(2020).required().error(new Error('学年度填报错误！')),
+        yr:joi.number().integer().less(2029).greater(2020).required().error(new Error('学年度填报错误！')),
         b_enroll_year:joi.number().integer().min(0).required().error(new Error('留学生数量（攻学）填报错误！')),
         b_cur_num:joi.number().integer().min(0).required().error(new Error('在校学生数量（攻学）填报错误！')),
         m_enroll_year:joi.number().integer().min(0).required().error(new Error('留学生数量（攻硕）填报错误！')),
@@ -214,7 +214,7 @@ const data_2_4_1 = joi.array().items(
 //stu_attdrpt_imptacconf 
 const data_2_4_2 = joi.array().items(
     joi.object().keys({
-        yr:joi.number().integer().less(2023).greater(2020).required().error(new Error('填报年度填报错误！')),
+        yr:joi.number().integer().less(2029).greater(2020).required().error(new Error('填报年度填报错误！')),
         stu_name:joi.string().min(1).max(13).required().error(new Error('学生姓名填报错误！')),
         stu_type:joi.string().valid('本科生','硕士研究生',"博士研究生").required().error(new Error(new Error('学生类型填报错误！'))),
         conf_name:joi.string().min(1).max(100).required().error(new Error('会议名称填报错误！')),

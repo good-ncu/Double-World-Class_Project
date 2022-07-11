@@ -1500,7 +1500,7 @@ const { query } = require('express');
         const strUUID2 = strUUID.replace(/-/g, '');       // 去掉-字符
         // sqls[i] = `INSERT INTO utk_desgshow(id, univ_code, discipline_code, yr, quarter, major_desg_or_show_name, parti_date, task, path, user_fill_id) 
         // VALUES ('${strUUID2}','${user.univ_code}','${user.discipline_code}', ${submit_info[i].yr}, '${submit_info[i].quarter}', '${submit_info[i].major_desg_or_show_name}', '${submit_info[i].parti_date}', '${submit_info[i].task}', NULL, '${user_fill_id}');`
-        sqls[i] = `INSERT INTO intnaco_paper(id, univ_code, disciline_code, yr, quarter, chn_nsci_num, chn_hss_num, for_nsci_num, for_hss_num, co_nsci_num, co_hss_num, path, user_fill_id) 
+        sqls[i] = `INSERT INTO intnaco_paper(id, univ_code, discipline_code, yr, quarter, chn_nsci_num, chn_hss_num, for_nsci_num, for_hss_num, co_nsci_num, co_hss_num, path, user_fill_id) 
         VALUES ('${strUUID2}','${user.univ_code}','${user.discipline_code}', ${submit_info[i].yr}, '${submit_info[i].quarter}', ${submit_info[i].chn_nsci_num}, ${submit_info[i].chn_hss_num}, ${submit_info[i].for_nsci_num}, ${submit_info[i].for_hss_num}, ${submit_info[i].co_nsci_num}, ${submit_info[i].co_hss_num}, NULL, '${user_fill_id}');`
         console.log(sqls[i])
     }

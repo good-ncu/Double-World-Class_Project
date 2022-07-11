@@ -207,7 +207,7 @@ const data_4_2_2_0 = joi.array().items(
 //host_scirproj_list 
 const data_4_2_2_1 = joi.array().items(
    joi.object().keys({
-       yr:joi.number().integer().less(2023).greater(2020).required().error(new Error('填报年度填报错误！')),
+       yr:joi.number().integer().less(2029).greater(2020).required().error(new Error('填报年度填报错误！')),
        proj_name:joi.string().min(1).max(100).required().error(new Error('项目名称填报错误！')),
        proj_type:joi.string().valid('纵向','横向').required().error(new Error('项目类型填报错误！')),
        proj_fromto_ymth:joi.string().pattern(/^(1[9][5-9][0-9]|2[0][0-2][0-9])-(0[1-9]|1[0-2])至(1[9][5-9][0-9]|2[0][0-2][0-9])-(0[1-9]|1[0-2])$/).required().error(new Error('项目起止年月填写错误！')),
