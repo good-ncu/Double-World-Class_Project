@@ -27,38 +27,43 @@ const { query } = require('express');
     var user_fill_id = uuidv4().replace(/-/g, '')
 
     var sqls = []
+    sqls.push(`SELECT * FROM user_fill WHERE user_id='${user.id}' AND fill_id = '3_1_1' AND flag=1`)
     for (let i = 0, len = submit_info.length; i < len; i++) {
         const strUUID = uuidv4(); // ⇨ '1b9d6bcd-bbfd-4b2d-9b5d-ab8dfbbd4bed'
         const strUUID2 = strUUID.replace(/-/g, '');       // 去掉-字符
-        sqls[i] = `INSERT INTO tch_moral(id, univ_code, discipline_code, yr, tch_name, recogn_honor,user_fill_id) 
+        sqls[i+1] = `INSERT INTO tch_moral(id, univ_code, discipline_code, yr, tch_name, recogn_honor,user_fill_id) 
         VALUES ('${strUUID2}','${user.univ_code}','${user.discipline_code}',${submit_info[i].yr},
         '${submit_info[i].tch_name}','${submit_info[i].recogn_honor}','${user_fill_id}')`
         console.log(sqls[i])
     }
 
-    async.each(sqls, function (item, callback) {
+    async.eachSeries(sqls, function (item, callback) {
         // 遍历每条SQL并执行
         client.query(item, function (err, results) {
+            // console.log(results.rows.length)
             if (err) {
-                // 异常后调用callback并传入err
+                // 系统级别错误   异常后调用callback并传入err
+                err = "系统错误，请刷新页面后重试"
                 callback(err);
-            }else if (results.rowCount !== 1){
-                // 当前sql影响不为1，则错误
-                err = item+"插入失败！"
-                callback(err);
-            }else{
-                console.log(item + "执行成功");
+            } else {
+                if (results.rows.length !== 0 && results.rows[0].flag == 1) {
+                    // 多次提交错误
+                    err = "请勿重复提交"
+                }
                 // 执行完成后也要调用callback，不需要参数
-                callback();
+                if (err == "请勿重复提交") {
+                    callback(err)
+                } else {
+                    callback();
+                }
             }
         });
     }, function (err) {
         // 所有SQL执行完成后回调
         if (err) {
-            console.log(err.message)
             res.send({
                 status: 1,
-                message: err.message
+                message: err
             })
         } else {
             client.query(`insert into user_fill(id, user_id, fill_id, flag) values('${user_fill_id}','${user.id}','3_1_1',1)`, function (err, result) {
@@ -91,28 +96,34 @@ const { query } = require('express');
     var user_fill_id = uuidv4().replace(/-/g, '')
 
     var sqls = []
+    sqls.push(`SELECT * FROM user_fill WHERE user_id='${user.id}' AND fill_id = '3_2_1' AND flag=1`)
     for (let i = 0, len = submit_info.length; i < len; i++) {
         const strUUID = uuidv4(); // ⇨ '1b9d6bcd-bbfd-4b2d-9b5d-ab8dfbbd4bed'
         const strUUID2 = strUUID.replace(/-/g, '');       // 去掉-字符
-        sqls[i] = `INSERT INTO leader_youthcore(id, univ_code, discipline_code,user_fill_id,tch_name,tch_type,tch_title,age,rep_work,discipline) 
+        sqls[i+1] = `INSERT INTO leader_youthcore(id, univ_code, discipline_code,user_fill_id,tch_name,tch_type,tch_title,age,rep_work,discipline) 
         VALUES ('${strUUID2}','${user.univ_code}','${user.discipline_code}','${user_fill_id}','${submit_info[i].tch_name}','${submit_info[i].tch_type}','${submit_info[i].tch_title}',${submit_info[i].age},'${submit_info[i].rep_work}','${submit_info[i].discipline}')`
         console.log(sqls[i])
     }
 
-    async.each(sqls, function (item, callback) {
+    async.eachSeries(sqls, function (item, callback) {
         // 遍历每条SQL并执行
         client.query(item, function (err, results) {
+            // console.log(results.rows.length)
             if (err) {
-                // 异常后调用callback并传入err
+                // 系统级别错误   异常后调用callback并传入err
+                err = "系统错误，请刷新页面后重试"
                 callback(err);
-            }else if (results.rowCount !== 1){
-                // 当前sql影响不为1，则错误
-                err = item+"插入失败！"
-                callback(err);
-            }else{
-                console.log(item + "执行成功");
+            } else {
+                if (results.rows.length !== 0 && results.rows[0].flag == 1) {
+                    // 多次提交错误
+                    err = "请勿重复提交"
+                }
                 // 执行完成后也要调用callback，不需要参数
-                callback();
+                if (err == "请勿重复提交") {
+                    callback(err)
+                } else {
+                    callback();
+                }
             }
         });
     }, function (err) {
@@ -151,28 +162,33 @@ const { query } = require('express');
     var user_fill_id = uuidv4().replace(/-/g, '')
 
     var sqls = []
+    sqls.push(`SELECT * FROM user_fill WHERE user_id='${user.id}' AND fill_id = '3_2_2_0' AND flag=1`)
     for (let i = 0, len = submit_info.length; i < len; i++) {
         const strUUID = uuidv4(); // ⇨ '1b9d6bcd-bbfd-4b2d-9b5d-ab8dfbbd4bed'
         const strUUID2 = strUUID.replace(/-/g, '');       // 去掉-字符
-        sqls[i] = `INSERT INTO talent_team(id, univ_code, discipline_code,user_fill_id,talent_team_name,level,honor_name,yr) 
+        sqls[i+1] = `INSERT INTO talent_team(id, univ_code, discipline_code,user_fill_id,talent_team_name,level,honor_name,yr) 
         VALUES ('${strUUID2}','${user.univ_code}','${user.discipline_code}','${user_fill_id}','${submit_info[i].talent_team_name}','${submit_info[i].level}','${submit_info[i].honor_name}',${submit_info[i].yr})`
         console.log(sqls[i])
     }
-
-    async.each(sqls, function (item, callback) {
+    async.eachSeries(sqls, function (item, callback) {
         // 遍历每条SQL并执行
         client.query(item, function (err, results) {
+            // console.log(results.rows.length)
             if (err) {
-                // 异常后调用callback并传入err
+                // 系统级别错误   异常后调用callback并传入err
+                err = "系统错误，请刷新页面后重试"
                 callback(err);
-            }else if (results.rowCount !== 1){
-                // 当前sql影响不为1，则错误
-                err = item+"插入失败！"
-                callback(err);
-            }else{
-                console.log(item + "执行成功");
+            } else {
+                if (results.rows.length !== 0 && results.rows[0].flag == 1) {
+                    // 多次提交错误
+                    err = "请勿重复提交"
+                }
                 // 执行完成后也要调用callback，不需要参数
-                callback();
+                if (err == "请勿重复提交") {
+                    callback(err)
+                } else {
+                    callback();
+                }
             }
         });
     }, function (err) {
@@ -213,28 +229,34 @@ const { query } = require('express');
     var user_fill_id = uuidv4().replace(/-/g, '')
 
     var sqls = []
+    sqls.push(`SELECT * FROM user_fill WHERE user_id='${user.id}' AND fill_id = '3_2_2_1' AND flag=1`)
     for (let i = 0, len = submit_info.length; i < len; i++) {
         const strUUID = uuidv4(); // ⇨ '1b9d6bcd-bbfd-4b2d-9b5d-ab8dfbbd4bed'
         const strUUID2 = strUUID.replace(/-/g, '');       // 去掉-字符
-        sqls[i] = `INSERT INTO talent_team(id, univ_code, discipline_code,user_fill_id,talent_team_name,level,honor_name,yr) 
+        sqls[i+1] = `INSERT INTO talent_team(id, univ_code, discipline_code,user_fill_id,talent_team_name,level,honor_name,yr) 
         VALUES ('${strUUID2}','${user.univ_code}','${user.discipline_code}','${user_fill_id}','${submit_info[i].talent_team_name}','国家级','${submit_info[i].honor_name}',${submit_info[i].yr})`
         console.log(sqls[i])
     }
 
-    async.each(sqls, function (item, callback) {
+    async.eachSeries(sqls, function (item, callback) {
         // 遍历每条SQL并执行
         client.query(item, function (err, results) {
+            // console.log(results.rows.length)
             if (err) {
-                // 异常后调用callback并传入err
+                // 系统级别错误   异常后调用callback并传入err
+                err = "系统错误，请刷新页面后重试"
                 callback(err);
-            }else if (results.rowCount !== 1){
-                // 当前sql影响不为1，则错误
-                err = item+"插入失败！"
-                callback(err);
-            }else{
-                console.log(item + "执行成功");
+            } else {
+                if (results.rows.length !== 0 && results.rows[0].flag == 1) {
+                    // 多次提交错误
+                    err = "请勿重复提交"
+                }
                 // 执行完成后也要调用callback，不需要参数
-                callback();
+                if (err == "请勿重复提交") {
+                    callback(err)
+                } else {
+                    callback();
+                }
             }
         });
     }, function (err) {
@@ -274,28 +296,34 @@ const { query } = require('express');
     var user_fill_id = uuidv4().replace(/-/g, '')
 
     var sqls = []
+    sqls.push(`SELECT * FROM user_fill WHERE user_id='${user.id}' AND fill_id = '3_2_2_2' AND flag=1`)
     for (let i = 0, len = submit_info.length; i < len; i++) {
         const strUUID = uuidv4(); // ⇨ '1b9d6bcd-bbfd-4b2d-9b5d-ab8dfbbd4bed'
         const strUUID2 = strUUID.replace(/-/g, '');       // 去掉-字符
-        sqls[i] = `INSERT INTO talent_team(id, univ_code, discipline_code,user_fill_id,talent_team_name,level,honor_name,yr) 
+        sqls[i+1] = `INSERT INTO talent_team(id, univ_code, discipline_code,user_fill_id,talent_team_name,level,honor_name,yr) 
         VALUES ('${strUUID2}','${user.univ_code}','${user.discipline_code}','${user_fill_id}','${submit_info[i].talent_team_name}','省级','${submit_info[i].honor_name}',${submit_info[i].yr})`
         console.log(sqls[i])
     }
 
-    async.each(sqls, function (item, callback) {
+    async.eachSeries(sqls, function (item, callback) {
         // 遍历每条SQL并执行
         client.query(item, function (err, results) {
+            // console.log(results.rows.length)
             if (err) {
-                // 异常后调用callback并传入err
+                // 系统级别错误   异常后调用callback并传入err
+                err = "系统错误，请刷新页面后重试"
                 callback(err);
-            }else if (results.rowCount !== 1){
-                // 当前sql影响不为1，则错误
-                err = item+"插入失败！"
-                callback(err);
-            }else{
-                console.log(item + "执行成功");
+            } else {
+                if (results.rows.length !== 0 && results.rows[0].flag == 1) {
+                    // 多次提交错误
+                    err = "请勿重复提交"
+                }
                 // 执行完成后也要调用callback，不需要参数
-                callback();
+                if (err == "请勿重复提交") {
+                    callback(err)
+                } else {
+                    callback();
+                }
             }
         });
     }, function (err) {
@@ -335,30 +363,36 @@ const { query } = require('express');
     var user_fill_id = uuidv4().replace(/-/g, '')
 
     var sqls = []
+    sqls.push(`SELECT * FROM user_fill WHERE user_id='${user.id}' AND fill_id = '3_2_3' AND flag=1`)
     for (let i = 0, len = submit_info.length; i < len; i++) {
         const strUUID = uuidv4(); // ⇨ '1b9d6bcd-bbfd-4b2d-9b5d-ab8dfbbd4bed'
         const strUUID2 = strUUID.replace(/-/g, '');       // 去掉-字符
-        sqls[i] = `INSERT INTO fulltch(id, univ_code, discipline_code,user_fill_id,yr, full_tch_num, ageblow25, age2535, age3645, 
+        sqls[i+1] = `INSERT INTO fulltch(id, univ_code, discipline_code,user_fill_id,yr, full_tch_num, ageblow25, age2535, age3645, 
         age4660, ageup60, senior, sub_senior, mid_grade, other_grade, phd, m_degree, b_degree) 
         VALUES ('${strUUID2}','${user.univ_code}','${user.discipline_code}','${user_fill_id}',${submit_info[i].yr},${submit_info[i].full_tch_num},${submit_info[i].ageblow25},${submit_info[i].age2535},
         ${submit_info[i].age3645},${submit_info[i].age4660},${submit_info[i].ageup60},${submit_info[i].senior},${submit_info[i].sub_senior},${submit_info[i].mid_grade},${submit_info[i].other_grade},${submit_info[i].phd},${submit_info[i].m_degree},${submit_info[i].b_degree})`
         console.log(sqls[i])
     }
 
-    async.each(sqls, function (item, callback) {
+    async.eachSeries(sqls, function (item, callback) {
         // 遍历每条SQL并执行
         client.query(item, function (err, results) {
+            // console.log(results.rows.length)
             if (err) {
-                // 异常后调用callback并传入err
+                // 系统级别错误   异常后调用callback并传入err
+                err = "系统错误，请刷新页面后重试"
                 callback(err);
-            }else if (results.rowCount !== 1){
-                // 当前sql影响不为1，则错误
-                err = item+"插入失败！"
-                callback(err);
-            }else{
-                console.log(item + "执行成功");
+            } else {
+                if (results.rows.length !== 0 && results.rows[0].flag == 1) {
+                    // 多次提交错误
+                    err = "请勿重复提交"
+                }
                 // 执行完成后也要调用callback，不需要参数
-                callback();
+                if (err == "请勿重复提交") {
+                    callback(err)
+                } else {
+                    callback();
+                }
             }
         });
     }, function (err) {
@@ -396,30 +430,36 @@ const { query } = require('express');
     var user_fill_id = uuidv4().replace(/-/g, '')
 
     var sqls = []
+    sqls.push(`SELECT * FROM user_fill WHERE user_id='${user.id}' AND fill_id = '3_2_4' AND flag=1`)
     for (let i = 0, len = submit_info.length; i < len; i++) {
         const strUUID = uuidv4(); // ⇨ '1b9d6bcd-bbfd-4b2d-9b5d-ab8dfbbd4bed'
         const strUUID2 = strUUID.replace(/-/g, '');       // 去掉-字符
-        sqls[i] = `INSERT INTO pdoc_ra(id, univ_code, discipline_code,user_fill_id,yr,in_postdoc_sum,in_postdoc_newinc,out_postdoc_sum,
+        sqls[i+1] = `INSERT INTO pdoc_ra(id, univ_code, discipline_code,user_fill_id,yr,in_postdoc_sum,in_postdoc_newinc,out_postdoc_sum,
         out_postdoc_newinc,univ_ra_sum,univ_ra_newinc,inst_ra_sum,inst_ra_newinc,task_ra_sum, task_ra_newinc) 
         VALUES ('${strUUID2}','${user.univ_code}','${user.discipline_code}','${user_fill_id}',${submit_info[i].yr},${submit_info[i].in_postdoc_sum},${submit_info[i].in_postdoc_newinc},${submit_info[i].out_postdoc_sum},${submit_info[i].out_postdoc_newinc},
         ${submit_info[i].univ_ra_sum},${submit_info[i].univ_ra_newinc},${submit_info[i].inst_ra_sum},${submit_info[i].inst_ra_newinc},${submit_info[i].task_ra_sum},${submit_info[i].task_ra_newinc})`
         console.log(sqls[i])
     }
 
-    async.each(sqls, function (item, callback) {
+    async.eachSeries(sqls, function (item, callback) {
         // 遍历每条SQL并执行
         client.query(item, function (err, results) {
+            // console.log(results.rows.length)
             if (err) {
-                // 异常后调用callback并传入err
+                // 系统级别错误   异常后调用callback并传入err
+                err = "系统错误，请刷新页面后重试"
                 callback(err);
-            }else if (results.rowCount !== 1){
-                // 当前sql影响不为1，则错误
-                err = item+"插入失败！"
-                callback(err);
-            }else{
-                console.log(item + "执行成功");
+            } else {
+                if (results.rows.length !== 0 && results.rows[0].flag == 1) {
+                    // 多次提交错误
+                    err = "请勿重复提交"
+                }
                 // 执行完成后也要调用callback，不需要参数
-                callback();
+                if (err == "请勿重复提交") {
+                    callback(err)
+                } else {
+                    callback();
+                }
             }
         });
     }, function (err) {
@@ -458,29 +498,35 @@ const { query } = require('express');
     var user_fill_id = uuidv4().replace(/-/g, '')
 
     var sqls = []
+    sqls.push(`SELECT * FROM user_fill WHERE user_id='${user.id}' AND fill_id = '3_2_5' AND flag=1`)
     for (let i = 0, len = submit_info.length; i < len; i++) {
         const strUUID = uuidv4(); // ⇨ '1b9d6bcd-bbfd-4b2d-9b5d-ab8dfbbd4bed'
         const strUUID2 = strUUID.replace(/-/g, '');       // 去掉-字符
-        sqls[i] = `INSERT INTO foreign_fulltch(id, univ_code, discipline_code,user_fill_id,yr, sum_full_ftch, sum_high_title, lang_full_ftch, lang_high_title, prof_full_ftch, prof_high_title) 
+        sqls[i+1] = `INSERT INTO foreign_fulltch(id, univ_code, discipline_code,user_fill_id,yr, sum_full_ftch, sum_high_title, lang_full_ftch, lang_high_title, prof_full_ftch, prof_high_title) 
         VALUES ('${strUUID2}','${user.univ_code}','${user.discipline_code}','${user_fill_id}',${submit_info[i].yr},${submit_info[i].sum_full_ftch},${submit_info[i].sum_high_title},
         ${submit_info[i].lang_full_ftch},${submit_info[i].lang_high_title},${submit_info[i].prof_full_ftch},${submit_info[i].prof_high_title})`
         // console.log(sqls[i])
     }
 
-    async.each(sqls, function (item, callback) {
+    async.eachSeries(sqls, function (item, callback) {
         // 遍历每条SQL并执行
         client.query(item, function (err, results) {
+            // console.log(results.rows.length)
             if (err) {
-                // 异常后调用callback并传入err
+                // 系统级别错误   异常后调用callback并传入err
+                err = "系统错误，请刷新页面后重试"
                 callback(err);
-            }else if (results.rowCount !== 1){
-                // 当前sql影响不为1，则错误
-                err = item+"插入失败！"
-                callback(err);
-            }else{
-                console.log(item + "执行成功");
+            } else {
+                if (results.rows.length !== 0 && results.rows[0].flag == 1) {
+                    // 多次提交错误
+                    err = "请勿重复提交"
+                }
                 // 执行完成后也要调用callback，不需要参数
-                callback();
+                if (err == "请勿重复提交") {
+                    callback(err)
+                } else {
+                    callback();
+                }
             }
         });
     }, function (err) {
@@ -520,29 +566,35 @@ const { query } = require('express');
     var user_fill_id = uuidv4().replace(/-/g, '')
 
     var sqls = []
+    sqls.push(`SELECT * FROM user_fill WHERE user_id='${user.id}' AND fill_id = '3_3_1' AND flag=1`)
     for (let i = 0, len = submit_info.length; i < len; i++) {
         const strUUID = uuidv4(); // ⇨ '1b9d6bcd-bbfd-4b2d-9b5d-ab8dfbbd4bed'
         const strUUID2 = strUUID.replace(/-/g, '');       // 去掉-字符
-        sqls[i] = `INSERT INTO tch_head_jour(id, univ_code, discipline_code,user_fill_id,tch_name,jour_name,in_jour_code,out_jour_code,jour_collect,pos,tenure) 
+        sqls[i+1] = `INSERT INTO tch_head_jour(id, univ_code, discipline_code,user_fill_id,tch_name,jour_name,in_jour_code,out_jour_code,jour_collect,pos,tenure) 
         VALUES ('${strUUID2}','${user.univ_code}','${user.discipline_code}','${user_fill_id}','${submit_info[i].tch_name}','${submit_info[i].jour_name}','${submit_info[i].in_jour_code}',
         '${submit_info[i].out_jour_code}','${submit_info[i].jour_collect}','${submit_info[i].pos}','${submit_info[i].tenure}')`
         console.log(sqls[i])
     }
 
-    async.each(sqls, function (item, callback) {
+    async.eachSeries(sqls, function (item, callback) {
         // 遍历每条SQL并执行
         client.query(item, function (err, results) {
+            // console.log(results.rows.length)
             if (err) {
-                // 异常后调用callback并传入err
+                // 系统级别错误   异常后调用callback并传入err
+                err = "系统错误，请刷新页面后重试"
                 callback(err);
-            }else if (results.rowCount !== 1){
-                // 当前sql影响不为1，则错误
-                err = item+"插入失败！"
-                callback(err);
-            }else{
-                console.log(item + "执行成功");
+            } else {
+                if (results.rows.length !== 0 && results.rows[0].flag == 1) {
+                    // 多次提交错误
+                    err = "请勿重复提交"
+                }
                 // 执行完成后也要调用callback，不需要参数
-                callback();
+                if (err == "请勿重复提交") {
+                    callback(err)
+                } else {
+                    callback();
+                }
             }
         });
     }, function (err) {
@@ -582,29 +634,35 @@ const { query } = require('express');
     var user_fill_id = uuidv4().replace(/-/g, '')
 
     var sqls = []
+    sqls.push(`SELECT * FROM user_fill WHERE user_id='${user.id}' AND fill_id = '3_3_2' AND flag=1`)
     for (let i = 0, len = submit_info.length; i < len; i++) {
         const strUUID = uuidv4(); // ⇨ '1b9d6bcd-bbfd-4b2d-9b5d-ab8dfbbd4bed'
         const strUUID2 = strUUID.replace(/-/g, '');       // 去掉-字符
-        sqls[i] = `INSERT INTO tch_head_acorg(id, univ_code, discipline_code,user_fill_id,tch_name,ac_org,pos,tenure) 
+        sqls[i+1] = `INSERT INTO tch_head_acorg(id, univ_code, discipline_code,user_fill_id,tch_name,ac_org,pos,tenure) 
         VALUES ('${strUUID2}','${user.univ_code}','${user.discipline_code}','${user_fill_id}','${submit_info[i].tch_name}',
         '${submit_info[i].ac_org}','${submit_info[i].pos}','${submit_info[i].tenure}')`
         console.log(sqls[i])
     }
 
-    async.each(sqls, function (item, callback) {
+    async.eachSeries(sqls, function (item, callback) {
         // 遍历每条SQL并执行
         client.query(item, function (err, results) {
+            // console.log(results.rows.length)
             if (err) {
-                // 异常后调用callback并传入err
+                // 系统级别错误   异常后调用callback并传入err
+                err = "系统错误，请刷新页面后重试"
                 callback(err);
-            }else if (results.rowCount !== 1){
-                // 当前sql影响不为1，则错误
-                err = item+"插入失败！"
-                callback(err);
-            }else{
-                console.log(item + "执行成功");
+            } else {
+                if (results.rows.length !== 0 && results.rows[0].flag == 1) {
+                    // 多次提交错误
+                    err = "请勿重复提交"
+                }
                 // 执行完成后也要调用callback，不需要参数
-                callback();
+                if (err == "请勿重复提交") {
+                    callback(err)
+                } else {
+                    callback();
+                }
             }
         });
     }, function (err) {
@@ -644,30 +702,36 @@ const { query } = require('express');
     var user_fill_id = uuidv4().replace(/-/g, '')
 
     var sqls = []
+    sqls.push(`SELECT * FROM user_fill WHERE user_id='${user.id}' AND fill_id = '3_3_3' AND flag=1`)
     for (let i = 0, len = submit_info.length; i < len; i++) {
         const strUUID = uuidv4(); // ⇨ '1b9d6bcd-bbfd-4b2d-9b5d-ab8dfbbd4bed'
         const strUUID2 = strUUID.replace(/-/g, '');       // 去掉-字符
-        sqls[i] = `INSERT INTO tch_attdrpt_acconf(id, univ_code, discipline_code,user_fill_id,yr,tch_name,conf_name,rpt_title,
+        sqls[i+1] = `INSERT INTO tch_attdrpt_acconf(id, univ_code, discipline_code,user_fill_id,yr,tch_name,conf_name,rpt_title,
             rpt_yr_mth,rpt_place) 
         VALUES ('${strUUID2}','${user.univ_code}','${user.discipline_code}','${user_fill_id}',${submit_info[i].yr},'${submit_info[i].tch_name}',
         '${submit_info[i].conf_name}','${submit_info[i].rpt_title}','${submit_info[i].rpt_yr_mth}','${submit_info[i].rpt_place}')`
         console.log(sqls[i])
     }
 
-    async.each(sqls, function (item, callback) {
+    async.eachSeries(sqls, function (item, callback) {
         // 遍历每条SQL并执行
         client.query(item, function (err, results) {
+            // console.log(results.rows.length)
             if (err) {
-                // 异常后调用callback并传入err
+                // 系统级别错误   异常后调用callback并传入err
+                err = "系统错误，请刷新页面后重试"
                 callback(err);
-            }else if (results.rowCount !== 1){
-                // 当前sql影响不为1，则错误
-                err = item+"插入失败！"
-                callback(err);
-            }else{
-                console.log(item + "执行成功");
+            } else {
+                if (results.rows.length !== 0 && results.rows[0].flag == 1) {
+                    // 多次提交错误
+                    err = "请勿重复提交"
+                }
                 // 执行完成后也要调用callback，不需要参数
-                callback();
+                if (err == "请勿重复提交") {
+                    callback(err)
+                } else {
+                    callback();
+                }
             }
         });
     }, function (err) {
@@ -708,29 +772,35 @@ const { query } = require('express');
     var user_fill_id = uuidv4().replace(/-/g, '')
 
     var sqls = []
+    sqls.push(`SELECT * FROM user_fill WHERE user_id='${user.id}' AND fill_id = '3_3_4' AND flag=1`)
     for (let i = 0, len = submit_info.length; i < len; i++) {
         const strUUID = uuidv4(); // ⇨ '1b9d6bcd-bbfd-4b2d-9b5d-ab8dfbbd4bed'
         const strUUID2 = strUUID.replace(/-/g, '');       // 去掉-字符
-        sqls[i] = `INSERT INTO tch_judge_comp(id, univ_code, discipline_code,user_fill_id,tch_name, comp_name, comp_yr_mth,pos) 
+        sqls[i+1] = `INSERT INTO tch_judge_comp(id, univ_code, discipline_code,user_fill_id,tch_name, comp_name, comp_yr_mth,pos) 
         VALUES ('${strUUID2}','${user.univ_code}','${user.discipline_code}','${user_fill_id}','${submit_info[i].tch_name}',
         '${submit_info[i].comp_name}','${submit_info[i].comp_yr_mth}','${submit_info[i].pos}')`
         console.log(sqls[i])
     }
 
-    async.each(sqls, function (item, callback) {
+    async.eachSeries(sqls, function (item, callback) {
         // 遍历每条SQL并执行
         client.query(item, function (err, results) {
+            // console.log(results.rows.length)
             if (err) {
-                // 异常后调用callback并传入err
+                // 系统级别错误   异常后调用callback并传入err
+                err = "系统错误，请刷新页面后重试"
                 callback(err);
-            }else if (results.rowCount !== 1){
-                // 当前sql影响不为1，则错误
-                err = item+"插入失败！"
-                callback(err);
-            }else{
-                console.log(item + "执行成功");
+            } else {
+                if (results.rows.length !== 0 && results.rows[0].flag == 1) {
+                    // 多次提交错误
+                    err = "请勿重复提交"
+                }
                 // 执行完成后也要调用callback，不需要参数
-                callback();
+                if (err == "请勿重复提交") {
+                    callback(err)
+                } else {
+                    callback();
+                }
             }
         });
     }, function (err) {

@@ -154,7 +154,7 @@ exports.disci_influence_sub = function (req, res) {
     async.eachSeries(sqls, function (item, callback) {
         // 遍历每条SQL并执行
         client.query(item, function (err, results) {
-            console.log(results.rows.length)
+            // console.log(results.rows.length)
             if (err) {
                 // 系统级别错误   异常后调用callback并传入err
                 err = "系统错误，请刷新页面后重试"
