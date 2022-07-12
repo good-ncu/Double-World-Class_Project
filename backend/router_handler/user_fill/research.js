@@ -291,6 +291,7 @@ const { query } = require('express');
         // 遍历每条SQL并执行
         client.query(item, function (err, results) {
             if (err) {
+                console.log(err.message);
                 // 异常后调用callback并传入err
                 err = "系统错误，请刷新页面后重试"
                 callback(err);
@@ -309,11 +310,8 @@ const { query } = require('express');
     }, function (err) {
         // 所有SQL执行完成后回调
         if (err) {
-            console.log(err.message);
-            res.send({
-                status: 1,
-                message: '系统繁忙，请稍后再试'
-            })
+            console.log(err);
+            return res.cc(err)
         } else {
             client.query(`insert into user_fill(id, user_id, fill_id) values('${user_fill_id}','${user.id}','4_1_1_1')`, function(err,result){
                 if(err) return res.cc('系统繁忙,请稍后再试')
@@ -355,6 +353,7 @@ const { query } = require('express');
         // 遍历每条SQL并执行
         client.query(item, function (err, results) {
             if (err) {
+                console.log(err.message);
                 // 异常后调用callback并传入err
                 err = "系统错误，请刷新页面后重试"
                 callback(err);
@@ -373,11 +372,8 @@ const { query } = require('express');
     }, function (err) {
         // 所有SQL执行完成后回调
         if (err) {
-            console.log(err.message);
-            res.send({
-                status: 1,
-                message: '系统繁忙，请稍后再试'
-            })
+            console.log(err);
+            return res.cc(err)
         } else {
             client.query(`insert into user_fill(id, user_id, fill_id) values('${user_fill_id}','${user.id}','4_1_1_2')`, function(err,result){
                 if(err) return res.cc('系统繁忙,请稍后再试')
@@ -418,6 +414,7 @@ const { query } = require('express');
         // 遍历每条SQL并执行
         client.query(item, function (err, results) {
             if (err) {
+                console.log(err.message);
                 // 异常后调用callback并传入err
                 err = "系统错误，请刷新页面后重试"
                 callback(err);
@@ -436,11 +433,8 @@ const { query } = require('express');
     }, function (err) {
         // 所有SQL执行完成后回调
         if (err) {
-            console.log(err.message);
-            res.send({
-                status: 1,
-                message: '系统繁忙，请稍后再试'
-            })
+            console.log(err);
+            return res.cc(err)
         } else {
             client.query(`insert into user_fill(id, user_id, fill_id) values('${user_fill_id}','${user.id}','4_1_2')`, function(err,result){
                 if(err) return res.cc('系统繁忙,请稍后再试')
@@ -480,6 +474,7 @@ const { query } = require('express');
         // 遍历每条SQL并执行
         client.query(item, function (err, results) {
             if (err) {
+                console.log(err.message);
                 // 异常后调用callback并传入err
                 err = "系统错误，请刷新页面后重试"
                 callback(err);
@@ -498,11 +493,8 @@ const { query } = require('express');
     }, function (err) {
         // 所有SQL执行完成后回调
         if (err) {
-            console.log(err.message);
-            res.send({
-                status: 1,
-                message: '系统繁忙，请稍后再试'
-            })
+            console.log(err);
+            return res.cc(err)
         } else {
             client.query(`insert into user_fill(id, user_id, fill_id) values('${user_fill_id}','${user.id}','4_1_3_0')`, function(err,result){
                 if(err) return res.cc('系统繁忙,请稍后再试')
@@ -544,6 +536,7 @@ const { query } = require('express');
         // 遍历每条SQL并执行
         client.query(item, function (err, results) {
             if (err) {
+                console.log(err.message);
                 // 异常后调用callback并传入err
                 err = "系统错误，请刷新页面后重试"
                 callback(err);
@@ -562,11 +555,8 @@ const { query } = require('express');
     }, function (err) {
         // 所有SQL执行完成后回调
         if (err) {
-            console.log(err.message);
-            res.send({
-                status: 1,
-                message: '系统繁忙，请稍后再试'
-            })
+            console.log(err);
+            return res.cc(err)
         } else {
             client.query(`insert into user_fill(id, user_id, fill_id) values('${user_fill_id}','${user.id}','4_1_3_1')`, function(err,result){
                 if(err) return res.cc('系统繁忙,请稍后再试')
@@ -610,6 +600,7 @@ const { query } = require('express');
         // 遍历每条SQL并执行
         client.query(item, function (err, results) {
             if (err) {
+                console.log(err.message);
                 // 异常后调用callback并传入err
                 err = "系统错误，请刷新页面后重试"
                 callback(err);
@@ -628,11 +619,8 @@ const { query } = require('express');
     }, function (err) {
         // 所有SQL执行完成后回调
         if (err) {
-            console.log(err.message);
-            res.send({
-                status: 1,
-                message: '系统繁忙，请稍后再试'
-            })
+            console.log(err);
+            return res.cc(err)
         } else {
             client.query(`insert into user_fill(id, user_id, fill_id) values('${user_fill_id}','${user.id}','4_1_3_2')`, function(err,result){
                 if(err) return res.cc('系统繁忙,请稍后再试')
@@ -674,6 +662,7 @@ const { query } = require('express');
         // 遍历每条SQL并执行
         client.query(item, function (err, results) {
             if (err) {
+                console.log(err.message);
                 // 异常后调用callback并传入err
                 err = "系统错误，请刷新页面后重试"
                 callback(err);
@@ -692,11 +681,8 @@ const { query } = require('express');
     }, function (err) {
         // 所有SQL执行完成后回调
         if (err) {
-            console.log(err.message);
-            res.send({
-                status: 1,
-                message: '系统繁忙，请稍后再试'
-            })
+            console.log(err);
+            return res.cc(err)
         } else {
             client.query(`insert into user_fill(id, user_id, fill_id) values('${user_fill_id}','${user.id}','4_1_3_3')`, function(err,result){
                 if(err) return res.cc('系统繁忙,请稍后再试')
@@ -739,6 +725,7 @@ const { query } = require('express');
         // 遍历每条SQL并执行
         client.query(item, function (err, results) {
             if (err) {
+                console.log(err.message);
                 // 异常后调用callback并传入err
                 err = "系统错误，请刷新页面后重试"
                 callback(err);
@@ -757,11 +744,8 @@ const { query } = require('express');
     }, function (err) {
         // 所有SQL执行完成后回调
         if (err) {
-            console.log(err.message);
-            res.send({
-                status: 1,
-                message: '系统繁忙，请稍后再试'
-            })
+            console.log(err);
+            return res.cc(err)
         } else {
             client.query(`insert into user_fill(id, user_id, fill_id) values('${user_fill_id}','${user.id}','4_1_4')`, function(err,result){
                 if(err) return res.cc('系统繁忙,请稍后再试')
@@ -804,6 +788,7 @@ const { query } = require('express');
         // 遍历每条SQL并执行
         client.query(item, function (err, results) {
             if (err) {
+                console.log(err.message);
                 // 异常后调用callback并传入err
                 err = "系统错误，请刷新页面后重试"
                 callback(err);
@@ -822,11 +807,8 @@ const { query } = require('express');
     }, function (err) {
         // 所有SQL执行完成后回调
         if (err) {
-            console.log(err.message);
-            res.send({
-                status: 1,
-                message: '系统繁忙，请稍后再试'
-            })
+            console.log(err);
+            return res.cc(err)
         } else {
             client.query(`insert into user_fill(id, user_id, fill_id) values('${user_fill_id}','${user.id}','4_2_1_0')`, function(err,result){
                 if(err) return res.cc('系统繁忙,请稍后再试')
@@ -869,6 +851,7 @@ const { query } = require('express');
         // 遍历每条SQL并执行
         client.query(item, function (err, results) {
             if (err) {
+                console.log(err.message);
                 // 异常后调用callback并传入err
                 err = "系统错误，请刷新页面后重试"
                 callback(err);
@@ -887,11 +870,8 @@ const { query } = require('express');
     }, function (err) {
         // 所有SQL执行完成后回调
         if (err) {
-            console.log(err.message);
-            res.send({
-                status: 1,
-                message: '系统繁忙，请稍后再试'
-            })
+            console.log(err);
+            return res.cc(err)
         } else {
             client.query(`insert into user_fill(id, user_id, fill_id) values('${user_fill_id}','${user.id}','4_2_1_1')`, function(err,result){
                 if(err) return res.cc('系统繁忙,请稍后再试')
@@ -934,6 +914,7 @@ const { query } = require('express');
         // 遍历每条SQL并执行
         client.query(item, function (err, results) {
             if (err) {
+                console.log(err.message);
                 // 异常后调用callback并传入err
                 err = "系统错误，请刷新页面后重试"
                 callback(err);
@@ -996,6 +977,7 @@ const { query } = require('express');
         // 遍历每条SQL并执行
         client.query(item, function (err, results) {
             if (err) {
+                console.log(err.message);
                 // 异常后调用callback并传入err
                 err = "系统错误，请刷新页面后重试"
                 callback(err);
@@ -1014,11 +996,8 @@ const { query } = require('express');
     }, function (err) {
         // 所有SQL执行完成后回调
         if (err) {
-            console.log(err.message);
-            res.send({
-                status: 1,
-                message: '系统繁忙，请稍后再试'
-            })
+            console.log(err);
+            return res.cc(err)
         } else {
             client.query(`insert into user_fill(id, user_id, fill_id) values('${user_fill_id}','${user.id}','4_2_1_3')`, function(err,result){
                 if(err) return res.cc('系统繁忙,请稍后再试')
@@ -1061,6 +1040,7 @@ const { query } = require('express');
         // 遍历每条SQL并执行
         client.query(item, function (err, results) {
             if (err) {
+                console.log(err.message);
                 // 异常后调用callback并传入err
                 err = "系统错误，请刷新页面后重试"
                 callback(err);
@@ -1079,11 +1059,8 @@ const { query } = require('express');
     }, function (err) {
         // 所有SQL执行完成后回调
         if (err) {
-            console.log(err.message);
-            res.send({
-                status: 1,
-                message: '系统繁忙，请稍后再试'
-            })
+            console.log(err);
+            return res.cc(err)
         } else {
             client.query(`insert into user_fill(id, user_id, fill_id) values('${user_fill_id}','${user.id}','4_2_2_0')`, function(err,result){
                 if(err) return res.cc('系统繁忙,请稍后再试')
@@ -1126,6 +1103,7 @@ const { query } = require('express');
         // 遍历每条SQL并执行
         client.query(item, function (err, results) {
             if (err) {
+                console.log(err.message);
                 // 异常后调用callback并传入err
                 err = "系统错误，请刷新页面后重试"
                 callback(err);
@@ -1144,11 +1122,8 @@ const { query } = require('express');
     }, function (err) {
         // 所有SQL执行完成后回调
         if (err) {
-            console.log(err.message);
-            res.send({
-                status: 1,
-                message: '系统繁忙，请稍后再试'
-            })
+            console.log(err);
+            return res.cc(err)
         } else {
             client.query(`insert into user_fill(id, user_id, fill_id) values('${user_fill_id}','${user.id}','4_2_2_1')`, function(err,result){
                 if(err) return res.cc('系统繁忙,请稍后再试')
@@ -1191,6 +1166,7 @@ const { query } = require('express');
         // 遍历每条SQL并执行
         client.query(item, function (err, results) {
             if (err) {
+                console.log(err.message);
                 // 异常后调用callback并传入err
                 err = "系统错误，请刷新页面后重试"
                 callback(err);
@@ -1252,6 +1228,7 @@ const { query } = require('express');
         // 遍历每条SQL并执行
         client.query(item, function (err, results) {
             if (err) {
+                console.log(err.message);
                 // 异常后调用callback并传入err
                 err = "系统错误，请刷新页面后重试"
                 callback(err);
@@ -1314,6 +1291,7 @@ const { query } = require('express');
         // 遍历每条SQL并执行
         client.query(item, function (err, results) {
             if (err) {
+                console.log(err.message);
                 // 异常后调用callback并传入err
                 err = "系统错误，请刷新页面后重试"
                 callback(err);
