@@ -30,9 +30,20 @@ var async = require('async');
  */
 exports.query_all_discipline = function (req, res) {
     userinfo = req.user
-    sql = `select * from univ_discipline where univ_code = '${userinfo.univ_code}'`
+    console.log(userinfo.univ_code);
+    sql = `SELECT user_info.discipline_code,discipline.discipline_name,user_fill.user_id, COUNT(user_fill.user_id)
+    FROM user_info,user_fill,discipline
+    WHERE  user_fill.user_id = user_info.id
+    AND user_info.discipline_code=discipline.discipline_code
+    AND user_info.univ_code='${userinfo.univ_code}'
+    AND user_fill.fill_id IN (SELECT id FROM fill WHERE fill.flag=1)
+    GROUP BY user_info.discipline_code,discipline.discipline_name,user_fill.user_id
+    HAVING COUNT(user_fill.user_id) = (SELECT COUNT(fill.flag) FROM fill WHERE fill.flag=1)
+    ORDER BY discipline.discipline_name`
+    console.log(sql);
     client.query(sql, function (err, results) {
         if (err) {
+            console.log(err.message)
             // 异常后调用callback并传入err
             res.send({
                 status: 1,
@@ -40,9 +51,11 @@ exports.query_all_discipline = function (req, res) {
             })
         } else if (results.rowCount == 0) {
             // 当前sql查询为空，则返回填报提示
+            
+
             res.send({
-                status: 0,
-                message: "还未录入您所在学校的学科信息"
+                status: 1,
+                message: "您所在学校还未有填完所有信息的学科"
             })
         } else {
             res.send({

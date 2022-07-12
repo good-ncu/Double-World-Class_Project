@@ -203,7 +203,7 @@ exports.disci_funds_sub = function (req, res) {
 
     // 接收表单数据
     const submit_info = req.body.data_1_1_4
-    // console.log(submit_info)
+    console.log(submit_info)
     user = req.user
     // 插入所有的数据都用同一个，与user_fill表的id相匹配
     var user_fill_id = uuidv4().replace(/-/g, '')
@@ -211,6 +211,7 @@ exports.disci_funds_sub = function (req, res) {
 
     var sqls = []
     sqls.push(`SELECT * FROM user_fill WHERE user_id='${user.id}' AND fill_id = '1_1_4' AND flag=1`)
+    console.log(submit_info.length);
     for (let i = 0, len = submit_info.length; i < len; i++) {
         const strUUID = uuidv4(); // ⇨ '1b9d6bcd-bbfd-4b2d-9b5d-ab8dfbbd4bed'
         const strUUID2 = strUUID.replace(/-/g, '');       // 去掉-字符
@@ -221,13 +222,15 @@ exports.disci_funds_sub = function (req, res) {
         ${submit_info[i].lcl_receive_fund},${submit_info[i].lcl_expend_fund},${submit_info[i].self_budg_fund},${submit_info[i].self_receive_fund},${submit_info[i].self_expend_fund},
         ${submit_info[i].other_budg_fund},${submit_info[i].other_receive_fund},${submit_info[i].other_expend_fund},${submit_info[i].ctr_receive_fund},'${user_fill_id}')`
     }
-
+    console.log(sqls);
     async.each(sqls, function (item, callback) {
         // 遍历每条SQL并执行
         client.query(item, function (err, results) {
             // console.log(results.rows.length)
             if (err) {
                 // 异常后调用callback并传入err
+                console.log(err.message);
+                console.log("aaaaaaaaaaaaaaaaaaaa");
                 err = "系统错误，请刷新页面后重试"
                 callback(err);
             } else {
@@ -254,7 +257,10 @@ exports.disci_funds_sub = function (req, res) {
             })
         } else {
             client.query(`insert into user_fill(id, user_id, fill_id, flag) values('${user_fill_id}','${user.id}','1_1_4',1)`, function (err, result) {
-                if (err) return res.cc('系统繁忙,请稍后再试')
+                
+                if (err) 
+                {   console.log(err.message);
+                    return res.cc('系统繁忙,请稍后再试')}
                 if (result.rowCount !== 1) return res.cc('系统繁忙,请稍后再试')
                 res.send({
                     status: 0,
