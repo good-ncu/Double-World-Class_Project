@@ -5,7 +5,7 @@ const joi = require('joi')
         tch_name:joi.string().min(1).max(13).required().error(new Error('教师姓名填报错误！')),
         award_name:joi.string().min(1).max(100).required().error(new Error('奖项名称填报错误！')),
         // 奖项等级
-        grade:joi.string().required().error(new Error('奖项等级填报错误！')),
+        grade:joi.string().valid('特等奖','一等奖','二等奖','三等奖').required().error(new Error('奖项等级填报错误！')),
         award_eval_org:joi.string().min(1).max(50).required().error(new Error('评奖组织单位填报错误！')),
         award_eval_org_type:joi.string().min(1).max(50).required().error(new Error('组织单位类型填报错误！')),
         yr:joi.number().integer().less(2021).greater(1950).required().error(new Error('获奖年份填报错误！')),
@@ -20,7 +20,7 @@ const data_4_1_1_1 = joi.array().items(
    joi.object().keys({
        tch_name:joi.string().min(1).max(13).required().error(new Error('教师姓名填报错误！')),
        award_name:joi.string().min(1).max(100).required().error(new Error('奖项名称填报错误！')),
-       grade:joi.string().min(1).required().error(new Error('奖项等级填报错误！')),
+       grade:joi.string().valid('特等奖','一等奖','二等奖','三等奖').required().error(new Error('奖项等级填报错误！')),
        award_eval_org:joi.string().min(1).max(50).required().error(new Error('评奖组织单位填报错误！')),
        award_eval_org_type:joi.string().min(1).max(50).required().error(new Error('评奖组织单位类型填报错误！')),
        yr:joi.number().integer().less(2029).greater(2020).required().error(new Error('获奖年份填报错误！')),
@@ -34,7 +34,7 @@ const data_4_1_1_2 = joi.array().items(
    joi.object().keys({
        tch_name:joi.string().min(1).max(13).required().error(new Error('教师姓名填报错误！')),
        award_name:joi.string().min(1).max(100).required().error(new Error('奖项名称填报错误！')),
-       grade:joi.string().min(1).required().error(new Error('奖项等级填报错误！')),
+       grade:joi.string().valid('特等奖','一等奖','二等奖','三等奖').required().error(new Error('奖项等级填报错误！')),
        award_eval_org:joi.string().min(1).max(50).required().error(new Error('评奖组织单位填报错误！')),
        award_eval_org_type:joi.string().min(1).max(50).required().error(new Error('评奖组织单位类型填报错误！')),
        yr:joi.number().integer().less(2029).greater(2020).required().error(new Error('获奖年份填报错误！')),

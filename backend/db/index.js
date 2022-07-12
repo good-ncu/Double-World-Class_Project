@@ -7,7 +7,7 @@ const { Client } = require('pg')
  port: 5432, 
  }) 
  client.connect(); 
-     //test for ljh ljs
+     //test for ljh ljs sasas
  module.exports = client 
 
 
