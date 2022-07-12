@@ -110,6 +110,7 @@ exports.login = function(req, res){
     const tokenStr = jwt.sign(user, config.jwtSecretKey,{expiresIn: config.expiresIn})
     
     var roleStr = ''
+    rid = results.rows[0].role_id
     switch(results.rows[0].role_id)
     {
         case 1:
@@ -169,7 +170,7 @@ exports.login = function(req, res){
           status: 0,
           msg: '登录成功',
           username: userinfo.username,
-          roleid: results.rows[0].role_id, 
+          roleid: rid, 
           role: roleStr,
           univ_name: results.rows[0].univ_name,
           discipline_name: results.rows[0].discipline_name,
