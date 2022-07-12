@@ -212,7 +212,7 @@ exports.deal_table_4_1_3_0=function(req,res,next){
     let paper_title = 'paper_title' ;
     let paper_au = 'paper_au' ;
     let jour_name = 'jour_name' ;
-    let volume_num = 'volume_num' ;
+    let volume_num = 'yr_mth_volum' ;
     let remarks = 'remarks' ;
     excel_content.splice(0,2)	//一般来说表中的第一条数据可能是标题没有用，所以删掉
     /**将读取的数据处理成json格式 */
@@ -263,7 +263,7 @@ exports.deal_table_4_1_3_1=function(req,res,next){
     let paper_title = 'paper_title' ;
     let paper_au = 'paper_au' ;
     let jour_name = 'jour_name' ;
-    let volume_num = 'volume_num' ;
+    let volume_num = 'yr_mth_volum' ;
     let remarks = 'remarks' ;
     excel_content.splice(0,2)	//一般来说表中的第一条数据可能是标题没有用，所以删掉
     /**将读取的数据处理成json格式 */
@@ -315,7 +315,7 @@ exports.deal_table_4_1_3_2=function(req,res,next){
     let paper_title = 'paper_title' ;
     let paper_au = 'paper_au' ;
     let jour_name = 'jour_name' ;
-    let volume_num = 'volume_num' ;
+    let volume_num = 'yr_mth_volum' ;
     let remarks = 'remarks' ;
     excel_content.splice(0,2)	//一般来说表中的第一条数据可能是标题没有用，所以删掉
     /**将读取的数据处理成json格式 */
@@ -366,7 +366,7 @@ exports.deal_table_4_1_3_3=function(req,res,next){
     let paper_title = 'paper_title' ;
     let paper_au = 'paper_au' ;
     let jour_name = 'jour_name' ;
-    let volume_num = 'volume_num' ;
+    let volume_num = 'yr_mth_volum' ;
     let remarks = 'remarks' ;
     excel_content.splice(0,2)	//一般来说表中的第一条数据可能是标题没有用，所以删掉
     /**将读取的数据处理成json格式 */
@@ -660,7 +660,7 @@ exports.deal_table_4_2_2_0=function(req,res,next){
         data[i][proj_level]=excel_content[i][2];
         data[i][proj_type]=excel_content[i][3];
         data[i][proj_fromto_ymth]=excel_content[i][4];
-        data[i][proj_fromto_ymth]=excel_content[i][5];
+        data[i][proj_fund]=excel_content[i][5];
     }
     var nn={}
     for(let i=0,len=data.length;i<len;i++){

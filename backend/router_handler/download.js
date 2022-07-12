@@ -17,17 +17,17 @@ exports.download_excels = function(req,res) {
         console.log(results.rows);
         if(err){
             console.log(err.message);
-            res.cc('系统繁忙，请稍后再试！')
+            return res.cc('系统繁忙，请稍后再试！')
         }
         if(results.rows.length!==1){
             console.log("长度不为1");
-            res.cc('系统繁忙，请稍后再试！')
+            return res.cc('系统繁忙，请稍后再试！')
         }
         var filename = results.rows[0].fill_about
         console.log(filename);
         console.log(filename);
-        var path = `excels/${filename}.xlsx`
-
+        var path = `../../template/excels/${filename}.xlsx`
+        
         res.writeHead(200,{
             'Access-Control-Expose-Headers' : 'Authorization',
             'Content-Type':'application/octet-stream;charset=utf8',
