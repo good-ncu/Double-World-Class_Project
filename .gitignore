@@ -1,5 +1,5 @@
 /backend/node_modules
 /.history/
-/backend/db/*
+/backend/db/
 /backend/apidoc/
 /backend/excels/*
