@@ -124,14 +124,21 @@ exports.login = function(req, res){
         default:
             roleStr = '学科填报用户'
     }
-
-    res.send({
+    client.query(`select * from univ_discipline where univ_code = '${user.univ_code}' and discipline_code = '${user.discipline_code}'`, function(err, results) {
+      if(err) {
+        console.log(err.message);
+        return res.cc('系统繁忙，请稍后再试')
+      }
+      res.send({
         status: 0,
         msg: '登录成功',
         username: userinfo.username,
         roleid: results.rows[0].role_id, 
         role: roleStr,
+        univ_name: results.rows[0].univ_name,
+        discipline_name: results.rows[0].discipline_name,
         token:'Bearer '+ tokenStr
+      })
     })
   })
 }
