@@ -229,6 +229,7 @@ const { query } = require('express');
         // 遍历每条SQL并执行
         client.query(item, function (err, results) {
             if (err) {
+                console.log(err.message);
                 // 异常后调用callback并传入err
                 err = "系统错误，请刷新页面后重试"
                 callback(err);
@@ -248,10 +249,7 @@ const { query } = require('express');
         // 所有SQL执行完成后回调
         if (err) {
             console.log(err);
-            res.send({
-                status: 1,
-                message: '系统繁忙，请稍后再试'
-            })
+            return res.cc(err)
         } else {
             client.query(`insert into user_fill(id, user_id, fill_id, flag) values('${user_fill_id}','${user.id}','4_1_1_0',1)`, function(err,result){
                 if(err) return res.cc('系统繁忙,请稍后再试')
@@ -276,7 +274,6 @@ const { query } = require('express');
  exports.teacher_prize_nation_counts_sub = function(req,res){
     // 接收表单数据
     const submit_info = req.body.data_4_1_1_1
-    console.log(submit_info)
     user = req.user
 
     var sqls = []
@@ -287,7 +284,7 @@ const { query } = require('express');
         const strUUID2 = strUUID.replace(/-/g, '');       // 去掉-字符
         sqls[i+1] = `INSERT INTO tch_award(id, univ_code, discipline_code, yr, award_name, tch_name, level, grade, award_eval_org, award_eval_org_type, path, user_fill_id) 
         VALUES ('${strUUID2}','${user.univ_code}','${user.discipline_code}', ${submit_info[i].yr}, '${submit_info[i].award_name}', '${submit_info[i].tch_name}', '国家级', '${submit_info[i].grade}', '${submit_info[i].award_eval_org}', '${submit_info[i].award_eval_org_type}', NULL, '${user_fill_id}');`
-        console.log(sqls[i+1])
+        
     }
 
     async.eachSeries(sqls, function (item, callback) {
@@ -351,7 +348,7 @@ const { query } = require('express');
         const strUUID2 = strUUID.replace(/-/g, '');       // 去掉-字符
         sqls[i+1] = `INSERT INTO tch_award(id, univ_code, discipline_code, yr, award_name, tch_name, level, grade, award_eval_org, award_eval_org_type, path, user_fill_id) 
         VALUES ('${strUUID2}','${user.univ_code}','${user.discipline_code}', ${submit_info[i].yr}, '${submit_info[i].award_name}', '${submit_info[i].tch_name}', '省部级', '${submit_info[i].yr}', '${submit_info[i].grade}', '${submit_info[i].award_eval_org}', NULL, '${user_fill_id}');`
-        console.log(sqls[i+1])
+        
     }
 
     async.eachSeries(sqls, function (item, callback) {
@@ -414,7 +411,7 @@ const { query } = require('express');
         const strUUID2 = strUUID.replace(/-/g, '');       // 去掉-字符
         sqls[i+1] = `INSERT INTO tch_monog(id, univ_code, discipline_code, yr, tch_name, monograph, publisher, publish_date, path, user_fill_id) 
         VALUES ('${strUUID2}','${user.univ_code}','${user.discipline_code}', ${submit_info[i].yr}, '${submit_info[i].tch_name}', '${submit_info[i].monograph}', '${submit_info[i].publisher}', '${submit_info[i].publish_date}', NULL, '${user_fill_id}');`
-        console.log(sqls[i+1])
+        
     }
 
     async.eachSeries(sqls, function (item, callback) {
@@ -477,7 +474,7 @@ const { query } = require('express');
         const strUUID2 = strUUID.replace(/-/g, '');       // 去掉-字符
         sqls[i+1] = `INSERT INTO tch_paper(id, univ_code, discipline_code, yr, paper_title, paper_au, jour_name, jour_level, yr_mth_volum, remarks, path, user_fill_id) 
         VALUES ('${strUUID2}','${user.univ_code}','${user.discipline_code}', ${submit_info[i].yr}, '${submit_info[i].paper_title}', '${submit_info[i].paper_au}', '${submit_info[i].jour_name}', '${submit_info[i].jour_level}', '${submit_info[i].yr_mth_volum}', '${submit_info[i].remarks}', NULL, '${user_fill_id}');`
-        console.log(sqls[i+1])
+        
     }
     async.eachSeries(sqls, function (item, callback) {
         // 遍历每条SQL并执行
@@ -540,7 +537,7 @@ const { query } = require('express');
         sqls[i+1] = `INSERT INTO tch_paper(id, univ_code, discipline_code, yr, quarter, paper_title, paper_au, jour_name, jour_level, yr_mth_volum, remarks, path, user_fill_id) 
         VALUES ('${strUUID2}','${user.univ_code}','${user.discipline_code}', ${submit_info[i].yr}, '${submit_info[i].quarter}', 
         '${submit_info[i].paper_title}', '${submit_info[i].paper_au}', '${submit_info[i].jour_name}', '${submit_info[i].jour_level}', '${submit_info[i].yr_mth_volum}', '${submit_info[i].remarks}', NULL, '${user_fill_id}');`
-        console.log(sqls[i+1])
+        
     }
 
     async.eachSeries(sqls, function (item, callback) {
@@ -606,7 +603,7 @@ const { query } = require('express');
         sqls[i+1] = `INSERT INTO tch_paper(id, univ_code, discipline_code, yr, quarter, paper_title, paper_au, jour_name, jour_level, yr_mth_volum, remarks, path, user_fill_id) 
         VALUES ('${strUUID2}','${user.univ_code}','${user.discipline_code}', ${submit_info[i].yr}, '${submit_info[i].quarter}', 
         '${submit_info[i].paper_title}', '${submit_info[i].paper_au}', '${submit_info[i].jour_name}', '${submit_info[i].jour_level}', '${submit_info[i].yr_mth_volum}', '${submit_info[i].remarks}', NULL, '${user_fill_id}');`
-        console.log(sqls[i+1])
+        
     }
 
     async.eachSeries(sqls, function (item, callback) {
@@ -670,7 +667,7 @@ const { query } = require('express');
         sqls[i+1] = `INSERT INTO tch_paper(id, univ_code, discipline_code, yr, quarter, paper_title, paper_au, jour_name, jour_level, yr_mth_volum, remarks, path, user_fill_id) 
         VALUES ('${strUUID2}','${user.univ_code}','${user.discipline_code}', ${submit_info[i].yr}, '${submit_info[i].quarter}', 
         '${submit_info[i].paper_title}', '${submit_info[i].paper_au}', '${submit_info[i].jour_name}', '${submit_info[i].jour_level}', '${submit_info[i].yr_mth_volum}', '${submit_info[i].remarks}', NULL, '${user_fill_id}');`
-        console.log(sqls[i+1])
+        
     }
 
     async.eachSeries(sqls, function (item, callback) {
@@ -735,7 +732,7 @@ const { query } = require('express');
         const strUUID2 = strUUID.replace(/-/g, '');       // 去掉-字符
         sqls[i+1] = `INSERT INTO utk_desgshow(id, univ_code, discipline_code, yr, quarter, major_desg_or_show_name, parti_date, task, path, user_fill_id) 
         VALUES ('${strUUID2}','${user.univ_code}','${user.discipline_code}', ${submit_info[i].yr}, '${submit_info[i].quarter}', '${submit_info[i].major_desg_or_show_name}', '${submit_info[i].parti_date}', '${submit_info[i].task}', NULL, '${user_fill_id}');`
-        console.log(sqls[i+1])
+        
     }
 
     async.eachSeries(sqls, function (item, callback) {
@@ -800,7 +797,7 @@ const { query } = require('express');
         // VALUES ('${strUUID2}','${user.univ_code}','${user.discipline_code}', ${submit_info[i].yr}, '${submit_info[i].quarter}', '${submit_info[i].major_desg_or_show_name}', '${submit_info[i].parti_date}', '${submit_info[i].task}', NULL, '${user_fill_id}');`
         sqls[i+1] = `INSERT INTO sci_innova_plat(id, univ_code, discipline_code, yr, plat_name, palt_level, appro_time, path, user_fill_id) 
         VALUES ('${strUUID2}','${user.univ_code}','${user.discipline_code}', ${submit_info[i].yr}, '${submit_info[i].plat_name}', '${submit_info[i].palt_level}', '${submit_info[i].appro_time}', NULL, '${user_fill_id}');`
-        console.log(sqls[i+1])
+        
     }
 
     async.eachSeries(sqls, function (item, callback) {
@@ -865,7 +862,7 @@ const { query } = require('express');
         // VALUES ('${strUUID2}','${user.univ_code}','${user.discipline_code}', ${submit_info[i].yr}, '${submit_info[i].quarter}', '${submit_info[i].major_desg_or_show_name}', '${submit_info[i].parti_date}', '${submit_info[i].task}', NULL, '${user_fill_id}');`
         sqls[i+1] = `INSERT INTO sci_innova_plat(id, univ_code, discipline_code, yr, plat_name, palt_level, appro_time, path, user_fill_id) 
         VALUES ('${strUUID2}','${user.univ_code}','${user.discipline_code}', ${submit_info[i].yr}, '${submit_info[i].plat_name}', '${submit_info[i].palt_level}', '${submit_info[i].appro_time}', NULL, '${user_fill_id}');`
-        console.log(sqls[i+1])
+        
     }
 
     async.eachSeries(sqls, function (item, callback) {
@@ -930,7 +927,7 @@ const { query } = require('express');
         // VALUES ('${strUUID2}','${user.univ_code}','${user.discipline_code}', ${submit_info[i].yr}, '${submit_info[i].quarter}', '${submit_info[i].major_desg_or_show_name}', '${submit_info[i].parti_date}', '${submit_info[i].task}', NULL, '${user_fill_id}');`
         sqls[i+1] = `INSERT INTO sci_innova_plat(id, univ_code, discipline_code, yr, plat_name, palt_level, appro_time, path, user_fill_id) 
         VALUES ('${strUUID2}','${user.univ_code}','${user.discipline_code}', ${submit_info[i].yr}, '${submit_info[i].plat_name}', '${submit_info[i].palt_level}', '${submit_info[i].appro_time}', NULL, '${user_fill_id}');`
-        console.log(sqls[i+1])
+        
     }
 
     async.eachSeries(sqls, function (item, callback) {
@@ -992,7 +989,7 @@ const { query } = require('express');
         // VALUES ('${strUUID2}','${user.univ_code}','${user.discipline_code}', ${submit_info[i].yr}, '${submit_info[i].quarter}', '${submit_info[i].major_desg_or_show_name}', '${submit_info[i].parti_date}', '${submit_info[i].task}', NULL, '${user_fill_id}');`
         sqls[i+1] = `INSERT INTO sci_innova_plat(id, univ_code, discipline_code, yr, plat_name, palt_level, appro_time, path, user_fill_id) 
         VALUES ('${strUUID2}','${user.univ_code}','${user.discipline_code}', ${submit_info[i].yr}, '${submit_info[i].plat_name}', '${submit_info[i].palt_level}', '${submit_info[i].appro_time}', NULL, '${user_fill_id}');`
-        console.log(sqls[i+1])
+        
     }
 
     async.eachSeries(sqls, function (item, callback) {
@@ -1057,7 +1054,7 @@ const { query } = require('express');
         // VALUES ('${strUUID2}','${user.univ_code}','${user.discipline_code}', ${submit_info[i].yr}, '${submit_info[i].quarter}', '${submit_info[i].major_desg_or_show_name}', '${submit_info[i].parti_date}', '${submit_info[i].task}', NULL, '${user_fill_id}');`
         sqls[i+1] = `INSERT INTO host_sciproj(id, univ_code, discipline_code, yr, proj_name, proj_level, proj_type, proj_fromto_ymth, proj_fund, path, user_fill_id) 
         VALUES ('${strUUID2}','${user.univ_code}','${user.discipline_code}', ${submit_info[i].yr}, '${submit_info[i].proj_name}', '${submit_info[i].proj_level}', '${submit_info[i].proj_type}', '${submit_info[i].proj_fromto_ymth}', ${submit_info[i].proj_fund}, NULL, '${user_fill_id}');`
-        console.log(sqls[i+1])
+        
     }
 
     async.eachSeries(sqls, function (item, callback) {
@@ -1122,7 +1119,7 @@ const { query } = require('express');
         // VALUES ('${strUUID2}','${user.univ_code}','${user.discipline_code}', ${submit_info[i].yr}, '${submit_info[i].quarter}', '${submit_info[i].major_desg_or_show_name}', '${submit_info[i].parti_date}', '${submit_info[i].task}', NULL, '${user_fill_id}');`
         sqls[i+1] = `INSERT INTO host_sciproj(id, univ_code, discipline_code, yr, proj_name, proj_level, proj_type, proj_fromto_ymth, proj_fund, path, user_fill_id) 
         VALUES ('${strUUID2}','${user.univ_code}','${user.discipline_code}', ${submit_info[i].yr}, '${submit_info[i].proj_name}', '国家级', '${submit_info[i].proj_type}', '${submit_info[i].proj_fromto_ymth}', ${submit_info[i].proj_fund}, NULL, '${user_fill_id}');`
-        console.log(sqls[i+1])
+        
     }
 
     async.eachSeries(sqls, function (item, callback) {
@@ -1187,7 +1184,7 @@ const { query } = require('express');
         // VALUES ('${strUUID2}','${user.univ_code}','${user.discipline_code}', ${submit_info[i].yr}, '${submit_info[i].quarter}', '${submit_info[i].major_desg_or_show_name}', '${submit_info[i].parti_date}', '${submit_info[i].task}', NULL, '${user_fill_id}');`
         sqls[i+1] = `INSERT INTO host_sciproj(id, univ_code, discipline_code, yr, proj_name, proj_level, proj_type, proj_fromto_ymth, proj_fund, path, user_fill_id) 
         VALUES ('${strUUID2}','${user.univ_code}','${user.discipline_code}', ${submit_info[i].yr}, '${submit_info[i].proj_name}', '国家级', '${submit_info[i].proj_type}', '${submit_info[i].proj_fromto_ymth}', ${submit_info[i].proj_fund}, NULL, '${user_fill_id}');`
-        console.log(sqls[i+1])
+        
     }
 
     async.eachSeries(sqls, function (item, callback) {
@@ -1212,11 +1209,8 @@ const { query } = require('express');
     }, function (err) {
         // 所有SQL执行完成后回调
         if (err) {
-            console.log(err.message);
-            res.send({
-                status: 1,
-                message: '系统繁忙，请稍后再试'
-            })
+            console.log(err);
+            return res.cc(err)
         } else {
             client.query(`insert into user_fill(id, user_id, fill_id) values('${user_fill_id}','${user.id}','4_2_2_2')`, function(err,result){
                 if(err) return res.cc('系统繁忙,请稍后再试')
@@ -1251,7 +1245,7 @@ const { query } = require('express');
         // VALUES ('${strUUID2}','${user.univ_code}','${user.discipline_code}', ${submit_info[i].yr}, '${submit_info[i].quarter}', '${submit_info[i].major_desg_or_show_name}', '${submit_info[i].parti_date}', '${submit_info[i].task}', NULL, '${user_fill_id}');`
         sqls[i+1] = `INSERT INTO host_sciproj(id, univ_code, discipline_code, yr, proj_name, proj_level, proj_type, proj_fromto_ymth, proj_fund, path, user_fill_id) 
         VALUES ('${strUUID2}','${user.univ_code}','${user.discipline_code}', ${submit_info[i].yr}, '${submit_info[i].proj_name}', '省级', '${submit_info[i].proj_type}', '${submit_info[i].proj_fromto_ymth}', ${submit_info[i].proj_fund}, NULL, '${user_fill_id}');`
-        console.log(sqls[i+1])
+        
     }
 
     async.eachSeries(sqls, function (item, callback) {
@@ -1276,11 +1270,8 @@ const { query } = require('express');
     }, function (err) {
         // 所有SQL执行完成后回调
         if (err) {
-            console.log(err.message);
-            res.send({
-                status: 1,
-                message: '系统繁忙，请稍后再试'
-            })
+            console.log(err);
+            return res.cc(err)
         } else {
             client.query(`insert into user_fill(id, user_id, fill_id) values('${user_fill_id}','${user.id}','4_2_2_3')`, function(err,result){
                 if(err) return res.cc('系统繁忙,请稍后再试')
@@ -1316,7 +1307,7 @@ const { query } = require('express');
         // VALUES ('${strUUID2}','${user.univ_code}','${user.discipline_code}', ${submit_info[i].yr}, '${submit_info[i].quarter}', '${submit_info[i].major_desg_or_show_name}', '${submit_info[i].parti_date}', '${submit_info[i].task}', NULL, '${user_fill_id}');`
         sqls[i+1] = `INSERT INTO touniv_scifund(id, univ_code, discipline_code, yr, quarter, total_fund, subj_type, path, user_fill_id) 
         VALUES ('${strUUID2}','${user.univ_code}','${user.discipline_code}', ${submit_info[i].yr}, '${submit_info[i].quarter}', ${submit_info[i].total_fund}, '纵向', NULL, '${user_fill_id}');`
-        console.log(sqls[i+1])
+        
     }
 
     async.eachSeries(sqls, function (item, callback) {
@@ -1341,11 +1332,8 @@ const { query } = require('express');
     }, function (err) {
         // 所有SQL执行完成后回调
         if (err) {
-            console.log(err.message);
-            res.send({
-                status: 1,
-                message: '系统繁忙，请稍后再试'
-            })
+            console.log(err);
+            return res.cc(err)
         } else {
             client.query(`insert into user_fill(id, user_id, fill_id) values('${user_fill_id}','${user.id}','4_2_3_1')`, function(err,result){
                 if(err) return res.cc('系统繁忙,请稍后再试')
@@ -1381,13 +1369,14 @@ const { query } = require('express');
         // VALUES ('${strUUID2}','${user.univ_code}','${user.discipline_code}', ${submit_info[i].yr}, '${submit_info[i].quarter}', '${submit_info[i].major_desg_or_show_name}', '${submit_info[i].parti_date}', '${submit_info[i].task}', NULL, '${user_fill_id}');`
         sqls[i+1] = `INSERT INTO touniv_scifund(id, univ_code, discipline_code, yr, quarter, total_fund, subj_type, path, user_fill_id) 
         VALUES ('${strUUID2}','${user.univ_code}','${user.discipline_code}', ${submit_info[i].yr}, '${submit_info[i].quarter}', ${submit_info[i].total_fund}, '横向', NULL, '${user_fill_id}');`
-        console.log(sqls[i+1])
+        
     }
 
     async.eachSeries(sqls, function (item, callback) {
         // 遍历每条SQL并执行
         client.query(item, function (err, results) {
             if (err) {
+                console.log(err.message);
                 // 异常后调用callback并传入err
                 err = "系统错误，请刷新页面后重试"
                 callback(err);
@@ -1406,11 +1395,8 @@ const { query } = require('express');
     }, function (err) {
         // 所有SQL执行完成后回调
         if (err) {
-            console.log(err.message);
-            res.send({
-                status: 1,
-                message: '系统繁忙，请稍后再试'
-            })
+            console.log(err);
+            return res.cc(err)
         } else {
             client.query(`insert into user_fill(id, user_id, fill_id) values('${user_fill_id}','${user.id}','4_2_3_2')`, function(err,result){
                 if(err) return res.cc('系统繁忙,请稍后再试')
@@ -1446,7 +1432,7 @@ const { query } = require('express');
         // VALUES ('${strUUID2}','${user.univ_code}','${user.discipline_code}', ${submit_info[i].yr}, '${submit_info[i].quarter}', '${submit_info[i].major_desg_or_show_name}', '${submit_info[i].parti_date}', '${submit_info[i].task}', NULL, '${user_fill_id}');`
         sqls[i+1] = `INSERT INTO host_acjour(id, univ_code, discipline_code, yr, jour_name, jour_in_num, jour_out_num, adopt, create_time, ac_influ, path, user_fill_id) 
         VALUES ('${strUUID2}','${user.univ_code}','${user.discipline_code}', ${submit_info[i].yr}, '${submit_info[i].jour_name}', '${submit_info[i].jour_in_num}', '${submit_info[i].jour_out_num}', '${submit_info[i].adopt}', '${submit_info[i].create_time}', '${submit_info[i].ac_influ}', NULL, '${user_fill_id}');`
-        console.log(sqls[i+1])
+        
     }
 
     async.eachSeries(sqls, function (item, callback) {
@@ -1471,11 +1457,8 @@ const { query } = require('express');
     }, function (err) {
         // 所有SQL执行完成后回调
         if (err) {
-            console.log(err.message);
-            res.send({
-                status: 1,
-                message: '系统繁忙，请稍后再试'
-            })
+            console.log(err);
+            return res.cc(err)
         } else {
             client.query(`insert into user_fill(id, user_id, fill_id) values('${user_fill_id}','${user.id}','4_2_4')`, function(err,result){
                 if(err) return res.cc('系统繁忙,请稍后再试')
@@ -1510,13 +1493,14 @@ const { query } = require('express');
         // VALUES ('${strUUID2}','${user.univ_code}','${user.discipline_code}', ${submit_info[i].yr}, '${submit_info[i].quarter}', '${submit_info[i].major_desg_or_show_name}', '${submit_info[i].parti_date}', '${submit_info[i].task}', NULL, '${user_fill_id}');`
         sqls[i+1] = `INSERT INTO mk_std(id, univ_code, discipline_code, yr, quarter, proj_name, proj_type, parti_type, path, user_fill_id) 
         VALUES ('${strUUID2}','${user.univ_code}','${user.discipline_code}', ${submit_info[i].yr}, '${submit_info[i].quarter}', '${submit_info[i].proj_name}', '${submit_info[i].proj_type}', ' ${submit_info[i].parti_type}', NULL, '${user_fill_id}');`
-        console.log(sqls[i+1])
+        
     }
 
     async.eachSeries(sqls, function (item, callback) {
         // 遍历每条SQL并执行
         client.query(item, function (err, results) {
             if (err) {
+                console.log(err);
                 // 异常后调用callback并传入err
                 err = "系统错误，请刷新页面后重试"
                 callback(err);
@@ -1535,11 +1519,8 @@ const { query } = require('express');
     }, function (err) {
         // 所有SQL执行完成后回调
         if (err) {
-            console.log(err.message);
-            res.send({
-                status: 1,
-                message: '系统繁忙，请稍后再试'
-            })
+            console.log(err);
+            return res.cc(err)
         } else {
             client.query(`insert into user_fill(id, user_id, fill_id) values('${user_fill_id}','${user.id}','4_3_1')`, function(err,result){
                 if(err) return res.cc('系统繁忙,请稍后再试')
@@ -1574,13 +1555,14 @@ const { query } = require('express');
         // VALUES ('${strUUID2}','${user.univ_code}','${user.discipline_code}', ${submit_info[i].yr}, '${submit_info[i].quarter}', '${submit_info[i].major_desg_or_show_name}', '${submit_info[i].parti_date}', '${submit_info[i].task}', NULL, '${user_fill_id}');`
         sqls[i+1] = `INSERT INTO intnaco_paper(id, univ_code, discipline_code, yr, quarter, chn_nsci_num, chn_hss_num, for_nsci_num, for_hss_num, co_nsci_num, co_hss_num, path, user_fill_id) 
         VALUES ('${strUUID2}','${user.univ_code}','${user.discipline_code}', ${submit_info[i].yr}, '${submit_info[i].quarter}', ${submit_info[i].chn_nsci_num}, ${submit_info[i].chn_hss_num}, ${submit_info[i].for_nsci_num}, ${submit_info[i].for_hss_num}, ${submit_info[i].co_nsci_num}, ${submit_info[i].co_hss_num}, NULL, '${user_fill_id}');`
-        console.log(sqls[i+1])
+        
     }
 
     async.eachSeries(sqls, function (item, callback) {
         // 遍历每条SQL并执行
         client.query(item, function (err, results) {
             if (err) {
+                console.log(err);
                 // 异常后调用callback并传入err
                 err = "系统错误，请刷新页面后重试"
                 callback(err);
@@ -1599,11 +1581,8 @@ const { query } = require('express');
     }, function (err) {
         // 所有SQL执行完成后回调
         if (err) {
-            console.log(err.message);
-            res.send({
-                status: 1,
-                message: '系统繁忙，请稍后再试'
-            })
+            console.log(err);
+            return res.cc(err)
         } else {
             client.query(`insert into user_fill(id, user_id, fill_id) values('${user_fill_id}','${user.id}','4_3_2')`, function(err,result){
                 if(err) return res.cc('系统繁忙,请稍后再试')

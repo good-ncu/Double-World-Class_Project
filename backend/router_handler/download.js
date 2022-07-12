@@ -24,9 +24,14 @@ exports.download_excels = function(req,res) {
             return res.cc('系统繁忙，请稍后再试！')
         }
         var filename = results.rows[0].fill_about
-        console.log(filename);
-        console.log(filename);
         var path = `../../template/excels/${filename}.xlsx`
+        console.log(path);
+
+        // check if directory exists
+        if (!fs.existsSync(path)) {
+            console.log("没有该文件！");
+           return res.cc('系统繁忙，请稍后再试！')
+        }
         
         res.writeHead(200,{
             'Access-Control-Expose-Headers' : 'Authorization',

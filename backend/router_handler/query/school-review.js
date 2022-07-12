@@ -140,11 +140,13 @@ exports.check_all_discipline_current = function (req, res) {
     userinfo = req.user
     subinfo = req.body.id
     console.log(subinfo)
+    console.log(subinfo.length)
     var sqls = []
     // var to_dbtable
     for (let i = 0, len = subinfo.length; i < len; i++) {
         sqls[i] = `update user_fill set is_seen = 1 where id = '${subinfo[i]}'`
     }
+    console.log(sqls)
     async.each(sqls, function (item, callback) {
         // 遍历每条SQL并执行
         client.query(item, function (err, results) {
