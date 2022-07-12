@@ -4,7 +4,7 @@
  */
 
 exports.is_gov = function(req,res,next){
-    if(req.user.id == 2){
+    if(req.user.role_id == 2){
         next()
     } else {
         return res.cc('角色类别错误，无法访问')
@@ -13,7 +13,7 @@ exports.is_gov = function(req,res,next){
 
 exports.is_school = function(req,res,next){
     console.log(req.user.id);
-    if(req.user.id == 3){
+    if(req.user.role_id == 3){
         next()
     } else {
         return res.cc('角色类别错误，无法访问')
@@ -22,7 +22,7 @@ exports.is_school = function(req,res,next){
 
 exports.is_discipline = function(req,res,next){
     console.log(req.user.id);
-    if(req.user.id == 4){
+    if(req.user.role_id == 4){
         next()
     } else {
         return res.cc('角色类别错误，无法访问')

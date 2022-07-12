@@ -1,6 +1,6 @@
 // 导入数据库操作模块
 const client = require('../../db/index')
-// 省厅查看 学科评估情况
+// 省厅查看 第四、五、六学科评估情况 （柱状图对比数据）
 exports.discipline_eval_gov = function(req,res) {
     userinfo = req.user
     sql = `select discipline_eval_turn,discipline_eval_result,count(discipline_eval_result) from discipline_eval group by discipline_eval_result ,discipline_eval_turn`
@@ -15,7 +15,7 @@ exports.discipline_eval_gov = function(req,res) {
             // 当前sql查询为空，则返回填报提示
             res.send({
                 status: 0,
-                message: "该表格无信息"
+                message: "该图标无信息"
             })
         } else {
             res.send({
@@ -27,16 +27,3 @@ exports.discipline_eval_gov = function(req,res) {
 
 }
 
-// 学校查看 学科评估情况
-exports.discipline_eval_school = function(req,res) {
-    res.send({
-        mes:"03"
-    })
-}
-
-// 学校查看 学科评估情况
-exports.discipline_eval_discipline = function(req,res) {
-    res.send({
-        mes:"04"
-    })
-}
