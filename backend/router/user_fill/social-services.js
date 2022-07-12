@@ -4,6 +4,9 @@ const router = express.Router()
 // 导入并使用平台首页 社会服务 路由处理函数对应的模块
 const social_services_handler = require('../../router_handler/user_fill/social-services')
 
+const pre_view_handler = require('../../router_handler/preview_table')
+
+
 // 2. 导入验证数据的中间件
 const expressJoi = require('@escook/express-joi')
 
@@ -71,23 +74,23 @@ router.post('/services-social/consultative-province-counts',expressJoi(sub_schem
  */
 //成果转化到校金额
 // 手动 填报 成果转化到校金额  情况路由（5-1-1）
-router.post('/result-trans/get-funds-template',public.upload_file_callback,excel_parsing5.deal_table_5_1_1,expressJoi(sub_schema5.table_5_1_1), social_services_handler.get_funds_sub)
+router.post('/result-trans/get-funds-template',public.upload_file_callback,excel_parsing5.deal_table_5_1_1,expressJoi(sub_schema5.table_5_1_1), pre_view_handler.preview_table)
 
 
 
 // 手动 填报 国家级产教融合平台建设数 情况路由（5-2-1-1）
-router.post('/social-support/industry-nation-counts-template',public.upload_file_callback,excel_parsing5.deal_table_5_2_1_1,expressJoi(sub_schema5.table_5_2_1_1), social_services_handler.industry_nation_counts_sub)
+router.post('/social-support/industry-nation-counts-template',public.upload_file_callback,excel_parsing5.deal_table_5_2_1_1,expressJoi(sub_schema5.table_5_2_1_1), pre_view_handler.preview_table)
 
 // 手动 填报 省部级产教融合平台建设数 情况路由（5-2-1-2）
-router.post('/social-support/industry-province-counts-template',public.upload_file_callback,excel_parsing5.deal_table_5_2_1_2,expressJoi(sub_schema5.table_5_2_1_2),social_services_handler.industry_province_counts_sub)
+router.post('/social-support/industry-province-counts-template',public.upload_file_callback,excel_parsing5.deal_table_5_2_1_2,expressJoi(sub_schema5.table_5_2_1_2),pre_view_handler.preview_table)
 
 
 
 // 手动 填报 国家级咨政研究情况 情况路由（5-2-2-1）
-router.post('/services-social/consultative-nation-counts-template',public.upload_file_callback,excel_parsing5.deal_table_5_2_2_1,expressJoi(sub_schema5.table_5_2_2_1), social_services_handler.consultative_nation_counts_sub)
+router.post('/services-social/consultative-nation-counts-template',public.upload_file_callback,excel_parsing5.deal_table_5_2_2_1,expressJoi(sub_schema5.table_5_2_2_1),pre_view_handler.preview_table)
 
 // 手动 填报 省部级咨政研究情况 情况路由（5-2-2-2）
-router.post('/services-social/consultative-province-counts-template',public.upload_file_callback,excel_parsing5.deal_table_5_2_2_2,expressJoi(sub_schema5.table_5_2_2_2), social_services_handler.consultative_province_counts_sub)
+router.post('/services-social/consultative-province-counts-template',public.upload_file_callback,excel_parsing5.deal_table_5_2_2_2,expressJoi(sub_schema5.table_5_2_2_2),pre_view_handler.preview_table)
 
 
 

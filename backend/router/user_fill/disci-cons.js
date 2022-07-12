@@ -6,6 +6,7 @@ const router = express.Router()
 // 导入首页  用户填报  路由处理函数对应的模块
 const disci_cons_handler = require('../../router_handler/user_fill/disci-cons')
 
+const pre_view_handler = require('../../router_handler/preview_table')
 
 
 // 1. 导入验证数据的中间件
@@ -47,14 +48,14 @@ router.post('/progress/disci-funds', expressJoi(sub_schema1.table_1_1_4), disci_
 // 2. excel_parsing1.table_1_1_2：对文件重命名，解析内容为JSON
 
 // 填写学科评估情况（1-1-2）
-router.post('/progress/disci-eval-situation-template', public.upload_file_callback, excel_parsing1.deal_table_1_1_2,expressJoi(sub_schema1.table_1_1_2), disci_cons_handler.disci_eval_situation_sub)
+router.post('/progress/disci-eval-situation-template', public.upload_file_callback, excel_parsing1.deal_table_1_1_2,expressJoi(sub_schema1.table_1_1_2), pre_view_handler.preview_table)
 
 
 // 填写学科评估情况（1-1-3）
-router.post('/progress/disci-influence-template', public.upload_file_callback, excel_parsing1.deal_table_1_1_3,expressJoi(sub_schema1.table_1_1_3), disci_cons_handler.disci_influence_sub)
+router.post('/progress/disci-influence-template', public.upload_file_callback, excel_parsing1.deal_table_1_1_3,expressJoi(sub_schema1.table_1_1_3), pre_view_handler.preview_table)
 
 // 填写学科评估情况（1-1-4）
-router.post('/progress/disci-funds-template', public.upload_file_callback, excel_parsing1.deal_table_1_1_4,expressJoi(sub_schema1.table_1_1_4), disci_cons_handler.disci_funds_sub)
+router.post('/progress/disci-funds-template', public.upload_file_callback, excel_parsing1.deal_table_1_1_4,expressJoi(sub_schema1.table_1_1_4), pre_view_handler.preview_table)
 
 
 

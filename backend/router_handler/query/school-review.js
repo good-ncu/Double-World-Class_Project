@@ -258,7 +258,7 @@ exports.query_all_discipline_table = function (req, res) {
 
 
 /**
- * 第三步之后可做的操作，check_all_discipline_current
+ * 第三步之后可做的操作，驳回！
  * @param {*} req 
  * @param {*} res 
  */
