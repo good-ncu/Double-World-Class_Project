@@ -124,7 +124,7 @@ exports.login = function(req, res){
         default:
             roleStr = '学科填报用户'
     }
-    client.query(`select * from univ_discipline where univ_code = '${user.univ_code}' and discipline_code = '${user.discipline_code}'`, function(err, results) {
+    client.query(`select * from univ_discipline where univ_code = '${user.univ_code}' and username = '${userinfo.username}'`, function(err, results) {
       if(err) {
         console.log(err.message);
         return res.cc('系统繁忙，请稍后再试')
