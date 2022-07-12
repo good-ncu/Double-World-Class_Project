@@ -67,9 +67,9 @@ exports.disci_eval_situation_sub = function (req, res) {
     // 插入所有的数据都用同一个，与user_fill表的id相匹配
     var user_fill_id = uuidv4().replace(/-/g, '')
 
-    
 
-    //  注意！！！！！      上述唯一性检测没问题后，开始插入操作
+
+    //  注意！！！！！      唯一性检测 1.push(`SELECT * FR ....  2. [i+1]   3. async.eachSeries  3
     var sqls_insert = []
     sqls_insert.push(`SELECT * FROM user_fill WHERE user_id='${user.id}' AND fill_id = '1_1_2' AND flag=1`)
     for (let i = 0, len = submit_info.length; i < len; i++) {
@@ -87,7 +87,7 @@ exports.disci_eval_situation_sub = function (req, res) {
                 callback(err);
             } else {
 
-                if (results.rows.length !== 0 && results.rows[0].flag == 1){ 
+                if (results.rows.length !== 0 && results.rows[0].flag == 1) {
                     err = "请勿重复提交"
                 }
                 // 执行完成后也要调用callback，不需要参数
@@ -142,27 +142,34 @@ exports.disci_influence_sub = function (req, res) {
 
 
     var sqls = []
+    sqls.push(`SELECT * FROM user_fill WHERE user_id='${user.id}' AND fill_id = '1_1_3' AND flag=1`)
     for (let i = 0, len = submit_info.length; i < len; i++) {
         const strUUID = uuidv4(); // ⇨ '1b9d6bcd-bbfd-4b2d-9b5d-ab8dfbbd4bed'
         const strUUID2 = strUUID.replace(/-/g, '');       // 去掉-字符
-        sqls[i] = `INSERT INTO discipline_influ(id, univ_code, discipline_code, yr, rank_type, rank,user_fill_id) 
+        sqls[i + 1] = `INSERT INTO discipline_influ(id, univ_code, discipline_code, yr, rank_type, rank,user_fill_id) 
         VALUES ('${strUUID2}','${user.univ_code}','${user.discipline_code}',${submit_info[i].yr},'${submit_info[i].rank_type}',${submit_info[i].rank},'${user_fill_id}')`
     }
+    console.log(sqls)
 
-    async.each(sqls, function (item, callback) {
+    async.eachSeries(sqls, function (item, callback) {
         // 遍历每条SQL并执行
         client.query(item, function (err, results) {
+            console.log(results.rows.length)
             if (err) {
-                // 异常后调用callback并传入err
-                callback(err);
-            } else if (results.rowCount !== 1) {
-                // 当前sql影响不为1，则错误
-                err = item + "插入失败！"
+                // 系统级别错误   异常后调用callback并传入err
+                err = "系统错误，请刷新页面后重试"
                 callback(err);
             } else {
-                console.log(item + "执行成功");
+                if (results.rows.length !== 0 && results.rows[0].flag == 1) {
+                    // 多次提交错误
+                    err = "请勿重复提交"
+                }
                 // 执行完成后也要调用callback，不需要参数
-                callback();
+                if (err == "请勿重复提交") {
+                    callback(err)
+                } else {
+                    callback();
+                }
             }
         });
     }, function (err) {
@@ -204,10 +211,11 @@ exports.disci_funds_sub = function (req, res) {
 
 
     var sqls = []
+    sqls.push(`SELECT * FROM user_fill WHERE user_id='${user.id}' AND fill_id = '1_1_4' AND flag=1`)
     for (let i = 0, len = submit_info.length; i < len; i++) {
         const strUUID = uuidv4(); // ⇨ '1b9d6bcd-bbfd-4b2d-9b5d-ab8dfbbd4bed'
         const strUUID2 = strUUID.replace(/-/g, '');       // 去掉-字符
-        sqls[i] = `INSERT INTO discipline_const_fund(id, univ_code, discipline_code, yr, total_fund, ctr_budg_fund,ctr_expend_fund,lcl_budg_fund,
+        sqls[i + 1] = `INSERT INTO discipline_const_fund(id, univ_code, discipline_code, yr, total_fund, ctr_budg_fund,ctr_expend_fund,lcl_budg_fund,
             lcl_receive_fund,lcl_expend_fund,self_budg_fund,self_receive_fund,self_expend_fund,other_budg_fund,other_receive_fund,other_expend_fund,ctr_receive_fund,user_fill_id) 
         VALUES ('${strUUID2}','${user.univ_code}',
         '${user.discipline_code}',${submit_info[i].yr},${submit_info[i].total_fund},${submit_info[i].ctr_budg_fund},${submit_info[i].ctr_expend_fund},${submit_info[i].lcl_budg_fund},
@@ -219,17 +227,24 @@ exports.disci_funds_sub = function (req, res) {
     async.each(sqls, function (item, callback) {
         // 遍历每条SQL并执行
         client.query(item, function (err, results) {
+            console.log(results.rows.length)
             if (err) {
                 // 异常后调用callback并传入err
-                callback(err);
-            } else if (results.rowCount !== 1) {
-                // 当前sql影响不为1，则错误
-                err = item + "插入失败！"
+                err = "系统错误，请刷新页面后重试"
                 callback(err);
             } else {
-                console.log(item + "执行成功");
+                if (results.rows.length !== 0 && results.rows[0].flag == 1) {
+                    err = "请勿重复提交"
+                }
                 // 执行完成后也要调用callback，不需要参数
-                callback();
+                if (err == "请勿重复提交") {
+                    callback(err)
+                } else {
+                    callback();
+
+                }
+
+
             }
         });
     }, function (err) {
@@ -252,16 +267,15 @@ exports.disci_funds_sub = function (req, res) {
         }
     });
 
-
 }
 
-
+// test 使用
 exports.new_disci_eval_situation_sub = function (req, res) {
     // 接收表单数据
     const submit_info = req.body.data_1_1_2
     // 获取token中的user信息
     user = req.user
-    
+
     // 插入所有的数据都用同一个，与user_fill表的id相匹配
     var user_fill_id = uuidv4().replace(/-/g, '')
     var sqls_insert = []
@@ -500,7 +514,7 @@ exports.query_is_time = function (req, res) {
                     }
                 }
             )
-        
+
         }
     });
 }
