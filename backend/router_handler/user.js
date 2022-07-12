@@ -110,7 +110,7 @@ exports.login = function(req, res){
     const tokenStr = jwt.sign(user, config.jwtSecretKey,{expiresIn: config.expiresIn})
     
     var roleStr = ''
-    switch(userinfo.roleidLogin)
+    switch(results.rows[0].role_id)
     {
         case 1:
             roleStr = '超级管理员'
@@ -124,21 +124,58 @@ exports.login = function(req, res){
         default:
             roleStr = '学科填报用户'
     }
-    client.query(`select * from univ_discipline where univ_code = '${user.univ_code}' and username = '${userinfo.username}'`, function(err, results) {
-      if(err) {
-        console.log(err.message);
-        return res.cc('系统繁忙，请稍后再试')
+    if(results.rows[0].role_id == 2 || results.rows[0].role_id == 1) {
+      if(results.rows[0].role_id==1){
+        var flag = 'root'
+      }else{
+        var flag = '省厅'
       }
-      res.send({
+      return res.send({
         status: 0,
         msg: '登录成功',
         username: userinfo.username,
         roleid: results.rows[0].role_id, 
         role: roleStr,
-        univ_name: results.rows[0].univ_name,
-        discipline_name: results.rows[0].discipline_name,
+        univ_name: flag,
+        discipline_name: '',
         token:'Bearer '+ tokenStr
       })
-    })
+    }
+    if(results.rows[0].role_id == 3 || results.rows[0].role_id == 2 || results.rows[0].role_id == 1){
+      client.query(`select * from univ_discipline where univ_code = '${user.univ_code}'`, function(err, results) {
+        if(err) {
+          console.log(err.message);
+          return res.cc('系统繁忙，请稍后再试')
+        }
+        return res.send({
+          status: 0,
+          msg: '登录成功',
+          username: userinfo.username,
+          roleid: results.rows[0].role_id, 
+          role: roleStr,
+          univ_name: results.rows[0].univ_name,
+          discipline_name: '',
+          token:'Bearer '+ tokenStr
+        })
+      })
+    } 
+    if(results.rows[0].role_id == 4){
+      client.query(`select * from univ_discipline where univ_code = '${user.univ_code}' and discipline_code = '${user.discipline_code}'`, function(err, results) {
+        if(err) {
+          console.log(err.message);
+          return res.cc('系统繁忙，请稍后再试')
+        }
+        return res.send({
+          status: 0,
+          msg: '登录成功',
+          username: userinfo.username,
+          roleid: results.rows[0].role_id, 
+          role: roleStr,
+          univ_name: results.rows[0].univ_name,
+          discipline_name: results.rows[0].discipline_name,
+          token:'Bearer '+ tokenStr
+        })
+      })
+    } 
   })
 }
