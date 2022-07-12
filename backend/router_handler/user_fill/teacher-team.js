@@ -22,7 +22,7 @@ const { query } = require('express');
 
     // 接收表单数据
     const submit_info = req.body.data_3_1_1
-    console.log(submit_info)
+    // console.log(submit_info)
     user = req.user
     var user_fill_id = uuidv4().replace(/-/g, '')
 
@@ -34,7 +34,7 @@ const { query } = require('express');
         sqls[i+1] = `INSERT INTO tch_moral(id, univ_code, discipline_code, yr, tch_name, recogn_honor,user_fill_id) 
         VALUES ('${strUUID2}','${user.univ_code}','${user.discipline_code}',${submit_info[i].yr},
         '${submit_info[i].tch_name}','${submit_info[i].recogn_honor}','${user_fill_id}')`
-        console.log(sqls[i])
+
     }
 
     async.eachSeries(sqls, function (item, callback) {
@@ -73,7 +73,7 @@ const { query } = require('express');
                     status: 0,
                     message: "填报成功！！"
                 })
-                console.log("SQL全部执行成功");
+
             })
         }
     });
@@ -91,7 +91,7 @@ const { query } = require('express');
 
     // 接收表单数据
     const submit_info = req.body.data_3_2_1
-    console.log(submit_info)
+    // console.log(submit_info)
     user = req.user
     var user_fill_id = uuidv4().replace(/-/g, '')
 
@@ -102,7 +102,7 @@ const { query } = require('express');
         const strUUID2 = strUUID.replace(/-/g, '');       // 去掉-字符
         sqls[i+1] = `INSERT INTO leader_youthcore(id, univ_code, discipline_code,user_fill_id,tch_name,tch_type,tch_title,age,rep_work,discipline) 
         VALUES ('${strUUID2}','${user.univ_code}','${user.discipline_code}','${user_fill_id}','${submit_info[i].tch_name}','${submit_info[i].tch_type}','${submit_info[i].tch_title}',${submit_info[i].age},'${submit_info[i].rep_work}','${submit_info[i].discipline}')`
-        console.log(sqls[i])
+
     }
 
     async.eachSeries(sqls, function (item, callback) {
@@ -141,7 +141,7 @@ const { query } = require('express');
                     status: 0,
                     message: "填报成功！！"
                 })
-                console.log("SQL全部执行成功");
+
             })
         }
     });
@@ -157,7 +157,7 @@ const { query } = require('express');
  exports.all_counts_sub = function(req,res){
     // 接收表单数据
     const submit_info = req.body.data_3_2_2_0
-    console.log(submit_info)
+    // console.log(submit_info)
     user = req.user
     var user_fill_id = uuidv4().replace(/-/g, '')
 
@@ -168,7 +168,7 @@ const { query } = require('express');
         const strUUID2 = strUUID.replace(/-/g, '');       // 去掉-字符
         sqls[i+1] = `INSERT INTO talent_team(id, univ_code, discipline_code,user_fill_id,talent_team_name,level,honor_name,yr) 
         VALUES ('${strUUID2}','${user.univ_code}','${user.discipline_code}','${user_fill_id}','${submit_info[i].talent_team_name}','${submit_info[i].level}','${submit_info[i].honor_name}',${submit_info[i].yr})`
-        console.log(sqls[i])
+
     }
     async.eachSeries(sqls, function (item, callback) {
         // 遍历每条SQL并执行
@@ -206,7 +206,6 @@ const { query } = require('express');
                     status: 0,
                     message: "填报成功！！"
                 })
-                console.log("SQL全部执行成功");
             })
         }
     });
@@ -224,7 +223,7 @@ const { query } = require('express');
  exports.nation_counts_sub = function(req,res){
     // 接收表单数据
     const submit_info = req.body.data_3_2_2_1
-    console.log(submit_info)
+    // console.log(submit_info)
     user = req.user
     var user_fill_id = uuidv4().replace(/-/g, '')
 
@@ -235,7 +234,6 @@ const { query } = require('express');
         const strUUID2 = strUUID.replace(/-/g, '');       // 去掉-字符
         sqls[i+1] = `INSERT INTO talent_team(id, univ_code, discipline_code,user_fill_id,talent_team_name,level,honor_name,yr) 
         VALUES ('${strUUID2}','${user.univ_code}','${user.discipline_code}','${user_fill_id}','${submit_info[i].talent_team_name}','国家级','${submit_info[i].honor_name}',${submit_info[i].yr})`
-        console.log(sqls[i])
     }
 
     async.eachSeries(sqls, function (item, callback) {
@@ -274,7 +272,6 @@ const { query } = require('express');
                     status: 0,
                     message: "填报成功！！"
                 })
-                console.log("SQL全部执行成功");
             })
         }
     });
@@ -291,7 +288,7 @@ const { query } = require('express');
  exports.province_counts_sub = function(req,res){
     // 接收表单数据
     const submit_info = req.body.data_3_2_2_2
-    console.log(submit_info)
+    // console.log(submit_info)
     user = req.user
     var user_fill_id = uuidv4().replace(/-/g, '')
 
@@ -302,8 +299,7 @@ const { query } = require('express');
         const strUUID2 = strUUID.replace(/-/g, '');       // 去掉-字符
         sqls[i+1] = `INSERT INTO talent_team(id, univ_code, discipline_code,user_fill_id,talent_team_name,level,honor_name,yr) 
         VALUES ('${strUUID2}','${user.univ_code}','${user.discipline_code}','${user_fill_id}','${submit_info[i].talent_team_name}','省级','${submit_info[i].honor_name}',${submit_info[i].yr})`
-        console.log(sqls[i])
-    }
+     }
 
     async.eachSeries(sqls, function (item, callback) {
         // 遍历每条SQL并执行
@@ -341,7 +337,6 @@ const { query } = require('express');
                     status: 0,
                     message: "填报成功！！"
                 })
-                console.log("SQL全部执行成功");
             })
         }
     });
@@ -358,7 +353,7 @@ const { query } = require('express');
  exports.number_struct_sub = function(req,res){
     // 接收表单数据
     const submit_info = req.body.data_3_2_3
-    console.log(submit_info)
+    // console.log(submit_info)
     user = req.user
     var user_fill_id = uuidv4().replace(/-/g, '')
 
@@ -371,8 +366,7 @@ const { query } = require('express');
         age4660, ageup60, senior, sub_senior, mid_grade, other_grade, phd, m_degree, b_degree) 
         VALUES ('${strUUID2}','${user.univ_code}','${user.discipline_code}','${user_fill_id}',${submit_info[i].yr},${submit_info[i].full_tch_num},${submit_info[i].ageblow25},${submit_info[i].age2535},
         ${submit_info[i].age3645},${submit_info[i].age4660},${submit_info[i].ageup60},${submit_info[i].senior},${submit_info[i].sub_senior},${submit_info[i].mid_grade},${submit_info[i].other_grade},${submit_info[i].phd},${submit_info[i].m_degree},${submit_info[i].b_degree})`
-        console.log(sqls[i])
-    }
+     }
 
     async.eachSeries(sqls, function (item, callback) {
         // 遍历每条SQL并执行
@@ -410,7 +404,6 @@ const { query } = require('express');
                     status: 0,
                     message: "填报成功！！"
                 })
-                console.log("SQL全部执行成功");
             })
         }
     });
@@ -425,7 +418,7 @@ const { query } = require('express');
  exports.assistant_counts_sub = function(req,res){
     // 接收表单数据
     const submit_info = req.body.data_3_2_4
-    console.log(submit_info)
+    // console.log(submit_info)
     user = req.user
     var user_fill_id = uuidv4().replace(/-/g, '')
 
@@ -438,7 +431,6 @@ const { query } = require('express');
         out_postdoc_newinc,univ_ra_sum,univ_ra_newinc,inst_ra_sum,inst_ra_newinc,task_ra_sum, task_ra_newinc) 
         VALUES ('${strUUID2}','${user.univ_code}','${user.discipline_code}','${user_fill_id}',${submit_info[i].yr},${submit_info[i].in_postdoc_sum},${submit_info[i].in_postdoc_newinc},${submit_info[i].out_postdoc_sum},${submit_info[i].out_postdoc_newinc},
         ${submit_info[i].univ_ra_sum},${submit_info[i].univ_ra_newinc},${submit_info[i].inst_ra_sum},${submit_info[i].inst_ra_newinc},${submit_info[i].task_ra_sum},${submit_info[i].task_ra_newinc})`
-        console.log(sqls[i])
     }
 
     async.eachSeries(sqls, function (item, callback) {
@@ -477,7 +469,6 @@ const { query } = require('express');
                     status: 0,
                     message: "填报成功！！"
                 })
-                console.log("SQL全部执行成功");
             })
         }
     });
@@ -493,7 +484,7 @@ const { query } = require('express');
  exports.foreign_teacher_sub = function(req,res){
     // 接收表单数据
     const submit_info = req.body.data_3_2_5
-    console.log(submit_info)
+    // console.log(submit_info)
     user = req.user
     var user_fill_id = uuidv4().replace(/-/g, '')
 
@@ -544,7 +535,6 @@ const { query } = require('express');
                     status: 0,
                     message: "填报成功！！"
                 })
-                console.log("SQL全部执行成功");
             })
         }
     });
@@ -560,8 +550,8 @@ const { query } = require('express');
  exports.journal_director_sub = function(req,res){
     // 接收表单数据
     const submit_info = req.body.data_3_3_1
-    console.log(req.body)
-    console.log(submit_info)
+    // console.log(req.body)
+    // console.log(submit_info)
     user = req.user
     var user_fill_id = uuidv4().replace(/-/g, '')
 
@@ -573,7 +563,6 @@ const { query } = require('express');
         sqls[i+1] = `INSERT INTO tch_head_jour(id, univ_code, discipline_code,user_fill_id,tch_name,jour_name,in_jour_code,out_jour_code,jour_collect,pos,tenure) 
         VALUES ('${strUUID2}','${user.univ_code}','${user.discipline_code}','${user_fill_id}','${submit_info[i].tch_name}','${submit_info[i].jour_name}','${submit_info[i].in_jour_code}',
         '${submit_info[i].out_jour_code}','${submit_info[i].jour_collect}','${submit_info[i].pos}','${submit_info[i].tenure}')`
-        console.log(sqls[i])
     }
 
     async.eachSeries(sqls, function (item, callback) {
@@ -612,7 +601,6 @@ const { query } = require('express');
                     status: 0,
                     message: "填报成功！！"
                 })
-                console.log("SQL全部执行成功");
             })
         }
     });
@@ -629,7 +617,7 @@ const { query } = require('express');
  exports.conference_director_sub = function(req,res){
     // 接收表单数据
     const submit_info = req.body.data_3_3_2
-    console.log(submit_info)
+    // console.log(submit_info)
     user = req.user
     var user_fill_id = uuidv4().replace(/-/g, '')
 
@@ -641,7 +629,6 @@ const { query } = require('express');
         sqls[i+1] = `INSERT INTO tch_head_acorg(id, univ_code, discipline_code,user_fill_id,tch_name,ac_org,pos,tenure) 
         VALUES ('${strUUID2}','${user.univ_code}','${user.discipline_code}','${user_fill_id}','${submit_info[i].tch_name}',
         '${submit_info[i].ac_org}','${submit_info[i].pos}','${submit_info[i].tenure}')`
-        console.log(sqls[i])
     }
 
     async.eachSeries(sqls, function (item, callback) {
@@ -680,7 +667,6 @@ const { query } = require('express');
                     status: 0,
                     message: "填报成功！！"
                 })
-                console.log("SQL全部执行成功");
             })
         }
     });
@@ -697,7 +683,7 @@ const { query } = require('express');
  exports.conference_report_sub = function(req,res){
     // 接收表单数据
     const submit_info = req.body.data_3_3_3
-    console.log(submit_info)
+    // console.log(submit_info)
     user = req.user
     var user_fill_id = uuidv4().replace(/-/g, '')
 
@@ -710,7 +696,6 @@ const { query } = require('express');
             rpt_yr_mth,rpt_place) 
         VALUES ('${strUUID2}','${user.univ_code}','${user.discipline_code}','${user_fill_id}',${submit_info[i].yr},'${submit_info[i].tch_name}',
         '${submit_info[i].conf_name}','${submit_info[i].rpt_title}','${submit_info[i].rpt_yr_mth}','${submit_info[i].rpt_place}')`
-        console.log(sqls[i])
     }
 
     async.eachSeries(sqls, function (item, callback) {
@@ -749,7 +734,6 @@ const { query } = require('express');
                     status: 0,
                     message: "填报成功！！"
                 })
-                console.log("SQL全部执行成功");
             })
         }
     });
@@ -767,7 +751,7 @@ const { query } = require('express');
  exports.judges_counts_sub = function(req,res){
     // 接收表单数据
     const submit_info = req.body.data_3_3_4
-    console.log(submit_info)
+    // console.log(submit_info)
     user = req.user
     var user_fill_id = uuidv4().replace(/-/g, '')
 
@@ -779,7 +763,6 @@ const { query } = require('express');
         sqls[i+1] = `INSERT INTO tch_judge_comp(id, univ_code, discipline_code,user_fill_id,tch_name, comp_name, comp_yr_mth,pos) 
         VALUES ('${strUUID2}','${user.univ_code}','${user.discipline_code}','${user_fill_id}','${submit_info[i].tch_name}',
         '${submit_info[i].comp_name}','${submit_info[i].comp_yr_mth}','${submit_info[i].pos}')`
-        console.log(sqls[i])
     }
 
     async.eachSeries(sqls, function (item, callback) {
@@ -818,7 +801,6 @@ const { query } = require('express');
                     status: 0,
                     message: "填报成功！！"
                 })
-                console.log("SQL全部执行成功");
             })
         }
     });
@@ -837,7 +819,7 @@ const { query } = require('express');
     // 2. 根据fill_id、user_id去user_fill表内查找flag，若为1则已经填报，若为0或者null则未填报
     // 接收表单数据
     const submit_info = req.body.id
-    console.log(submit_info)
+    // console.log(submit_info)
     // console.log(submit_info.length)
     var resultt = []
     var sqls = []
@@ -878,7 +860,7 @@ const { query } = require('express');
                     is_filled: ""
                 }
             })
-            console.log(all_fill_period);
+            // console.log(all_fill_period);
             var sqls2 = []
             var temp  = 0
             for(let i = 0,len = all_fill_period.length;i<len;i++){
@@ -889,8 +871,7 @@ const { query } = require('express');
             var count = 0 
             async.each(sqls2,
                 function(item,callback){
-                    console.log("loulou");
-                    console.log(item);
+                    // console.log(item);
                     client.query(item, function(err,results) {
                             count++
                             if (err) {
@@ -898,7 +879,7 @@ const { query } = require('express');
                             } else {
                                 // 非NULL
                                 if(results.rows.length!==0){
-                                    console.log(results.rows);
+                                    // console.log(results.rows);
                                     // 只有一条记录
                                     if(results.rows.length==1){
                                         all_fill_period[count-1].is_filled = results.rows[0].flag
@@ -922,18 +903,21 @@ const { query } = require('express');
                 }, 
                 function(err){
                     if(err){
-                        console.log(err);
+                        // console.log(err);
                         res.cc('系统繁忙，请稍后再试')
                     } else {
-                        console.log("======================");
-                        console.log(count);
-                        console.log(all_fill_period);
+                        // console.log("======================");
+                        // console.log(count);
+                        // console.log(all_fill_period);
                         res.send({
                             menus: all_fill_period,
                         })
                     }
                 }
             )
+        }
+    });
+}
             // return res.send({
             //     fill_status: resultt[0]
             // })
@@ -1017,6 +1001,3 @@ const { query } = require('express');
         //     //     result: resultt
         //     // })
         //     // console.log("SQL全部执行成功");
-        }
-    });
-}

@@ -22,7 +22,7 @@ const { query } = require('express');
     // 2. 根据fill_id、user_id去user_fill表内查找flag，若为1则已经填报，若为0或者null则未填报
     // 接收表单数据
     const submit_info = req.body.id
-    console.log(submit_info)
+    // console.log(submit_info)
     // console.log(submit_info.length)
     var resultt = []
     var sqls = []
@@ -41,7 +41,7 @@ const { query } = require('express');
             } else {
                 // console.log(2);
                 resultt.push(results.rows)
-                console.log(item + "执行成功");
+                // console.log(item + "执行成功");
                 // 执行完成后也要调用callback，不需要参数
                 callback();
             }
@@ -63,7 +63,7 @@ const { query } = require('express');
                     is_filled: ""
                 }
             })
-            console.log(all_fill_period);
+            // console.log(all_fill_period);
             var sqls2 = []
             var temp  = 0
             for(let i = 0,len = all_fill_period.length;i<len;i++){
@@ -74,8 +74,7 @@ const { query } = require('express');
             var count = 0 
             async.each(sqls2,
                 function(item,callback){
-                    console.log("loulou");
-                    console.log(item);
+                    // console.log(item);
                     client.query(item, function(err,results) {
                             count++
                             if (err) {
@@ -83,7 +82,7 @@ const { query } = require('express');
                             } else {
                                 // 非NULL
                                 if(results.rows.length!==0){
-                                    console.log(results.rows);
+                                    // console.log(results.rows);
                                     // 只有一条记录
                                     if(results.rows.length==1){
                                         all_fill_period[count-1].is_filled = results.rows[0].flag
@@ -107,12 +106,12 @@ const { query } = require('express');
                 }, 
                 function(err){
                     if(err){
-                        console.log(err);
+                        // console.log(err);
                         res.cc('系统繁忙，请稍后再试')
                     } else {
-                        console.log("======================");
-                        console.log(count);
-                        console.log(all_fill_period);
+                        // console.log("======================");
+                        // console.log(count);
+                        // console.log(all_fill_period);
                         res.send({
                             menus: all_fill_period,
                         })
@@ -217,7 +216,7 @@ const { query } = require('express');
 
     // 接收表单数据
     const submit_info = req.body.data_5_1_1
-    console.log(submit_info)
+    // console.log(submit_info)
     user = req.user
     var user_fill_id = uuidv4().replace(/-/g, '')
 
@@ -229,7 +228,6 @@ const { query } = require('express');
         sqls[i+1] = `INSERT INTO achv_to_univfund(id, univ_code, discipline_code, yr, quarter, achv_to_univfund,user_fill_id) 
         VALUES ('${strUUID2}','${user.univ_code}','${user.discipline_code}',${submit_info[i].yr},
         '${submit_info[i].quarter}',${submit_info[i].achv_to_univfund},'${user_fill_id}')`
-        console.log(sqls[i])
     }
 
     async.eachSeries(sqls, function (item, callback) {
@@ -256,10 +254,10 @@ const { query } = require('express');
     }, function (err) {
         // 所有SQL执行完成后回调
         if (err) {
-            console.log(err.message)
+            // console.log(err.message)
             res.send({
                 status: 1,
-                message: err.message
+                message: err
             })
         } else {
             client.query(`insert into user_fill(id, user_id, fill_id) values('${user_fill_id}','${user.id}','5_1_1')`, function (err, result) {
@@ -269,7 +267,7 @@ const { query } = require('express');
                     status: 0,
                     message: "填报成功！！"
                 })
-                console.log("SQL全部执行成功");
+                // console.log("SQL全部执行成功");
             })
         }
     });
@@ -286,9 +284,9 @@ const { query } = require('express');
 
     // 接收表单数据
     const submit_info = req.body.data_5_2_1_1
-    console.log('=======================================')
-    console.log(submit_info)
-    console.log('++++++++++++++++++++++++++++++++++++++')
+    // console.log('=======================================')
+    // console.log(submit_info)
+    // console.log('++++++++++++++++++++++++++++++++++++++')
     user = req.user
     var user_fill_id = uuidv4().replace(/-/g, '')
 
@@ -300,7 +298,7 @@ const { query } = require('express');
         sqls[i+1] = `INSERT INTO prodedu_plat(id, univ_code, discipline_code,yr, plat_name, plat_level, appro_date,user_fill_id) 
         VALUES ('${strUUID2}','${user.univ_code}','${user.discipline_code}',${submit_info[i].yr},
         '${submit_info[i].plat_name}','${submit_info[i].plat_level}','${submit_info[i].appro_date}','${user_fill_id}')`
-        console.log(sqls[i])
+
     }
 
     async.eachSeries(sqls, function (item, callback) {
@@ -327,10 +325,10 @@ const { query } = require('express');
     }, function (err) {
         // 所有SQL执行完成后回调
         if (err) {
-            console.log(err.message)
+            // console.log(err.message)
             res.send({
                 status: 1,
-                message: err.message
+                message: err
             })
         } else {
             client.query(`insert into user_fill(id, user_id, fill_id) values('${user_fill_id}','${user.id}','5_2_1_1')`, function (err, result) {
@@ -340,7 +338,6 @@ const { query } = require('express');
                     status: 0,
                     message: "填报成功！！"
                 })
-                console.log("SQL全部执行成功");
             })
         }
     });
@@ -357,7 +354,7 @@ const { query } = require('express');
 
     // 接收表单数据
     const submit_info = req.body.data_5_2_1_2
-    console.log(submit_info)
+    // console.log(submit_info)
     user = req.user
     var user_fill_id = uuidv4().replace(/-/g, '')
 
@@ -397,10 +394,10 @@ const { query } = require('express');
     }, function (err) {
         // 所有SQL执行完成后回调
         if (err) {
-            console.log(err.message)
+            // console.log(err.message)
             res.send({
                 status: 1,
-                message: err.message
+                message: err
             })
         } else {
             client.query(`insert into user_fill(id, user_id, fill_id) values('${user_fill_id}','${user.id}','5_2_1_2')`, function (err, result) {
@@ -410,7 +407,7 @@ const { query } = require('express');
                     status: 0,
                     message: "填报成功！！"
                 })
-                console.log("SQL全部执行成功");
+
             })
         }
     });
@@ -427,7 +424,7 @@ const { query } = require('express');
 
     // 接收表单数据
     const submit_info = req.body.data_5_2_2_1
-    console.log(submit_info)
+    // console.log(submit_info)
     user = req.user
     var user_fill_id = uuidv4().replace(/-/g, '')
 
@@ -440,7 +437,7 @@ const { query } = require('express');
         sqls[i+1] = `INSERT INTO consult_policy(id, univ_code, discipline_code, yr, level, topic, adopt_leader, adopt_sit, adopt_date,user_fill_id) 
         VALUES ('${strUUID2}','${user.univ_code}','${user.discipline_code}',${submit_info[i].yr},
         '国家级','${submit_info[i].topic}','${submit_info[i].adopt_leader}','${submit_info[i].adopt_sit}','${submit_info[i].adopt_date}','${user_fill_id}')`
-        console.log(sqls[i])
+
     }
 
     async.eachSeries(sqls, function (item, callback) {
@@ -467,10 +464,10 @@ const { query } = require('express');
     }, function (err) {
         // 所有SQL执行完成后回调
         if (err) {
-            console.log(err.message)
+
             res.send({
                 status: 1,
-                message: err.message
+                message: err
             })
         } else {
             client.query(`insert into user_fill(id, user_id, fill_id) values('${user_fill_id}','${user.id}','5_2_2_1')`, function (err, result) {
@@ -480,7 +477,7 @@ const { query } = require('express');
                     status: 0,
                     message: "填报成功！！"
                 })
-                console.log("SQL全部执行成功");
+
             })
         }
     });
@@ -497,7 +494,7 @@ const { query } = require('express');
 
     // 接收表单数据
     const submit_info = req.body.data_5_2_2_2
-    console.log(submit_info)
+    // console.log(submit_info)
     user = req.user
     var user_fill_id = uuidv4().replace(/-/g, '')
 
@@ -509,7 +506,7 @@ const { query } = require('express');
         sqls[i+1] = `INSERT INTO consult_policy(id, univ_code, discipline_code, yr, level, topic, adopt_leader, adopt_sit, adopt_date,user_fill_id) 
         VALUES ('${strUUID2}','${user.univ_code}','${user.discipline_code}',${submit_info[i].yr},
         '省部级','${submit_info[i].topic}','${submit_info[i].adopt_leader}','${submit_info[i].adopt_sit}','${submit_info[i].adopt_date}','${user_fill_id}')`
-        console.log(sqls[i])
+       
     }
 
     async.eachSeries(sqls, function (item, callback) {
@@ -536,20 +533,19 @@ const { query } = require('express');
     }, function (err) {
         // 所有SQL执行完成后回调
         if (err) {
-
-            res.cc('系统繁忙，请稍后再试')
+            res.send({
+                status: 1,
+                message: err
+            })
         } else {
             client.query(`insert into user_fill(id, user_id, fill_id) values('${user_fill_id}','${user.id}','5_2_2_2')`, function (err, result) {
                 if (err) return res.cc('系统繁忙,请稍后再试')
                 if (result.rowCount !== 1) return res.cc('系统繁忙,请稍后再试')
   
                 res.send({
-                    
                     status: 0,
                     message: "填报成功！！"
                 })
-
-                console.log("SQL全部执行成功");
             })
         }
     });

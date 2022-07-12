@@ -80,7 +80,7 @@ exports.disci_eval_situation_sub = function (req, res) {
     async.eachSeries(sqls_insert, function (item, callback) {
         // 遍历每条SQL并执行
         client.query(item, function (err, results) {
-            console.log(results.rows.length)
+            // console.log(results.rows.length)
             if (err) {
                 // 异常后调用callback并传入err
                 err = "系统错误，请刷新页面后重试"
@@ -113,7 +113,7 @@ exports.disci_eval_situation_sub = function (req, res) {
                     status: 0,
                     message: "填报成功！！"
                 })
-                console.log("SQL全部执行成功");
+                // console.log("SQL全部执行成功");
             })
         }
     });
@@ -128,10 +128,10 @@ exports.disci_eval_situation_sub = function (req, res) {
  * 表1-1-3 学科影响力情况处理函数
  */
 exports.disci_influence_sub = function (req, res) {
-    console.log(req.body);
+    // console.log(req.body);
     // 接收表单数据
     const submit_info = req.body.data_1_1_3
-    console.log(submit_info)
+    // console.log(submit_info)
     // 获取token中的user信息
     user = req.user
     // 插入所有的数据都用同一个，与user_fill表的id相匹配
@@ -149,7 +149,7 @@ exports.disci_influence_sub = function (req, res) {
         sqls[i + 1] = `INSERT INTO discipline_influ(id, univ_code, discipline_code, yr, rank_type, rank,user_fill_id) 
         VALUES ('${strUUID2}','${user.univ_code}','${user.discipline_code}',${submit_info[i].yr},'${submit_info[i].rank_type}',${submit_info[i].rank},'${user_fill_id}')`
     }
-    console.log(sqls)
+    // console.log(sqls)
 
     async.eachSeries(sqls, function (item, callback) {
         // 遍历每条SQL并执行
@@ -187,7 +187,6 @@ exports.disci_influence_sub = function (req, res) {
                     status: 0,
                     message: "填报成功！！"
                 })
-                console.log("SQL全部执行成功");
             })
         }
     });
@@ -204,7 +203,7 @@ exports.disci_funds_sub = function (req, res) {
 
     // 接收表单数据
     const submit_info = req.body.data_1_1_4
-    console.log(submit_info)
+    // console.log(submit_info)
     user = req.user
     // 插入所有的数据都用同一个，与user_fill表的id相匹配
     var user_fill_id = uuidv4().replace(/-/g, '')
@@ -221,13 +220,12 @@ exports.disci_funds_sub = function (req, res) {
         '${user.discipline_code}',${submit_info[i].yr},${submit_info[i].total_fund},${submit_info[i].ctr_budg_fund},${submit_info[i].ctr_expend_fund},${submit_info[i].lcl_budg_fund},
         ${submit_info[i].lcl_receive_fund},${submit_info[i].lcl_expend_fund},${submit_info[i].self_budg_fund},${submit_info[i].self_receive_fund},${submit_info[i].self_expend_fund},
         ${submit_info[i].other_budg_fund},${submit_info[i].other_receive_fund},${submit_info[i].other_expend_fund},${submit_info[i].ctr_receive_fund},'${user_fill_id}')`
-        console.log(sqls[i])
     }
 
     async.each(sqls, function (item, callback) {
         // 遍历每条SQL并执行
         client.query(item, function (err, results) {
-            console.log(results.rows.length)
+            // console.log(results.rows.length)
             if (err) {
                 // 异常后调用callback并传入err
                 err = "系统错误，请刷新页面后重试"
@@ -262,7 +260,6 @@ exports.disci_funds_sub = function (req, res) {
                     status: 0,
                     message: "填报成功！！"
                 })
-                console.log("SQL全部执行成功");
             })
         }
     });
@@ -270,79 +267,79 @@ exports.disci_funds_sub = function (req, res) {
 }
 
 // test 使用
-exports.new_disci_eval_situation_sub = function (req, res) {
-    // 接收表单数据
-    const submit_info = req.body.data_1_1_2
-    // 获取token中的user信息
-    user = req.user
+// exports.new_disci_eval_situation_sub = function (req, res) {
+//     // 接收表单数据
+//     const submit_info = req.body.data_1_1_2
+//     // 获取token中的user信息
+//     user = req.user
 
-    // 插入所有的数据都用同一个，与user_fill表的id相匹配
-    var user_fill_id = uuidv4().replace(/-/g, '')
-    var sqls_insert = []
-    sqls_insert.push(`SELECT * FROM user_fill WHERE user_id='${user.id}' AND fill_id = '1_1_2' AND flag=1`)
-    for (let i = 0, len = submit_info.length; i < len; i++) {
-        const strUUID = uuidv4(); // ⇨ '1b9d6bcd-bbfd-4b2d-9b5d-ab8dfbbd4bed'
-        const strUUID2 = strUUID.replace(/-/g, '');       // 去掉-字符
-        sqls_insert[i + 1] = (`insert into discipline_eval(id,discipline_code,univ_code,discipline_eval_turn,discipline_eval_result,user_fill_id) values('${strUUID2}','${user.discipline_code}','${user.univ_code}',${submit_info[i].discipline_eval_turn},'${submit_info[i].discipline_eval_result}','${user_fill_id}')`)
-    }
-    //  ============================================================ 分界线=========================================================
+//     // 插入所有的数据都用同一个，与user_fill表的id相匹配
+//     var user_fill_id = uuidv4().replace(/-/g, '')
+//     var sqls_insert = []
+//     sqls_insert.push(`SELECT * FROM user_fill WHERE user_id='${user.id}' AND fill_id = '1_1_2' AND flag=1`)
+//     for (let i = 0, len = submit_info.length; i < len; i++) {
+//         const strUUID = uuidv4(); // ⇨ '1b9d6bcd-bbfd-4b2d-9b5d-ab8dfbbd4bed'
+//         const strUUID2 = strUUID.replace(/-/g, '');       // 去掉-字符
+//         sqls_insert[i + 1] = (`insert into discipline_eval(id,discipline_code,univ_code,discipline_eval_turn,discipline_eval_result,user_fill_id) values('${strUUID2}','${user.discipline_code}','${user.univ_code}',${submit_info[i].discipline_eval_turn},'${submit_info[i].discipline_eval_result}','${user_fill_id}')`)
+//     }
+//     //  ============================================================ 分界线=========================================================
 
-    // function数组，需要执行的任务列表，每个function都有一个参数callback函数并且要调用
-    var tasks = [function (callback) {
-        // 开启事务
-        client.beginTransaction(function (err) {
-            callback(err);
-        });
-    }, function (callback) {
-        async.eachSeries(sqls_insert, function (item, callback) {
-            // 遍历每条SQL并执行
-            client.query(item, function (err, results) {
-                console.log(results.rows.length)
-                if (err) {
-                    // 异常后调用callback并传入err
-                    err = "系统错误，请刷新页面后重试"
-                    callback(err);
-                } else {
+//     // function数组，需要执行的任务列表，每个function都有一个参数callback函数并且要调用
+//     var tasks = [function (callback) {
+//         // 开启事务
+//         client.beginTransaction(function (err) {
+//             callback(err);
+//         });
+//     }, function (callback) {
+//         async.eachSeries(sqls_insert, function (item, callback) {
+//             // 遍历每条SQL并执行
+//             client.query(item, function (err, results) {
+//                 // console.log(results.rows.length)
+//                 if (err) {
+//                     // 异常后调用callback并传入err
+//                     err = "系统错误，请刷新页面后重试"
+//                     callback(err);
+//                 } else {
 
-                    if (results.rows.length !== 0 && results.rows[0].flag == 1) {
-                        err = "请勿重复提交"
-                    }
-                    // 执行完成后也要调用callback，不需要参数
-                    if (err == "请勿重复提交") {
-                        callback(err)
-                    } else {
-                        callback();
-                    }
-                }
-            });
-        }, function (err) {
-            // 所有SQL执行完成后回调
-            if (err) {
-                return res.cc(err)
-            }
-        });
-    }, function (callback) {
+//                     if (results.rows.length !== 0 && results.rows[0].flag == 1) {
+//                         err = "请勿重复提交"
+//                     }
+//                     // 执行完成后也要调用callback，不需要参数
+//                     if (err == "请勿重复提交") {
+//                         callback(err)
+//                     } else {
+//                         callback();
+//                     }
+//                 }
+//             });
+//         }, function (err) {
+//             // 所有SQL执行完成后回调
+//             if (err) {
+//                 return res.cc(err)
+//             }
+//         });
+//     }, function (callback) {
 
-        client.query('insert into user_fill(id, user_id, fill_id) values(?,?,?)', [user_fill_id, user.id, '1_1_2'], function (err, result) {
-            callback(err);
-        });
-    }, function (callback) {
-        // 提交事务
-        client.commit(function (err) {
-            callback(err);
-        });
-    }];
+//         client.query('insert into user_fill(id, user_id, fill_id) values(?,?,?)', [user_fill_id, user.id, '1_1_2'], function (err, result) {
+//             callback(err);
+//         });
+//     }, function (callback) {
+//         // 提交事务
+//         client.commit(function (err) {
+//             callback(err);
+//         });
+//     }];
 
-    async.series(tasks, function (err, results) {
-        if (err) {
-            console.log(err);
-            client.rollback(); // 发生错误事务回滚
-        }
-        client.end();
-    });
+//     async.series(tasks, function (err, results) {
+//         if (err) {
+//             console.log(err);
+//             client.rollback(); // 发生错误事务回滚
+//         }
+//         client.end();
+//     });
 
 
-}
+// }
 
 
 
