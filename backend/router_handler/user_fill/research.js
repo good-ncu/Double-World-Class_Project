@@ -217,30 +217,37 @@ const { query } = require('express');
     user = req.user
     var sqls = []
     var user_fill_id = uuidv4().replace(/-/g, '')
+    sqls.push(`SELECT * FROM user_fill WHERE user_id='${user.id}' AND fill_id = '4_1_1_0' AND flag=1`)
     for (let i = 0, len = submit_info.length; i < len; i++) {
         const strUUID = uuidv4(); // ⇨ '1b9d6bcd-bbfd-4b2d-9b5d-ab8dfbbd4bed'
         const strUUID2 = strUUID.replace(/-/g, '');       // 去掉-字符
-        sqls[i] = `INSERT INTO tch_award(id, univ_code, discipline_code, yr, tch_name, award_name,level,award_eval_org,award_eval_org_type,
+        sqls[i+1] = `INSERT INTO tch_award(id, univ_code, discipline_code, yr, tch_name, award_name,level,award_eval_org,award_eval_org_type,
             grade,user_fill_id) 
         VALUES ('${strUUID2}','${user.univ_code}','${user.discipline_code}',${submit_info[i].yr},
         '${submit_info[i].tch_name}','${submit_info[i].award_name}','${submit_info[i].level}','${submit_info[i].award_eval_org}','${submit_info[i].award_eval_org_type}','${submit_info[i].grade}','${user_fill_id}')`
-        console.log(sqls[i])
+        
     }
-
-    async.each(sqls, function (item, callback) {
+    console.log(sqls)
+    async.eachSeries(sqls, function (item, callback) {
         // 遍历每条SQL并执行
         client.query(item, function (err, results) {
+            console.log(results.rows.length)
             if (err) {
                 // 异常后调用callback并传入err
+                err = "系统错误，请刷新页面后重试"
                 callback(err);
-            }else if (results.rowCount !== 1){
-                // 当前sql影响不为1，则错误
-                err = item+"插入失败！"
-                callback(err);
-            }else{
-                console.log(item + "执行成功");
+            } else {
+                if (results.rows.length !== 0 && results.rows[0].flag == 1) {
+                    console.log("test2");
+                    err = "请勿重复提交"
+                }
                 // 执行完成后也要调用callback，不需要参数
-                callback();
+                if (err == "请勿重复提交") {
+                    console.log("test2");
+                    callback(err)
+                } else {
+                    callback();
+                }
             }
         });
     }, function (err) {
