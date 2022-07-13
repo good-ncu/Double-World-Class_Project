@@ -4,12 +4,11 @@ const client = require('../../db/index')
 // 省厅查看 第四、五、六学科评估情况 （柱状图对比数据）
 exports.gov_query_school_disc = function(req,res) {
     userinfo = req.user
-    sql = `SELECT tag.subtag_name,univ_discipline.univ_name,univ_discipline.discipline_name
+    sql = `SELECT tag.subtag_name,univ_discipline.univ_code,univ_discipline.univ_name,univ_discipline.discipline_code,univ_discipline.discipline_name
     FROM univ_discipline
     INNER JOIN tag ON univ_discipline.tag_id = tag.tag_id
-    WHERE tag.tag_id IN (7,8,9) 
-    -- AND univ_discipline.univ_code='10421'
-    ORDER BY tag.tag_name ASC,tag.subtag_name ASC`
+    WHERE tag.tag_id IN (7,8,9)
+    ORDER BY tag.tag_id ASC,tag.subtag_name ASC`
     client.query(sql, function (err, results) {
         if (err) {
             // 异常后调用callback并传入err
