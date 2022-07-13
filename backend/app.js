@@ -38,7 +38,8 @@ app.use(expressJWT({secret: config.jwtSecretKey,algorithms: ['HS256']}).unless({
   path: [
     /^\/api\/login/,
     /^\/api\/download/,
-    /^\/api\/alluniv/
+    /^\/api\/alluniv/,
+    /^\/api\/alldiscipline/
   ]
 }))
 
@@ -83,6 +84,9 @@ app.use('/api',download_router)
 
 const all_univ = require('./router/all_univ')
 app.use('/api',all_univ)
+
+const all_discipline = require('./router/all_discipline')
+app.use('/api',all_discipline)
 
 // 启动服务器
 app.listen(3007, () => {
