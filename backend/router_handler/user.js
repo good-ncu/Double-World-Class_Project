@@ -125,13 +125,12 @@ exports.login = function(req, res){
         default:
             roleStr = '学科填报用户'
     }
-    if(results.rows[0].role_id == 3||results.rows[0].role_id == 2 || results.rows[0].role_id == 1) {
+    // 不用查学校、学科
+    if(results.rows[0].role_id == 2 || results.rows[0].role_id == 1) {
       if(results.rows[0].role_id==1){
         var flag = 'root'
       }else if (results.rows[0].role_id == 2){
         var flag = '省厅'
-      }else if (results.rows[0].role_id == 3){
-        var flag = '学校'
       }
       return res.send({
         status: 0,
@@ -144,6 +143,26 @@ exports.login = function(req, res){
         token:'Bearer '+ tokenStr
       })
     }
+    // 只用查学校，不用查学科
+    if(results.rows[0].role_id == 3){
+      client.query(`select * from univ_discipline where univ_code = '${user.univ_code}'`, function(err, results) {
+        if(err) {
+          console.log(err.message);
+          return res.cc('系统繁忙，请稍后再试')
+        }
+        return res.send({
+          status: 0,
+          msg: '登录成功',
+          username: userinfo.username,
+          roleid: results.rows[0].role_id, 
+          role: roleStr,
+          univ_name: results.rows[0].univ_name,
+          discipline_name: '',
+          token:'Bearer '+ tokenStr
+        })
+      })
+    } 
+    // 学校、学科全部都要查
     if(results.rows[0].role_id == 4){
       client.query(`select * from univ_discipline where univ_code = '${user.univ_code}' and discipline_code = '${user.discipline_code}'`, function(err, results) {
         if(err) {
