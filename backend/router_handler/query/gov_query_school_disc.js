@@ -7,7 +7,7 @@ exports.gov_query_school_disc = function(req,res) {
     sql = `SELECT tag.subtag_name,univ_discipline.univ_name,univ_discipline.discipline_name
     FROM univ_discipline
     INNER JOIN tag ON univ_discipline.tag_id = tag.tag_id
-    WHERE tag.tag_id IN (1,2,3,4,5,6,7,8,9) 
+    WHERE tag.tag_id IN (7,8,9) 
     -- AND univ_discipline.univ_code='10421'
     ORDER BY tag.tag_name ASC,tag.subtag_name ASC`
     client.query(sql, function (err, results) {
