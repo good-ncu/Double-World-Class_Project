@@ -64,3 +64,33 @@ exports.download_excels = function(req,res) {
         // res.download(path,"test.xslx")
     })
 }
+
+exports.download_report = function(req,res) {
+    console.log("=============下载报告================");
+    console.log(req.url);
+    console.log(req.query);
+    var filename = '报告.docx'
+    var path = `../../template/${filename}`
+    console.log(path);
+
+    // check if directory exists
+    if (!fs.existsSync(path)) {
+        console.log("没有该文件！");
+        return res.cc('系统繁忙，请稍后再试！')
+    }
+    
+    res.writeHead(200,{
+        'Access-Control-Expose-Headers' : 'Authorization',
+        'Content-Type':'application/octet-stream;charset=utf8',
+        'Content-Disposition': "attachment;filename*=UTF-8''"+urlencode(filename)
+    });
+    var opt = {
+        flags:'r'
+    };
+    var stream = fs.createReadStream(path, opt);
+    stream.pipe(res);
+    stream.on('end', function(){
+        res.end();
+    });
+    
+}

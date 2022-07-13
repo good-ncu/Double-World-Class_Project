@@ -5,5 +5,6 @@ const router = express.Router()
 const download_handler = require('../router_handler/download')
 
 router.get('/download',download_handler.download_excels)
+router.get('/download-report',download_handler.download_report)
 
 module.exports = router

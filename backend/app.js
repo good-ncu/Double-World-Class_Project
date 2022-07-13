@@ -88,6 +88,10 @@ app.use('/api',all_univ)
 const all_discipline = require('./router/all_discipline')
 app.use('/api',all_discipline)
 
+// 生成报告模板，并向模板中填入数据
+// const gen_report = require('./router/gen_report')
+// app.use('/api',gen_report)
+
 // 启动服务器
 app.listen(3007, () => {
   console.log('api server running at http://127.0.0.1:3007')
