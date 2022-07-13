@@ -2,7 +2,7 @@ const joi = require('joi')
 //achv_to_univfund 
 const data_5_1_1 = joi.array().items(
     joi.object().keys({
-        yr:joi.number().integer().less(2023).greater(2020).required().error(new Error('年度填报错误！')),
+        yr:joi.number().integer().less(2029).greater(2020).required().error(new Error('年度填报错误！')),
         quarter:joi.string().valid('第一季度','第二季度','第三季度','第四季度').required().error(new Error('季度填报错误！')),
         achv_to_univfund:joi.number().min(0).required().error(new Error('成果转换到校资金总额填报错误！')),
     }
@@ -13,7 +13,7 @@ const data_5_1_1 = joi.array().items(
 //prodedu_plat 
 const data_5_2_1_1 = joi.array().items(
     joi.object().keys({
-        yr:joi.number().integer().less(2023).greater(2020).required().error(new Error('填报年度填报错误！')),
+        yr:joi.number().integer().less(2029).greater(2020).required().error(new Error('填报年度填报错误！')),
         plat_name:joi.string().min(1).max(100).required().error(new Error('平台名称填报错误！')),
         plat_level:joi.string().valid('国家级').required().error(new Error('平台级别填报错误！')),
         appro_date:joi.string().pattern(/^(2[0][2][1-2])-(0[1-9]|1[0-2])$/).required().error(new Error('批准时间填写错误！')),
@@ -24,7 +24,7 @@ const data_5_2_1_1 = joi.array().items(
 //prodedu_plat 
 const data_5_2_1_2 = joi.array().items(
     joi.object().keys({
-        yr:joi.number().integer().less(2023).greater(2020).required().error(new Error('填报年度填报错误！')),
+        yr:joi.number().integer().less(2029).greater(2020).required().error(new Error('填报年度填报错误！')),
         plat_name:joi.string().min(1).max(100).required().error(new Error('平台名称填报错误！')),
         plat_level:joi.string().valid('省部级').required().error(new Error('平台等级填报错误！')),
         appro_date:joi.string().pattern(/^(2[0][2][1-2])-(0[1-9]|1[0-2])$/).required().error(new Error('批准时间填写错误！')),
@@ -36,7 +36,7 @@ const data_5_2_1_2 = joi.array().items(
 //consult_policy
 const data_5_2_2_1 = joi.array().items(
     joi.object().keys({
-        yr:joi.number().integer().less(2023).greater(2020).required().error(new Error('年度填报错误！')),
+        yr:joi.number().integer().less(2029).greater(2020).required().error(new Error('年度填报错误！')),
         topic:joi.string().min(1).max(100).required().error(new Error('研究报告/政策咨询主题填报错误！')),
         adopt_leader:joi.string().min(1).max(13).required().error(new Error('批示领导填报错误！')),
         adopt_sit:joi.string().valid('已采纳','未采纳').required().error(new Error('采纳情况错误！')),
@@ -53,7 +53,7 @@ const data_5_2_2_1 = joi.array().items(
 //consult_policy               
 const data_5_2_2_2 = joi.array().items(
     joi.object().keys({
-        yr:joi.number().integer().less(2023).greater(2020).required().error(new Error('填报年度填报错误！')),
+        yr:joi.number().integer().less(2029).greater(2020).required().error(new Error('填报年度填报错误！')),
         topic:joi.string().min(1).max(100).required().error(new Error('主题填报错误！')),
         adopt_leader:joi.string().min(1).max(50).required().error(new Error('批示领导填报错误！')),
         adopt_sit:joi.string().valid('已采纳','未采纳').required().error(new Error('采纳情况错误！')),
