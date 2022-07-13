@@ -24,7 +24,7 @@ var async = require('async');
 
 /**
  * 第一步
- * 查找当前学校管理员所属学校拥有的所有学科
+ * 查找当前学校管理员所属学校 已经填完能填的表的  所有学科
  * @param {*} req 
  * @param {*} res 
  */
@@ -112,7 +112,7 @@ exports.query_all_discipline_current = function (req, res) {
     discipline_code = req.body.discipline_code
     console.log(discipline_code)
 
-    //  约束： 账户权限必须是3 ==> 学校id    拿到它选择的学科代码         fill.flag=1 and 上线前提醒删除
+    //  约束： 账户权限必须是3 ==> 学校id    拿到它选择的学科代码         fill.flag=1 and 上线前提醒删除？
     sql = `SELECT user_fill.id,user_fill.fill_id,fill.fill_about,user_fill.is_seen,fill.fill_cycle from user_fill,fill 
     where user_fill.flag=1 and user_fill.fill_id=fill.id and fill.flag=1 and
     user_fill.user_id=(select user_info.id from user_info where 
