@@ -24,9 +24,12 @@ exports.gov_query_school_disc = function(req,res) {
                 message: "该图标无信息"
             })
         } else {
-            for (let i = 0, len = results.rows.length; i < len; i++) { 
+             for (let i = 0, len = results.rows.length; i < len; i++) { 
                 if (results.rows[i]["univ_code"] == 10403){
-                    results.rows[i]["一流大学"] = "一流大学6个学科群"
+                    // results.rows[i]["一流大学"] = "一流大学6个学科群"
+                      
+                    results.rows[i]["univ_name"] = results.rows[i]["subtag_name"]
+                    results.rows[i]["subtag_name"] = "一流大学6个学科群"
                 }
             }
             res.send({
