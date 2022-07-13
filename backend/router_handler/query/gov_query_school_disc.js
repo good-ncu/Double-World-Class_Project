@@ -17,12 +17,18 @@ exports.gov_query_school_disc = function(req,res) {
                 message: err.message
             })
         } else if (results.rowCount == 0) {
+           
             // 当前sql查询为空，则返回填报提示
             res.send({
                 status: 0,
                 message: "该图标无信息"
             })
         } else {
+            for (let i = 0, len = results.rows.length; i < len; i++) { 
+                if (results.rows[i]["univ_code"] == 10403){
+                    results.rows[i]["一流大学"] = "一流大学6个学科群"
+                }
+            }
             res.send({
                 status: 0,
                 data: results.rows
