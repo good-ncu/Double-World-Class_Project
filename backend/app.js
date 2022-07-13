@@ -93,6 +93,9 @@ app.use('/api',all_discipline)
 // const gen_report = require('./router/gen_report')
 // app.use('/api',gen_report)
 
+const gov_query_school_disc = require('./router/query/gov_query_school_disc')
+app.use('/api',gov_query_school_disc)
+
 // 启动服务器
 app.listen(3007, () => {
   console.log('api server running at http://127.0.0.1:3007')
