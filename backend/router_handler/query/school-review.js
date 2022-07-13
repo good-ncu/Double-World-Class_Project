@@ -31,16 +31,16 @@ var async = require('async');
 exports.query_all_discipline = function (req, res) {
     userinfo = req.user
     console.log(userinfo.univ_code);
-    // sql = `SELECT user_info.discipline_code,discipline.discipline_name,user_fill.user_id, COUNT(user_fill.user_id)
-    // FROM user_info,user_fill,discipline
-    // WHERE  user_fill.user_id = user_info.id
-    // AND user_info.discipline_code=discipline.discipline_code
-    // AND user_info.univ_code='${userinfo.univ_code}'
-    // AND user_fill.fill_id IN (SELECT id FROM fill WHERE fill.flag=1)
-    // GROUP BY user_info.discipline_code,discipline.discipline_name,user_fill.user_id
-    // HAVING COUNT(user_fill.user_id) = (SELECT COUNT(fill.flag) FROM fill WHERE fill.flag=1)
-    // ORDER BY discipline.discipline_name`
-    sql = `select * from univ_discipline where univ_code = '${userinfo.univ_code}'`
+    sql = `SELECT user_info.discipline_code,discipline.discipline_name,user_fill.user_id, COUNT(user_fill.user_id)
+    FROM user_info,user_fill,discipline
+    WHERE  user_fill.user_id = user_info.id
+    AND user_info.discipline_code=discipline.discipline_code
+    AND user_info.univ_code='${userinfo.univ_code}'
+    AND user_fill.fill_id IN (SELECT id FROM fill WHERE fill.flag=1)
+    GROUP BY user_info.discipline_code,discipline.discipline_name,user_fill.user_id
+    HAVING COUNT(user_fill.user_id) = (SELECT COUNT(fill.flag) FROM fill WHERE fill.flag=1)
+    ORDER BY discipline.discipline_name`
+    // sql = `select * from univ_discipline where univ_code = '${userinfo.univ_code}'`
     console.log(sql);
     client.query(sql, function (err, results) {
         if (err) {
@@ -114,7 +114,7 @@ exports.query_all_discipline_current = function (req, res) {
 
     //  约束： 账户权限必须是3 ==> 学校id    拿到它选择的学科代码         fill.flag=1 and 上线前提醒删除
     sql = `SELECT user_fill.id,user_fill.fill_id,fill.fill_about,user_fill.is_seen,fill.fill_cycle from user_fill,fill 
-    where user_fill.flag=1 and user_fill.fill_id=fill.id and 
+    where user_fill.flag=1 and user_fill.fill_id=fill.id and fill.flag=1 and
     user_fill.user_id=(select user_info.id from user_info where 
         user_info.univ_code='${userinfo.univ_code}' and user_info.discipline_code='${discipline_code}' )`    //
     console.log(sql)
@@ -146,7 +146,7 @@ exports.query_all_discipline_current = function (req, res) {
 
 
 /**
- * 第二步之后可做的操作，check_all_discipline_current
+ * 第二步之后可做的操作，check_all_discipline_current  查阅功能
  * @param {*} req 
  * @param {*} res 
  */
