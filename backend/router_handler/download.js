@@ -69,7 +69,7 @@ exports.download_report = function(req,res) {
     console.log("=============下载报告================");
     console.log(req.url);
     console.log(req.query);
-    var filename = '报告.docx'
+    var filename = '阶段性数据报告.docx'
     var path = `../../template/${filename}`
     console.log(path);
 
