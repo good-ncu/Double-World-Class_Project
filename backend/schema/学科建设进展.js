@@ -29,7 +29,7 @@ const data_1_1_3 = joi.array().items(
 
 const data_1_1_4 = joi.array().items(
     joi.object().keys({
-
+        test:joi.string().valid('kong').error(new Error('上传表格不能为空！')),
         yr:joi.number().integer().less(2025).greater(1950).required().error(new Error('年度填报错误！')),
         total_fund:joi.number().min(0).required().error(new Error('建设总经费填报错误！')),
         ctr_budg_fund:joi.number().min(0).required().error(new Error('中央专项预算经费填报错误！')),
