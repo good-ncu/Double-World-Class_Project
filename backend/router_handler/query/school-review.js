@@ -152,13 +152,14 @@ exports.query_all_discipline_current = function (req, res) {
  */
 exports.check_all_discipline_current = function (req, res) {
     userinfo = req.user
-    subinfo = req.body.id
+    // subinfo = req.body.id
+    subinfo = req.body.data_id
     console.log(subinfo)
     console.log(subinfo.length)
     var sqls = []
     // var to_dbtable
     for (let i = 0, len = subinfo.length; i < len; i++) {
-        sqls[i] = `update user_fill set is_seen = 1 where id = '${subinfo[i]}'`
+        sqls[i] = `update user_fill set is_seen = 1 where id = '${subinfo[i].id}'`
     }
     console.log(sqls)
     async.each(sqls, function (item, callback) {
@@ -285,7 +286,7 @@ exports.delete_single_discipline_table = function (req, res) {
     var sqls = []
     // var to_dbtable
     for (let i = 0, len = subinfo.length; i < len; i++) {
-        sqls[i] = `update user_fill set flag = 0 , is_delete = 1 where id = '${subinfo[i]}'`
+        sqls[i] = `update user_fill set flag = 0 , is_delete = 1 where id = '${subinfo[i].id}'`
     }
     async.each(sqls, function (item, callback) {
         // 遍历每条SQL并执行

@@ -1,10 +1,8 @@
-
-const JSZipUtils = require('jszip-utils');
 const Docxtemplater = require("docxtemplater");
 const PizZip = require("pizzip")
 const fs = require("fs");
 const path = require("path");
-function gen_report(){
+exports.gen_report = function(req,res){
     const content = fs.readFileSync(
         path.resolve(__dirname, "fuwu.docx"),
         "binary"
@@ -71,5 +69,3 @@ function gen_report(){
     // })
 
 }
-
-// gen_report()

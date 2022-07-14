@@ -90,8 +90,8 @@ const all_discipline = require('./router/all_discipline')
 app.use('/api',all_discipline)
 
 // 生成报告模板，并向模板中填入数据
-// const gen_report = require('./router/gen_report')
-// app.use('/api',gen_report)
+const download_gen_report = require('./router/gen_report')
+app.use('/api',download_gen_report)
 
 const gov_query_school_disc = require('./router/query/gov_query_school_disc')
 app.use('/api',gov_query_school_disc)
