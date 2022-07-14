@@ -150,6 +150,9 @@ exports.login = function(req, res){
           console.log(err.message);
           return res.cc('系统繁忙，请稍后再试')
         }
+        if(results.rowCount!==1){
+          return res.cc('查无此学校或学科')
+        }
         return res.send({
           status: 0,
           msg: '登录成功',
