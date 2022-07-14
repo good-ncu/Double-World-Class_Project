@@ -21,18 +21,10 @@ exports.deal_table_2_1_1 = function(req,res,next){
     /**将读取的数据处理成json格式 */
     var data=[]
     for(let i=0,len=excel_content.length;i<len;i++){
-        data[i]={}
         if(excel_content[i].length==0){         //筛选掉末尾空数据
-            // 删除文件
-            try {
-                fs.unlinkSync(`upload/${up_file.originalname}`)
-                //file removed
-            } catch (err) {
-                console.error(err)
-            }
-            return res.cc('填报内容不能存在空行！')
             break
-        }
+       }
+        data[i]={}
         data[i][project_type]=excel_content[i][0];
         data[i][project_person]=excel_content[i][1];
         data[i][project_year]=excel_content[i][2];
@@ -47,6 +39,16 @@ exports.deal_table_2_1_1 = function(req,res,next){
         })
     }
 
+    if(data.length==0){
+        // 删除文件
+        try {
+            fs.unlinkSync(`upload/${up_file.originalname}`)
+            //file removed
+        } catch(err) {
+            console.error(err)
+        }
+        return res.cc('填报内容不能为空！')
+    }
     var nn={}
     nn.data_2_1_1=data
     console.log(nn)
@@ -78,18 +80,10 @@ exports.deal_table_2_2_1_0 = function(req,res,next){
     /**将读取的数据处理成json格式 */
     var data=[]
     for(let i=0,len=excel_content.length;i<len;i++){
-        data[i]={}
         if(excel_content[i].length==0){         //筛选掉末尾空数据
-            // 删除文件
-            try {
-                fs.unlinkSync(`upload/${up_file.originalname}`)
-                //file removed
-            } catch (err) {
-                console.error(err)
-            }
-            return res.cc('填报内容不能存在空行！')
             break
-        }
+       }
+        data[i]={}
         data[i][award_ltype]=excel_content[i][0];
         data[i][award_name]=excel_content[i][1]
         data[i][award_type]=excel_content[i][2];
@@ -107,6 +101,16 @@ exports.deal_table_2_2_1_0 = function(req,res,next){
         })
     }
 
+    if(data.length==0){
+        // 删除文件
+        try {
+            fs.unlinkSync(`upload/${up_file.originalname}`)
+            //file removed
+        } catch(err) {
+            console.error(err)
+        }
+        return res.cc('填报内容不能为空！')
+    }
     var nn={}
     console.log(data);
     nn.data_2_2_1_0=data
@@ -135,18 +139,10 @@ exports.deal_table_2_2_1_1 = function(req,res,next){
     /**将读取的数据处理成json格式 */
     var data=[]
     for(let i=0,len=excel_content.length;i<len;i++){
-        data[i]={}
         if(excel_content[i].length==0){         //筛选掉末尾空数据
-            // 删除文件
-            try {
-                fs.unlinkSync(`upload/${up_file.originalname}`)
-                //file removed
-            } catch (err) {
-                console.error(err)
-            }
-            return res.cc('填报内容不能存在空行！')
             break
-        }
+       }
+        data[i]={}
         data[i][award_name]=excel_content[i][0]
         data[i][award_type]=excel_content[i][1];
         data[i][award_level]=excel_content[i][2]
@@ -163,6 +159,16 @@ exports.deal_table_2_2_1_1 = function(req,res,next){
         })
     }
 
+    if(data.length==0){
+        // 删除文件
+        try {
+            fs.unlinkSync(`upload/${up_file.originalname}`)
+            //file removed
+        } catch(err) {
+            console.error(err)
+        }
+        return res.cc('填报内容不能为空！')
+    }
     var nn={}
     nn.data_2_2_1_1=data
     console.log(nn)
@@ -194,18 +200,10 @@ exports.deal_table_2_2_1_2 = function(req,res,next){
     /**将读取的数据处理成json格式 */
     var data=[]
     for(let i=0,len=excel_content.length;i<len;i++){
-        data[i]={}
         if(excel_content[i].length==0){         //筛选掉末尾空数据
-            // 删除文件
-            try {
-                fs.unlinkSync(`upload/${up_file.originalname}`)
-                //file removed
-            } catch (err) {
-                console.error(err)
-            }
-            return res.cc('填报内容不能存在空行！')
             break
-        }
+       }
+        data[i]={}
         data[i][award_name]=excel_content[i][0];
         data[i][award_type]=excel_content[i][1];
         data[i][award_level]=excel_content[i][2];
@@ -222,6 +220,16 @@ exports.deal_table_2_2_1_2 = function(req,res,next){
         })
     }
 
+    if(data.length==0){
+        // 删除文件
+        try {
+            fs.unlinkSync(`upload/${up_file.originalname}`)
+            //file removed
+        } catch(err) {
+            console.error(err)
+        }
+        return res.cc('填报内容不能为空！')
+    }
     var nn={}
     nn.data_2_2_1_2=data
     console.log(nn)
@@ -253,18 +261,10 @@ exports.deal_table_2_2_1_3 = function(req,res,next){
     /**将读取的数据处理成json格式 */
     var data=[]
     for(let i=0,len=excel_content.length;i<len;i++){
-        data[i]={}
         if(excel_content[i].length==0){         //筛选掉末尾空数据
-            // 删除文件
-            try {
-                fs.unlinkSync(`upload/${up_file.originalname}`)
-                //file removed
-            } catch (err) {
-                console.error(err)
-            }
-            return res.cc('填报内容不能存在空行！')
             break
-        }
+       }
+        data[i]={}
         data[i][award_name]=excel_content[i][0];
         data[i][award_type]=excel_content[i][1];
         data[i][award_level]=excel_content[i][2];
@@ -281,6 +281,16 @@ exports.deal_table_2_2_1_3 = function(req,res,next){
         })
     }
 
+    if(data.length==0){
+        // 删除文件
+        try {
+            fs.unlinkSync(`upload/${up_file.originalname}`)
+            //file removed
+        } catch(err) {
+            console.error(err)
+        }
+        return res.cc('填报内容不能为空！')
+    }
     var nn={}
     nn.data_2_2_1_3=data
     console.log(nn)
@@ -315,18 +325,10 @@ exports.deal_table_2_2_2_1 = function(req,res,next){
     /**将读取的数据处理成json格式 */
     var data=[]
     for(let i=0,len=excel_content.length;i<len;i++){
-        data[i]={}
         if(excel_content[i].length==0){         //筛选掉末尾空数据
-            // 删除文件
-            try {
-                fs.unlinkSync(`upload/${up_file.originalname}`)
-                //file removed
-            } catch (err) {
-                console.error(err)
-            }
-            return res.cc('填报内容不能存在空行！')
             break
-        }
+       }
+        data[i]={}
         data[i][textbook]=excel_content[i][0];
         data[i][au_or_tans]=excel_content[i][1];
         data[i][sig]=excel_content[i][2];
@@ -346,6 +348,16 @@ exports.deal_table_2_2_2_1 = function(req,res,next){
         })
     }
 
+    if(data.length==0){
+        // 删除文件
+        try {
+            fs.unlinkSync(`upload/${up_file.originalname}`)
+            //file removed
+        } catch(err) {
+            console.error(err)
+        }
+        return res.cc('填报内容不能为空！')
+    }
     var nn={}
     nn.data_2_2_2_1=data
     console.log(nn)
@@ -377,18 +389,10 @@ exports.deal_table_2_2_2_3 = function(req,res,next){
     console.log(excel_content)
     var data=[]
     for(let i=0,len=excel_content.length;i<len;i++){
-        data[i]={}
         if(excel_content[i].length==0){         //筛选掉末尾空数据
-            // 删除文件
-            try {
-                fs.unlinkSync(`upload/${up_file.originalname}`)
-                //file removed
-            } catch (err) {
-                console.error(err)
-            }
-            return res.cc('填报内容不能存在空行！')
             break
-        }
+       }
+        data[i]={}
         data[i][cour_type]=excel_content[i][0];
         data[i][cour_name]=excel_content[i][1];
         data[i][head_name]=excel_content[i][2];
@@ -404,6 +408,16 @@ exports.deal_table_2_2_2_3 = function(req,res,next){
         })
     }
 
+    if(data.length==0){
+        // 删除文件
+        try {
+            fs.unlinkSync(`upload/${up_file.originalname}`)
+            //file removed
+        } catch(err) {
+            console.error(err)
+        }
+        return res.cc('填报内容不能为空！')
+    }
     var nn={}
     nn.data_2_2_2_3=data
     console.log(nn)
@@ -434,18 +448,10 @@ exports.deal_table_2_2_2_4 = function(req,res,next){
     /**将读取的数据处理成json格式 */
     var data=[]
     for(let i=0,len=excel_content.length;i<len;i++){
-        data[i]={}
         if(excel_content[i].length==0){         //筛选掉末尾空数据
-            // 删除文件
-            try {
-                fs.unlinkSync(`upload/${up_file.originalname}`)
-                //file removed
-            } catch (err) {
-                console.error(err)
-            }
-            return res.cc('填报内容不能存在空行！')
             break
-        }
+       }
+        data[i]={}
         data[i][cour_type]=excel_content[i][0];
         data[i][cour_name]=excel_content[i][1];
         data[i][head_name]=excel_content[i][2];
@@ -461,6 +467,16 @@ exports.deal_table_2_2_2_4 = function(req,res,next){
         })
     }
 
+    if(data.length==0){
+        // 删除文件
+        try {
+            fs.unlinkSync(`upload/${up_file.originalname}`)
+            //file removed
+        } catch(err) {
+            console.error(err)
+        }
+        return res.cc('填报内容不能为空！')
+    }
     var nn={}
     nn.data_2_2_2_4=data
     console.log(nn)
@@ -491,18 +507,10 @@ exports.deal_table_2_2_3_0 = function(req,res,next){
     /**将读取的数据处理成json格式 */
     var data=[]
     for(let i=0,len=excel_content.length;i<len;i++){
-        data[i]={}
         if(excel_content[i].length==0){         //筛选掉末尾空数据
-            // 删除文件
-            try {
-                fs.unlinkSync(`upload/${up_file.originalname}`)
-                //file removed
-            } catch (err) {
-                console.error(err)
-            }
-            return res.cc('填报内容不能存在空行！')
             break
-        }
+       }
+        data[i]={}
         data[i][plat_base_type]=excel_content[i][0];
         data[i][plat_base_name]=excel_content[i][1];
         data[i][head_name]=excel_content[i][2];
@@ -519,6 +527,16 @@ exports.deal_table_2_2_3_0 = function(req,res,next){
         })
     }
 
+    if(data.length==0){
+        // 删除文件
+        try {
+            fs.unlinkSync(`upload/${up_file.originalname}`)
+            //file removed
+        } catch(err) {
+            console.error(err)
+        }
+        return res.cc('填报内容不能为空！')
+    }
     var nn={}
     nn.data_2_2_3_0=data
     console.log(nn)
@@ -549,18 +567,10 @@ exports.deal_table_2_2_3_1 = function(req,res,next){
     /**将读取的数据处理成json格式 */
     var data=[]
     for(let i=0,len=excel_content.length;i<len;i++){
-        data[i]={}
         if(excel_content[i].length==0){         //筛选掉末尾空数据
-            // 删除文件
-            try {
-                fs.unlinkSync(`upload/${up_file.originalname}`)
-                //file removed
-            } catch (err) {
-                console.error(err)
-            }
-            return res.cc('填报内容不能存在空行！')
             break
-        }
+       }
+        data[i]={}
         data[i][plat_base_type]=excel_content[i][0];
         data[i][plat_base_name]=excel_content[i][1];
         data[i][head_name]=excel_content[i][2];
@@ -576,6 +586,16 @@ exports.deal_table_2_2_3_1 = function(req,res,next){
         })
     }
 
+    if(data.length==0){
+        // 删除文件
+        try {
+            fs.unlinkSync(`upload/${up_file.originalname}`)
+            //file removed
+        } catch(err) {
+            console.error(err)
+        }
+        return res.cc('填报内容不能为空！')
+    }
     var nn={}
     nn.data_2_2_3_1=data
     console.log(nn)
@@ -606,18 +626,10 @@ exports.deal_table_2_2_3_2 = function(req,res,next){
     /**将读取的数据处理成json格式 */
     var data=[]
     for(let i=0,len=excel_content.length;i<len;i++){
-        data[i]={}
         if(excel_content[i].length==0){         //筛选掉末尾空数据
-            // 删除文件
-            try {
-                fs.unlinkSync(`upload/${up_file.originalname}`)
-                //file removed
-            } catch (err) {
-                console.error(err)
-            }
-            return res.cc('填报内容不能存在空行！')
             break
-        }
+       }
+        data[i]={}
         data[i][plat_base_type]=excel_content[i][0];
         data[i][plat_base_name]=excel_content[i][1];
         data[i][head_name]=excel_content[i][2];
@@ -633,6 +645,16 @@ exports.deal_table_2_2_3_2 = function(req,res,next){
         })
     }
 
+    if(data.length==0){
+        // 删除文件
+        try {
+            fs.unlinkSync(`upload/${up_file.originalname}`)
+            //file removed
+        } catch(err) {
+            console.error(err)
+        }
+        return res.cc('填报内容不能为空！')
+    }
     var nn={}
     nn.data_2_2_3_2=data
     console.log(nn)
@@ -662,18 +684,10 @@ exports.deal_table_2_2_4 = function(req,res,next){
     /**将读取的数据处理成json格式 */
     var data=[]
     for(let i=0,len=excel_content.length;i<len;i++){
-        data[i]={}
         if(excel_content[i].length==0){         //筛选掉末尾空数据
-            // 删除文件
-            try {
-                fs.unlinkSync(`upload/${up_file.originalname}`)
-                //file removed
-            } catch (err) {
-                console.error(err)
-            }
-            return res.cc('填报内容不能存在空行！')
             break
-        }
+       }
+        data[i]={}
         data[i][yr]=excel_content[i][0];
         data[i][master_tutor_num]=excel_content[i][1];
         data[i][doc_tutor_num]=excel_content[i][2];
@@ -688,6 +702,16 @@ exports.deal_table_2_2_4 = function(req,res,next){
         })
     }
 
+    if(data.length==0){
+        // 删除文件
+        try {
+            fs.unlinkSync(`upload/${up_file.originalname}`)
+            //file removed
+        } catch(err) {
+            console.error(err)
+        }
+        return res.cc('填报内容不能为空！')
+    }
     var nn={}
     nn.data_2_2_4=data
     console.log(nn)
@@ -718,18 +742,10 @@ exports.deal_table_2_2_5 = function(req,res,next){
     /**将读取的数据处理成json格式 */
     var data=[]
     for(let i=0,len=excel_content.length;i<len;i++){
-        data[i]={}
         if(excel_content[i].length==0){         //筛选掉末尾空数据
-            // 删除文件
-            try {
-                fs.unlinkSync(`upload/${up_file.originalname}`)
-                //file removed
-            } catch (err) {
-                console.error(err)
-            }
-            return res.cc('填报内容不能存在空行！')
             break
-        }
+       }
+        data[i]={}
         data[i][yr]=excel_content[i][0];
         data[i][sem]=excel_content[i][1];
         data[i][num_full_prof]=excel_content[i][2];
@@ -745,6 +761,16 @@ exports.deal_table_2_2_5 = function(req,res,next){
         })
     }
 
+    if(data.length==0){
+        // 删除文件
+        try {
+            fs.unlinkSync(`upload/${up_file.originalname}`)
+            //file removed
+        } catch(err) {
+            console.error(err)
+        }
+        return res.cc('填报内容不能为空！')
+    }
     var nn={}
     nn.data_2_2_5=data
     console.log(nn);
@@ -780,18 +806,10 @@ exports.deal_table_2_2_6 = function(req,res,next){
     console.log(excel_content)
     var data=[]
     for(let i=0,len=excel_content.length;i<len;i++){
-        data[i]={}
         if(excel_content[i].length==0){         //筛选掉末尾空数据
-            // 删除文件
-            try {
-                fs.unlinkSync(`upload/${up_file.originalname}`)
-                //file removed
-            } catch (err) {
-                console.error(err)
-            }
-            return res.cc('填报内容不能存在空行！')
             break
-        }
+       }
+        data[i]={}
         data[i][award_date]=excel_content[i][0];
         data[i][award_name]=excel_content[i][1];
         data[i][award_work]=excel_content[i][2];
@@ -811,6 +829,16 @@ exports.deal_table_2_2_6 = function(req,res,next){
         })
     }
 
+    if(data.length==0){
+        // 删除文件
+        try {
+            fs.unlinkSync(`upload/${up_file.originalname}`)
+            //file removed
+        } catch(err) {
+            console.error(err)
+        }
+        return res.cc('填报内容不能为空！')
+    }
     var nn={}
     nn.data_2_2_6=data
     console.log(nn)
@@ -844,18 +872,10 @@ exports.deal_table_2_2_7 = function(req,res,next){
     /**将读取的数据处理成json格式 */
     var data=[]
     for(let i=0,len=excel_content.length;i<len;i++){
-        data[i]={}
         if(excel_content[i].length==0){         //筛选掉末尾空数据
-            // 删除文件
-            try {
-                fs.unlinkSync(`upload/${up_file.originalname}`)
-                //file removed
-            } catch (err) {
-                console.error(err)
-            }
-            return res.cc('填报内容不能存在空行！')
             break
-        }
+       }
+        data[i]={}
         data[i][publish_date]=excel_content[i][0];
         data[i][paper_title]=excel_content[i][1];
         data[i][stu_name]=excel_content[i][2];
@@ -874,6 +894,16 @@ exports.deal_table_2_2_7 = function(req,res,next){
         })
     }
 
+    if(data.length==0){
+        // 删除文件
+        try {
+            fs.unlinkSync(`upload/${up_file.originalname}`)
+            //file removed
+        } catch(err) {
+            console.error(err)
+        }
+        return res.cc('填报内容不能为空！')
+    }
     var nn={}
     nn.data_2_2_7=data
     console.log(nn)
@@ -906,18 +936,11 @@ exports.deal_table_2_3_1 = function(req,res,next){
     /**将读取的数据处理成json格式 */
     var data=[]
     for(let i=0,len=excel_content.length;i<len;i++){
-        data[i]={}
         if(excel_content[i].length==0){         //筛选掉末尾空数据
-            // 删除文件
-            try {
-                fs.unlinkSync(`upload/${up_file.originalname}`)
-                //file removed
-            } catch (err) {
-                console.error(err)
-            }
-            return res.cc('填报内容不能存在空行！')
+            console.log("==========");
             break
-        }
+       }
+        data[i]={}
         data[i][yr]=excel_content[i][0];
         data[i][award_bd_num]=excel_content[i][1];
         data[i][award_md_num]=excel_content[i][2];
@@ -933,6 +956,16 @@ exports.deal_table_2_3_1 = function(req,res,next){
         })
     }
 
+    if(data.length==0){
+        // 删除文件
+        try {
+            fs.unlinkSync(`upload/${up_file.originalname}`)
+            //file removed
+        } catch(err) {
+            console.error(err)
+        }
+        return res.cc('填报内容不能为空！')
+    }
     var nn={}
     nn.data_2_3_1=data
     console.log(nn)
@@ -961,18 +994,10 @@ exports.deal_table_2_3_2 = function(req,res,next){
     /**将读取的数据处理成json格式 */
     var data=[]
     for(let i=0,len=excel_content.length;i<len;i++){
-        data[i]={}
         if(excel_content[i].length==0){         //筛选掉末尾空数据
-            // 删除文件
-            try {
-                fs.unlinkSync(`upload/${up_file.originalname}`)
-                //file removed
-            } catch (err) {
-                console.error(err)
-            }
-            return res.cc('填报内容不能存在空行！')
             break
-        }
+       }
+        data[i]={}
         data[i][stu_name]=excel_content[i][0];
         data[i][grad_year]=excel_content[i][1];
         data[i][pro_contribute_proj]=excel_content[i][2];
@@ -987,6 +1012,16 @@ exports.deal_table_2_3_2 = function(req,res,next){
         })
     }
 
+    if(data.length==0){
+        // 删除文件
+        try {
+            fs.unlinkSync(`upload/${up_file.originalname}`)
+            //file removed
+        } catch(err) {
+            console.error(err)
+        }
+        return res.cc('填报内容不能为空！')
+    }
     var nn={}
     nn.data_2_3_2=data
     console.log(nn)
@@ -1022,18 +1057,10 @@ exports.deal_table_2_4_1 = function(req,res,next){
     /**将读取的数据处理成json格式 */
     var data=[]
     for(let i=0,len=excel_content.length;i<len;i++){
-        data[i]={}
         if(excel_content[i].length==0){         //筛选掉末尾空数据
-            // 删除文件
-            try {
-                fs.unlinkSync(`upload/${up_file.originalname}`)
-                //file removed
-            } catch (err) {
-                console.error(err)
-            }
-            return res.cc('填报内容不能存在空行！')
             break
-        }
+       }
+        data[i]={}
         data[i][yr]=excel_content[i][0];
         data[i][b_enroll_year]=excel_content[i][1];
         data[i][b_cur_num]=excel_content[i][2];
@@ -1053,6 +1080,16 @@ exports.deal_table_2_4_1 = function(req,res,next){
         })
     }
 
+    if(data.length==0){
+        // 删除文件
+        try {
+            fs.unlinkSync(`upload/${up_file.originalname}`)
+            //file removed
+        } catch(err) {
+            console.error(err)
+        }
+        return res.cc('填报内容不能为空！')
+    }
     var nn={}
     nn.data_2_4_1=data
     console.log(nn)
@@ -1087,18 +1124,10 @@ exports.deal_table_2_4_2 = function(req,res,next){
     /**将读取的数据处理成json格式 */
     var data=[]
     for(let i=0,len=excel_content.length;i<len;i++){
-        data[i]={}
         if(excel_content[i].length==0){         //筛选掉末尾空数据
-            // 删除文件
-            try {
-                fs.unlinkSync(`upload/${up_file.originalname}`)
-                //file removed
-            } catch (err) {
-                console.error(err)
-            }
-            return res.cc('填报内容不能存在空行！')
             break
-        }
+       }
+        data[i]={}
         data[i][yr]=excel_content[i][0];
         data[i][stu_name]=excel_content[i][1];
         data[i][stu_type]=excel_content[i][2];
@@ -1117,6 +1146,16 @@ exports.deal_table_2_4_2 = function(req,res,next){
         })
     }
 
+    if(data.length==0){
+        // 删除文件
+        try {
+            fs.unlinkSync(`upload/${up_file.originalname}`)
+            //file removed
+        } catch(err) {
+            console.error(err)
+        }
+        return res.cc('填报内容不能为空！')
+    }
     var nn={}
     nn.data_2_4_2=data
     console.log(nn)
