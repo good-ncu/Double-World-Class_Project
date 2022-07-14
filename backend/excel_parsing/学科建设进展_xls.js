@@ -25,10 +25,16 @@ exports.deal_table_1_1_2 = function (req, res, next) {
     /**将读取的数据处理成json格式 */
     var data = []
     for (let i = 0, len = excel_content.length; i < len; i++) {
-        if (excel_content[i].length == 0) {
-            break
-        }
         data[i] = {}
+        if (excel_content[i].length == 0) {
+            try {
+                fs.unlinkSync(`upload/${up_file.originalname}`)
+                //file removed
+            } catch (err) {
+                console.error(err)
+            }         //筛选掉末尾空数据
+            return res.cc("填报内容不能存在空行！")
+        }
         if (excel_content[i][0] == '第四轮') {
             data[i][one_title] = 4
         } else if (excel_content[i][0] == '第五轮') {
@@ -39,7 +45,7 @@ exports.deal_table_1_1_2 = function (req, res, next) {
         // data[i][one_title]=excel_content[i][0]
         data[i][title] = excel_content[i][1]
     }
-
+    console.log(data)
     var nn = {}
     for(let i=0,len=data.length;i<len;i++){
         let arr_keys=Object.keys(data[i])
@@ -78,10 +84,17 @@ exports.deal_table_1_1_3 = function (req, res, next) {
     /**将读取的数据处理成json格式 */
     var data = []
     for (let i = 0, len = excel_content.length; i < len; i++) {
-        if (excel_content[i].length == 0) {         //筛选掉末尾空数据
-            break
-        }
         data[i] = {}
+        if (excel_content[i].length == 0) {
+            try {
+                fs.unlinkSync(`upload/${up_file.originalname}`)
+                //file removed
+            } catch (err) {
+                console.error(err)
+            }         //筛选掉末尾空数据
+            return res.cc("填报内容不能存在空行！")
+        }
+
         data[i][yr] = excel_content[i][0]
         data[i][rank_type] = excel_content[i][1]
         data[i][rank] = excel_content[i][2]
@@ -128,11 +141,18 @@ exports.deal_table_1_1_4 = function (req, res, next) {
     excel_content.splice(0, 3)
     /**将读取的数据处理成json格式 */
     var data = []
+    
     for (let i = 0, len = excel_content.length; i < len; i++) {
-        if (excel_content[i].length == 0) {         //筛选掉末尾空数据
-            break
+        data[i] = {}
+        if (excel_content[i].length == 0) {
+            try {
+                fs.unlinkSync(`upload/${up_file.originalname}`)
+                //file removed
+            } catch (err) {
+                console.error(err)
+            }         //筛选掉末尾空数据
+            return res.cc("填报内容不能存在空行！")
         }
-        data[i] = {};
         data[i][yr] = excel_content[i][0]; data[i][total_fund] = excel_content[i][1];
         data[i][ctr_budg_fund] = excel_content[i][2]; data[i][ctr_receive_fund] = excel_content[i][3];
         data[i][ctr_expend_fund] = excel_content[i][4]; data[i][lcl_budg_fund] = excel_content[i][5];
@@ -141,6 +161,8 @@ exports.deal_table_1_1_4 = function (req, res, next) {
         data[i][self_expend_fund] = excel_content[i][10]; data[i][other_budg_fund] = excel_content[i][11];
         data[i][other_receive_fund] = excel_content[i][12]; data[i][other_expend_fund] = excel_content[i][13];
     }
+    console.log(data)
+
     var nn = {}
     for(let i=0,len=data.length;i<len;i++){
         let arr_keys=Object.keys(data[i])

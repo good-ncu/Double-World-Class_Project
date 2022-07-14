@@ -14,11 +14,17 @@ exports.deal_table_5_1_1=function(req,res,next){
     excel_content.splice(0,2)	//一般来说表中的第一条数据可能是标题没有用，所以删掉
     /**将读取的数据处理成json格式 */
     var data=[]
-    for(let i=0,len=excel_content.length;i<len;i++){
-        if(excel_content[i].length==0){         //筛选掉末尾空数据
-            break
-       }
-        data[i]={}
+    for (let i = 0, len = excel_content.length; i < len; i++) {
+        data[i] = {}
+        if (excel_content[i].length == 0) {
+            try {
+                fs.unlinkSync(`upload/${up_file.originalname}`)
+                //file removed
+            } catch (err) {
+                console.error(err)
+            }         //筛选掉末尾空数据
+            return res.cc("填报内容不能存在空行！")
+        }
         data[i][yr]=excel_content[i][0];
         data[i][quarter]=excel_content[i][1];
         data[i][achv_to_univfund]=excel_content[i][2];
@@ -58,11 +64,17 @@ exports.deal_table_5_2_1_1=function(req,res,next){
     excel_content.splice(0,2)	//一般来说表中的第一条数据可能是标题没有用，所以删掉
     /**将读取的数据处理成json格式 */
     var data=[]
-    for(let i=0,len=excel_content.length;i<len;i++){
-        if(excel_content[i].length==0){         //筛选掉末尾空数据
-            break
-       }
-        data[i]={}
+    for (let i = 0, len = excel_content.length; i < len; i++) {
+        data[i] = {}
+        if (excel_content[i].length == 0) {
+            try {
+                fs.unlinkSync(`upload/${up_file.originalname}`)
+                //file removed
+            } catch (err) {
+                console.error(err)
+            }         //筛选掉末尾空数据
+            return res.cc("填报内容不能存在空行！")
+        }
         data[i][yr]=excel_content[i][0];
         data[i][plat_name]=excel_content[i][1];
         data[i][plat_level]=excel_content[i][2];
@@ -103,11 +115,17 @@ exports.deal_table_5_2_1_2=function(req,res,next){
     excel_content.splice(0,2)	//一般来说表中的第一条数据可能是标题没有用，所以删掉
     /**将读取的数据处理成json格式 */
     var data=[]
-    for(let i=0,len=excel_content.length;i<len;i++){
-        if(excel_content[i].length==0){         //筛选掉末尾空数据
-            break
-       }
-        data[i]={}
+    for (let i = 0, len = excel_content.length; i < len; i++) {
+        data[i] = {}
+        if (excel_content[i].length == 0) {
+            try {
+                fs.unlinkSync(`upload/${up_file.originalname}`)
+                //file removed
+            } catch (err) {
+                console.error(err)
+            }         //筛选掉末尾空数据
+            return res.cc("填报内容不能存在空行！")
+        }
         data[i][yr]=excel_content[i][0];
         data[i][plat_name]=excel_content[i][1];
         data[i][plat_level]=excel_content[i][2];
@@ -149,11 +167,17 @@ exports.deal_table_5_2_2_1=function(req,res,next){
     excel_content.splice(0,2)	//一般来说表中的第一条数据可能是标题没有用，所以删掉
     /**将读取的数据处理成json格式 */
     var data=[]
-    for(let i=0,len=excel_content.length;i<len;i++){
-        if(excel_content[i].length==0){         //筛选掉末尾空数据
-            break
-       }
-        data[i]={}
+    for (let i = 0, len = excel_content.length; i < len; i++) {
+        data[i] = {}
+        if (excel_content[i].length == 0) {
+            try {
+                fs.unlinkSync(`upload/${up_file.originalname}`)
+                //file removed
+            } catch (err) {
+                console.error(err)
+            }         //筛选掉末尾空数据
+            return res.cc("填报内容不能存在空行！")
+        }
         data[i][yr]=excel_content[i][0];
         data[i][topic]=excel_content[i][1];
         data[i][adopt_leader]=excel_content[i][2];
@@ -196,11 +220,18 @@ exports.deal_table_5_2_2_2=function(req,res,next){
     excel_content.splice(0,2)	//一般来说表中的第一条数据可能是标题没有用，所以删掉
     /**将读取的数据处理成json格式 */
     var data=[]
-    for(let i=0,len=excel_content.length;i<len;i++){
-        if(excel_content[i].length==0){         //筛选掉末尾空数据
-            break
-       }
-        data[i]={}
+   
+    for (let i = 0, len = excel_content.length; i < len; i++) {
+        data[i] = {}
+        if (excel_content[i].length == 0) {
+            try {
+                fs.unlinkSync(`upload/${up_file.originalname}`)
+                //file removed
+            } catch (err) {
+                console.error(err)
+            }         //筛选掉末尾空数据
+            return res.cc("填报内容不能存在空行！")
+        }
         data[i][yr]=excel_content[i][0];
         data[i][topic]=excel_content[i][1];
         data[i][adopt_leader]=excel_content[i][2];
