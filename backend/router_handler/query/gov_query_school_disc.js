@@ -25,11 +25,21 @@ exports.gov_query_school_disc = function(req,res) {
             })
         } else {
              for (let i = 0, len = results.rows.length; i < len; i++) { 
-                if (results.rows[i]["univ_code"] == 10403){
-                    // results.rows[i]["一流大学"] = "一流大学6个学科群"
-                      
+                if (results.rows[i]["univ_code"] == 10403){          
                     results.rows[i]["univ_name"] = results.rows[i]["subtag_name"]
-                    results.rows[i]["subtag_name"] = "一流大学6个学科群"
+                    results.rows[i]["subtag_name"] = "一流大学"
+                }
+                if (results.rows[i]["univ_code"] != 10403){
+                    results.rows[results.rows.length-1]={
+                        "subtag_name": "一流学科",
+                        "univ_code": results.rows[i]["univ_code"],
+                        "univ_name": results.rows[i]["subtag_name"],
+                        // "discipline_code": results.rows[i]["discipline_code"],
+                        "discipline_name": results.rows[i]["univ_name"]
+                    }          
+                    results.rows.push(
+                        results.rows[results.rows.length-1]
+                    )    
                 }
             }
             res.send({
