@@ -171,7 +171,7 @@ exports.login = function(req, res){
         }
         console.log(results.rowCount);
         if(results.rowCount!==1){
-          return res.cc('查无此学校')
+          return res.cc('查无此学校或学科')
         }
         return res.send({
           status: 0,
