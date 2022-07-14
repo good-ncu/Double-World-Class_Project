@@ -89,11 +89,13 @@ exports.login = function(req, res){
   const sql = `select * from user_info where username = '${userinfo.username}'`
   // 执行SQL
   client.query(sql,(err,results)=>{
-      if(err) return res.cc(err)
+      if(err) {
+        console.log(err.message);
+        return res.cc(err)
+      }
       console.log('登录信息：')
       console.log(userinfo);
       // 检查有无该用户
-      console.log(results.rows);
       if(results.rows.length<1){
           return res.cc('无该用户，登录失败')
       }
@@ -157,7 +159,7 @@ exports.login = function(req, res){
           status: 0,
           msg: '登录成功',
           username: userinfo.username,
-          roleid: results.rows[0].role_id, 
+          roleid: rid, 
           role: roleStr,
           univ_name: results.rows[0].univ_name,
           discipline_name: '',
