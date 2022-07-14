@@ -24,11 +24,12 @@ exports.deal_table_1_1_2 = function (req, res, next) {
 
     /**将读取的数据处理成json格式 */
     var data = []
+    data[i] = {}
     for (let i = 0, len = excel_content.length; i < len; i++) {
-        if (excel_content[i].length == 0) {
+        if (excel_content[i].length == 0) {         //筛选掉末尾空数据
+            data[i]["test"] = "kong"
             break
         }
-        data[i] = {}
         if (excel_content[i][0] == '第四轮') {
             data[i][one_title] = 4
         } else if (excel_content[i][0] == '第五轮') {
@@ -77,11 +78,13 @@ exports.deal_table_1_1_3 = function (req, res, next) {
 
     /**将读取的数据处理成json格式 */
     var data = []
+    data[i] = {}
     for (let i = 0, len = excel_content.length; i < len; i++) {
         if (excel_content[i].length == 0) {         //筛选掉末尾空数据
+            data[i]["test"] = "kong"
             break
         }
-        data[i] = {}
+
         data[i][yr] = excel_content[i][0]
         data[i][rank_type] = excel_content[i][1]
         data[i][rank] = excel_content[i][2]
@@ -128,11 +131,12 @@ exports.deal_table_1_1_4 = function (req, res, next) {
     excel_content.splice(0, 3)
     /**将读取的数据处理成json格式 */
     var data = []
+    data[i] = {}
     for (let i = 0, len = excel_content.length; i < len; i++) {
         if (excel_content[i].length == 0) {         //筛选掉末尾空数据
+            data[i]["test"] = "kong"
             break
         }
-        data[i] = {};
         data[i][yr] = excel_content[i][0]; data[i][total_fund] = excel_content[i][1];
         data[i][ctr_budg_fund] = excel_content[i][2]; data[i][ctr_receive_fund] = excel_content[i][3];
         data[i][ctr_expend_fund] = excel_content[i][4]; data[i][lcl_budg_fund] = excel_content[i][5];
