@@ -26,7 +26,13 @@ exports.deal_table_1_1_2 = function (req, res, next) {
     var data = []
     for (let i = 0, len = excel_content.length; i < len; i++) {
         data[i] = {}
-        if (excel_content[i].length == 0) {         //筛选掉末尾空数据
+        if (excel_content[i].length == 0) {
+            try {
+                fs.unlinkSync(`upload/${up_file.originalname}`)
+                //file removed
+            } catch (err) {
+                console.error(err)
+            }         //筛选掉末尾空数据
             return res.cc("填报内容不能存在空行！")
         }
         if (excel_content[i][0] == '第四轮') {
@@ -79,7 +85,13 @@ exports.deal_table_1_1_3 = function (req, res, next) {
     var data = []
     for (let i = 0, len = excel_content.length; i < len; i++) {
         data[i] = {}
-        if (excel_content[i].length == 0) {         //筛选掉末尾空数据
+        if (excel_content[i].length == 0) {
+            try {
+                fs.unlinkSync(`upload/${up_file.originalname}`)
+                //file removed
+            } catch (err) {
+                console.error(err)
+            }         //筛选掉末尾空数据
             return res.cc("填报内容不能存在空行！")
         }
 
@@ -132,7 +144,13 @@ exports.deal_table_1_1_4 = function (req, res, next) {
     
     for (let i = 0, len = excel_content.length; i < len; i++) {
         data[i] = {}
-        if (excel_content[i].length == 0) {         //筛选掉末尾空数据
+        if (excel_content[i].length == 0) {
+            try {
+                fs.unlinkSync(`upload/${up_file.originalname}`)
+                //file removed
+            } catch (err) {
+                console.error(err)
+            }         //筛选掉末尾空数据
             return res.cc("填报内容不能存在空行！")
         }
         data[i][yr] = excel_content[i][0]; data[i][total_fund] = excel_content[i][1];
