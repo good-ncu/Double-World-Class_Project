@@ -39,7 +39,7 @@ exports.show_tables = function(req,res) {
                     return res.cc('系统繁忙，请稍后重试')
                 }
                 if(results.rowCount == 0) {
-                    return res.cc('系统繁忙，请稍后重试')
+                    return res.cc('当前没有表格处于填报周期')
                 }
                 // all_tables：打开填报周期的表
                 var all_tables = results.rows.map(function(item) {
@@ -49,7 +49,7 @@ exports.show_tables = function(req,res) {
                         cicle: item.fill_cycle,
                         target: item.fill_means,
                         is_period: 1,
-                        // 先赋值默认都是0，之后如果查到了就都是0
+                        // 先赋值默认都是0，之后如果查到了就都是1
                         is_filled: 0
                     }
                 })
