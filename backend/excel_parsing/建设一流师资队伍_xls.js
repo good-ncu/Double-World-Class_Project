@@ -15,11 +15,10 @@ exports.deal_table_3_1_1=function(req,res,next){
     excel_content.splice(0,2)	//一般来说表中的第一条数据可能是标题没有用，所以删掉
     /**将读取的数据处理成json格式 */
     var data=[]
-    data[i] = {}
     for (let i = 0, len = excel_content.length; i < len; i++) {
+        data[i] = {}
         if (excel_content[i].length == 0) {         //筛选掉末尾空数据
-            data[i]["test"] = "kong"
-            break
+            return res.cc("填报内容不能存在空行！")
         }
         data[i][recogn_honor]=excel_content[i][0];
         data[i][tch_name]=excel_content[i][1];
@@ -65,11 +64,10 @@ exports.deal_table_3_2_1=function(req,res,next){
     excel_content.splice(0,2)	//一般来说表中的第一条数据可能是标题没有用，所以删掉
     /**将读取的数据处理成json格式 */
     var data=[]
-    data[i] = {}
     for (let i = 0, len = excel_content.length; i < len; i++) {
+        data[i] = {}
         if (excel_content[i].length == 0) {         //筛选掉末尾空数据
-            data[i]["test"] = "kong"
-            break
+            return res.cc("填报内容不能存在空行！")
         }
         data[i][discipline]=excel_content[i][0];
         data[i][tch_type]=excel_content[i][1];
@@ -113,11 +111,10 @@ exports.deal_table_3_2_2_0=function(req,res,next){
     excel_content.splice(0,2)	//一般来说表中的第一条数据可能是标题没有用，所以删掉
     /**将读取的数据处理成json格式 */
     var data=[]
-    data[i] = {}
     for (let i = 0, len = excel_content.length; i < len; i++) {
+        data[i] = {}
         if (excel_content[i].length == 0) {         //筛选掉末尾空数据
-            data[i]["test"] = "kong"
-            break
+            return res.cc("填报内容不能存在空行！")
         }
         data[i][talent_team_name]=excel_content[i][0];
         data[i][level]=excel_content[i][1];
@@ -157,11 +154,10 @@ exports.deal_table_3_2_2_1=function(req,res,next){
     excel_content.splice(0,2)	//一般来说表中的第一条数据可能是标题没有用，所以删掉
     /**将读取的数据处理成json格式 */
     var data=[]
-    data[i] = {}
     for (let i = 0, len = excel_content.length; i < len; i++) {
+        data[i] = {}
         if (excel_content[i].length == 0) {         //筛选掉末尾空数据
-            data[i]["test"] = "kong"
-            break
+            return res.cc("填报内容不能存在空行！")
         }
         data[i][talent_team_name]=excel_content[i][0];
         data[i][honor_name]=excel_content[i][1];
@@ -201,11 +197,10 @@ exports.deal_table_3_2_2_2=function(req,res,next){
     excel_content.splice(0,2)	//一般来说表中的第一条数据可能是标题没有用，所以删掉
     /**将读取的数据处理成json格式 */
     var data=[]
-    data[i] = {}
     for (let i = 0, len = excel_content.length; i < len; i++) {
+        data[i] = {}
         if (excel_content[i].length == 0) {         //筛选掉末尾空数据
-            data[i]["test"] = "kong"
-            break
+            return res.cc("填报内容不能存在空行！")
         }
         data[i][talent_team_name]=excel_content[i][0];
         data[i][honor_name]=excel_content[i][1];
@@ -248,11 +243,10 @@ exports.deal_table_3_2_3=function(req,res,next){
     excel_content.splice(0,3)	//一般来说表中的第一条数据可能是标题没有用，所以删掉
     /**将读取的数据处理成json格式 */
     var data=[]
-    data[i] = {}
     for (let i = 0, len = excel_content.length; i < len; i++) {
+        data[i] = {}
         if (excel_content[i].length == 0) {         //筛选掉末尾空数据
-            data[i]["test"] = "kong"
-            break
+            return res.cc("填报内容不能存在空行！")
         }
         data[i][yr]=excel_content[i][0];
         data[i][full_tch_num]=excel_content[i][1];
@@ -310,11 +304,10 @@ exports.deal_table_3_2_4=function(req,res,next){
     excel_content.splice(0,3)	//一般来说表中的第一条数据可能是标题没有用，所以删掉
     /**将读取的数据处理成json格式 */
     var data=[]
-    data[i] = {}
     for (let i = 0, len = excel_content.length; i < len; i++) {
+        data[i] = {}
         if (excel_content[i].length == 0) {         //筛选掉末尾空数据
-            data[i]["test"] = "kong"
-            break
+            return res.cc("填报内容不能存在空行！")
         }
         data[i][yr]=excel_content[i][0];
         data[i][in_postdoc_sum]=excel_content[i][1];
@@ -366,11 +359,10 @@ exports.deal_table_3_2_5=function(req,res,next){
     excel_content.splice(0,3)	//一般来说表中的第一条数据可能是标题没有用，所以删掉
     /**将读取的数据处理成json格式 */
     var data=[]
-    data[i] = {}
     for (let i = 0, len = excel_content.length; i < len; i++) {
+        data[i] = {}
         if (excel_content[i].length == 0) {         //筛选掉末尾空数据
-            data[i]["test"] = "kong"
-            break
+            return res.cc("填报内容不能存在空行！")
         }
         data[i][yr]=excel_content[i][0];
         data[i][sum_full_ftch]=excel_content[i][1];
@@ -415,11 +407,10 @@ exports.deal_table_3_3_1=function(req,res,next){
     excel_content.splice(0,3)	//一般来说表中的第一条数据可能是标题没有用，所以删掉
     /**将读取的数据处理成json格式 */
     var data=[]
-    data[i] = {}
     for (let i = 0, len = excel_content.length; i < len; i++) {
+        data[i] = {}
         if (excel_content[i].length == 0) {         //筛选掉末尾空数据
-            data[i]["test"] = "kong"
-            break
+            return res.cc("填报内容不能存在空行！")
         }
         data[i][tch_name]=excel_content[i][0];
         data[i][jour_name]=excel_content[i][1];
@@ -466,11 +457,10 @@ exports.deal_table_3_3_2=function(req,res,next){
     excel_content.splice(0,2)	//一般来说表中的第一条数据可能是标题没有用，所以删掉
     /**将读取的数据处理成json格式 */
     var data=[]
-    data[i] = {}
     for (let i = 0, len = excel_content.length; i < len; i++) {
+        data[i] = {}
         if (excel_content[i].length == 0) {         //筛选掉末尾空数据
-            data[i]["test"] = "kong"
-            break
+            return res.cc("填报内容不能存在空行！")
         }
         data[i][tch_name]=excel_content[i][0];
         data[i][ac_org]=excel_content[i][1];
@@ -515,11 +505,10 @@ exports.deal_table_3_3_3=function(req,res,next){
     excel_content.splice(0,2)	//一般来说表中的第一条数据可能是标题没有用，所以删掉
     /**将读取的数据处理成json格式 */
     var data=[]
-    data[i] = {}
     for (let i = 0, len = excel_content.length; i < len; i++) {
+        data[i] = {}
         if (excel_content[i].length == 0) {         //筛选掉末尾空数据
-            data[i]["test"] = "kong"
-            break
+            return res.cc("填报内容不能存在空行！")
         }
         data[i][yr]=excel_content[i][0];
         data[i][tch_name]=excel_content[i][1];
@@ -566,11 +555,10 @@ exports.deal_table_3_3_4=function(req,res,next){
     excel_content.splice(0,2)	//一般来说表中的第一条数据可能是标题没有用，所以删掉
     /**将读取的数据处理成json格式 */
     var data=[]
-    data[i] = {}
     for (let i = 0, len = excel_content.length; i < len; i++) {
+        data[i] = {}
         if (excel_content[i].length == 0) {         //筛选掉末尾空数据
-            data[i]["test"] = "kong"
-            break
+            return res.cc("填报内容不能存在空行！")
         }
         data[i][tch_name]=excel_content[i][0];
         data[i][comp_name]=excel_content[i][1];

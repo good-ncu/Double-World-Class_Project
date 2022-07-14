@@ -14,11 +14,10 @@ exports.deal_table_5_1_1=function(req,res,next){
     excel_content.splice(0,2)	//一般来说表中的第一条数据可能是标题没有用，所以删掉
     /**将读取的数据处理成json格式 */
     var data=[]
-    data[i] = {}
     for (let i = 0, len = excel_content.length; i < len; i++) {
+        data[i] = {}
         if (excel_content[i].length == 0) {         //筛选掉末尾空数据
-            data[i]["test"] = "kong"
-            break
+            return res.cc("填报内容不能存在空行！")
         }
         data[i][yr]=excel_content[i][0];
         data[i][quarter]=excel_content[i][1];
@@ -59,11 +58,10 @@ exports.deal_table_5_2_1_1=function(req,res,next){
     excel_content.splice(0,2)	//一般来说表中的第一条数据可能是标题没有用，所以删掉
     /**将读取的数据处理成json格式 */
     var data=[]
-    data[i] = {}
     for (let i = 0, len = excel_content.length; i < len; i++) {
+        data[i] = {}
         if (excel_content[i].length == 0) {         //筛选掉末尾空数据
-            data[i]["test"] = "kong"
-            break
+            return res.cc("填报内容不能存在空行！")
         }
         data[i][yr]=excel_content[i][0];
         data[i][plat_name]=excel_content[i][1];
@@ -105,11 +103,10 @@ exports.deal_table_5_2_1_2=function(req,res,next){
     excel_content.splice(0,2)	//一般来说表中的第一条数据可能是标题没有用，所以删掉
     /**将读取的数据处理成json格式 */
     var data=[]
-    data[i] = {}
     for (let i = 0, len = excel_content.length; i < len; i++) {
+        data[i] = {}
         if (excel_content[i].length == 0) {         //筛选掉末尾空数据
-            data[i]["test"] = "kong"
-            break
+            return res.cc("填报内容不能存在空行！")
         }
         data[i][yr]=excel_content[i][0];
         data[i][plat_name]=excel_content[i][1];
@@ -152,11 +149,10 @@ exports.deal_table_5_2_2_1=function(req,res,next){
     excel_content.splice(0,2)	//一般来说表中的第一条数据可能是标题没有用，所以删掉
     /**将读取的数据处理成json格式 */
     var data=[]
-    data[i] = {}
     for (let i = 0, len = excel_content.length; i < len; i++) {
+        data[i] = {}
         if (excel_content[i].length == 0) {         //筛选掉末尾空数据
-            data[i]["test"] = "kong"
-            break
+            return res.cc("填报内容不能存在空行！")
         }
         data[i][yr]=excel_content[i][0];
         data[i][topic]=excel_content[i][1];
@@ -200,11 +196,11 @@ exports.deal_table_5_2_2_2=function(req,res,next){
     excel_content.splice(0,2)	//一般来说表中的第一条数据可能是标题没有用，所以删掉
     /**将读取的数据处理成json格式 */
     var data=[]
-    data[i] = {}
+   
     for (let i = 0, len = excel_content.length; i < len; i++) {
+        data[i] = {}
         if (excel_content[i].length == 0) {         //筛选掉末尾空数据
-            data[i]["test"] = "kong"
-            break
+            return res.cc("填报内容不能存在空行！")
         }
         data[i][yr]=excel_content[i][0];
         data[i][topic]=excel_content[i][1];
