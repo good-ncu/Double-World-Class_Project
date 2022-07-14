@@ -73,6 +73,10 @@ app.use('/api/index/research',researchRouter)
 const social_servicesRouter = require('./router/user_fill/social-services')
 app.use('/api/index/social-services',social_servicesRouter)
 
+// 导入 当前学科用户哪些表填了，那些表没填，表都是打开了填报周期的表 路由模块
+const show_tables = require('./router/user_fill/show_tables')
+app.use('/api/index',show_tables)
+
 // 导入 学校管理员对已填报数据的查询（审核） 路由模块
 const school_reviewRouter = require('./router/query/school-review')
 app.use('/api/index/school-query',school_reviewRouter)
