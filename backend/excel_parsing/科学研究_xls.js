@@ -31,6 +31,16 @@ exports.deal_table_4_1_1_0=function(req,res,next){
         data[i][award_eval_org_type]=excel_content[i][5];
         data[i][yr]=excel_content[i][6];
     }
+    if(data.length==0){
+        // 删除文件
+        try {
+            fs.unlinkSync(`upload/${up_file.originalname}`)
+            //file removed
+        } catch(err) {
+            console.error(err)
+        }
+        return res.cc('填报内容不能为空！')
+    }
     var nn={}
     for(let i=0,len=data.length;i<len;i++){
         let arr_keys=Object.keys(data[i])
@@ -80,6 +90,16 @@ exports.deal_table_4_1_1_1=function(req,res,next){
         data[i][award_eval_org]=excel_content[i][3];
         data[i][award_eval_org_type]=excel_content[i][4];
         data[i][yr]=excel_content[i][5];
+    }
+    if(data.length==0){
+        // 删除文件
+        try {
+            fs.unlinkSync(`upload/${up_file.originalname}`)
+            //file removed
+        } catch(err) {
+            console.error(err)
+        }
+        return res.cc('填报内容不能为空！')
     }
     var nn={}
     for(let i=0,len=data.length;i<len;i++){
@@ -131,6 +151,16 @@ exports.deal_table_4_1_1_2=function(req,res,next){
         data[i][award_eval_org_type]=excel_content[i][4];
         data[i][yr]=excel_content[i][5];
     }
+    if(data.length==0){
+        // 删除文件
+        try {
+            fs.unlinkSync(`upload/${up_file.originalname}`)
+            //file removed
+        } catch(err) {
+            console.error(err)
+        }
+        return res.cc('填报内容不能为空！')
+    }
     var nn={}
     for(let i=0,len=data.length;i<len;i++){
         let arr_keys=Object.keys(data[i])
@@ -178,6 +208,16 @@ exports.deal_table_4_1_2=function(req,res,next){
         data[i][tch_name]=excel_content[i][2];
         data[i][publisher]=excel_content[i][3];
         data[i][publish_date]=excel_content[i][4];
+    }
+    if(data.length==0){
+        // 删除文件
+        try {
+            fs.unlinkSync(`upload/${up_file.originalname}`)
+            //file removed
+        } catch(err) {
+            console.error(err)
+        }
+        return res.cc('填报内容不能为空！')
     }
     var nn={}
     for(let i=0,len=data.length;i<len;i++){
@@ -228,6 +268,16 @@ exports.deal_table_4_1_3_0=function(req,res,next){
         data[i][jour_name]=excel_content[i][3];
         data[i][volume_num]=excel_content[i][4];
         data[i][remarks]=excel_content[i][5];
+    }
+    if(data.length==0){
+        // 删除文件
+        try {
+            fs.unlinkSync(`upload/${up_file.originalname}`)
+            //file removed
+        } catch(err) {
+            console.error(err)
+        }
+        return res.cc('填报内容不能为空！')
     }
     var nn={}
     for(let i=0,len=data.length;i<len;i++){
@@ -281,6 +331,16 @@ exports.deal_table_4_1_3_1=function(req,res,next){
         data[i][volume_num]=excel_content[i][5];
         data[i][remarks]=excel_content[i][6];
     }
+    if(data.length==0){
+        // 删除文件
+        try {
+            fs.unlinkSync(`upload/${up_file.originalname}`)
+            //file removed
+        } catch(err) {
+            console.error(err)
+        }
+        return res.cc('填报内容不能为空！')
+    }
     var nn={}
     for(let i=0,len=data.length;i<len;i++){
         let arr_keys=Object.keys(data[i])
@@ -333,6 +393,16 @@ exports.deal_table_4_1_3_2=function(req,res,next){
         data[i][volume_num]=excel_content[i][5];
         data[i][remarks]=excel_content[i][6];
     }
+    if(data.length==0){
+        // 删除文件
+        try {
+            fs.unlinkSync(`upload/${up_file.originalname}`)
+            //file removed
+        } catch(err) {
+            console.error(err)
+        }
+        return res.cc('填报内容不能为空！')
+    }
     var nn={}
     for(let i=0,len=data.length;i<len;i++){
         let arr_keys=Object.keys(data[i])
@@ -384,6 +454,16 @@ exports.deal_table_4_1_3_3=function(req,res,next){
         data[i][volume_num]=excel_content[i][5];
         data[i][remarks]=excel_content[i][6];
     }
+    if(data.length==0){
+        // 删除文件
+        try {
+            fs.unlinkSync(`upload/${up_file.originalname}`)
+            //file removed
+        } catch(err) {
+            console.error(err)
+        }
+        return res.cc('填报内容不能为空！')
+    }
     var nn={}
     for(let i=0,len=data.length;i<len;i++){
         let arr_keys=Object.keys(data[i])
@@ -431,6 +511,16 @@ exports.deal_table_4_1_4=function(req,res,next){
         data[i][parti_date]=excel_content[i][3];
         data[i][task]=excel_content[i][4];
     }
+    if(data.length==0){
+        // 删除文件
+        try {
+            fs.unlinkSync(`upload/${up_file.originalname}`)
+            //file removed
+        } catch(err) {
+            console.error(err)
+        }
+        return res.cc('填报内容不能为空！')
+    }
     var nn={}
     for(let i=0,len=data.length;i<len;i++){
         let arr_keys=Object.keys(data[i])
@@ -476,6 +566,16 @@ exports.deal_table_4_2_1_0=function(req,res,next){
         data[i][palt_level]=excel_content[i][2];
         data[i][appro_time]=excel_content[i][3];
     }
+    if(data.length==0){
+        // 删除文件
+        try {
+            fs.unlinkSync(`upload/${up_file.originalname}`)
+            //file removed
+        } catch(err) {
+            console.error(err)
+        }
+        return res.cc('填报内容不能为空！')
+    }
     var nn={}
     for(let i=0,len=data.length;i<len;i++){
         let arr_keys=Object.keys(data[i])
@@ -520,6 +620,16 @@ exports.deal_table_4_2_1_1=function(req,res,next){
         data[i][plat_name]=excel_content[i][1];
         data[i][palt_level]=excel_content[i][2];
         data[i][appro_time]=excel_content[i][3];
+    }
+    if(data.length==0){
+        // 删除文件
+        try {
+            fs.unlinkSync(`upload/${up_file.originalname}`)
+            //file removed
+        } catch(err) {
+            console.error(err)
+        }
+        return res.cc('填报内容不能为空！')
     }
     var nn={}
     for(let i=0,len=data.length;i<len;i++){
@@ -567,6 +677,16 @@ exports.deal_table_4_2_1_2=function(req,res,next){
         data[i][palt_level]=excel_content[i][2];
         data[i][appro_time]=excel_content[i][3];
     }
+    if(data.length==0){
+        // 删除文件
+        try {
+            fs.unlinkSync(`upload/${up_file.originalname}`)
+            //file removed
+        } catch(err) {
+            console.error(err)
+        }
+        return res.cc('填报内容不能为空！')
+    }
     var nn={}
     for(let i=0,len=data.length;i<len;i++){
         let arr_keys=Object.keys(data[i])
@@ -611,6 +731,16 @@ exports.deal_table_4_2_1_3=function(req,res,next){
         data[i][plat_name]=excel_content[i][1];
         data[i][palt_level]=excel_content[i][2];
         data[i][appro_time]=excel_content[i][3];
+    }
+    if(data.length==0){
+        // 删除文件
+        try {
+            fs.unlinkSync(`upload/${up_file.originalname}`)
+            //file removed
+        } catch(err) {
+            console.error(err)
+        }
+        return res.cc('填报内容不能为空！')
     }
     var nn={}
     for(let i=0,len=data.length;i<len;i++){
@@ -662,6 +792,16 @@ exports.deal_table_4_2_2_0=function(req,res,next){
         data[i][proj_fromto_ymth]=excel_content[i][4];
         data[i][proj_fund]=excel_content[i][5];
     }
+    if(data.length==0){
+        // 删除文件
+        try {
+            fs.unlinkSync(`upload/${up_file.originalname}`)
+            //file removed
+        } catch(err) {
+            console.error(err)
+        }
+        return res.cc('填报内容不能为空！')
+    }
     var nn={}
     for(let i=0,len=data.length;i<len;i++){
         let arr_keys=Object.keys(data[i])
@@ -708,6 +848,16 @@ exports.deal_table_4_2_2_1=function(req,res,next){
         data[i][proj_type]=excel_content[i][2];
         data[i][proj_fromto_ymth]=excel_content[i][3];
         data[i][proj_fund]=excel_content[i][4];
+    }
+    if(data.length==0){
+        // 删除文件
+        try {
+            fs.unlinkSync(`upload/${up_file.originalname}`)
+            //file removed
+        } catch(err) {
+            console.error(err)
+        }
+        return res.cc('填报内容不能为空！')
     }
     var nn={}
     for(let i=0,len=data.length;i<len;i++){
@@ -756,6 +906,16 @@ exports.deal_table_4_2_2_2=function(req,res,next){
         data[i][proj_fromto_ymth]=excel_content[i][3];
         data[i][proj_fund]=excel_content[i][4];
     }
+    if(data.length==0){
+        // 删除文件
+        try {
+            fs.unlinkSync(`upload/${up_file.originalname}`)
+            //file removed
+        } catch(err) {
+            console.error(err)
+        }
+        return res.cc('填报内容不能为空！')
+    }
     var nn={}
     for(let i=0,len=data.length;i<len;i++){
         let arr_keys=Object.keys(data[i])
@@ -803,6 +963,16 @@ exports.deal_table_4_2_2_3=function(req,res,next){
         data[i][proj_fromto_ymth]=excel_content[i][3];
         data[i][proj_fund]=excel_content[i][4];
     }
+    if(data.length==0){
+        // 删除文件
+        try {
+            fs.unlinkSync(`upload/${up_file.originalname}`)
+            //file removed
+        } catch(err) {
+            console.error(err)
+        }
+        return res.cc('填报内容不能为空！')
+    }
     var nn={}
     for(let i=0,len=data.length;i<len;i++){
         let arr_keys=Object.keys(data[i])
@@ -846,6 +1016,16 @@ exports.deal_table_4_2_3_1=function(req,res,next){
         data[i][quarter]=excel_content[i][1];
         data[i][total_fund]=excel_content[i][2];
     }
+    if(data.length==0){
+        // 删除文件
+        try {
+            fs.unlinkSync(`upload/${up_file.originalname}`)
+            //file removed
+        } catch(err) {
+            console.error(err)
+        }
+        return res.cc('填报内容不能为空！')
+    }
     var nn={}
     for(let i=0,len=data.length;i<len;i++){
         let arr_keys=Object.keys(data[i])
@@ -888,6 +1068,16 @@ exports.deal_table_4_2_3_2=function(req,res,next){
         data[i][yr]=excel_content[i][0];
         data[i][quarter]=excel_content[i][1];
         data[i][total_fund]=excel_content[i][2];
+    }
+    if(data.length==0){
+        // 删除文件
+        try {
+            fs.unlinkSync(`upload/${up_file.originalname}`)
+            //file removed
+        } catch(err) {
+            console.error(err)
+        }
+        return res.cc('填报内容不能为空！')
     }
     var nn={}
     for(let i=0,len=data.length;i<len;i++){
@@ -940,6 +1130,16 @@ exports.deal_table_4_2_4=function(req,res,next){
         data[i][create_time]=excel_content[i][5];
         data[i][ac_influ]=excel_content[i][6];
     }
+    if(data.length==0){
+        // 删除文件
+        try {
+            fs.unlinkSync(`upload/${up_file.originalname}`)
+            //file removed
+        } catch(err) {
+            console.error(err)
+        }
+        return res.cc('填报内容不能为空！')
+    }
     var nn={}
     for(let i=0,len=data.length;i<len;i++){
         let arr_keys=Object.keys(data[i])
@@ -986,6 +1186,16 @@ exports.deal_table_4_3_1=function(req,res,next){
         data[i][yr]=excel_content[i][2];
         data[i][quarter]=excel_content[i][3];
         data[i][parti_type]=excel_content[i][4];
+    }
+    if(data.length==0){
+        // 删除文件
+        try {
+            fs.unlinkSync(`upload/${up_file.originalname}`)
+            //file removed
+        } catch(err) {
+            console.error(err)
+        }
+        return res.cc('填报内容不能为空！')
     }
     var nn={}
     for(let i=0,len=data.length;i<len;i++){
@@ -1041,6 +1251,16 @@ exports.deal_table_4_3_2=function(req,res,next){
         data[i][for_hss_num]=excel_content[i][5];
         data[i][co_nsci_num]=excel_content[i][6];
         data[i][co_hss_num]=excel_content[i][7];
+    }
+    if(data.length==0){
+        // 删除文件
+        try {
+            fs.unlinkSync(`upload/${up_file.originalname}`)
+            //file removed
+        } catch(err) {
+            console.error(err)
+        }
+        return res.cc('填报内容不能为空！')
     }
     var nn={}
     for(let i=0,len=data.length;i<len;i++){

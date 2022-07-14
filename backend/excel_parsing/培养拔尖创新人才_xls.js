@@ -39,6 +39,16 @@ exports.deal_table_2_1_1 = function(req,res,next){
         })
     }
 
+    if(data.length==0){
+        // 删除文件
+        try {
+            fs.unlinkSync(`upload/${up_file.originalname}`)
+            //file removed
+        } catch(err) {
+            console.error(err)
+        }
+        return res.cc('填报内容不能为空！')
+    }
     var nn={}
     nn.data_2_1_1=data
     console.log(nn)
@@ -91,6 +101,16 @@ exports.deal_table_2_2_1_0 = function(req,res,next){
         })
     }
 
+    if(data.length==0){
+        // 删除文件
+        try {
+            fs.unlinkSync(`upload/${up_file.originalname}`)
+            //file removed
+        } catch(err) {
+            console.error(err)
+        }
+        return res.cc('填报内容不能为空！')
+    }
     var nn={}
     console.log(data);
     nn.data_2_2_1_0=data
@@ -139,6 +159,16 @@ exports.deal_table_2_2_1_1 = function(req,res,next){
         })
     }
 
+    if(data.length==0){
+        // 删除文件
+        try {
+            fs.unlinkSync(`upload/${up_file.originalname}`)
+            //file removed
+        } catch(err) {
+            console.error(err)
+        }
+        return res.cc('填报内容不能为空！')
+    }
     var nn={}
     nn.data_2_2_1_1=data
     console.log(nn)
@@ -190,6 +220,16 @@ exports.deal_table_2_2_1_2 = function(req,res,next){
         })
     }
 
+    if(data.length==0){
+        // 删除文件
+        try {
+            fs.unlinkSync(`upload/${up_file.originalname}`)
+            //file removed
+        } catch(err) {
+            console.error(err)
+        }
+        return res.cc('填报内容不能为空！')
+    }
     var nn={}
     nn.data_2_2_1_2=data
     console.log(nn)
@@ -241,6 +281,16 @@ exports.deal_table_2_2_1_3 = function(req,res,next){
         })
     }
 
+    if(data.length==0){
+        // 删除文件
+        try {
+            fs.unlinkSync(`upload/${up_file.originalname}`)
+            //file removed
+        } catch(err) {
+            console.error(err)
+        }
+        return res.cc('填报内容不能为空！')
+    }
     var nn={}
     nn.data_2_2_1_3=data
     console.log(nn)
@@ -298,6 +348,16 @@ exports.deal_table_2_2_2_1 = function(req,res,next){
         })
     }
 
+    if(data.length==0){
+        // 删除文件
+        try {
+            fs.unlinkSync(`upload/${up_file.originalname}`)
+            //file removed
+        } catch(err) {
+            console.error(err)
+        }
+        return res.cc('填报内容不能为空！')
+    }
     var nn={}
     nn.data_2_2_2_1=data
     console.log(nn)
@@ -348,6 +408,16 @@ exports.deal_table_2_2_2_3 = function(req,res,next){
         })
     }
 
+    if(data.length==0){
+        // 删除文件
+        try {
+            fs.unlinkSync(`upload/${up_file.originalname}`)
+            //file removed
+        } catch(err) {
+            console.error(err)
+        }
+        return res.cc('填报内容不能为空！')
+    }
     var nn={}
     nn.data_2_2_2_3=data
     console.log(nn)
@@ -397,6 +467,16 @@ exports.deal_table_2_2_2_4 = function(req,res,next){
         })
     }
 
+    if(data.length==0){
+        // 删除文件
+        try {
+            fs.unlinkSync(`upload/${up_file.originalname}`)
+            //file removed
+        } catch(err) {
+            console.error(err)
+        }
+        return res.cc('填报内容不能为空！')
+    }
     var nn={}
     nn.data_2_2_2_4=data
     console.log(nn)
@@ -447,6 +527,16 @@ exports.deal_table_2_2_3_0 = function(req,res,next){
         })
     }
 
+    if(data.length==0){
+        // 删除文件
+        try {
+            fs.unlinkSync(`upload/${up_file.originalname}`)
+            //file removed
+        } catch(err) {
+            console.error(err)
+        }
+        return res.cc('填报内容不能为空！')
+    }
     var nn={}
     nn.data_2_2_3_0=data
     console.log(nn)
@@ -496,6 +586,16 @@ exports.deal_table_2_2_3_1 = function(req,res,next){
         })
     }
 
+    if(data.length==0){
+        // 删除文件
+        try {
+            fs.unlinkSync(`upload/${up_file.originalname}`)
+            //file removed
+        } catch(err) {
+            console.error(err)
+        }
+        return res.cc('填报内容不能为空！')
+    }
     var nn={}
     nn.data_2_2_3_1=data
     console.log(nn)
@@ -545,6 +645,16 @@ exports.deal_table_2_2_3_2 = function(req,res,next){
         })
     }
 
+    if(data.length==0){
+        // 删除文件
+        try {
+            fs.unlinkSync(`upload/${up_file.originalname}`)
+            //file removed
+        } catch(err) {
+            console.error(err)
+        }
+        return res.cc('填报内容不能为空！')
+    }
     var nn={}
     nn.data_2_2_3_2=data
     console.log(nn)
@@ -592,6 +702,16 @@ exports.deal_table_2_2_4 = function(req,res,next){
         })
     }
 
+    if(data.length==0){
+        // 删除文件
+        try {
+            fs.unlinkSync(`upload/${up_file.originalname}`)
+            //file removed
+        } catch(err) {
+            console.error(err)
+        }
+        return res.cc('填报内容不能为空！')
+    }
     var nn={}
     nn.data_2_2_4=data
     console.log(nn)
@@ -641,6 +761,16 @@ exports.deal_table_2_2_5 = function(req,res,next){
         })
     }
 
+    if(data.length==0){
+        // 删除文件
+        try {
+            fs.unlinkSync(`upload/${up_file.originalname}`)
+            //file removed
+        } catch(err) {
+            console.error(err)
+        }
+        return res.cc('填报内容不能为空！')
+    }
     var nn={}
     nn.data_2_2_5=data
     console.log(nn);
@@ -699,6 +829,16 @@ exports.deal_table_2_2_6 = function(req,res,next){
         })
     }
 
+    if(data.length==0){
+        // 删除文件
+        try {
+            fs.unlinkSync(`upload/${up_file.originalname}`)
+            //file removed
+        } catch(err) {
+            console.error(err)
+        }
+        return res.cc('填报内容不能为空！')
+    }
     var nn={}
     nn.data_2_2_6=data
     console.log(nn)
@@ -754,6 +894,16 @@ exports.deal_table_2_2_7 = function(req,res,next){
         })
     }
 
+    if(data.length==0){
+        // 删除文件
+        try {
+            fs.unlinkSync(`upload/${up_file.originalname}`)
+            //file removed
+        } catch(err) {
+            console.error(err)
+        }
+        return res.cc('填报内容不能为空！')
+    }
     var nn={}
     nn.data_2_2_7=data
     console.log(nn)
@@ -806,6 +956,16 @@ exports.deal_table_2_3_1 = function(req,res,next){
         })
     }
 
+    if(data.length==0){
+        // 删除文件
+        try {
+            fs.unlinkSync(`upload/${up_file.originalname}`)
+            //file removed
+        } catch(err) {
+            console.error(err)
+        }
+        return res.cc('填报内容不能为空！')
+    }
     var nn={}
     nn.data_2_3_1=data
     console.log(nn)
@@ -852,6 +1012,16 @@ exports.deal_table_2_3_2 = function(req,res,next){
         })
     }
 
+    if(data.length==0){
+        // 删除文件
+        try {
+            fs.unlinkSync(`upload/${up_file.originalname}`)
+            //file removed
+        } catch(err) {
+            console.error(err)
+        }
+        return res.cc('填报内容不能为空！')
+    }
     var nn={}
     nn.data_2_3_2=data
     console.log(nn)
@@ -910,6 +1080,16 @@ exports.deal_table_2_4_1 = function(req,res,next){
         })
     }
 
+    if(data.length==0){
+        // 删除文件
+        try {
+            fs.unlinkSync(`upload/${up_file.originalname}`)
+            //file removed
+        } catch(err) {
+            console.error(err)
+        }
+        return res.cc('填报内容不能为空！')
+    }
     var nn={}
     nn.data_2_4_1=data
     console.log(nn)
@@ -966,6 +1146,16 @@ exports.deal_table_2_4_2 = function(req,res,next){
         })
     }
 
+    if(data.length==0){
+        // 删除文件
+        try {
+            fs.unlinkSync(`upload/${up_file.originalname}`)
+            //file removed
+        } catch(err) {
+            console.error(err)
+        }
+        return res.cc('填报内容不能为空！')
+    }
     var nn={}
     nn.data_2_4_2=data
     console.log(nn)
