@@ -31,7 +31,7 @@ const data_1_1_4 = joi.array().items(
     joi.object().keys({
         yr:joi.number().integer().less(2029).greater(1950).required().error(new Error('年度填报错误！')),
         total_fund:joi.number().min(0).allow('').required().error(new Error('建设总经费填报错误！')),
-        ctr_budg_fund:joi.number().min(0).allow('').required().error(new Error('中央专项预算经费！')),
+        ctr_budg_fund:joi.number().min(0).allow('').required().error(new Error('中央专项预算经费填报错误！')),
         ctr_receive_fund:joi.number().min(0).allow('').required().error(new Error('中央专项实际到账填报错误！')),  
         ctr_expend_fund:joi.number().min(0).allow('').required().error(new Error('中央专项实际支出填报错误！')),
         lcl_budg_fund:joi.number().min(0).allow('').required().error(new Error('地方专项预算经费填报错误！')),
