@@ -81,6 +81,11 @@ app.use('/api/index',show_tables)
 const school_reviewRouter = require('./router/query/school-review')
 app.use('/api/index/school-query',school_reviewRouter)
 
+// 导入 学科填报用户 对已填报数据的查询（审核） 路由模块
+const user_reviewRouter = require('./router/query/user-review')
+app.use('/api/index/user-query',user_reviewRouter)
+
+
 
 // 导入 下载模板的路由模块
 const download_router = require('./router/download')
