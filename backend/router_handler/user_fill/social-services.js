@@ -563,14 +563,22 @@ const { query } = require('express');
     path = path_ora.replace("temp_", "");
     console.log(path_ora)
     console.log(path)
-    fs.rename(path_ora, path, function (err) {
-        if (err) return res.cc("上传失败，请稍后再试")
-        fs.stat(path, function (err, stats) {
-            console.log('stats: ' + JSON.stringify(stats));
-            if (err) return res.cc("上传失败，请稍后再试")
-        });
-    });
-
+    try {
+        if (fs.existsSync(path_ora)) {
+            //file exists
+            fs.rename(path_ora, path, function (err) {
+                if (path_ora)
+                    if (err) return res.cc("上传失败，请稍后再试")
+                fs.stat(path, function (err, stats) {
+                    console.log('stats: ' + JSON.stringify(stats));
+                    if (err) return res.cc("上传失败，请稍后再试")
+                });
+            });
+        
+        }
+    } catch (err) {
+        return res.cc("请勿重复提交")
+    }
 
 
     var sqls = []
@@ -635,13 +643,22 @@ exports.fwgj_sub = function (req, res) {
     path = path_ora.replace("temp_", "");
     console.log(path_ora)
     console.log(path)
-    fs.rename(path_ora, path, function (err) {
-        if (err) return res.cc("上传失败，请稍后再试")
-        fs.stat(path, function (err, stats) {
-            console.log('stats: ' + JSON.stringify(stats));
-            if (err) return res.cc("上传失败，请稍后再试")
-        });
-    });
+    try {
+        if (fs.existsSync(path_ora)) {
+            //file exists
+            fs.rename(path_ora, path, function (err) {
+                if (path_ora)
+                    if (err) return res.cc("上传失败，请稍后再试")
+                fs.stat(path, function (err, stats) {
+                    console.log('stats: ' + JSON.stringify(stats));
+                    if (err) return res.cc("上传失败，请稍后再试")
+                });
+            });
+        
+        }
+    } catch (err) {
+        return res.cc("请勿重复提交")
+    }
 
 
 
