@@ -857,7 +857,7 @@ exports.major_class_province_counts_sub = function(req,res){
         const strUUID = uuidv4(); // ⇨ '1b9d6bcd-bbfd-4b2d-9b5d-ab8dfbbd4bed'
         const strUUID2 = strUUID.replace(/-/g, '');       // 去掉-字符
         sqls[i+1]= `INSERT INTO mphd_tutor_const(id, univ_code, discipline_code, yr, master_tutor_num, doc_tutor_num, is_delete, path,user_fill_id) 
-        VALUES ('${strUUID2}', '${user.univ_code}', '${user.discipline_code}', ${submit_info[i].yr}, ${submit_info[i].master_tutor_num}, ${submit_info[i].doc_tutor_num}, 0, NULL, '${user_fill_id}');`
+        VALUES ('${strUUID2}', '${user.univ_code}', '${user.discipline_code}', '${submit_info[i].yr}', ${submit_info[i].master_tutor_num}, ${submit_info[i].doc_tutor_num}, 0, NULL, '${user_fill_id}');`
 
     }
     async.eachSeries(sqls, function (item, callback) {
