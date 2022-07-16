@@ -287,7 +287,10 @@ exports.political_edu_word_sub = function (req, res) {
             return res.cc("请先选择文件再点击提交")
         }
     } catch (err) {
-        return res.cc(err)
+        var flag = 1    
+    }
+    if (flag = 1){
+        return res.cc('上传失败，请稍后再试')
     }
 
 
@@ -662,7 +665,10 @@ exports.major_class_situation_sub = function (req, res) {
             return res.cc("请先选择文件再点击提交")
         }
     } catch (err) {
-        return res.cc(err)
+        var flag = 1    
+    }
+    if (flag = 1){
+        return res.cc('上传失败，请稍后再试')
     }
 
 
