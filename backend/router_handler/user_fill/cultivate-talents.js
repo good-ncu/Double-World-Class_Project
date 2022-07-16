@@ -7,7 +7,7 @@ const config = require('../../config')
 // 导入uuid包
 const { v4: uuidv4 } = require('uuid');
 var async = require('async');
-
+var fs = require('fs');
 /**
  *  二级表格下的表格是否可以填报
  *  */ 
