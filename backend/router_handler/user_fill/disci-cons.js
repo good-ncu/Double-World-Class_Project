@@ -23,8 +23,8 @@ exports.progress_situation_sub = function (req, res) {
     user = req.user
     
     fil_id = '1_1_1'
-    
     path_ora = req.body.path
+    if (path_ora=='undefined') return res.cc("请先选择文件再点击提交")
     path = path_ora.replace("temp_", "");
     console.log(path_ora)
     console.log(path)

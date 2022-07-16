@@ -560,6 +560,7 @@ var fs = require('fs');
     fil_id = '5_4_1'
     
     path_ora = req.body.path
+    if (path_ora=='undefined') return res.cc("请先选择文件再点击提交")
     path = path_ora.replace("temp_", "");
     console.log(path_ora)
     console.log(path)
@@ -640,6 +641,7 @@ exports.fwgj_sub = function (req, res) {
     fil_id = '5_4_2'
     
     path_ora = req.body.path
+    if (path_ora=='undefined') return res.cc("请先选择文件再点击提交")
     path = path_ora.replace("temp_", "");
     console.log(path_ora)
     console.log(path)
