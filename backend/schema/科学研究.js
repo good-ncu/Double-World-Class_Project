@@ -67,7 +67,7 @@ const data_4_1_3_0 = joi.array().items(
 
         quarter:joi.string().valid('第一季度','第二季度','第三季度','第四季度').error(new Error('填报季度填报错误！')),
         jour_level:joi.string().valid('国内外顶级期刊','国内重要期刊','其他重要期刊').error(new Error('期刊级别填报错误！')),
-        publish_yr_mth:joi.string().pattern(/^(1[9][5-9][0-9]|2[0][0-2][0-9])-(0[1-9]|1[0-2])$/).error(new Error('发表年月填写错误！')),
+        publish_yr_mth:joi.string().pattern(/^(1[9][5-9][0-9]|2[0][0-1][0-9]|2020)-(0[1-9]|1[0-2])$/).error(new Error('发表年月填写错误！')),
     }
     )
 )
@@ -147,7 +147,7 @@ const data_4_2_1_0 = joi.array().items(
        yr:joi.number().integer().less(2021).greater(1950).required().error(new Error('填报年度填报错误！')),
        plat_name:joi.string().min(1).max(200).required().error(new Error('平台名称填报错误！')),
        palt_level:joi.string().valid('科技部国家级','其他国家级','省部级').required().error(new Error('平台等级填报错误！')),
-       appro_time:joi.string().pattern(/^(1[9][5-9][0-9]|2020)-(0[1-9]|1[0-2])$/).required().error(new Error('批准时间（年月）填写错误！')),
+       appro_time:joi.string().pattern(/^(1[9][5-9][0-9]|2[0][0-1][0-9]|2020)-(0[1-9]|1[0-2])$/).required().error(new Error('批准时间（年月）填写错误！')),
    }
    )
 )
