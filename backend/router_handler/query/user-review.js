@@ -56,9 +56,15 @@ exports.query_single_table_info = function (req, res) {
                     })
                 } else {
                     for(var i =0 ; i< results2.rows.length ; i++){
-                        results2.rows[i]["is_seen"] = null
-                        results2.rows[i]["is_delete"] = null
-                        results2.rows[i]["path"] = null
+                        // results2.rows[i]["is_seen"] = null
+                        // results2.rows[i]["is_delete"] = null
+                        // results2.rows[i]["path"] = null
+                        delete results2.rows[i]["is_seen"]
+                        delete results2.rows[i]["is_delete"]
+                        delete results2.rows[i]["path"]
+                        delete results2.rows[i]["id"]
+                        delete results2.rows[i]["op_time"]
+                        delete results2.rows[i]["user_fill_id"]
                     }
                     res.send({
                         status: 0,
