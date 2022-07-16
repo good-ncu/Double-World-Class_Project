@@ -276,10 +276,10 @@ exports.political_edu_word_sub = function (req, res) {
             //file exists
             fs.rename(path_ora, path, function (err) {
                 if (path_ora)
-                    if (err) return res.cc("上传失败，请稍后再试")
+                    if (err) err = '上传失败，请稍后再试'
                 fs.stat(path, function (err, stats) {
                     console.log('stats: ' + JSON.stringify(stats));
-                    if (err) return res.cc("上传失败，请稍后再试")
+                    if (err) err = '上传失败，请稍后再试'
                 });
             });
         
@@ -287,7 +287,7 @@ exports.political_edu_word_sub = function (req, res) {
             return res.cc("请先选择文件再点击提交")
         }
     } catch (err) {
-        return res.cc("请勿重复提交")
+        return res.cc(err)
     }
 
 
@@ -651,10 +651,10 @@ exports.major_class_situation_sub = function (req, res) {
             //file exists
             fs.rename(path_ora, path, function (err) {
                 if (path_ora)
-                    if (err) return res.cc("上传失败，请稍后再试")
+                    if (err) err = '上传失败，请稍后再试'
                 fs.stat(path, function (err, stats) {
                     console.log('stats: ' + JSON.stringify(stats));
-                    if (err) return res.cc("上传失败，请稍后再试")
+                    if (err) err = '上传失败，请稍后再试'
                 });
             });
         
@@ -662,7 +662,7 @@ exports.major_class_situation_sub = function (req, res) {
             return res.cc("请先选择文件再点击提交")
         }
     } catch (err) {
-        return res.cc("请勿重复提交")
+        return res.cc(err)
     }
 
 
