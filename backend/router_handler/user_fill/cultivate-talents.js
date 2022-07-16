@@ -1079,7 +1079,7 @@ exports.major_class_province_counts_sub = function(req,res){
         const strUUID = uuidv4(); // ⇨ '1b9d6bcd-bbfd-4b2d-9b5d-ab8dfbbd4bed'
         const strUUID2 = strUUID.replace(/-/g, '');       // 去掉-字符
         sqls[i+1]= `INSERT INTO fullprof_tch_underg(id, univ_code, discipline_code, yr, sem, num_full_prof, num_full_prof_teach_underg, is_delete, path, user_fill_id) 
-        VALUES ('${strUUID2}','${user.univ_code}', '${user.discipline_code}', ${submit_info[i].yr}, '${submit_info[i].sem}', ${submit_info[i].num_full_prof}, ${submit_info[i].num_full_prof_teach_underg}, 0, NULL,'${user_fill_id}');`
+        VALUES ('${strUUID2}','${user.univ_code}', '${user.discipline_code}', '${submit_info[i].yr}', '${submit_info[i].sem}', ${submit_info[i].num_full_prof}, ${submit_info[i].num_full_prof_teach_underg}, 0, NULL,'${user_fill_id}');`
 
     }
     async.eachSeries(sqls, function (item, callback) {
