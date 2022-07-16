@@ -65,7 +65,6 @@ const data_4_1_3_0 = joi.array().items(
         yr_mth_volum:joi.string().min(1).required().error(new Error('发表年月及期刊卷（期）数填报错误！')),
         remarks: joi.string().max(200).allow("").required().error(new Error('备注在200字以内！')),
 
-        tch_name:joi.string().min(1).max(100).required().error(new Error('姓名填报错误！')),
         quarter:joi.string().valid('第一季度','第二季度','第三季度','第四季度').error(new Error('填报季度填报错误！')),
         jour_level:joi.string().valid('国内外顶级期刊','国内重要期刊','其他重要期刊').error(new Error('期刊级别填报错误！')),
         publish_yr_mth:joi.string().pattern(/^(1[9][5-9][0-9]|2[0][0-2][0-9])-(0[1-9]|1[0-2])$/).error(new Error('发表年月填写错误！')),
@@ -85,7 +84,6 @@ const data_4_1_3_1 = joi.array().items(
         yr_mth_volum:joi.string().min(1).required().error(new Error('发表年月及期刊卷（期）数填报错误！')),
         remarks: joi.string().max(200).allow("").error(new Error('备注在200字以内！')),
 
-        tch_name:joi.string().min(1).max(100).required().error(new Error('姓名填报错误！')),
         jour_level:joi.string().valid('国内外顶级期刊','国内重要期刊','其他重要期刊').error(new Error('期刊级别填报错误！')),
         publish_yr_mth:joi.string().pattern(/^(2[0][2][1-9])-(0[1-9]|1[0-2])$/).error(new Error('发表年月填写错误！')),
         
@@ -105,7 +103,6 @@ const data_4_1_3_2 = joi.array().items(
         yr_mth_volum:joi.string().min(1).required().error(new Error('发表年月及期刊卷（期）数填报错误！')),
         remarks: joi.string().max(200).allow("").error(new Error('备注在200字以内！')),
 
-        tch_name:joi.string().min(1).max(100).required().error(new Error('姓名填报错误！')),
         jour_level:joi.string().valid('国内外顶级期刊','国内重要期刊','其他重要期刊').error(new Error('期刊级别填报错误！')),
         publish_yr_mth:joi.string().pattern(/^(2[0][2][1-9])-(0[1-9]|1[0-2])$/).error(new Error('发表年月填写错误！')),
         
@@ -125,7 +122,6 @@ const data_4_1_3_3 = joi.array().items(
         yr_mth_volum:joi.string().min(1).required().error(new Error('发表年月及期刊卷（期）数填报错误！')),
         remarks: joi.string().max(200).allow("").error(new Error('备注在200字以内！')),
 
-        tch_name:joi.string().min(1).max(100).required().error(new Error('姓名填报错误！')),
         jour_level:joi.string().valid('国内外顶级期刊','国内重要期刊','其他重要期刊').error(new Error('期刊级别填报错误！')),
         publish_yr_mth:joi.string().pattern(/^(2[0][2][1-9])-(0[1-9]|1[0-2])$/).error(new Error('发表年月填写错误！')),
         
