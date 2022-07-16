@@ -16,7 +16,7 @@ exports.preview_word = function(req,res){
     // req.body.file_sava_name = file_sava_name 
     // req.body.save_path = save_path 
 
-    req.file.path = req.file.destination +'/'+ file_sava_name
+    req.file.path = req.file.destination + file_sava_name
    // req.file.path = req.file.destination +'\\'+ file_sava_name 
     
     delete req.file.filename
