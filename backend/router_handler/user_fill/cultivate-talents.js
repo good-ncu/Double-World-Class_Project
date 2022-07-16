@@ -266,12 +266,12 @@ exports.political_edu_word_sub = function (req, res) {
     fil_id = '2_1_1docx'
     
     path_ora = req.body.path
-    if (path_ora=='undefined') return res.cc("请先选择文件再点击提交")
-    path = path_ora.replace("temp_", "");
-    console.log(path_ora)
-    console.log(path)
+
     try {
         if (fs.existsSync(path_ora)) {
+            path = path_ora.replace("temp_", "");
+            console.log(path_ora)
+            console.log(path)
             //file exists
             fs.rename(path_ora, path, function (err) {
                 if (path_ora)
@@ -282,11 +282,12 @@ exports.political_edu_word_sub = function (req, res) {
                 });
             });
         
+        }else {
+            return res.cc("请先选择文件再点击提交")
         }
     } catch (err) {
         return res.cc("请勿重复提交")
     }
-
 
 
     var sqls = []
@@ -639,12 +640,12 @@ exports.major_class_situation_sub = function (req, res) {
     fil_id = '2_2_2_2'
     
     path_ora = req.body.path
-    if (path_ora=='undefined') return res.cc("请先选择文件再点击提交")
-    path = path_ora.replace("temp_", "");
-    console.log(path_ora)
-    console.log(path)
+
     try {
         if (fs.existsSync(path_ora)) {
+            path = path_ora.replace("temp_", "");
+            console.log(path_ora)
+            console.log(path)
             //file exists
             fs.rename(path_ora, path, function (err) {
                 if (path_ora)
@@ -655,6 +656,8 @@ exports.major_class_situation_sub = function (req, res) {
                 });
             });
         
+        }else {
+            return res.cc("请先选择文件再点击提交")
         }
     } catch (err) {
         return res.cc("请勿重复提交")
