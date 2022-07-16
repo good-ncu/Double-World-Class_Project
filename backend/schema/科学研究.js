@@ -270,8 +270,8 @@ const data_4_2_4 = joi.array().items(
    joi.object().keys({
        yr:joi.number().integer().less(2029).greater(1950).required().error(new Error('年度填报错误！')),
        jour_name:joi.string().min(1).max(200).required().error(new Error('期刊名称填报错误！')),
-       jour_in_num:joi.number().integer().min(1).required().error(new Error('国内期刊编号填报错误！')),
-       jour_out_num:joi.number().integer().min(1).required().error(new Error('国际期刊编号填报错误！')),
+       jour_in_num:joi.string().min(1).allow('').required().error(new Error('国内期刊编号填报错误！')),
+       jour_out_num:joi.string().min(1).allow('').required().error(new Error('国际期刊编号填报错误！')),
        adopt:joi.string().valid('CSSCI','CSCD','SCI','SSCI','EI','A&HCI','其他').required().error(new Error('期刊收录情况填报错误！')),
        create_time:joi.string().pattern(/^(1[9][5-9][0-9]|2[0][0-2][0-9])-(0[1-9]|1[0-2])$/).required().error(new Error('创刊时间填写错误！')),
        ac_influ:joi.string().min(1).max(200).required().error(new Error('学术影响力填报错误！')),
