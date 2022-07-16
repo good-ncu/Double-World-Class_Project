@@ -589,13 +589,9 @@ const { query } = require('express');
                 callback(err);
             } else {
                 if (results.rows.length !== 0 && results.rows[0].flag == 1) {
-                    // 删除文件
-                    try {
-                        fs.unlinkSync(`${up_file.destination}\\${up_file_sava_name}`)
-                        //file removed
-                    } catch (err) {
-                        err = "系统错误，请刷新页面后重试"
-                    }
+                    // 删除文件    没做
+
+
                     err = "请勿重复提交"
                 }
                 // 执行完成后也要调用callback，不需要参数
@@ -665,13 +661,8 @@ exports.fwgj_sub = function (req, res) {
                 callback(err);
             } else {
                 if (results.rows.length !== 0 && results.rows[0].flag == 1) {
-                    // 删除文件
-                    try {
-                        fs.unlinkSync(`${up_file.destination}\\${up_file_sava_name}`)
-                        //file removed
-                    } catch (err) {
-                        err = "系统错误，请刷新页面后重试"
-                    }
+                    // 删除文件   没做
+
                     err = "请勿重复提交"
                 }
                 // 执行完成后也要调用callback，不需要参数
