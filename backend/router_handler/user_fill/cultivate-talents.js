@@ -1251,7 +1251,7 @@ exports.degree_counts_sub = function(req,res){
         // sqls[i+1]= `INSERT INTO stu_publish_rep_paper(id, univ_code, discipline_code, stu_name, paper_title, publish_date, stu_type, jour_name, jour_volume, jour_collec, is_seen, is_delete, path, user_fill_id) 
         // VALUES ('${strUUID2}', '${user.univ_code}', '${user.discipline_code}', '${submit_info[i].stu_name}', '${submit_info[i].paper_title}', ${submit_info[i].publish_date}, '${submit_info[i].stu_type}', '${submit_info[i].jour_name}', '${submit_info[i].jour_volume}', '${submit_info[i].jour_collec}', 0, 0, NULL, '${user_fill_id}');`
         sqls[i+1] = `INSERT INTO ann_award_bdmdphd(id, univ_code, discipline_code, yr, award_bd_num, award_md_num, award_phd_num, is_delete, path,user_fill_id) 
-        VALUES ('${strUUID2}', '${user.univ_code}', '${user.discipline_code}', ${submit_info[i].yr}, ${submit_info[i].award_bd_num}, ${submit_info[i].award_md_num}, ${submit_info[i].award_phd_num}, 0, NULL,'${user_fill_id}');`
+        VALUES ('${strUUID2}', '${user.univ_code}', '${user.discipline_code}', '${submit_info[i].yr}', ${submit_info[i].award_bd_num}, ${submit_info[i].award_md_num}, ${submit_info[i].award_phd_num}, 0, NULL,'${user_fill_id}');`
 
     }
     async.eachSeries(sqls, function (item, callback) {
@@ -1371,7 +1371,7 @@ exports.discipline_pioneer_sub = function(req,res){
         // sqls[i+1]= `INSERT INTO stu_publish_rep_paper(id, univ_code, discipline_code, stu_name, paper_title, publish_date, stu_type, jour_name, jour_volume, jour_collec, is_seen, is_delete, path, user_fill_id) 
         // VALUES ('${strUUID2}', '${user.univ_code}', '${user.discipline_code}', '${submit_info[i].stu_name}', '${submit_info[i].paper_title}', ${submit_info[i].publish_date}, '${submit_info[i].stu_type}', '${submit_info[i].jour_name}', '${submit_info[i].jour_volume}', '${submit_info[i].jour_collec}', 0, 0, NULL, '${user_fill_id}');`
         sqls[i+1] = `INSERT INTO intna_exch_stu(id, univ_code, discipline_code, yr, b_enroll_year, b_cur_num, m_enroll_year, m_cur_num, phd_enroll_year, phd_cur_num, exch_num, is_delete, path, user_fill_id) 
-        VALUES ('${strUUID2}', '${user.univ_code}', '${user.discipline_code}', ${submit_info[i].yr}, ${submit_info[i].b_enroll_year}, ${submit_info[i].b_cur_num}, ${submit_info[i].m_enroll_year}, ${submit_info[i].m_cur_num}, ${submit_info[i].phd_enroll_year}, ${submit_info[i].phd_cur_num}, ${submit_info[i].exch_num}, 0, NULL, '${user_fill_id}');`
+        VALUES ('${strUUID2}', '${user.univ_code}', '${user.discipline_code}', '${submit_info[i].yr}', ${submit_info[i].b_enroll_year}, ${submit_info[i].b_cur_num}, ${submit_info[i].m_enroll_year}, ${submit_info[i].m_cur_num}, ${submit_info[i].phd_enroll_year}, ${submit_info[i].phd_cur_num}, ${submit_info[i].exch_num}, 0, NULL, '${user_fill_id}');`
 
     }
     async.eachSeries(sqls, function (item, callback) {
