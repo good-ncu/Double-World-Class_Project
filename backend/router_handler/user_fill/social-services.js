@@ -559,7 +559,8 @@ var fs = require('fs');
     
     fil_id = '5_4_1'
     
-    path_ora = req.body.path
+    path_temp = req.body.path
+    path_ora = '/root/syl_backend/temp_upload/' + path_temp
 
     try {
         if (fs.existsSync(path_ora)) {
@@ -642,7 +643,8 @@ exports.fwgj_sub = function (req, res) {
     
     fil_id = '5_4_2'
     
-    path_ora = req.body.path
+    path_temp = req.body.path
+    path_ora = '/root/syl_backend/temp_upload/' + path_temp
 
     try {
         if (fs.existsSync(path_ora)) {

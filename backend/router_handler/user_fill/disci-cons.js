@@ -23,7 +23,8 @@ exports.progress_situation_sub = function (req, res) {
     user = req.user
     
     fil_id = '1_1_1'
-        path_ora = req.body.path
+    path_temp = req.body.path
+    path_ora = '/root/syl_backend/temp_upload/' + path_temp
 
     try {
         if (fs.existsSync(path_ora)) {

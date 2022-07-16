@@ -265,7 +265,8 @@ exports.political_edu_word_sub = function (req, res) {
     
     fil_id = '2_1_1docx'
     
-    path_ora = req.body.path
+    path_temp = req.body.path
+    path_ora = '/root/syl_backend/temp_upload/' + path_temp
 
     try {
         if (fs.existsSync(path_ora)) {
@@ -639,7 +640,8 @@ exports.major_class_situation_sub = function (req, res) {
     
     fil_id = '2_2_2_2'
     
-    path_ora = req.body.path
+    path_temp = req.body.path
+    path_ora = '/root/syl_backend/temp_upload/' + path_temp
 
     try {
         if (fs.existsSync(path_ora)) {
