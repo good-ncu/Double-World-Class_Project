@@ -31,6 +31,11 @@ router.post('/International-level', teacher_team_handler.query_is_time)
 
 
 
+// 第二 文档填写   （3_1_1docx）
+router.post('/teacher-morality/honor-counts-word', teacher_team_handler.honor_counts_word_sub)
+// 第一 文档填写  （3_1_1docx）
+router.post('/teacher-morality/honor-counts-word-template', public.tempupload_word_file_callback, pre_view_handler.preview_word)
+
 
 
 

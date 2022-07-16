@@ -28,6 +28,24 @@ router.post('/social-support', social_services_handler.query_is_time)
 // 查询 当前5-3下的表格是否可以填报
 router.post('/services-social', social_services_handler.query_is_time)
 
+
+
+
+// 第二 文档填写   （5_4_1）
+router.post('/services-social/kjxt', social_services_handler.kjxt_sub)
+// 第一 文档填写  （5_4_1）
+router.post('/services-social/kjxt-template', public.tempupload_word_file_callback, pre_view_handler.preview_word)
+
+// 第二 文档填写   （5_4_2）
+router.post('/services-social/fwgj', social_services_handler.fwgj_sub)
+// 第一 文档填写  （5_4_2）
+router.post('/services-social/fwgj-template', public.tempupload_word_file_callback, pre_view_handler.preview_word)
+
+
+
+
+
+
 /**
  * 5-1 成果转化
  */

@@ -17,6 +17,21 @@ const public = require('../../excel_parsing/公用中间件multer')
 const multer = require('multer')
 
 
+// 第二 文档填写   （2_1_1docx）
+router.post('/education/political-edu-word', cultivate_talents_handler.political_edu_word_sub)
+// 第一 文档填写  （2_1_1docx）
+router.post('/education/political-edu-word-template', public.tempupload_word_file_callback, pre_view_handler.preview_word)
+
+// 第二 文档填写   （2_2_2_2）
+router.post('/progress/major-class/major-class-situation', cultivate_talents_handler.major_class_situation_sub)
+// 第一 文档填写   （2_2_2_2）
+router.post('/progress/major-class/major-class-situation-template', public.tempupload_word_file_callback, pre_view_handler.preview_word)
+
+
+
+
+
+
 /* 
      2-1 查询三级表格是否可以填报，所有二级请求共用同一个处理函数
 */
