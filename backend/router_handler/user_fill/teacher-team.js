@@ -20,26 +20,29 @@ exports.honor_counts_word_sub = function (req, res) {
     
     fil_id = '3_1_1docx'
     
-    path_ora = req.body.path
-    if (path_ora=='undefined') return res.cc("请先选择文件再点击提交")
-    path = path_ora.replace("temp_", "");
-    console.log(path_ora)
-    console.log(path)
+    path_temp = req.body.path
+    path_ora = '/root/syl_backend/temp_upload/' + path_temp
+
     try {
-        if (fs.existsSync(path_ora)) {
+        if (fs.existsSync(path_ora) && path_temp!='') {
+            path = path_ora.replace("temp_", "");
+            console.log(path_ora)
+            console.log(path)
             //file exists
             fs.rename(path_ora, path, function (err) {
                 if (path_ora)
-                    if (err) return res.cc("上传失败，请稍后再试")
+                    if (err) err = '上传失败，请稍后再试'
                 fs.stat(path, function (err, stats) {
                     console.log('stats: ' + JSON.stringify(stats));
-                    if (err) return res.cc("上传失败，请稍后再试")
+                    if (err) err = '上传失败，请稍后再试'
                 });
             });
         
+        }else {
+            return res.cc("请先选择文件再点击提交")
         }
     } catch (err) {
-        return res.cc("请勿重复提交")
+        return res.cc(err)
     }
 
 
@@ -62,10 +65,10 @@ exports.honor_counts_word_sub = function (req, res) {
                 if (results.rows.length !== 0 && results.rows[0].flag == 1) {
                     // 删除文件   没做
                     
-                    err = "请勿重复提交"
+                    err = "请勿重复提交!"
                 }
                 // 执行完成后也要调用callback，不需要参数
-                if (err == "请勿重复提交") {
+                if (err == "请勿重复提交!") {
                     callback(err)
                 } else {
                     callback();
