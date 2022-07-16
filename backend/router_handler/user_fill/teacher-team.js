@@ -24,7 +24,7 @@ exports.honor_counts_word_sub = function (req, res) {
     path_ora = '/root/syl_backend/temp_upload/' + path_temp
 
     try {
-        if (fs.existsSync(path_ora)) {
+        if (fs.existsSync(path_ora) && path_temp!='') {
             path = path_ora.replace("temp_", "");
             console.log(path_ora)
             console.log(path)
