@@ -507,7 +507,7 @@ exports.major_class_publish_quality_sub = function(req,res){
         const strUUID = uuidv4(); // ⇨ '1b9d6bcd-bbfd-4b2d-9b5d-ab8dfbbd4bed'
         const strUUID2 = strUUID.replace(/-/g, '');       // 去掉-字符
         sqls[i+1] = `INSERT INTO publish_textbook(id, univ_code, discipline_code, textbook, au_or_tans, sig, publish_date, publisher, revision, textbook_using, remarks, is_delete, path,user_fill_id) 
-        VALUES ('${strUUID2}', '${user.univ_code}', '${user.discipline_code}', '${submit_info[i].textbook}', '${submit_info[i].au_or_tans}', '${submit_info[i].sig}', '${submit_info[i].publish_date}', '${submit_info[i].publisher}', ${submit_info[i].revision},'${submit_info[i].textbook_using}', '${submit_info[i].textbook_using}', 0, NULL,'${user_fill_id}');`
+        VALUES ('${strUUID2}', '${user.univ_code}', '${user.discipline_code}', '${submit_info[i].textbook}', '${submit_info[i].au_or_tans}', '${submit_info[i].sig}', '${submit_info[i].publish_date}', '${submit_info[i].publisher}', ${submit_info[i].revision},'${submit_info[i].textbook_using}', '${submit_info[i].remarks}', 0, NULL,'${user_fill_id}');`
 
     }
     async.eachSeries(sqls, function (item, callback) {
