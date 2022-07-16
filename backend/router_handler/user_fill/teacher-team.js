@@ -551,7 +551,7 @@ const { query } = require('express');
     // 接收表单数据
     const submit_info = req.body.data_3_3_1
     // console.log(req.body)
-    // console.log(submit_info)
+    console.log(submit_info)
     user = req.user
     var user_fill_id = uuidv4().replace(/-/g, '')
 
