@@ -23,18 +23,27 @@ exports.progress_situation_sub = function (req, res) {
     user = req.user
     
     fil_id = '1_1_1'
-    
     path_ora = req.body.path
+    if (path_ora=='undefined') return res.cc("请先选择文件再点击提交")
     path = path_ora.replace("temp_", "");
     console.log(path_ora)
     console.log(path)
-    fs.rename(path_ora, path, function (err) {
-        if (err) return res.cc("上传失败，请稍后再试")
-        fs.stat(path, function (err, stats) {
-            console.log('stats: ' + JSON.stringify(stats));
-            if (err) return res.cc("上传失败，请稍后再试")
-        });
-    });
+    try {
+        if (fs.existsSync(path_ora)) {
+            //file exists
+            fs.rename(path_ora, path, function (err) {
+                if (path_ora)
+                    if (err) return res.cc("上传失败，请稍后再试")
+                fs.stat(path, function (err, stats) {
+                    console.log('stats: ' + JSON.stringify(stats));
+                    if (err) return res.cc("上传失败，请稍后再试")
+                });
+            });
+        
+        }
+    } catch (err) {
+        return res.cc("请勿重复提交")
+    }
 
 
 

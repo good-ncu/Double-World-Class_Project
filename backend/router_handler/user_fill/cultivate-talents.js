@@ -7,7 +7,7 @@ const config = require('../../config')
 // 导入uuid包
 const { v4: uuidv4 } = require('uuid');
 var async = require('async');
-
+var fs = require('fs');
 /**
  *  二级表格下的表格是否可以填报
  *  */ 
@@ -266,6 +266,7 @@ exports.political_edu_word_sub = function (req, res) {
     fil_id = '2_1_1docx'
     
     path_ora = req.body.path
+    if (path_ora=='undefined') return res.cc("请先选择文件再点击提交")
     path = path_ora.replace("temp_", "");
     console.log(path_ora)
     console.log(path)
@@ -638,6 +639,7 @@ exports.major_class_situation_sub = function (req, res) {
     fil_id = '2_2_2_2'
     
     path_ora = req.body.path
+    if (path_ora=='undefined') return res.cc("请先选择文件再点击提交")
     path = path_ora.replace("temp_", "");
     console.log(path_ora)
     console.log(path)
