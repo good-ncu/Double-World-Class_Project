@@ -11,7 +11,7 @@ const expressJWT = require('express-jwt')
 
 const async = require('async');
 const { query } = require('express');
-var fs = require('fs'); 
+var fs = require('fs');
 const { timeStamp } = require('console');
 
 /**
@@ -19,64 +19,75 @@ const { timeStamp } = require('console');
  * @param {*} req 
  * @param {*} res 
  */
- exports.progress_situation_sub = function (req, res) {
+exports.progress_situation_sub = function (req, res) {
     user = req.user
+    
     fil_id = '1_1_1'
-    const up_file = req.file
-    var up_file_sava_name = user.id + '_'  + new Date().getTime() + '_'+ up_file.originalname 
-    fs.renameSync(up_file.path, `${up_file.destination}\\${up_file_sava_name}`)
-    console.log(up_file.destination+'\\'+up_file_sava_name)
+    
+    path_ora = req.body.path
+    path = path_ora.replace("temp_", "");
+    console.log(path_ora)
+    console.log(path)
+    fs.rename(path_ora, path, function (err) {
+        if (err) return res.cc("上传失败，请稍后再试")
+        fs.stat(path, function (err, stats) {
+            console.log('stats: ' + JSON.stringify(stats));
+            if (err) return res.cc("上传失败，请稍后再试")
+        });
+    });
 
-        var sqls = [] 
-        sqls.push ( `SELECT * FROM user_fill WHERE user_id='${user.id}' AND fill_id = '1_1_1' AND flag=1`  )   
-        const strUUID = uuidv4(); // ⇨ '1b9d6bcd-bbfd-4b2d-9b5d-ab8dfbbd4bed'
-        const user_fill_id = strUUID.replace(/-/g, '');       // 去掉-字符
-        // sql2 = `insert into docx(id,discipline_code,univ_code,doc_about,discipline_eval_result,user_fill_id) values('${strUUID2}','${user.discipline_code}','${user.univ_code}',${submit_info[i].discipline_eval_turn},'${submit_info[i].discipline_eval_result}','${user_fill_id}')`
-        
-        async.eachSeries(sqls, function (item, callback) {
-            // 遍历每条SQL并执行
-            client.query(item, function (err, results) {
-                // console.log(results.rows.length)
-                if (err) {
-                    // 异常后调用callback并传入err
-                    err = "系统错误，请刷新页面后重试"
-                    callback(err);
-                } else {
-                    if (results.rows.length !== 0 && results.rows[0].flag == 1) {
-                        // 删除文件
-                        try {
-                            fs.unlinkSync(`${up_file.destination}\\${up_file_sava_name}`)
-                            //file removed
-                        } catch (err) {
-                            err = "系统错误，请刷新页面后重试"
-                        }
-                        err = "请勿重复提交"
-                    }
-                    // 执行完成后也要调用callback，不需要参数
-                    if (err == "请勿重复提交") {
-                        callback(err)
-                    } else {
-                        callback();
-                    }
-                }
-            });
-        }, function (err) {
-            // 所有SQL执行完成后回调
+
+
+    var sqls = []
+    sqls.push(`SELECT * FROM user_fill WHERE user_id='${user.id}' AND fill_id = '1_1_1' AND flag=1`)
+    const strUUID = uuidv4(); // ⇨ '1b9d6bcd-bbfd-4b2d-9b5d-ab8dfbbd4bed'
+    const user_fill_id = strUUID.replace(/-/g, '');       // 去掉-字符
+    // sql2 = `insert into docx(id,discipline_code,univ_code,doc_about,discipline_eval_result,user_fill_id) values('${strUUID2}','${user.discipline_code}','${user.univ_code}',${submit_info[i].discipline_eval_turn},'${submit_info[i].discipline_eval_result}','${user_fill_id}')`
+
+    async.eachSeries(sqls, function (item, callback) {
+        // 遍历每条SQL并执行
+        client.query(item, function (err, results) {
+            // console.log(results.rows.length)
             if (err) {
-                return res.cc(err)
+                // 异常后调用callback并传入err
+                err = "系统错误，请刷新页面后重试"
+                callback(err);
             } else {
-                // 当前用户所填数据都成功后，说明当前周期对应的excel表已经填报完成， 则在user_fill插入一条记录，flag置为1， 说明该表
-                client.query(`insert into user_fill(id, user_id, fill_id,path) values('${user_fill_id}','${user.id}','1_1_1','${up_file.destination+'\\'+up_file_sava_name}')`, function (err, result) {
-                    if (err) return res.cc('填报错误,请稍后再试')
-                    if (result.rowCount !== 1) return res.cc('填报失败,请稍后再试')
-                    res.send({
-                        status: 0,
-                        message: "填报成功！！"
-                    })
-                    // console.log("SQL全部执行成功");
-                })
+                if (results.rows.length !== 0 && results.rows[0].flag == 1) {
+                    // 删除文件
+                    try {
+                        fs.unlinkSync(`${up_file.destination}\\${up_file_sava_name}`)
+                        //file removed
+                    } catch (err) {
+                        err = "系统错误，请刷新页面后重试"
+                    }
+                    err = "请勿重复提交"
+                }
+                // 执行完成后也要调用callback，不需要参数
+                if (err == "请勿重复提交") {
+                    callback(err)
+                } else {
+                    callback();
+                }
             }
-        })
+        });
+    }, function (err) {
+        // 所有SQL执行完成后回调
+        if (err) {
+            return res.cc(err)
+        } else {
+            // 当前用户所填数据都成功后，说明当前周期对应的excel表已经填报完成， 则在user_fill插入一条记录，flag置为1， 说明该表
+            client.query(`insert into user_fill(id, user_id, fill_id,path) values('${user_fill_id}','${user.id}','1_1_1','${path}')`, function (err, result) {
+                if (err) return res.cc('填报错误,请稍后再试')
+                if (result.rowCount !== 1) return res.cc('填报失败,请稍后再试')
+                res.send({
+                    status: 0,
+                    message: "填报成功！！"
+                })
+                // console.log("SQL全部执行成功");
+            })
+        }
+    })
 
 
 }
@@ -286,10 +297,11 @@ exports.disci_funds_sub = function (req, res) {
             })
         } else {
             client.query(`insert into user_fill(id, user_id, fill_id, flag) values('${user_fill_id}','${user.id}','1_1_4',1)`, function (err, result) {
-                
-                if (err) 
-                {   console.log(err.message);
-                    return res.cc('系统繁忙,请稍后再试')}
+
+                if (err) {
+                    console.log(err.message);
+                    return res.cc('系统繁忙,请稍后再试')
+                }
                 if (result.rowCount !== 1) return res.cc('系统繁忙,请稍后再试')
                 res.send({
                     status: 0,
