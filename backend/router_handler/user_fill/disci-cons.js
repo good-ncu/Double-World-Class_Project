@@ -23,7 +23,7 @@ exports.progress_situation_sub = function (req, res) {
     user = req.user
     
     fil_id = '1_1_1'
-    path_ora = req.body.path
+        path_ora = req.body.path
 
     try {
         if (fs.existsSync(path_ora)) {
@@ -68,10 +68,10 @@ exports.progress_situation_sub = function (req, res) {
                     // 删除文件  没做 
 
                     
-                    err = "请勿重复提交"
+                    err = "请勿重复提交!"
                 }
                 // 执行完成后也要调用callback，不需要参数
-                if (err == "请勿重复提交") {
+                if (err == "请勿重复提交!") {
                     callback(err)
                 } else {
                     callback();

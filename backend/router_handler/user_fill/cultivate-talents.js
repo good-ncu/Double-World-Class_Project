@@ -308,10 +308,10 @@ exports.political_edu_word_sub = function (req, res) {
                 if (results.rows.length !== 0 && results.rows[0].flag == 1) {
                     // 删除文件  没做
                      
-                    err = "请勿重复提交"
+                    err = "请勿重复提交!"
                 }
                 // 执行完成后也要调用callback，不需要参数
-                if (err == "请勿重复提交") {
+                if (err == "请勿重复提交!") {
                     callback(err)
                 } else {
                     callback();
@@ -682,10 +682,10 @@ exports.major_class_situation_sub = function (req, res) {
                 if (results.rows.length !== 0 && results.rows[0].flag == 1) {
                     // 删除文件 没做
                     
-                    err = "请勿重复提交"
+                    err = "请勿重复提交!"
                 }
                 // 执行完成后也要调用callback，不需要参数
-                if (err == "请勿重复提交") {
+                if (err == "请勿重复提交!") {
                     callback(err)
                 } else {
                     callback();
