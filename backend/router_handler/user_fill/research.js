@@ -345,7 +345,7 @@ var fs = require('fs');
         const strUUID = uuidv4(); // ⇨ '1b9d6bcd-bbfd-4b2d-9b5d-ab8dfbbd4bed'
         const strUUID2 = strUUID.replace(/-/g, '');       // 去掉-字符
         sqls[i+1] = `INSERT INTO tch_award(id, univ_code, discipline_code, yr, award_name, tch_name, level, grade, award_eval_org, award_eval_org_type, path, user_fill_id) 
-        VALUES ('${strUUID2}','${user.univ_code}','${user.discipline_code}', ${submit_info[i].yr}, '${submit_info[i].award_name}', '${submit_info[i].tch_name}', '省部级', '${submit_info[i].yr}', '${submit_info[i].grade}', '${submit_info[i].award_eval_org}', NULL, '${user_fill_id}');`
+        VALUES ('${strUUID2}','${user.univ_code}','${user.discipline_code}', ${submit_info[i].yr}, '${submit_info[i].award_name}', '${submit_info[i].tch_name}', '省部级', '${submit_info[i].grade}', '${submit_info[i].award_eval_org}','${submit_info[i].award_eval_org_type}', NULL, '${user_fill_id}');`
         
     }
 
