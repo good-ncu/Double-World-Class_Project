@@ -475,7 +475,7 @@ exports.deal_table_3_3_1=function(req,res,next){
     let excel_content = ex[0].data	//下方ex1是读取出来的数组，数组长度取决于Excel文件的工作表(sheet),取出excel文件中的第一个工作表中的全部数据
     let tch_name = 'tch_name' ;
     let jour_name = 'jour_name' ;let in_jour_code = 'in_jour_code' ;let out_jour_code = 'out_jour_code' ;
-    let jour_collec = 'jour_collec' ;let pos = 'pos' ;let tenure = 'tenure' ;
+    let jour_collect = 'jour_collect' ;let pos = 'pos' ;let tenure = 'tenure' ;
     excel_content.splice(0,3)	//一般来说表中的第一条数据可能是标题没有用，所以删掉
     /**将读取的数据处理成json格式 */
     var data=[]
@@ -488,7 +488,7 @@ exports.deal_table_3_3_1=function(req,res,next){
         data[i][jour_name]=excel_content[i][1];
         data[i][out_jour_code]=excel_content[i][2];
         data[i][in_jour_code]=excel_content[i][3];
-        data[i][jour_collec]=excel_content[i][4];
+        data[i][jour_collect]=excel_content[i][4];
         data[i][pos]=excel_content[i][5];
         data[i][tenure]=excel_content[i][6];
     }

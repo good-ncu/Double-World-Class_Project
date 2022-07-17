@@ -45,7 +45,7 @@ exports.progress_situation_sub = function (req, res) {
             return res.cc("请先选择文件再点击提交")
         }
     } catch (err) {
-        return res.cc(err)
+        return res.cc('上传失败，请稍后再试')   
     }
 
 
