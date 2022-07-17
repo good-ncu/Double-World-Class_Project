@@ -578,7 +578,7 @@ exports.honor_counts_word_sub = function (req, res) {
         const strUUID = uuidv4(); // ⇨ '1b9d6bcd-bbfd-4b2d-9b5d-ab8dfbbd4bed'
         const strUUID2 = strUUID.replace(/-/g, '');       // 去掉-字符
         sqls[i+1] = `INSERT INTO foreign_fulltch(id, univ_code, discipline_code,user_fill_id,yr, sum_full_ftch, sum_high_title, lang_full_ftch, lang_high_title, prof_full_ftch, prof_high_title) 
-        VALUES ('${strUUID2}','${user.univ_code}','${user.discipline_code}','${user_fill_id}',${submit_info[i].yr},${submit_info[i].sum_full_ftch},${submit_info[i].sum_high_title},
+        VALUES ('${strUUID2}','${user.univ_code}','${user.discipline_code}','${user_fill_id}','${submit_info[i].yr}',${submit_info[i].sum_full_ftch},${submit_info[i].sum_high_title},
         ${submit_info[i].lang_full_ftch},${submit_info[i].lang_high_title},${submit_info[i].prof_full_ftch},${submit_info[i].prof_high_title})`
         // console.log(sqls[i])
     }
