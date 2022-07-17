@@ -448,7 +448,7 @@ exports.honor_counts_word_sub = function (req, res) {
         const strUUID2 = strUUID.replace(/-/g, '');       // 去掉-字符
         sqls[i+1] = `INSERT INTO fulltch(id, univ_code, discipline_code,user_fill_id,yr, full_tch_num, ageblow25, age2535, age3645, 
         age4660, ageup60, senior, sub_senior, mid_grade, other_grade, phd, m_degree, b_degree) 
-        VALUES ('${strUUID2}','${user.univ_code}','${user.discipline_code}','${user_fill_id}',${submit_info[i].yr},${submit_info[i].full_tch_num},${submit_info[i].ageblow25},${submit_info[i].age2535},
+        VALUES ('${strUUID2}','${user.univ_code}','${user.discipline_code}','${user_fill_id}','${submit_info[i].yr}',${submit_info[i].full_tch_num},${submit_info[i].ageblow25},${submit_info[i].age2535},
         ${submit_info[i].age3645},${submit_info[i].age4660},${submit_info[i].ageup60},${submit_info[i].senior},${submit_info[i].sub_senior},${submit_info[i].mid_grade},${submit_info[i].other_grade},${submit_info[i].phd},${submit_info[i].m_degree},${submit_info[i].b_degree})`
      }
 
