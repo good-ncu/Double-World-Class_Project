@@ -82,6 +82,10 @@ exports.show_tables = function(req,res) {
                         return res.cc('系统繁忙,请稍后再试')
                     } else {
                         console.log(return_tables);
+                        // 对结果重新排序
+                        return_tables.sort(function sortFlag(a,b){
+                            return a.is_filled-b.is_filled;
+                        })
                         return res.send({
                             status: 0,
                             tables: return_tables
