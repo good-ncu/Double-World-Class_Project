@@ -37,6 +37,7 @@ exports.query_all_discipline = function (req, res) {
     AND user_info.discipline_code=discipline.discipline_code
     AND user_info.univ_code='${userinfo.univ_code}'
     AND user_fill.fill_id IN (SELECT id FROM fill WHERE fill.flag=1)
+    AND user_fill.is_delete=0
     GROUP BY user_info.discipline_code,discipline.discipline_name,user_fill.user_id
     HAVING COUNT(user_fill.user_id) = (SELECT COUNT(fill.flag) FROM fill WHERE fill.flag=1)
     ORDER BY discipline.discipline_name`
