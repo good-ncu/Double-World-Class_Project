@@ -11,7 +11,7 @@ exports.show_tables = function(req,res) {
     subinfo = req.body.data
     univ_name = subinfo[0].univ_name
     discipline_name = subinfo[0].discipline_name
-    client.query(`select * from univ_discipline where univ_name = '${univ_name}' and discipline_name = '${discipline_name}'`, function(err, results){
+    client.query(`select * from univ_discipline where univ_name = '${univ_name}' and discipline_name = '${discipline_name}' `, function(err, results){
         if(err){
             console.log(err);
             return res.cc('系统繁忙，请稍后再试')
@@ -33,7 +33,7 @@ exports.show_tables = function(req,res) {
                 return res.cc('无此学校学科信息')
             }
             user_id = results.rows[0].id
-            client.query('select * from fill where flag = 1', function(err,results){
+            client.query('select * from fill where flag = 1 order by id', function(err,results){
                 if(err){
                     console.log(err);
                     return res.cc('系统繁忙，请稍后重试')
