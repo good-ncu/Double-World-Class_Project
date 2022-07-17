@@ -217,7 +217,7 @@ exports.political_edu_sub = function(req,res){
     for(let i=0,len=submit_info.length;i<len;i++){ 
         const strUUID = uuidv4(); // ⇨ '1b9d6bcd-bbfd-4b2d-9b5d-ab8dfbbd4bed'
         const strUUID2 = strUUID.replace(/-/g, '');       // 去掉-字符
-        sqls[i+1] = `insert into think_edu_proj(id, proj_type, proj_person, proj_year, univ_code, discipline_code, path, user_fill_id) values('${strUUID2}','${submit_info[i].project_type}','${submit_info[i].project_person}','${submit_info[i].project_year}','${user.univ_code}','${user.discipline_code}',NULL,'${user_fill_id}')`
+        sqls[i+1] = `insert into think_edu_proj(id, project_type, project_person, project_year, univ_code, discipline_code, path, user_fill_id) values('${strUUID2}','${submit_info[i].project_type}','${submit_info[i].project_person}','${submit_info[i].project_year}','${user.univ_code}','${user.discipline_code}',NULL,'${user_fill_id}')`
     }
     async.eachSeries(sqls, function (item, callback) {
         // 遍历每条SQL并执行
@@ -287,10 +287,7 @@ exports.political_edu_word_sub = function (req, res) {
             return res.cc("请先选择文件再点击提交")
         }
     } catch (err) {
-        var flag = 1    
-    }
-    if (flag = 1){
-        return res.cc('上传失败，请稍后再试')
+        return res.cc('上传失败，请稍后再试')   
     }
 
 
@@ -665,11 +662,9 @@ exports.major_class_situation_sub = function (req, res) {
             return res.cc("请先选择文件再点击提交")
         }
     } catch (err) {
-        var flag = 1    
+        return res.cc('上传失败，请稍后再试')   
     }
-    if (flag = 1){
-        return res.cc('上传失败，请稍后再试')
-    }
+
 
 
     var sqls = []
