@@ -63,7 +63,7 @@ const data_4_1_3_0 = joi.array().items(
         paper_au:joi.string().min(1).max(200).required().error(new Error('作者姓名填报错误！')),
         jour_name:joi.string().min(1).max(200).required().error(new Error('发表期刊填报错误！')),
         yr_mth_volum:joi.string().min(1).required().error(new Error('发表年月及期刊卷（期）数填报错误！')),
-        remarks: joi.string().max(200).allow("").required().error(new Error('备注在200字以内！')),
+        remarks: joi.string().max(200).allow("").error(new Error('备注在200字以内！')),
 
         quarter:joi.string().valid('第一季度','第二季度','第三季度','第四季度').error(new Error('填报季度填报错误！')),
         jour_level:joi.string().valid('国内外顶级期刊','国内重要期刊','其他重要期刊').error(new Error('期刊级别填报错误！')),
@@ -82,7 +82,7 @@ const data_4_1_3_1 = joi.array().items(
         paper_au:joi.string().min(1).max(200).required().error(new Error('作者姓名填报错误！')),
         jour_name:joi.string().min(1).max(100).required().error(new Error('发表期刊填报错误！')),
         yr_mth_volum:joi.string().min(1).required().error(new Error('发表年月及期刊卷（期）数填报错误！')),
-        remarks: joi.string().max(200).allow("").error(new Error('备注在200字以内！')),
+        remarks: joi.string().max(200).allow("").required().error(new Error('备注在200字以内！')),
 
         jour_level:joi.string().valid('国内外顶级期刊','国内重要期刊','其他重要期刊').error(new Error('期刊级别填报错误！')),
         publish_yr_mth:joi.string().pattern(/^(2[0][2][1-9])-(0[1-9]|1[0-2])$/).error(new Error('发表年月填写错误！')),
@@ -101,7 +101,7 @@ const data_4_1_3_2 = joi.array().items(
         paper_au:joi.string().min(1).max(200).required().error(new Error('作者姓名填报错误！')),
         jour_name:joi.string().min(1).max(100).required().error(new Error('发表期刊填报错误！')),
         yr_mth_volum:joi.string().min(1).required().error(new Error('发表年月及期刊卷（期）数填报错误！')),
-        remarks: joi.string().max(200).allow("").error(new Error('备注在200字以内！')),
+        remarks: joi.string().max(200).allow("").required().error(new Error('备注在200字以内！')),
 
         jour_level:joi.string().valid('国内外顶级期刊','国内重要期刊','其他重要期刊').error(new Error('期刊级别填报错误！')),
         publish_yr_mth:joi.string().pattern(/^(2[0][2][1-9])-(0[1-9]|1[0-2])$/).error(new Error('发表年月填写错误！')),
@@ -120,7 +120,7 @@ const data_4_1_3_3 = joi.array().items(
         paper_au:joi.string().min(1).max(200).required().error(new Error('作者姓名填报错误！')),
         jour_name:joi.string().min(1).max(100).required().error(new Error('发表期刊填报错误！')),
         yr_mth_volum:joi.string().min(1).required().error(new Error('发表年月及期刊卷（期）数填报错误！')),
-        remarks: joi.string().max(200).allow("").error(new Error('备注在200字以内！')),
+        remarks: joi.string().max(200).allow("").required().error(new Error('备注在200字以内！')),
 
         jour_level:joi.string().valid('国内外顶级期刊','国内重要期刊','其他重要期刊').error(new Error('期刊级别填报错误！')),
         publish_yr_mth:joi.string().pattern(/^(2[0][2][1-9])-(0[1-9]|1[0-2])$/).error(new Error('发表年月填写错误！')),
@@ -136,7 +136,7 @@ const data_4_1_4 = joi.array().items(
        quarter:joi.string().valid('第一季度','第二季度','第三季度','第四季度').required().error(new Error('填报季度填报错误！')),
        major_desg_or_show_name:joi.string().min(1).required().error(new Error('国内外重大设计或展演名称填报错误！')),
        parti_date:joi.string().pattern(/^(2[0][2][1-9])-(0[1-9]|1[0-2])$/).required().error(new Error('参与时间（年月）填写错误！')),
-       task: joi.string().max(200).allow("").required().error(new Error('任务填写错误！')),
+       task: joi.string().max(200).required().error(new Error('任务填写错误！')),
    }
    )
 )
