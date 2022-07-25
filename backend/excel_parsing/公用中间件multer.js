@@ -33,19 +33,35 @@ exports.upload_file_callback = function(req,res,next){
 // }
 
 
+// exports.tempupload_word_file_callback = function(req,res,next){
+
+// 	 let upload=multer({dest: '/root/syl_backend/temp_upload/'}).single('file')
+// 	// let upload=multer({dest: 'D:\\project\\temp_upload'}).single('file')
+    
+// 	upload(req,res,(err)=>{
+// 		if(err){
+// 	        res.send("err:"+err);
+// 	    }else{
+
+// 	        //将文件信息赋值到req.body中，继续执行下一步
+// 	        // req.body.photo=req.file.filename;
+// 	        next();
+// 	    }
+// 	})
+// }
 exports.tempupload_word_file_callback = function(req,res,next){
 
-	 let upload=multer({dest: '/root/syl_backend/temp_upload/'}).single('file')
-	// let upload=multer({dest: 'D:\\project\\temp_upload'}).single('file')
-    
-	upload(req,res,(err)=>{
-		if(err){
-	        res.send("err:"+err);
-	    }else{
+	let upload=multer({dest: '/root/syl_backend/temp_upload/'}).single('file')
+//    let upload=multer({dest: 'D:\\project\\temp_upload\\'}).array('file')
+   console.log("abcdefg");
+   upload(req,res,(err)=>{
+	   if(err){
+		   res.send("err:"+err);
+	   }else{
 
-	        //将文件信息赋值到req.body中，继续执行下一步
-	        // req.body.photo=req.file.filename;
-	        next();
-	    }
-	})
+		   //将文件信息赋值到req.body中，继续执行下一步
+		   // req.body.photo=req.file.filename;
+		   next();
+	   }
+   })
 }

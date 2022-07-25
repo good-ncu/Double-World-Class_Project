@@ -560,28 +560,36 @@ var fs = require('fs');
     fil_id = '5_4_1'
     
     path_temp = req.body.path
-    path_ora = '/root/syl_backend/temp_upload/' + path_temp
+    // 先判断前端传来的path数组有无字段，无则直接return
+    if (path_temp.length == 0){
+        return res.cc("请先选择文件再点击提交！")
+    }
+    var path_ora = []
+    var path = []
+    // for循环， 每一个循环都是移动一个文件从temp_upload 到 upload文件
+    for (let i = 0, len = path_temp.length; i < len; i++) {
+        path_ora[i] = '/root/syl_backend/temp_upload/' + path_temp[i]
+        // path_ora[i] = 'D:\\project\\temp_upload\\' + path_temp[i]
 
-    try {
-        if (fs.existsSync(path_ora) && path_temp!='') {
-            path = path_ora.replace("temp_", "");
-            console.log(path_ora)
-            console.log(path)
-            //file exists
-            fs.rename(path_ora, path, function (err) {
-                if (path_ora)
-                    if (err) err = '上传失败，请稍后再试'
-                fs.stat(path, function (err, stats) {
-                    console.log('stats: ' + JSON.stringify(stats));
-                    if (err) err = '上传失败，请稍后再试'
+        try {
+            if (fs.existsSync(path_ora[i]) && path_temp[i] != '') {
+                path.push(path_ora[i].replace("temp_", ""))
+                //file exists
+                fs.rename(path_ora[i], path[i], function (err) {
+                    if (path_ora[i])
+                        if (err) err = '文件上传失败，请稍后再试'
+                    fs.stat(path[i], function (err, stats) {
+                        console.log('stats: ' + JSON.stringify(stats));
+                        if (err) err = '文件上传失败，请稍后再试'
+                    });
                 });
-            });
-        
-        }else {
-            return res.cc("请先选择文件再点击提交")
+
+            } else {
+                return res.cc("您提交的第"+(i+1)+"个文件不存在，请稍后再试")
+            }
+        } catch (err) {
+            return res.cc('第'+(i+1)+'个文件上传失败，请稍后再试')
         }
-    } catch (err) {
-        return res.cc('上传失败，请稍后再试')   
     }
 
 
@@ -644,28 +652,36 @@ exports.fwgj_sub = function (req, res) {
     fil_id = '5_4_2'
     
     path_temp = req.body.path
-    path_ora = '/root/syl_backend/temp_upload/' + path_temp
+    // 先判断前端传来的path数组有无字段，无则直接return
+    if (path_temp.length == 0){
+        return res.cc("请先选择文件再点击提交！")
+    }
+    var path_ora = []
+    var path = []
+    // for循环， 每一个循环都是移动一个文件从temp_upload 到 upload文件
+    for (let i = 0, len = path_temp.length; i < len; i++) {
+        path_ora[i] = '/root/syl_backend/temp_upload/' + path_temp[i]
+        // path_ora[i] = 'D:\\project\\temp_upload\\' + path_temp[i]
 
-    try {
-        if (fs.existsSync(path_ora) && path_temp!='') {
-            path = path_ora.replace("temp_", "");
-            console.log(path_ora)
-            console.log(path)
-            //file exists
-            fs.rename(path_ora, path, function (err) {
-                if (path_ora)
-                    if (err) err = '上传失败，请稍后再试'
-                fs.stat(path, function (err, stats) {
-                    console.log('stats: ' + JSON.stringify(stats));
-                    if (err) err = '上传失败，请稍后再试'
+        try {
+            if (fs.existsSync(path_ora[i]) && path_temp[i] != '') {
+                path.push(path_ora[i].replace("temp_", ""))
+                //file exists
+                fs.rename(path_ora[i], path[i], function (err) {
+                    if (path_ora[i])
+                        if (err) err = '文件上传失败，请稍后再试'
+                    fs.stat(path[i], function (err, stats) {
+                        console.log('stats: ' + JSON.stringify(stats));
+                        if (err) err = '文件上传失败，请稍后再试'
+                    });
                 });
-            });
-        
-        }else {
-            return res.cc("请先选择文件再点击提交")
+
+            } else {
+                return res.cc("您提交的第"+(i+1)+"个文件不存在，请稍后再试")
+            }
+        } catch (err) {
+            return res.cc('第'+(i+1)+'个文件上传失败，请稍后再试')
         }
-    } catch (err) {
-        return res.cc('上传失败，请稍后再试')   
     }
 
 

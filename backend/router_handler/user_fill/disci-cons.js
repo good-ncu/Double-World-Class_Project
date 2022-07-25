@@ -13,6 +13,7 @@ const async = require('async');
 const { query } = require('express');
 var fs = require('fs');
 const { timeStamp } = require('console');
+const { patch } = require('../../router/user_fill/disci-cons');
 
 /**
  * 文档1-1-1 学科建设进展情况写实 
@@ -21,34 +22,44 @@ const { timeStamp } = require('console');
  */
 exports.progress_situation_sub = function (req, res) {
     user = req.user
-    
+
     fil_id = '1_1_1'
     path_temp = req.body.path
-    path_ora = '/root/syl_backend/temp_upload/' + path_temp
-
-    try {
-        if (fs.existsSync(path_ora) && path_temp!='') {
-            path = path_ora.replace("temp_", "");
-            console.log(path_ora)
-            console.log(path)
-            //file exists
-            fs.rename(path_ora, path, function (err) {
-                if (path_ora)
-                    if (err) err = '上传失败，请稍后再试'
-                fs.stat(path, function (err, stats) {
-                    console.log('stats: ' + JSON.stringify(stats));
-                    if (err) err = '上传失败，请稍后再试'
-                });
-            });
-        
-        }else {
-            return res.cc("请先选择文件再点击提交")
-        }
-    } catch (err) {
-        return res.cc('上传失败，请稍后再试')   
+    // 先判断前端传来的path数组有无字段，无则直接return
+    if (path_temp.length == 0){
+        return res.cc("请先选择文件再点击提交！")
     }
+    var path_ora = []
+    var path = []
+    // for循环， 每一个循环都是移动一个文件从temp_upload 到 upload文件
+    for (let i = 0, len = path_temp.length; i < len; i++) {
+        path_ora[i] = '/root/syl_backend/temp_upload/' + path_temp[i]
+        // path_ora[i] = 'D:\\project\\temp_upload\\' + path_temp[i]
 
+        try {
+            if (fs.existsSync(path_ora[i]) && path_temp[i] != '') {
+                path.push(path_ora[i].replace("temp_", ""))
+                // console.log(path_ora[i])
+                // console.log(path[i])
+                // console.log("1111111111111111111111111111111111111111111111111")
+                // console.log(path_ora[1])
+                //file exists
+                fs.rename(path_ora[i], path[i], function (err) {
+                    if (path_ora[i])
+                        if (err) err = '文件上传失败，请稍后再试'
+                    fs.stat(path[i], function (err, stats) {
+                        console.log('stats: ' + JSON.stringify(stats));
+                        if (err) err = '文件上传失败，请稍后再试'
+                    });
+                });
 
+            } else {
+                return res.cc("您提交的第"+(i+1)+"个文件不存在，请稍后再试")
+            }
+        } catch (err) {
+            return res.cc('第'+(i+1)+'个文件上传失败，请稍后再试')
+        }
+    }
 
     var sqls = []
     sqls.push(`SELECT * FROM user_fill WHERE user_id='${user.id}' AND fill_id = '1_1_1' AND flag=1`)
@@ -68,7 +79,7 @@ exports.progress_situation_sub = function (req, res) {
                 if (results.rows.length !== 0 && results.rows[0].flag == 1) {
                     // 删除文件  没做 
 
-                    
+
                     err = "请勿重复提交!"
                 }
                 // 执行完成后也要调用callback，不需要参数
