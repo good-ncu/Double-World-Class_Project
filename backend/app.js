@@ -49,6 +49,10 @@ app.use(expressJWT({secret: config.jwtSecretKey,algorithms: ['HS256']}).unless({
 const userRouter = require('./router/user')
 app.use('/api', userRouter)
 
+// 导入并使用用户暂存模块
+const user_save = require('./router/user_fill/user_save')
+app.use('/api', user_save)
+
 // 导入并使用主页展示指标模块
 const chart_show = require('./router/query/chart')
 app.use('/api/chart',chart_show)
