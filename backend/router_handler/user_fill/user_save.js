@@ -56,6 +56,7 @@ exports.user_save_show = function(req,res){
         }
         filepath = results.rows[0].path
         fs.readFileSync(filepath, 'utf-8', (err,data)=>{
+            console.log("=======");
             if(err){
                 console.log(err);
                 return res.cc('系统繁忙,请稍后再试')
