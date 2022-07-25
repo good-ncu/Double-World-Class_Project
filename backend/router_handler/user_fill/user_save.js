@@ -40,6 +40,7 @@ exports.user_save_sub = function(req,res){
 
 exports.user_save_show = function(req,res){
     fill_id = req.body.fill_id
+    console.log(fill_id);
     user = req.user
     client.query(`select * from user_save where user_id = '${user.id}' and fill_id = '${fill_id}'`, function(err, results){
         if(err){
