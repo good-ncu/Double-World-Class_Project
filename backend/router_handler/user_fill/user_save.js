@@ -56,13 +56,13 @@ exports.user_save_show = function(req,res){
         }
         filepath = results.rows[0].path
         console.log(filepath);
-        fs.readFileSync(filepath, 'utf-8', (err,data)=>{
-            console.log("=======");
+        fs.readFile(filepath, 'utf-8', (err,content)=>{
             if(err){
                 console.log(err);
                 return res.cc('系统繁忙,请稍后再试')
             }     
-            json_data = JSON.parse(data.toString())
+            json_data = JSON.parse(content.toString())
+            console.log(json_data);
             return res.send({
                 status: 0,
                 data: json_data
