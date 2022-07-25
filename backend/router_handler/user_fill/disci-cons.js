@@ -13,7 +13,7 @@ const async = require('async');
 const { query } = require('express');
 var fs = require('fs');
 const { timeStamp } = require('console');
-const { patch } = require('../../router/user_fill/disci-cons');
+
 
 /**
  * 文档1-1-1 学科建设进展情况写实 
