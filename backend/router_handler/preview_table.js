@@ -10,7 +10,12 @@ exports.preview_table = function(req,res){
 exports.preview_word = function(req,res){
     user = req.user
 	const up_file = req.file
-    var file_sava_name = user.id + '_'  + new Date().getTime() + '.docx'
+    
+    orname =  up_file.originalname
+    var index = orname .lastIndexOf(".");  
+    orname  = orname .substring(index + 1, orname .length);
+    var file_sava_name = user.id + '_'  + new Date().getTime() + orname
+
     a = up_file.destination+file_sava_name
     fs.renameSync(up_file.path, a)
     // req.body.file_sava_name = file_sava_name 
