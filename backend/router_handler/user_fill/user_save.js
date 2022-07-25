@@ -55,6 +55,7 @@ exports.user_save_show = function(req,res){
             })
         }
         filepath = results.rows[0].path
+        console.log(filepath);
         fs.readFileSync(filepath, 'utf-8', (err,data)=>{
             console.log("=======");
             if(err){
