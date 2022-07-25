@@ -22,9 +22,9 @@ exports.user_save_sub = function(req,res){
             console.log(err);
             res.cc('系统繁忙，请稍后再试');
         }
-        console.log(user.id+"暂存"+fill_id+"数据");
     }
     )
+    console.log(user.id+"暂存"+fill_id+"数据");
 
     // 记录sql
     client.query(`insert into user_save(id,user_id,fill_id,path) values ('${user_save_id}', '${user.id}', '${fill_id}', '${filepath}')`, function (err, result){
@@ -32,10 +32,40 @@ exports.user_save_sub = function(req,res){
             console.log(err.message);
             return res.cc('系统繁忙,请稍后再试')
         }
-        res.send({
+        return res.send({
             status: 0,
             message: "暂存成功！！"
         })
     })
         
+}
+
+exports.user_save_show = function(req,res){
+    fill_id = req.body.fill_id
+    user = req.user
+    client.query(`select * from user_save where user_id = '${user.id}' and fill_id = '${fill_id}'`, function(err, results){
+        if(err){
+            console.log(err.message);
+            return res.cc('系统繁忙,请稍后再试')
+        }
+        if (result.rowCount == 0){
+            console.log(user.id+"没有暂存"+fill_id+"数据");
+            return res.send({
+                status: 0,
+                data: ""
+            })
+        }
+        filepath = results.rows[0].path
+        fs.readFileSync(filepath, 'utf-8', (err,data)=>{
+            if(err){
+                console.log(err);
+                return res.cc('系统繁忙,请稍后再试')
+            }     
+            json_data = JSON.parse(data.toString())
+            return res.send({
+                status: 0,
+                data: json_data
+            })
+        })
+    })
 }
