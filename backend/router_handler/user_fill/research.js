@@ -464,10 +464,14 @@ var fs = require('fs');
     var user_fill_id = uuidv4().replace(/-/g, '')
     sqls.push(`SELECT * FROM user_fill WHERE user_id='${user.id}' AND fill_id = '4_1_3_0' AND flag=1`)
     for (let i = 0, len = submit_info.length; i < len; i++) {
+        if(submit_info[i].remarks==undefined) {
+            console.log("备注为undefined，转为空");
+            submit_info[i].remarks = ""
+        }
         const strUUID = uuidv4(); // ⇨ '1b9d6bcd-bbfd-4b2d-9b5d-ab8dfbbd4bed'
         const strUUID2 = strUUID.replace(/-/g, '');       // 去掉-字符
         sqls[i+1] = `INSERT INTO tch_paper(id, univ_code, discipline_code, yr, paper_title, paper_au, jour_name, jour_level, yr_mth_volum, remarks, path, user_fill_id) 
-        VALUES ('${strUUID2}','${user.univ_code}','${user.discipline_code}', ${submit_info[i].yr}, '${submit_info[i].paper_title}', '${submit_info[i].paper_au}', '${submit_info[i].jour_name}', '${submit_info[i].jour_level}', '${submit_info[i].yr_mth_volum}', '${submit_info[i].remarks}', NULL, '${user_fill_id}');`
+        VALUES ('${strUUID2}','${user.univ_code}','${user.discipline_code}', ${submit_info[i].yr}, '${submit_info[i].paper_title}', '${submit_info[i].paper_au}', '${submit_info[i].jour_name}', '国内外顶级期刊', '${submit_info[i].yr_mth_volum}', '${submit_info[i].remarks}', NULL, '${user_fill_id}');`
         
     }
     async.eachSeries(sqls, function (item, callback) {
@@ -524,11 +528,15 @@ var fs = require('fs');
     var user_fill_id = uuidv4().replace(/-/g, '')
     sqls.push(`SELECT * FROM user_fill WHERE user_id='${user.id}' AND fill_id = '4_1_3_1' AND flag=1`)
     for (let i = 0, len = submit_info.length; i < len; i++) {
+        if(submit_info[i].remarks==undefined) {
+            console.log("备注为undefined，转为空");
+            submit_info[i].remarks = ""
+        }
         const strUUID = uuidv4(); // ⇨ '1b9d6bcd-bbfd-4b2d-9b5d-ab8dfbbd4bed'
         const strUUID2 = strUUID.replace(/-/g, '');       // 去掉-字符
         sqls[i+1] = `INSERT INTO tch_paper(id, univ_code, discipline_code, yr, quarter, paper_title, paper_au, jour_name, jour_level, yr_mth_volum, remarks, path, user_fill_id) 
         VALUES ('${strUUID2}','${user.univ_code}','${user.discipline_code}', ${submit_info[i].yr}, '${submit_info[i].quarter}', 
-        '${submit_info[i].paper_title}', '${submit_info[i].paper_au}', '${submit_info[i].jour_name}', '${submit_info[i].jour_level}', '${submit_info[i].yr_mth_volum}', '${submit_info[i].remarks}', NULL, '${user_fill_id}');`
+        '${submit_info[i].paper_title}', '${submit_info[i].paper_au}', '${submit_info[i].jour_name}', '国内外顶级期刊', '${submit_info[i].yr_mth_volum}', '${submit_info[i].remarks}', NULL, '${user_fill_id}');`
         
     }
 
@@ -588,11 +596,15 @@ var fs = require('fs');
     var user_fill_id = uuidv4().replace(/-/g, '')
     sqls.push(`SELECT * FROM user_fill WHERE user_id='${user.id}' AND fill_id = '4_1_3_2' AND flag=1`)
     for (let i = 0, len = submit_info.length; i < len; i++) {
+        if(submit_info[i].remarks==undefined) {
+            console.log("备注为undefined，转为空");
+            submit_info[i].remarks = ""
+        }
         const strUUID = uuidv4(); // ⇨ '1b9d6bcd-bbfd-4b2d-9b5d-ab8dfbbd4bed'
         const strUUID2 = strUUID.replace(/-/g, '');       // 去掉-字符
         sqls[i+1] = `INSERT INTO tch_paper(id, univ_code, discipline_code, yr, quarter, paper_title, paper_au, jour_name, jour_level, yr_mth_volum, remarks, path, user_fill_id) 
         VALUES ('${strUUID2}','${user.univ_code}','${user.discipline_code}', ${submit_info[i].yr}, '${submit_info[i].quarter}', 
-        '${submit_info[i].paper_title}', '${submit_info[i].paper_au}', '${submit_info[i].jour_name}', '${submit_info[i].jour_level}', '${submit_info[i].yr_mth_volum}', '${submit_info[i].remarks}', NULL, '${user_fill_id}');`
+        '${submit_info[i].paper_title}', '${submit_info[i].paper_au}', '${submit_info[i].jour_name}', '国内外重要期刊', '${submit_info[i].yr_mth_volum}', '${submit_info[i].remarks}', NULL, '${user_fill_id}');`
         
     }
 
@@ -636,7 +648,7 @@ var fs = require('fs');
 }
 
 /**
- * 表4-1-3-3 教师国内外其它期刊的论文存量 情况处理函数
+ * 表4-1-3-3 教师国内外其它重要期刊的论文存量 情况处理函数
  * @param {*} req 
  * @param {*} res 
  */
@@ -650,11 +662,15 @@ var fs = require('fs');
     var user_fill_id = uuidv4().replace(/-/g, '')
     sqls.push(`SELECT * FROM user_fill WHERE user_id='${user.id}' AND fill_id = '4_1_3_3' AND flag=1`)
     for (let i = 0, len = submit_info.length; i < len; i++) {
+        if(submit_info[i].remarks==undefined) {
+            console.log("备注为undefined，转为空");
+            submit_info[i].remarks = ""
+        }
         const strUUID = uuidv4(); // ⇨ '1b9d6bcd-bbfd-4b2d-9b5d-ab8dfbbd4bed'
         const strUUID2 = strUUID.replace(/-/g, '');       // 去掉-字符
         sqls[i+1] = `INSERT INTO tch_paper(id, univ_code, discipline_code, yr, quarter, paper_title, paper_au, jour_name, jour_level, yr_mth_volum, remarks, path, user_fill_id) 
         VALUES ('${strUUID2}','${user.univ_code}','${user.discipline_code}', ${submit_info[i].yr}, '${submit_info[i].quarter}', 
-        '${submit_info[i].paper_title}', '${submit_info[i].paper_au}', '${submit_info[i].jour_name}', '${submit_info[i].jour_level}', '${submit_info[i].yr_mth_volum}', '${submit_info[i].remarks}', NULL, '${user_fill_id}');`
+        '${submit_info[i].paper_title}', '${submit_info[i].paper_au}', '${submit_info[i].jour_name}', '国内外其它重要期刊', '${submit_info[i].yr_mth_volum}', '${submit_info[i].remarks}', NULL, '${user_fill_id}');`
         
     }
 

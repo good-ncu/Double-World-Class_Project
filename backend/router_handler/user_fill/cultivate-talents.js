@@ -223,6 +223,7 @@ exports.political_edu_sub = function(req,res){
         // 遍历每条SQL并执行
         client.query(item, function (err, results) {
             if (err) {
+                console.log(err.message);
                 // 异常后调用callback并传入err
                 err = "系统错误，请刷新页面后重试"
                 callback(err);
@@ -853,7 +854,7 @@ exports.major_class_province_counts_sub = function(req,res){
         const strUUID = uuidv4(); // ⇨ '1b9d6bcd-bbfd-4b2d-9b5d-ab8dfbbd4bed'
         const strUUID2 = strUUID.replace(/-/g, '');       // 去掉-字符
         sqls[i+1]= `INSERT INTO talent_platbase_const(id, univ_code, discipline_code, head_name, plat_base_level, plat_base_type, plat_base_name, yr, is_delete, path,user_fill_id) 
-        VALUES ('${strUUID2}', '${user.univ_code}', '${user.discipline_code}', '${submit_info[i].head_name}',NULL, '${submit_info[i].plat_base_type}', '${submit_info[i].plat_base_name}', '${submit_info[i].yr}', 0, NULL,'${user_fill_id}');`
+        VALUES ('${strUUID2}', '${user.univ_code}', '${user.discipline_code}', '${submit_info[i].head_name}','国家级', '${submit_info[i].plat_base_type}', '${submit_info[i].plat_base_name}', '${submit_info[i].yr}', 0, NULL,'${user_fill_id}');`
 
     }
     async.eachSeries(sqls, function (item, callback) {
