@@ -15,9 +15,7 @@ exports.user_save_sub = function(req,res){
     // 写入文件内容（如果文件不存在会创建一个文件）
     filename = user.id + '_'  + fill_id
     filepath = '/root/syl_backend/temp_save/'+filename+'.json'
-    console.log(11111111111);
     fs.writeFileSync(filepath, JSON.stringify(data), function(err) {
-        console.log(22222222222);
         if (err) {
             console.log(err);
             res.cc('系统繁忙，请稍后再试');
@@ -48,7 +46,7 @@ exports.user_save_show = function(req,res){
             console.log(err.message);
             return res.cc('系统繁忙,请稍后再试')
         }
-        if (result.rowCount == 0){
+        if (results.rowCount == 0){
             console.log(user.id+"没有暂存"+fill_id+"数据");
             return res.send({
                 status: 0,
