@@ -12,6 +12,6 @@ router.get('/download-allexcels',download_handler.download_allexcels)
 router.get('/wordname-query-download',download_handler.download_query_wordname)
 
 // 下载用户选中 需要下载的文件， （一个请求只有一个下载，需要多各文件的下载需要多次发送请求）
-router.post('/word-filled-download',download_handler.download_filled_word)
+router.get('/word-filled-download',download_handler.download_filled_word)
 
 module.exports = router
