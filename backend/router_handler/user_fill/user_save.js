@@ -49,7 +49,7 @@ exports.user_save_show = function(req,res){
         if (results.rowCount == 0){
             console.log(user.id+"没有暂存"+fill_id+"数据");
             return res.send({
-                status: 0,
+                status: 2,
                 data: ""
             })
         }
