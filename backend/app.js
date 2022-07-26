@@ -40,7 +40,8 @@ app.use(expressJWT({secret: config.jwtSecretKey,algorithms: ['HS256']}).unless({
     /^\/api\/download/,
     /^\/api\/alluniv/,
     /^\/api\/alldiscipline/,
-    /^\/api\/download-report/
+    /^\/api\/download-report/,
+    /^\/api\/word-filled-download/
   ]
 }))
 

@@ -72,8 +72,8 @@ exports.download_excels = function (req, res) {
 exports.download_filled_word = function (req, res) {
     console.log("=============下载选中的文件================");
     // 表的id  如 1_1_1
-    user = req.user
-    var filename = req.body.filename
+    // user = req.user
+    var filename = req.query.filename
 
         
         var path = `/root/syl_backend/upload/${filename}`
