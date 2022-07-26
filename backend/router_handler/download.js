@@ -88,7 +88,7 @@ exports.download_filled_word = function (req, res) {
         res.writeHead(200, {
             'Access-Control-Expose-Headers': 'Authorization',
             'Content-Type': 'application/octet-stream;charset=utf8',
-            'Content-Disposition': "attachment;filename*=UTF-8''" + urlencode(filename) + '.xlsx'
+            'Content-Disposition': "attachment;filename*=UTF-8''" + urlencode(filename)
         });
         var opt = {
             flags: 'r'
