@@ -115,7 +115,7 @@ exports.download_query_wordname = function (req, res) {
 
     var filenameList = []
     // 根据表格id(1_1_1)去找它的中文名
-    const sql = `select path from user_fill where user_id = '${user.id}' AND fill_id = '${fill_id}' AND flag = 1 AND is_delete = 0`
+    const sql = `select path from user_fill where user_id = '${user.id}' AND fill_id = '${fill_id}' AND flag = 1 AND is_delete = 0 AND path!=''`
     console.log(sql);
     client.query(sql, function (err, results) {
         console.log(results.rows);
@@ -131,6 +131,7 @@ exports.download_query_wordname = function (req, res) {
         let all_path = results.rows[0].path
         // 转化为数组
         let all_path_arr = all_path.split(',');
+        
 
         for (let i = 0, len = all_path_arr.length; i < len; i++) {
             // 拿出所有文件名
