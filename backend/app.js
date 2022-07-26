@@ -37,10 +37,10 @@ const config = require('./config')
 app.use(expressJWT({secret: config.jwtSecretKey,algorithms: ['HS256']}).unless({
   path: [
     /^\/api\/login/,
-    // /^\/api\/download/,
+    /^\/api\/download/,
     /^\/api\/alluniv/,
-    /^\/api\/alldiscipline/
-    // /^\/api\/download-report/
+    /^\/api\/alldiscipline/,
+    /^\/api\/download-report/
   ]
 }))
 
