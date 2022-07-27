@@ -115,12 +115,10 @@ const data_2_2_2_4 = joi.array().items(
 //talent_platbase_const 
 const data_2_2_3_0 = joi.array().items(
     joi.object().keys({
-        plat_base_type:joi.string().valid('国家级人才培养平台').required().error(new Error('平台/基地类别填报错误！')),
+        plat_base_type:joi.string().valid('国家级人才培养平台','省部级人才培养平台').required().error(new Error('平台/基地类别填报错误！')),
         plat_base_name:joi.string().min(1).max(200).required().error(new Error('平台/基地名称填报错误！')),
         head_name:joi.string().min(1).max(100).required().error(new Error('负责人填报错误！')),
         yr:joi.number().integer().less(2021).greater(1950).required().error(new Error('获批年份填报错误！')),
-
-        plat_base_level:joi.string().valid('国家级','省级').error(new Error('平台/基地级别填报错误！')),
     }
     )
 )
@@ -131,8 +129,6 @@ const data_2_2_3_1 = joi.array().items(
         plat_base_name:joi.string().min(1).max(100).required().error(new Error('平台/基地名称填报错误！')),
         head_name:joi.string().min(1).max(13).required().error(new Error('负责人填报错误！')),
         yr:joi.number().integer().less(2029).greater(2020).required().error(new Error('获批填报错误！')),
-
-        plat_base_level:joi.string().valid('国家级').error(new Error('平台/基地级别填报错误！')),
     }
     )
 )
@@ -143,8 +139,6 @@ const data_2_2_3_2 = joi.array().items(
         plat_base_name:joi.string().min(1).max(100).required().error(new Error('平台/基地名称填报错误！')),
         head_name:joi.string().min(1).max(100).required().error(new Error('负责人填报错误！')),
         yr:joi.number().integer().less(2029).greater(2020).required().error(new Error('年度填报错误！')),
-
-        plat_base_level:joi.string().valid('省级').error(new Error('平台/基地级别填报错误！')),
     }
     )
 )
