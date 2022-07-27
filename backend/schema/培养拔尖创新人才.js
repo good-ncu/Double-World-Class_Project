@@ -12,8 +12,18 @@ const data_2_2_1_0 = joi.array().items(
     joi.object().keys({
         award_ltype:joi.string().valid('国家级教学成果奖','研究生教育成果奖','省级教学成果奖').required().error(new Error('成果奖级别填报错误！')),
         award_name:joi.string().min(1).max(200).required().error(new Error('成果名称填报错误！')),
-        award_type:joi.string().valid('国家级基础教育教学成果奖','国家级高等教育教学成果奖','国家级职业教育教学成果奖').required().error(new Error('奖项类型填报错误！')),
-        award_level:joi.string().valid('国家特等奖','国家一等奖','国家二等奖').required().error(new Error('奖项等级填报错误！')),
+        // award_type:joi.string().valid('国家级基础教育教学成果奖','国家级高等教育教学成果奖','国家级职业教育教学成果奖').required().error(new Error('奖项类型填报错误！')),
+        award_type:joi.string()
+        .when('award_ltype',{is:'国家级教学成果奖',then:joi.string().valid('国家级基础教育教学成果奖','国家级高等教育教学成果奖','国家级职业教育教学成果奖')})
+        .when('award_ltype',{is:'研究生教育成果奖',then:joi.string().valid('国家级基础教育教学成果奖','国家级高等教育教学成果奖','国家级职业教育教学成果奖')})
+        .when('award_ltype',{is:'省级教学成果奖',then:joi.string().valid('省级基础教育教学成果奖','省级高等教育教学成果奖','省级职业教育教学成果奖')})
+        .required().error(new Error('奖项类型填报错误！')),
+        // award_level:joi.string().valid('国家特等奖','国家一等奖','国家二等奖').required().error(new Error('奖项等级填报错误！')),
+        award_level:joi.string()
+        .when('award_ltype',{is:'国家级教学成果奖',then:joi.string().valid('国家特等奖','国家一等奖','国家二等奖')})
+        .when('award_ltype',{is:'研究生教育成果奖',then:joi.string().valid('国家特等奖','国家一等奖','国家二等奖')})
+        .when('award_ltype',{is:'省级教学成果奖',then:joi.string().valid('省级特等奖','省级一等奖','省级二等奖')})
+        .required().error(new Error('奖项等级填报错误！')),
         tch_name:joi.string().min(1).max(100).required().error(new Error('成果完成人姓名填报错误！')),
         award_date:joi.string().pattern(/^(1[9][5-9][0-9]|2[0][0-2][0-9]|2020)-(0[1-9]|1[0-2])$/).error(new Error('获奖时间填写错误！')),
     })

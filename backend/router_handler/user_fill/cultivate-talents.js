@@ -365,7 +365,8 @@ exports.edu_awards_num_counts_sub = function(req,res){
     for(let i=0,len=submit_info.length;i<len;i++){ 
         const strUUID = uuidv4(); // ⇨ '1b9d6bcd-bbfd-4b2d-9b5d-ab8dfbbd4bed'
         const strUUID2 = strUUID.replace(/-/g, '');       // 去掉-字符
-        sqls[i+1] = `INSERT INTO teaching_achv(id, award_level, award_type, award_date, award_name, award_ltype, tch_name, univ_code, discipline_code, path, user_fill_id) values('${strUUID2}','${submit_info[i].award_level}','${submit_info[i].award_type}','${submit_info[i].award_date}','${submit_info[i].award_name}','${submit_info[i].award_ltype}','${submit_info[i].tch_name}','${user.univ_code}','${user.discipline_code}',NULL,'${user_fill_id}')`
+        sqls[i+1] = `INSERT INTO teaching_achv(id, award_level, award_type, award_date, award_name, award_ltype, tch_name, univ_code, discipline_code, path, user_fill_id) 
+        values('${strUUID2}','${submit_info[i].award_level}','${submit_info[i].award_type}','${submit_info[i].award_date}','${submit_info[i].award_name}','${submit_info[i].award_ltype}','${submit_info[i].tch_name}','${user.univ_code}','${user.discipline_code}',NULL,'${user_fill_id}')`
 
     }
     async.eachSeries(sqls, function (item, callback) {
@@ -866,11 +867,18 @@ exports.major_class_province_counts_sub = function(req,res){
     var sqls = []
     var user_fill_id = uuidv4().replace(/-/g, '')
     sqls.push(`SELECT * FROM user_fill WHERE user_id='${user.id}' AND fill_id = '2_2_3_0' AND flag=1`)
+    var level
     for(let i=0,len=submit_info.length;i<len;i++){ 
+        if(submit_info[i].plat_base_type=='国家级人才培养平台'){
+            level = '国家级'
+        }
+        if(submit_info[i].plat_base_type=='省部级人才培养平台'){
+            level = '省部级'
+        }
         const strUUID = uuidv4(); // ⇨ '1b9d6bcd-bbfd-4b2d-9b5d-ab8dfbbd4bed'
         const strUUID2 = strUUID.replace(/-/g, '');       // 去掉-字符
         sqls[i+1]= `INSERT INTO talent_platbase_const(id, univ_code, discipline_code, head_name, plat_base_level, plat_base_type, plat_base_name, yr, is_delete, path,user_fill_id) 
-        VALUES ('${strUUID2}', '${user.univ_code}', '${user.discipline_code}', '${submit_info[i].head_name}','国家级', '${submit_info[i].plat_base_type}', '${submit_info[i].plat_base_name}', '${submit_info[i].yr}', 0, NULL,'${user_fill_id}');`
+        VALUES ('${strUUID2}', '${user.univ_code}', '${user.discipline_code}', '${submit_info[i].head_name}','${level}', '${submit_info[i].plat_base_type}', '${submit_info[i].plat_base_name}', '${submit_info[i].yr}', 0, NULL,'${user_fill_id}');`
 
     }
     async.eachSeries(sqls, function (item, callback) {
