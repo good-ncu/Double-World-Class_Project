@@ -51,7 +51,7 @@ exports.upload_file_callback = function(req,res,next){
 // }
 exports.tempupload_word_file_callback = function(req,res,next){
 
-	let upload=multer({dest: '/root/syl_backend/temp_upload/'}).single('file')
+	let upload=multer({dest: '/root/syl_backend/temp_upload/'}).array('file')
 //    let upload=multer({dest: 'D:\\project\\temp_upload\\'}).array('file')
    console.log("abcdefg");
    upload(req,res,(err)=>{

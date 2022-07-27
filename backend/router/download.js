@@ -8,4 +8,10 @@ router.get('/download',download_handler.download_excels)
 router.get('/download-report',download_handler.download_report)
 router.get('/download-allexcels',download_handler.download_allexcels)
 
+// 查是用户某表否上传了文件，返回上传的文件的文件名
+router.get('/wordname-query-download',download_handler.download_query_wordname)
+
+// 下载用户选中 需要下载的文件， （一个请求只有一个下载，需要多各文件的下载需要多次发送请求）
+router.get('/word-filled-download',download_handler.download_filled_word)
+
 module.exports = router
