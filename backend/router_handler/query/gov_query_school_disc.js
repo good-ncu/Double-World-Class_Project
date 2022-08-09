@@ -3,7 +3,7 @@
 const client = require('../../db/index')
 // 省厅 一流大学，一流学科  下拉菜单的内容
 exports.gov_query_school_disc = function (req, res) {
-    userinfo = req.user
+    // userinfo = req.user
     sql = `SELECT tag.subtag_name,univ_discipline.univ_code,univ_discipline.univ_name,univ_discipline.discipline_code,univ_discipline.discipline_name
     FROM univ_discipline
     INNER JOIN tag ON univ_discipline.tag_id = tag.tag_id
@@ -55,7 +55,7 @@ exports.gov_query_school_disc = function (req, res) {
 
 // 省厅 学校 及其对应 学科  的展示
 exports.gov_query_school_disc_eval = function (req, res) {
-    userinfo = req.user
+    // userinfo = req.user
     sql = `SELECT tag.subtag_name,univ_discipline.univ_code,univ_discipline.univ_name,univ_discipline.discipline_code,univ_discipline.discipline_name
     FROM univ_discipline
     INNER JOIN tag ON univ_discipline.tag_id = tag.tag_id
@@ -89,7 +89,7 @@ exports.gov_query_school_disc_eval = function (req, res) {
 
 //  省厅 获取指定学校  对应的所有学科
 exports.province_subjects_of_school = function (req, res) {
-    userinfo = req.user
+    // userinfo = req.user
     school_name = req.body.school
     if (school_name == '南昌大学') {
         sql = `SELECT ROW_NUMBER () OVER (ORDER BY  subtag_name  DESC) AS  id,subtag_name AS name
