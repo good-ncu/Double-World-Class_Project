@@ -111,7 +111,7 @@ exports.province_subjects_of_school = function (req, res) {
 
             // 当前sql查询为空，则返回填报提示
             res.send({
-                status: 0,
+                status: 1,
                 message: "您选择的学校无相关学科信息"
             })
         } else {
