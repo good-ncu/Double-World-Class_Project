@@ -107,7 +107,7 @@ app.use('/api',all_discipline)
 const download_gen_report = require('./router/gen_report')
 app.use('/api',download_gen_report)
 
-//  查询一些关于 一流学校与学科对应的关系的接口
+//  省厅 查询一些关于 一流学校与学科对应的关系的接口
 const gov_query_school_disc = require('./router/query/gov_query_school_disc')
 app.use('/api',gov_query_school_disc)
 
