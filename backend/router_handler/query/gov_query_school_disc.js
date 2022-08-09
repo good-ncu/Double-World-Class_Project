@@ -98,7 +98,7 @@ exports.province_subjects_of_school = function (req, res) {
     } else {
         sql = `SELECT ROW_NUMBER () OVER (ORDER BY  discipline_name  DESC) AS  id,univ_discipline.univ_code,univ_name,discipline_code,discipline_name AS name
             FROM univ_discipline
-		    where univ_name ='${discipline_code}'`
+		    where univ_name ='${school_name}'`
     }
     client.query(sql, function (err, results) {
         if (err) {
