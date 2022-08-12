@@ -57,34 +57,34 @@ exports.gov_query_school_disc = function (req, res) {
 exports.gov_query_school_disc_eval = function (req, res) {
     // userinfo = req.user
     sql = `SELECT
-    tag_name,
+    univ_code,
+    discipline_code,
     univ_name,
     discipline_name,
-    univ_code,
-    discipline_code
+    tag 
    FROM
    ((
    SELECT
-    univ_discipline.tag_name ,
-    univ_discipline.univ_name,
-    univ_discipline.subtag_name AS discipline_name,
     univ_discipline.univ_code,
-    univ_discipline.discipline_code
+    univ_discipline.discipline_code,
+    univ_discipline.univ_name,
+    univ_discipline.subtag1 AS discipline_name,
+    concat_ws('、',univ_discipline.tag3,univ_discipline.tag1,univ_discipline.tag2) AS tag
    FROM univ_discipline
-   WHERE univ_discipline.tag_id IN (1,2,3,4,5,6)
-   ORDER BY univ_discipline.tag_id ASC,univ_discipline.subtag_name ASC)
+   WHERE univ_discipline.tag1='学科群' AND univ_discipline.subsubtag1='主干'
+   )
    UNION
-   (SELECT
-    univ_discipline.tag_name ,
+   (
+   SELECT
+    univ_discipline.univ_code,
+    univ_discipline.discipline_code,
     univ_discipline.univ_name,
     univ_discipline.discipline_name,
-    univ_discipline.univ_code,
-    univ_discipline.discipline_code
+    concat_ws('、',univ_discipline.tag3,univ_discipline.subtag1,univ_discipline.tag2) AS tag
    FROM univ_discipline
-   WHERE univ_discipline.tag_id IN (7,8,9)
-   ORDER BY univ_discipline.tag_id ASC,univ_discipline.subtag_name ASC
+   WHERE univ_discipline.tag1='一流学科建设名单'
    )) AS A
-   ORDER BY tag_name,univ_code,discipline_name ASC`
+   ORDER BY univ_code,discipline_code ASC`
     client.query(sql, function (err, results) {
         if (err) {
             // 异常后调用callback并传入err
