@@ -840,11 +840,11 @@ var fs = require('fs');
 }
 
 /**
- * 表4-2-1-1 科技部国家级平台清单 情况处理函数
+ * 表4-2-1-1 国家级平台清单 情况处理函数
  * @param {*} req 
  * @param {*} res 
  */
- exports.innovate_platform_tech_counts_sub = function(req,res){
+ exports.innovate_platform_all_nation_counts_sub = function(req,res){
     // 接收表单数据
     const submit_info = req.body.data_4_2_1_1
     console.log(submit_info)

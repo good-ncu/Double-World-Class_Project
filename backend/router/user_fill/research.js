@@ -59,11 +59,11 @@ router.post('/research-innovate/design-display',expressJoi(sub_schema4.table_4_1
 router.post('/research-platform/innovate-platform/platform-counts',expressJoi(sub_schema4.table_4_2_1_0), 
 research_handler.innovate_platform_platform_counts_sub)
 // 4-2-1-1
-router.post('/research-platform/innovate-platform/tech-counts',expressJoi(sub_schema4.table_4_2_1_1), 
-research_handler.innovate_platform_tech_counts_sub)
+router.post('/research-platform/innovate-platform/all-nation-counts',expressJoi(sub_schema4.table_4_2_1_1), 
+research_handler.innovate_platform_all_nation_counts_sub)
 // 4-2-1-2
-router.post('/research-platform/innovate-platform/nation-counts',expressJoi(sub_schema4.table_4_2_1_2), 
-research_handler.innovate_platform_nation_counts_sub)
+// router.post('/research-platform/innovate-platform/nation-counts',expressJoi(sub_schema4.table_4_2_1_2), 
+// research_handler.innovate_platform_nation_counts_sub)
 // 4-2-1-3
 router.post('/research-platform/innovate-platform/province-counts',expressJoi(sub_schema4.table_4_2_1_3), 
 research_handler.innovate_platform_province_counts_sub)
