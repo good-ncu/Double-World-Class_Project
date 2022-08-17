@@ -242,7 +242,7 @@ exports.honor_counts_word_sub = function (req, res) {
 
 
 /**
- * 表3-2-2-0 高层次人才及团队存量清单 情况处理函数   pass
+ * 表3-2-2-0 高层次团队存量清单  存量清单 情况处理函数   pass
  * @param {*} req 
  * @param {*} res
  */
@@ -258,8 +258,9 @@ exports.honor_counts_word_sub = function (req, res) {
     for (let i = 0, len = submit_info.length; i < len; i++) {
         const strUUID = uuidv4(); // ⇨ '1b9d6bcd-bbfd-4b2d-9b5d-ab8dfbbd4bed'
         const strUUID2 = strUUID.replace(/-/g, '');       // 去掉-字符
-        sqls[i+1] = `INSERT INTO talent_team(id, univ_code, discipline_code,user_fill_id,talent_team_name,level,honor_name,yr) 
-        VALUES ('${strUUID2}','${user.univ_code}','${user.discipline_code}','${user_fill_id}','${submit_info[i].talent_team_name}','${submit_info[i].level}','${submit_info[i].honor_name}',${submit_info[i].yr})`
+        sqls[i+1] = `INSERT INTO talent_team(id, univ_code, discipline_code,user_fill_id,talent_team_name,level,honor_name,yr,talent_or_team) 
+        VALUES ('${strUUID2}','${user.univ_code}','${user.discipline_code}','${user_fill_id}',
+        '${submit_info[i].talent_team_name}','${submit_info[i].level}','${submit_info[i].honor_name}',${submit_info[i].yr},'团队')`
 
     }
     async.eachSeries(sqls, function (item, callback) {
@@ -306,9 +307,142 @@ exports.honor_counts_word_sub = function (req, res) {
 
 
 
+
+
+ /**
+ * 表3-2-2-3 高层次人才存量清单  存量清单 情况处理函数   pass
+ * @param {*} req 
+ * @param {*} res
+ */
+  exports.all_high_counts_sub = function(req,res){
+    // 接收表单数据
+    const submit_info = req.body.data_3_2_2_0
+    // console.log(submit_info)
+    user = req.user
+    var user_fill_id = uuidv4().replace(/-/g, '')
+
+    var sqls = []
+    sqls.push(`SELECT * FROM user_fill WHERE user_id='${user.id}' AND fill_id = '3_2_2_3' AND flag=1`)
+    for (let i = 0, len = submit_info.length; i < len; i++) {
+        const strUUID = uuidv4(); // ⇨ '1b9d6bcd-bbfd-4b2d-9b5d-ab8dfbbd4bed'
+        const strUUID2 = strUUID.replace(/-/g, '');       // 去掉-字符
+        sqls[i+1] = `INSERT INTO talent_team(id, univ_code, discipline_code,user_fill_id,talent_team_name,level,honor_name,yr,talent_or_team) 
+        VALUES ('${strUUID2}','${user.univ_code}','${user.discipline_code}','${user_fill_id}','${submit_info[i].talent_team_name}',
+        '${submit_info[i].level}','${submit_info[i].honor_name}',${submit_info[i].yr},'人才')`
+
+    }
+    async.eachSeries(sqls, function (item, callback) {
+        // 遍历每条SQL并执行
+        client.query(item, function (err, results) {
+            // console.log(results.rows.length)
+            if (err) {
+                // 系统级别错误   异常后调用callback并传入err
+                err = "系统错误，请刷新页面后重试"
+                callback(err);
+            } else {
+                if (results.rows.length !== 0 && results.rows[0].flag == 1) {
+                    // 多次提交错误
+                    err = "请勿重复提交"
+                }
+                // 执行完成后也要调用callback，不需要参数
+                if (err == "请勿重复提交") {
+                    callback(err)
+                } else {
+                    callback();
+                }
+            }
+        });
+    }, function (err) {
+        // 所有SQL执行完成后回调
+        if (err) {
+            res.send({
+                status: 1,
+                message: err
+            })
+        } else {
+            client.query(`insert into user_fill(id, user_id, fill_id, flag) values('${user_fill_id}','${user.id}','3_2_2_3',1)`, function (err, result) {
+                if (err) return res.cc('系统繁忙,请稍后再试')
+                if (result.rowCount !== 1) return res.cc('系统繁忙,请稍后再试')
+                res.send({
+                    status: 0,
+                    message: "填报成功！！"
+                })
+            })
+        }
+    });
+    
+ }
+
+
+
+/**
+ * 表3-2-2-4 国家级团队  情况处理函数   pass
+ * @param {*} req 
+ * @param {*} res
+ */
+ exports.nation_sub = function(req,res){
+    // 接收表单数据
+    const submit_info = req.body.data_3_2_2_0
+    // console.log(submit_info)
+    user = req.user
+    var user_fill_id = uuidv4().replace(/-/g, '')
+
+    var sqls = []
+    sqls.push(`SELECT * FROM user_fill WHERE user_id='${user.id}' AND fill_id = '3_2_2_4' AND flag=1`)
+    for (let i = 0, len = submit_info.length; i < len; i++) {
+        const strUUID = uuidv4(); // ⇨ '1b9d6bcd-bbfd-4b2d-9b5d-ab8dfbbd4bed'
+        const strUUID2 = strUUID.replace(/-/g, '');       // 去掉-字符
+        sqls[i+1] = `INSERT INTO talent_team(id, univ_code, discipline_code,user_fill_id,talent_team_name,level,honor_name,yr,talent_or_team) 
+        VALUES ('${strUUID2}','${user.univ_code}','${user.discipline_code}','${user_fill_id}','${submit_info[i].talent_team_name}',
+        '国家级','${submit_info[i].honor_name}',${submit_info[i].yr},'团队')`
+
+    }
+    async.eachSeries(sqls, function (item, callback) {
+        // 遍历每条SQL并执行
+        client.query(item, function (err, results) {
+            // console.log(results.rows.length)
+            if (err) {
+                // 系统级别错误   异常后调用callback并传入err
+                err = "系统错误，请刷新页面后重试"
+                callback(err);
+            } else {
+                if (results.rows.length !== 0 && results.rows[0].flag == 1) {
+                    // 多次提交错误
+                    err = "请勿重复提交"
+                }
+                // 执行完成后也要调用callback，不需要参数
+                if (err == "请勿重复提交") {
+                    callback(err)
+                } else {
+                    callback();
+                }
+            }
+        });
+    }, function (err) {
+        // 所有SQL执行完成后回调
+        if (err) {
+            res.send({
+                status: 1,
+                message: err
+            })
+        } else {
+            client.query(`insert into user_fill(id, user_id, fill_id, flag) values('${user_fill_id}','${user.id}','3_2_2_4',1)`, function (err, result) {
+                if (err) return res.cc('系统繁忙,请稍后再试')
+                if (result.rowCount !== 1) return res.cc('系统繁忙,请稍后再试')
+                res.send({
+                    status: 0,
+                    message: "填报成功！！"
+                })
+            })
+        }
+    });
+    
+ }
+
+
  
 /**
- * 表3-2-2-1 国家级团队和学术领军人才（含青年人才）清单 情况处理函数    pass
+ * 表3-2-2-1 国家级学术领军人才（含青年人才）清单 情况处理函数    pass
  * @param {*} req 
  * @param {*} res
  */
@@ -324,8 +458,8 @@ exports.honor_counts_word_sub = function (req, res) {
     for (let i = 0, len = submit_info.length; i < len; i++) {
         const strUUID = uuidv4(); // ⇨ '1b9d6bcd-bbfd-4b2d-9b5d-ab8dfbbd4bed'
         const strUUID2 = strUUID.replace(/-/g, '');       // 去掉-字符
-        sqls[i+1] = `INSERT INTO talent_team(id, univ_code, discipline_code,user_fill_id,talent_team_name,level,honor_name,yr) 
-        VALUES ('${strUUID2}','${user.univ_code}','${user.discipline_code}','${user_fill_id}','${submit_info[i].talent_team_name}','国家级','${submit_info[i].honor_name}',${submit_info[i].yr})`
+        sqls[i+1] = `INSERT INTO talent_team(id, univ_code, discipline_code,user_fill_id,talent_team_name,level,honor_name,yr,talent_or_team) 
+        VALUES ('${strUUID2}','${user.univ_code}','${user.discipline_code}','${user_fill_id}','${submit_info[i].talent_team_name}','国家级','${submit_info[i].honor_name}',${submit_info[i].yr},'人才')`
     }
 
     async.eachSeries(sqls, function (item, callback) {
@@ -368,6 +502,8 @@ exports.honor_counts_word_sub = function (req, res) {
         }
     });
  }
+
+
 
 
 
