@@ -30,7 +30,7 @@ exports.download_excels = function (req, res) {
         // check if directory exists
         if (!fs.existsSync(path)) {
             console.log("没有该文件！");
-            return res.cc('系统繁忙，请稍后再试！')
+            return res.cc('系统暂无此模板')
         }
 
         res.writeHead(200, {
