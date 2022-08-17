@@ -136,11 +136,11 @@ router.post('/research-innovate/design-display-template', public.upload_file_cal
 router.post('/research-platform/innovate-platform/platform-counts-template', public.upload_file_callback, excel_parsing1.deal_table_4_2_1_0, expressJoi(sub_schema4.table_4_2_1_0), 
 pre_view_handler.preview_table)
 // 4-2-1-1
-router.post('/research-platform/innovate-platform/tech-counts-template', public.upload_file_callback, excel_parsing1.deal_table_4_2_1_1, expressJoi(sub_schema4.table_4_2_1_1), 
+router.post('/research-platform/innovate-platform/all-nation-counts-template', public.upload_file_callback, excel_parsing1.deal_table_4_2_1_1, expressJoi(sub_schema4.table_4_2_1_1), 
 pre_view_handler.preview_table)
 // 4-2-1-2
-router.post('/research-platform/innovate-platform/nation-counts-template', public.upload_file_callback, excel_parsing1.deal_table_4_2_1_2, expressJoi(sub_schema4.table_4_2_1_2), 
-pre_view_handler.preview_table)
+// router.post('/research-platform/innovate-platform/nation-counts-template', public.upload_file_callback, excel_parsing1.deal_table_4_2_1_2, expressJoi(sub_schema4.table_4_2_1_2), 
+// pre_view_handler.preview_table)
 // 4-2-1-3
 router.post('/research-platform/innovate-platform/province-counts-template', public.upload_file_callback, excel_parsing1.deal_table_4_2_1_3, expressJoi(sub_schema4.table_4_2_1_3), 
 pre_view_handler.preview_table)
