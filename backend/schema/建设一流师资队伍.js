@@ -205,6 +205,18 @@ exports.table_3_2_2_0 = {
         data_3_2_2_0
     }
 }
+
+exports.table_3_2_2_3 = {
+    body: {
+        data_3_2_2_3
+    }
+}
+exports.table_3_2_2_4 = {
+    body: {
+        data_3_2_2_4
+    }
+}
+
 exports.table_3_2_2_1 = {
     body: {
         data_3_2_2_1
