@@ -380,7 +380,7 @@ exports.honor_counts_word_sub = function (req, res) {
  * @param {*} req 
  * @param {*} res
  */
- exports.nation_sub = function(req,res){
+ exports.nation_team_sub = function(req,res){
     // 接收表单数据
     const submit_info = req.body.data_3_2_2_0
     // console.log(submit_info)

@@ -11,7 +11,7 @@ const pre_view_handler = require('../../router_handler/preview_table')
 const expressJoi = require('@escook/express-joi')
 
 // 3. 导入需要的验证规则对象
-const sub_schema3  = require('../../schema/建设一流师资队伍')
+const sub_schema3 = require('../../schema/建设一流师资队伍')
 
 // 4. 导入解析文件中间件
 const excel_parsing3 = require('../../excel_parsing/建设一流师资队伍_xls')
@@ -43,7 +43,7 @@ router.post('/teacher-morality/honor-counts-word-template', public.tempupload_wo
     3-1 师德师风建设
  */
 // 手动 填报 学科入选国家优秀教师先进典型 情况路由（3-1-1）
-router.post('/teacher-morality/honor-counts',expressJoi(sub_schema3.table_3_1_1), teacher_team_handler.honor_counts_sub)
+router.post('/teacher-morality/honor-counts', expressJoi(sub_schema3.table_3_1_1), teacher_team_handler.honor_counts_sub)
 
 
 
@@ -52,25 +52,35 @@ router.post('/teacher-morality/honor-counts',expressJoi(sub_schema3.table_3_1_1)
     3-2 专任教师队伍
  */
 // 手动 填报 学科主要方向、学科带头人及中青年学术骨干清单 情况路由（表格3-2-1）
-router.post('/major-teacher/subject-counts',expressJoi(sub_schema3.table_3_2_1), teacher_team_handler.subject_counts_sub)
+router.post('/major-teacher/subject-counts', expressJoi(sub_schema3.table_3_2_1), teacher_team_handler.subject_counts_sub)
 
-// 手动 填报 高层次人才及团队存量清单 情况路由（表3-2-2-0）
-router.post('/major-teacher/personnel-team/all-counts',expressJoi(sub_schema3.table_3_2_2_0), teacher_team_handler.all_counts_sub)
 
-// 手动 填报 国家级团队和学术领军人才（含青年人才）清单 情况路由（表3-2-2-1）
-router.post('/major-teacher/personnel-team/nation-counts',expressJoi(sub_schema3.table_3_2_2_1), teacher_team_handler.nation_counts_sub)
+// 手动 填报 高层次团队存量清单 情况路由（表3-2-2-0）
+router.post('/major-teacher/personnel-team/all-counts', expressJoi(sub_schema3.table_3_2_2_0), teacher_team_handler.all_counts_sub)
+
+// 手动 填报 高层次人才存量清单 情况路由（表3-2-2-3）
+router.post('/major-teacher/personnel-team/all-high-counts', expressJoi(sub_schema3.table_3_2_2_3), teacher_team_handler.all_high_counts_sub)
+
+// 手动 填报 国家级团队 情况路由（表3-2-2-4）
+router.post('/major-teacher/personnel-team/nation-team-sub', expressJoi(sub_schema3.table_3_2_2_4), teacher_team_handler.nation_team_sub)
+
+// 手动 填报 国家级学术领军人才（含青年人才）清单 情况路由（表3-2-2-1）
+router.post('/major-teacher/personnel-team/nation-counts', expressJoi(sub_schema3.table_3_2_2_1), teacher_team_handler.nation_counts_sub)
 
 // 手动 填报 省重点人才清单 情况处理函数 情况路由（表3-2-2-2）
-router.post('/major-teacher/personnel-team/province-counts',expressJoi(sub_schema3.table_3_2_2_2), teacher_team_handler.province_counts_sub)
+router.post('/major-teacher/personnel-team/province-counts', expressJoi(sub_schema3.table_3_2_2_2), teacher_team_handler.province_counts_sub)
+
+
+
 
 // 手动 填报 表3-2-3 学科专任教师数量及结构
-router.post('/major-teacher/number-struct',expressJoi(sub_schema3.table_3_2_3), teacher_team_handler.number_struct_sub)
+router.post('/major-teacher/number-struct', expressJoi(sub_schema3.table_3_2_3), teacher_team_handler.number_struct_sub)
 
 // 手动 填报 表3-2-4 博士后和科研助理数量
-router.post('/major-teacher/assistant-counts',expressJoi(sub_schema3.table_3_2_4), teacher_team_handler.assistant_counts_sub)
+router.post('/major-teacher/assistant-counts', expressJoi(sub_schema3.table_3_2_4), teacher_team_handler.assistant_counts_sub)
 
 // 手动 填报 表3-2-5 外籍专任教师数量及结构
-router.post('/major-teacher/foreign-teacher',expressJoi(sub_schema3.table_3_2_5), teacher_team_handler.foreign_teacher_sub)
+router.post('/major-teacher/foreign-teacher', expressJoi(sub_schema3.table_3_2_5), teacher_team_handler.foreign_teacher_sub)
 
 
 
@@ -78,16 +88,16 @@ router.post('/major-teacher/foreign-teacher',expressJoi(sub_schema3.table_3_2_5)
  * 3-3 师资队伍国际水平
  */
 // 手动 填报 表3-3-1 教师担任国内外重要期刊负责人清单
-router.post('/International-level/journal-director',expressJoi(sub_schema3.table_3_3_1), teacher_team_handler.journal_director_sub)
+router.post('/International-level/journal-director', expressJoi(sub_schema3.table_3_3_1), teacher_team_handler.journal_director_sub)
 
 // 手动 填报 表3-3-2 教师在国内外重要学术组织任职主要负责人清单
-router.post('/International-level/conference-director',expressJoi(sub_schema3.table_3_3_2), teacher_team_handler.conference_director_sub)
+router.post('/International-level/conference-director', expressJoi(sub_schema3.table_3_3_2), teacher_team_handler.conference_director_sub)
 
 // 手动 填报 表3-3-3 学科主要方向、学科带头人及中青年学术骨干清单
-router.post('/International-level/conference-report',expressJoi(sub_schema3.table_3_3_3), teacher_team_handler.conference_report_sub)
+router.post('/International-level/conference-report', expressJoi(sub_schema3.table_3_3_3), teacher_team_handler.conference_report_sub)
 
 // 手动 填报 表3-3-4 学科主要方向、学科带头人及中青年学术骨干清单
-router.post('/International-level/judges-counts',expressJoi(sub_schema3.table_3_3_4), teacher_team_handler.judges_counts_sub)
+router.post('/International-level/judges-counts', expressJoi(sub_schema3.table_3_3_4), teacher_team_handler.judges_counts_sub)
 
 
 
@@ -110,7 +120,7 @@ router.post('/International-level/judges-counts',expressJoi(sub_schema3.table_3_
     3-1 师德师风建设
  */
 // 手动 填报 学科入选国家优秀教师先进典型 情况路由（3-1-1）
-router.post('/teacher-morality/honor-counts-template',public.upload_file_callback,excel_parsing3.deal_table_3_1_1,expressJoi(sub_schema3.table_3_1_1), pre_view_handler.preview_table)
+router.post('/teacher-morality/honor-counts-template', public.upload_file_callback, excel_parsing3.deal_table_3_1_1, expressJoi(sub_schema3.table_3_1_1), pre_view_handler.preview_table)
 
 
 
@@ -119,25 +129,25 @@ router.post('/teacher-morality/honor-counts-template',public.upload_file_callbac
     3-2 专任教师队伍
  */
 // 手动 填报 学科主要方向、学科带头人及中青年学术骨干清单 情况路由（表格3-2-1）
-router.post('/major-teacher/subject-counts-template',public.upload_file_callback,excel_parsing3.deal_table_3_2_1,expressJoi(sub_schema3.table_3_2_1), pre_view_handler.preview_table)
+router.post('/major-teacher/subject-counts-template', public.upload_file_callback, excel_parsing3.deal_table_3_2_1, expressJoi(sub_schema3.table_3_2_1), pre_view_handler.preview_table)
 
 // 手动 填报 高层次人才及团队存量清单 情况路由（表3-2-2-0）
-router.post('/major-teacher/personnel-team/all-counts-template',public.upload_file_callback,excel_parsing3.deal_table_3_2_2_0,expressJoi(sub_schema3.table_3_2_2_0), pre_view_handler.preview_table)
+router.post('/major-teacher/personnel-team/all-counts-template', public.upload_file_callback, excel_parsing3.deal_table_3_2_2_0, expressJoi(sub_schema3.table_3_2_2_0), pre_view_handler.preview_table)
 
 // 手动 填报 国家级团队和学术领军人才（含青年人才）清单 情况路由（表3-2-2-1）
-router.post('/major-teacher/personnel-team/nation-counts-template',public.upload_file_callback,excel_parsing3.deal_table_3_2_2_1,expressJoi(sub_schema3.table_3_2_2_1), pre_view_handler.preview_table)
+router.post('/major-teacher/personnel-team/nation-counts-template', public.upload_file_callback, excel_parsing3.deal_table_3_2_2_1, expressJoi(sub_schema3.table_3_2_2_1), pre_view_handler.preview_table)
 
 // 手动 填报 省重点人才清单 情况处理函数 情况路由（表3-2-2-2）
-router.post('/major-teacher/personnel-team/province-counts-template',public.upload_file_callback,excel_parsing3.deal_table_3_2_2_2,expressJoi(sub_schema3.table_3_2_2_2), pre_view_handler.preview_table)
+router.post('/major-teacher/personnel-team/province-counts-template', public.upload_file_callback, excel_parsing3.deal_table_3_2_2_2, expressJoi(sub_schema3.table_3_2_2_2), pre_view_handler.preview_table)
 
 // 手动 填报 表3-2-3 学科专任教师数量及结构
-router.post('/major-teacher/number-struct-template',public.upload_file_callback,excel_parsing3.deal_table_3_2_3,expressJoi(sub_schema3.table_3_2_3), pre_view_handler.preview_table)
+router.post('/major-teacher/number-struct-template', public.upload_file_callback, excel_parsing3.deal_table_3_2_3, expressJoi(sub_schema3.table_3_2_3), pre_view_handler.preview_table)
 
 // 手动 填报 表3-2-4 博士后和科研助理数量
-router.post('/major-teacher/assistant-counts-template',public.upload_file_callback,excel_parsing3.deal_table_3_2_4,expressJoi(sub_schema3.table_3_2_4), pre_view_handler.preview_table)
+router.post('/major-teacher/assistant-counts-template', public.upload_file_callback, excel_parsing3.deal_table_3_2_4, expressJoi(sub_schema3.table_3_2_4), pre_view_handler.preview_table)
 
 // 手动 填报 表3-2-5 外籍专任教师数量及结构
-router.post('/major-teacher/foreign-teacher-template',public.upload_file_callback,excel_parsing3.deal_table_3_2_5,expressJoi(sub_schema3.table_3_2_5), pre_view_handler.preview_table)
+router.post('/major-teacher/foreign-teacher-template', public.upload_file_callback, excel_parsing3.deal_table_3_2_5, expressJoi(sub_schema3.table_3_2_5), pre_view_handler.preview_table)
 
 
 
@@ -145,16 +155,16 @@ router.post('/major-teacher/foreign-teacher-template',public.upload_file_callbac
  * 3-3 师资队伍国际水平
  */
 // 手动 填报 表3-3-1 教师担任国内外重要期刊负责人清单
-router.post('/International-level/journal-director-template',public.upload_file_callback,excel_parsing3.deal_table_3_3_1,expressJoi(sub_schema3.table_3_3_1), pre_view_handler.preview_table)
+router.post('/International-level/journal-director-template', public.upload_file_callback, excel_parsing3.deal_table_3_3_1, expressJoi(sub_schema3.table_3_3_1), pre_view_handler.preview_table)
 
 // 手动 填报 表3-3-2 教师在国内外重要学术组织任职主要负责人清单
-router.post('/International-level/conference-director-template',public.upload_file_callback,excel_parsing3.deal_table_3_3_2,expressJoi(sub_schema3.table_3_3_2), pre_view_handler.preview_table)
+router.post('/International-level/conference-director-template', public.upload_file_callback, excel_parsing3.deal_table_3_3_2, expressJoi(sub_schema3.table_3_3_2), pre_view_handler.preview_table)
 
 // 手动 填报 表3-3-3 学科主要方向、学科带头人及中青年学术骨干清单
-router.post('/International-level/conference-report-template',public.upload_file_callback,excel_parsing3.deal_table_3_3_3,expressJoi(sub_schema3.table_3_3_3), pre_view_handler.preview_table)
+router.post('/International-level/conference-report-template', public.upload_file_callback, excel_parsing3.deal_table_3_3_3, expressJoi(sub_schema3.table_3_3_3), pre_view_handler.preview_table)
 
 // 手动 填报 表3-3-4 学科主要方向、学科带头人及中青年学术骨干清单
-router.post('/International-level/judges-counts-template',public.upload_file_callback,excel_parsing3.deal_table_3_3_4,expressJoi(sub_schema3.table_3_3_4), pre_view_handler.preview_table)
+router.post('/International-level/judges-counts-template', public.upload_file_callback, excel_parsing3.deal_table_3_3_4, expressJoi(sub_schema3.table_3_3_4), pre_view_handler.preview_table)
 
 
 
