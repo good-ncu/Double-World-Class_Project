@@ -146,33 +146,33 @@ const data_4_2_1_0 = joi.array().items(
    joi.object().keys({
        yr:joi.number().integer().less(2021).greater(1950).required().error(new Error('填报年度填报错误！')),
        plat_name:joi.string().min(1).max(200).required().error(new Error('平台名称填报错误！')),
-       palt_level:joi.string().valid('科技部国家级','其他国家级','省部级').required().error(new Error('平台等级填报错误！')),
+       palt_level:joi.string().valid('国家级','省部级').required().error(new Error('平台等级填报错误！')),
        appro_time:joi.string().pattern(/^(1[9][5-9][0-9]|2[0][0-1][0-9]|2020)-(0[1-9]|1[0-2])$/).required().error(new Error('批准时间（年月）填写错误！')),
    }
    )
 )
 
-//scir_innova_platconst 修改：增加require() 科技部国家级
+//
 const data_4_2_1_1 = joi.array().items(
     joi.object().keys({
         yr:joi.number().integer().less(2029).greater(2020).required().error(new Error('填报年度填报错误！')),
         plat_name:joi.string().min(1).max(100).required().error(new Error('平台名称填报错误！')),
-        palt_level:joi.string().valid('科技部国家级').required().error(new Error('平台等级填报错误！')),
+        palt_level:joi.string().valid('国家级').required().error(new Error('平台等级填报错误！')),
         appro_time:joi.string().pattern(/^(2[0][2][1-9])-(0[1-9]|1[0-2])$/).required().error(new Error('批准时间填写错误！')),
     }
     )
 )
 
 //scir_innova_platconst 修改：增加require()         palt_level:joi.string().valid('其他国家级').required().error(new Error('平台等级填报错误！'))),
-const data_4_2_1_2 = joi.array().items(
-    joi.object().keys({
-        yr:joi.number().integer().less(2029).greater(2020).required().error(new Error('填报年度填报错误！')),
-        plat_name:joi.string().min(1).max(200).required().error(new Error('平台名称填报错误！')),
-        palt_level:joi.string().valid('其他国家级').required().error(new Error('平台等级填报错误！')),
-        appro_time:joi.string().pattern(/^(2[0][2][1-9])-(0[1-9]|1[0-2])$/).required().error(new Error('批准时间填写错误！')),
-    }
-    )
-)
+// const data_4_2_1_2 = joi.array().items(
+//     joi.object().keys({
+//         yr:joi.number().integer().less(2029).greater(2020).required().error(new Error('填报年度填报错误！')),
+//         plat_name:joi.string().min(1).max(200).required().error(new Error('平台名称填报错误！')),
+//         palt_level:joi.string().valid('其他国家级').required().error(new Error('平台等级填报错误！')),
+//         appro_time:joi.string().pattern(/^(2[0][2][1-9])-(0[1-9]|1[0-2])$/).required().error(new Error('批准时间填写错误！')),
+//     }
+//     )
+// )
 
 
 //scir_innova_platconst 修改：增加require() 修改为省部级
@@ -362,11 +362,11 @@ exports.table_4_2_1_1 = {
        data_4_2_1_1
        }
 }
-exports.table_4_2_1_2 = {
-   body: {
-       data_4_2_1_2
-       }
-}
+// exports.table_4_2_1_2 = {
+//    body: {
+//        data_4_2_1_2
+//        }
+// }
 exports.table_4_2_1_3 = {
    body: {
        data_4_2_1_3
