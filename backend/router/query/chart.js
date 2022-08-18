@@ -10,9 +10,22 @@ const role_audit  = require('../../schema/role_audit')
  */
 
  // 省厅查看 学科评估情况
-router.post('/discipline-eval-gov', role_audit.is_gov, chart_handler_gov.discipline_eval_gov)
+router.post('/gov-tjd-4-evaluation', role_audit.is_gov, chart_handler_gov.gov_tjd_4_evaluation)
 
-// 省厅查看 
+// 省厅查看 学术领军人才
+router.post('/gov-tjd-leaders', role_audit.is_gov, chart_handler_gov.gov_tjd_leaders)
+
+// 省厅查看 主持国家重点重大项目情况
+router.post('/gov-tjd-hold-big-project', role_audit.is_gov, chart_handler_gov.gov_tjd_hold_big_project)
+
+// 省厅查看 学科国家级教学成果奖情况
+router.post('/gov-tjd-big-award', role_audit.is_gov, chart_handler_gov.gov_tjd_big_award)
+
+// 省厅查看 教师国家级奖项情况
+router.post('/gov-tjd-big-teacher-award', role_audit.is_gov, chart_handler_gov.gov_tjd_big_teacher_award)
+
+// 省厅查看 国家级平台建设情况
+router.post('/gov-tjd-big-platform', role_audit.is_gov, chart_handler_gov.gov_tjd_big_platform)
 
 
 

@@ -56,7 +56,7 @@ app.use('/api', user_save)
 
 // 导入并使用主页展示指标模块
 const chart_show = require('./router/query/chart')
-app.use('/api/chart',chart_show)
+app.use('/api',chart_show)
 
 // 导入并使用平台首页 学科建设进展 路由模块
 const disci_consRouter = require('./router/user_fill/disci-cons')
