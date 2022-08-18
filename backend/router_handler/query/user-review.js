@@ -39,7 +39,7 @@ exports.query_single_table_info = function (req, res) {
             to_dbtable = results.rows[0].to_dbtable
             console.log(user_fill_id)
             console.log(to_dbtable)
-            sql2 = `select * from ${to_dbtable} where user_fill_id = '${user_fill_id} AND ${to_dbtable}.is_delete = 0'`
+            sql2 = `select * from ${to_dbtable} where user_fill_id = '${user_fill_id}' AND is_delete = 0`
             client.query(sql2, function (err, results2) {
                 if (err) {
                     console.log(err.message)
