@@ -9,7 +9,10 @@ const role_audit  = require('../../schema/role_audit')
  * 省厅
  */
 
- // 省厅查看 学科评估情况
+// 省厅查看 突击队学科（11个Logo）
+router.post('/gov-tjd', role_audit.is_gov, chart_handler_gov.gov_tjd)
+
+// 省厅查看 第四轮学科评估情况
 router.post('/gov-tjd-4-evaluation', role_audit.is_gov, chart_handler_gov.gov_tjd_4_evaluation)
 
 // 省厅查看 学术领军人才

@@ -1,6 +1,75 @@
 // 导入数据库操作模块
 const client = require('../../db/index')
-// 省厅查看 第四、五、六学科评估情况 （柱状图对比数据）
+
+// 省厅查看 突击队学科 （柱状图对比数据）
+exports.gov_tjd = function(req,res) {
+    userinfo = req.user
+    sql = `select discipline_eval_turn,discipline_eval_result,count(discipline_eval_result) from discipline_eval group by discipline_eval_result ,discipline_eval_turn`
+    client.query(sql, function (err, results) {
+        if (err) {
+            // 异常后调用callback并传入err
+            res.send({
+                status: 1,
+                message: err.message
+            })
+        } else if (results.rowCount == 0) {
+            // 当前sql查询为空，则返回填报提示
+            res.cc("无突击队学科信息")
+        } else {
+            res.send({
+                status: 0,
+                // data: results.rows
+                data:[{
+                    "name": "南昌大学",
+                    "subject": "绿色食品学科群"
+                  },
+                  {
+                    "name": "南昌大学",
+                    "subject": "临床医学与公共卫生大健康学科群"
+                  },
+                  {
+                    "name": "江西师范大学",
+                    "subject": "马克思主义理论"
+                  },
+                  {
+                    "name": "江西农业大学",
+                    "subject": "畜牧学"
+                  },
+                  {
+                    "name": "江西财经大学",
+                    "subject": "统计学"
+                  },
+                  {
+                    "name": "华东交通大学",
+                    "subject": "交通运输工程"
+                  },
+                  {
+                    "name": "江西中医药大学",
+                    "subject": "中药学"
+                  },
+                  {
+                    "name": "景德镇陶瓷大学",
+                    "subject": "陶瓷设计与美术"
+                  },
+                  {
+                    "name": "江西理工大学",
+                    "subject": "冶金工程"
+                  },
+                  {
+                    "name": "东华理工大学",
+                    "subject": "地质资源与地质工程"
+                  },
+                  {
+                    "name": "南昌航空大学",
+                    "subject": "环境科学与工程"
+                  }]
+            })
+        }
+    });
+
+}
+
+// 省厅查看 第四轮学科评估情况
 exports.gov_tjd_4_evaluation = function(req,res) {
     userinfo = req.user
     sql = `select discipline_eval_turn,discipline_eval_result,count(discipline_eval_result) from discipline_eval group by discipline_eval_result ,discipline_eval_turn`
@@ -78,7 +147,6 @@ exports.gov_tjd_4_evaluation = function(req,res) {
     });
 
 }
-
 
 // 省厅查看 国家级学术领军人才（含青年人才）情况
 exports.gov_tjd_leaders = function(req,res) {
