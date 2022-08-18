@@ -131,14 +131,26 @@ router.post('/teacher-morality/honor-counts-template', public.upload_file_callba
 // 手动 填报 学科主要方向、学科带头人及中青年学术骨干清单 情况路由（表格3-2-1）
 router.post('/major-teacher/subject-counts-template', public.upload_file_callback, excel_parsing3.deal_table_3_2_1, expressJoi(sub_schema3.table_3_2_1), pre_view_handler.preview_table)
 
-// 手动 填报 高层次人才及团队存量清单 情况路由（表3-2-2-0）
+
+
+// 手动 填报 高层次团队存量清单 情况路由（表3-2-2-0）
 router.post('/major-teacher/personnel-team/all-counts-template', public.upload_file_callback, excel_parsing3.deal_table_3_2_2_0, expressJoi(sub_schema3.table_3_2_2_0), pre_view_handler.preview_table)
 
-// 手动 填报 国家级团队和学术领军人才（含青年人才）清单 情况路由（表3-2-2-1）
+// 手动 填报 高层次人才存量清单 情况路由（表3-2-2-3）
+router.post('/major-teacher/personnel-team/all-high-counts-template', public.upload_file_callback, excel_parsing3.deal_table_3_2_2_3, expressJoi(sub_schema3.table_3_2_2_3), pre_view_handler.preview_table)
+
+// 手动 填报 国家级团队 情况路由（表3-2-2-4）
+router.post('/major-teacher/personnel-team/nation-team-sub-template', public.upload_file_callback, excel_parsing3.deal_table_3_2_2_4, expressJoi(sub_schema3.table_3_2_2_4), pre_view_handler.preview_table)
+
+// 手动 填报 国家级学术领军人才（含青年人才）清单 情况路由（表3-2-2-1）
 router.post('/major-teacher/personnel-team/nation-counts-template', public.upload_file_callback, excel_parsing3.deal_table_3_2_2_1, expressJoi(sub_schema3.table_3_2_2_1), pre_view_handler.preview_table)
 
 // 手动 填报 省重点人才清单 情况处理函数 情况路由（表3-2-2-2）
 router.post('/major-teacher/personnel-team/province-counts-template', public.upload_file_callback, excel_parsing3.deal_table_3_2_2_2, expressJoi(sub_schema3.table_3_2_2_2), pre_view_handler.preview_table)
+
+
+
+
 
 // 手动 填报 表3-2-3 学科专任教师数量及结构
 router.post('/major-teacher/number-struct-template', public.upload_file_callback, excel_parsing3.deal_table_3_2_3, expressJoi(sub_schema3.table_3_2_3), pre_view_handler.preview_table)
