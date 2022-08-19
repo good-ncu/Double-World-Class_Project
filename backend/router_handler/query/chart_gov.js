@@ -937,7 +937,7 @@ exports.gov_tjd_big_platform_detail = function (req, res) {
       // 当前sql查询为空，则返回填报提示
       res.cc("该校学科无国家级教学成果奖情况信息")
     } else {
-
+      results.rows = JSON.parse(JSON.stringify(results.rows).replace(/palt_level/g, 'plat_level').replace(/appro_time/g, 'appro_date'))
       console.log("========gov_tjd_big_platform_detail   results_to_data: =========");
       console.log(results.rows);
       res.send({
