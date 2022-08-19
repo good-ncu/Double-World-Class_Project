@@ -221,7 +221,6 @@ exports.gov_tjd_leaders = function (req, res) {
 
 }
 
-
 // 省厅查看 国家级学术领军人才（含青年人才）   某学校某学科详情
 exports.gov_tjd_leaders_detail = function (req, res) {
   /**
@@ -287,7 +286,7 @@ ORDER BY  yr DESC,honor_name,rc_name ASC`
       res.cc("该校学科无国家级学术领军人才（含青年人才）信息")
     } else {
 
-      console.log("========gov_tjd_leaders   results_to_data: =========");
+      console.log("========gov_tjd_leaders_detail   results_to_data: =========");
       console.log(results.rows);
       res.send({
         status: 0,
@@ -310,11 +309,106 @@ exports.gov_tjd_hold_big_project = function (req, res) {
    * 2. user_fill 去找填报记录 fill_id=
    */
   userinfo = req.user
-  sql = `-- 查询各"突击队"学科的主持国家重点重大项目的总数，对应host_sciproj
+  sql = `SELECT
+  b.univ_name,
+  b.discipline_name,
+  SUM(b.xm_num) AS xm_num
+ FROM
+ (
+  SELECT
+   a.univ_name,
+   a.discipline_name,
+   COUNT(host_sciproj.id) AS xm_num
+  FROM
+  ((
+  SELECT
+   univ_discipline.univ_code,
+   univ_discipline.discipline_code,
+   univ_discipline.univ_name,
+   univ_discipline.subtag1 AS discipline_name
+  FROM univ_discipline
+  WHERE univ_discipline.tag1='学科群' AND univ_discipline.tag2='突击队'
+  )
+  UNION
+  (
+  SELECT
+   univ_discipline.univ_code,
+   univ_discipline.discipline_code,
+   univ_discipline.univ_name,
+   univ_discipline.discipline_name
+  FROM univ_discipline
+  WHERE univ_discipline.tag1='一流学科建设名单' AND univ_discipline.tag2='突击队'
+  )) AS a
+  INNER JOIN host_sciproj 
+   ON a.univ_code = host_sciproj.univ_code AND a.discipline_code = host_sciproj.discipline_code
+  INNER JOIN user_fill 
+   ON user_fill.id = host_sciproj.user_fill_id
+  WHERE 
+   user_fill.is_delete = '0' 
+   AND host_sciproj.is_delete = '0' 
+   AND host_sciproj.proj_level = '国家重点重大项目'
+  GROUP BY
+   a.univ_code,
+   a.discipline_code,
+   a.univ_name,
+   a.discipline_name
+  ORDER BY xm_num DESC
+  )AS b
+ GROUP BY
+  b.univ_name,
+  b.discipline_name
+ ORDER BY xm_num DESC`
+  client.query(sql, function (err, results) {
+    if (err) {
+      // 异常后调用callback并传入err
+      res.send({
+        status: 1,
+        message: err.message
+      })
+    } else if (results.rowCount == 0) {
+      // 当前sql查询为空，则返回填报提示
+      res.cc("无主持国家重点重大项目信息")
+    } else {
+      var results_to_data = results.rows.map(function(item) {
+        return {
+            dis_name: item.univ_name+"-"+item.discipline_name,
+            rc_num: item.xm_num
+        }
+      })
+      console.log("========gov_tjd_hold_big_project   results_to_data: =========");
+      console.log(results_to_data);
+      res.send({
+        status: 0,
+        // data: results.rows
+        data: results_to_data
+      })
+    }
+  });
+
+}
+
+// 省厅查看 主持国家重点重大项目情况   某学校某学科详情
+exports.gov_tjd_hold_big_project_detail = function (req, res) {
+  /**
+   * 1. univ_discipline 先查出所有突击队学科
+   * 2. user_fill 去找填报记录 fill_id=
+   */
+  userinfo = req.user
+  detail = req.body.detail
+  var detailinfo = []
+  detailinfo = detail.split('-')
+  console.log(detailinfo)
+  console.log(detailinfo[0])
+  console.log(detailinfo[1])
+  sql = `-- 查询各"突击队"学科的主持国家重点重大项目的名单，对应host_sciproj
   SELECT
     a.univ_name,
     a.discipline_name,
-    COUNT(host_sciproj.id) AS xm_num
+    host_sciproj.yr,	--项目年份
+    host_sciproj.proj_fromto_ymth,	--项目时间
+    host_sciproj.proj_name,	--项目名称
+    host_sciproj.proj_type,	--项目类型
+    host_sciproj.proj_fund	--项目资金
   FROM
   ((
   SELECT
@@ -343,14 +437,9 @@ exports.gov_tjd_hold_big_project = function (req, res) {
     user_fill.is_delete = '0' 
     AND host_sciproj.is_delete = '0' 
     AND host_sciproj.proj_level = '国家重点重大项目'
-    AND a.univ_name = '江西理工大学'	--传参数，
-    AND a.discipline_name = '冶金工程' --传参数，
-  GROUP BY
-    a.univ_code,
-    a.discipline_code,
-    a.univ_name,
-    a.discipline_name
-  ORDER BY xm_num DESC`
+	AND a.univ_name = '${detailinfo[0]}'	--传学校代码，江西理工大学
+	AND a.discipline_name = '${detailinfo[1]}' --传学科代码，冶金工程
+  ORDER BY yr DESC`
   client.query(sql, function (err, results) {
     if (err) {
       // 异常后调用callback并传入err
@@ -360,20 +449,15 @@ exports.gov_tjd_hold_big_project = function (req, res) {
       })
     } else if (results.rowCount == 0) {
       // 当前sql查询为空，则返回填报提示
-      res.cc("无主持国家重点重大项目信息")
+      res.cc("该校学科无国家重点重大项目情况信息")
     } else {
-      var results_to_data = results.rows.map(function(item) {
-        return {
-            dis_name: item.univ_name+"-"+item.discipline_name,
-            rc_num: item.xm_num
-        }
-      })
-      console.log("========gov_tjd_hold_big_project   results_to_data: =========");
-      console.log(results_to_data);
+
+      console.log("========gov_tjd_hold_big_project_detail   results_to_data: =========");
+      console.log(results.rows);
       res.send({
         status: 0,
         // data: results.rows
-        data: results_to_data
+        data: results.rows
       })
     }
   });

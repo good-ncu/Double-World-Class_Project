@@ -24,6 +24,8 @@ router.post('/gov-tjd-leaders-detail', role_audit.is_gov, chart_handler_gov.gov_
 
 // 省厅查看 主持国家重点重大项目情况
 router.post('/gov-tjd-hold-big-project', role_audit.is_gov, chart_handler_gov.gov_tjd_hold_big_project)
+// 省厅查看 学术领军人才 详情
+router.post('/gov-tjd-hold-big-project-detail', role_audit.is_gov, chart_handler_gov.gov_tjd_hold_big_project_detail)
 
 // 省厅查看 学科国家级教学成果奖情况
 router.post('/gov-tjd-big-award', role_audit.is_gov, chart_handler_gov.gov_tjd_big_award)
