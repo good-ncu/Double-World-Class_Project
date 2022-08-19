@@ -29,56 +29,72 @@ exports.gov_compare_subject = function (req, res) {
       res.send({
         status: 0,
         // data: results.rows
-        data: [{
-          "name": "学科建设进展",
-          "datas": [
-            [
-              "学科评估情况",
-              {
-                "value": "第四轮评估：B",
-                "award": false
-              },
-              {
-                "value": "第四轮评估：B",
-                "award": false
-              },
-              {
-                "value": "第四轮评估：B",
-                "award": false
-              }
-            ],
-            [
-              "学科影响力情况",
-              {
-                "value": "软科排名：21",
-                "award": false
-              },
-              {
-                "value": "软科排名：21",
-                "award": false
-              },
-              {
-                "value": "软科排名：21",
-                "award": false
-              }
-            ],
-            [
-              "本学科建设经费数额（万元）",
-              {
-                "value": "100",
-                "award": true
-              },
-              {
-                "value": "100",
-                "award": true
-              },
-              {
-                "value": "100",
-                "award": true
-              }
+        subjects: [
+          {
+            "school": "南昌大学",
+            "subject": "计算机科学与技术"
+          },
+          {
+            "school": "江西财经大学",
+            "subject": "软件工程"
+          },
+          {
+            "school": "江西农业大学",
+            "subject": "网络安全"
+          }
+        ],
+        data: [
+          {
+            "name": "学科建设进展",
+            "datas": [
+              [
+                "学科评估情况",
+                {
+                  "value": "第四轮评估：B",
+                  "award": false
+                },
+                {
+                  "value": "第四轮评估：B",
+                  "award": false
+                },
+                {
+                  "value": "第四轮评估：B",
+                  "award": false
+                }
+              ],
+              [
+                "学科影响力情况",
+                {
+                  "value": "软科排名：21",
+                  "award": false
+                },
+                {
+                  "value": "软科排名：21",
+                  "award": false
+                },
+                {
+                  "value": "软科排名：21",
+                  "award": false
+                }
+              ],
+              [
+                "本学科建设经费数额（万元）",
+                {
+                  "value": "100",
+                  "award": true
+                },
+                {
+                  "value": "100",
+                  "award": true
+                },
+                {
+                  "value": "100",
+                  "award": true
+                }
+              ]
             ]
-          ]
-        }]
+          }
+        ]
       })
     }
   });
