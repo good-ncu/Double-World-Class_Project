@@ -140,47 +140,58 @@ exports.gov_tjd_leaders = function (req, res) {
    * 2. user_fill 去找填报记录 fill_id=
    */
   userinfo = req.user
-  sql = `SELECT
-     a.univ_code,
-     a.discipline_code,
-     a.univ_name,
-     a.discipline_name,
-     COUNT(talent_team.id) AS rc_num 	--人才数量
-   FROM
-   ((
-   SELECT
-     univ_discipline.univ_code,
-     univ_discipline.discipline_code,
-     univ_discipline.univ_name,
-     univ_discipline.subtag1 AS discipline_name
-   FROM univ_discipline
-   WHERE univ_discipline.tag1='学科群' AND univ_discipline.subsubtag1='主干' AND univ_discipline.tag2='突击队'
-   )
-   UNION
-   (
-   SELECT
-     univ_discipline.univ_code,
-     univ_discipline.discipline_code,
-     univ_discipline.univ_name,
-     univ_discipline.discipline_name
-   FROM univ_discipline
-   WHERE univ_discipline.tag1='一流学科建设名单' AND univ_discipline.tag2='突击队'
-   )) AS a
-   INNER JOIN talent_team 
-     ON a.univ_code = talent_team.univ_code AND a.discipline_code = talent_team.discipline_code
-   INNER JOIN user_fill 
-     ON user_fill.id = talent_team.user_fill_id
-   WHERE 
-     user_fill.is_delete = '0' 
-     AND talent_team.is_delete = '0' 
-     AND	talent_team.talent_or_team = '人才'
-     AND talent_team.level = '国家级'
-   GROUP BY
-     a.univ_code,
-     a.discipline_code,
-     a.univ_name,
-     a.discipline_name
-   ORDER BY rc_num DESC,univ_code,discipline_code ASC`
+  sql = `-- 查询各"突击队"学科的国家级学术领军人才（含青年人才）的总数，对应talent_team
+  SELECT
+    b.univ_name,
+    b.discipline_name,
+    SUM(b.rc_num) AS rc_num 	--人才数量
+  FROM
+  (
+    SELECT
+      a.univ_code,
+      a.discipline_code,
+      a.univ_name,
+      a.discipline_name,
+      COUNT(talent_team.id) AS rc_num
+    FROM
+    ((
+    SELECT
+      univ_discipline.univ_code,
+      univ_discipline.discipline_code,
+      univ_discipline.univ_name,
+      univ_discipline.subtag1 AS discipline_name
+    FROM univ_discipline
+    WHERE univ_discipline.tag1='学科群' AND univ_discipline.tag2='突击队'
+    )
+    UNION
+    (
+    SELECT
+      univ_discipline.univ_code,
+      univ_discipline.discipline_code,
+      univ_discipline.univ_name,
+      univ_discipline.discipline_name
+    FROM univ_discipline
+    WHERE univ_discipline.tag1='一流学科建设名单' AND univ_discipline.tag2='突击队'
+    )) AS a
+    INNER JOIN talent_team 
+      ON a.univ_code = talent_team.univ_code AND a.discipline_code = talent_team.discipline_code
+    INNER JOIN user_fill 
+      ON user_fill.id = talent_team.user_fill_id
+    WHERE 
+      user_fill.is_delete = '0' 
+      AND talent_team.is_delete = '0' 
+      AND	talent_team.talent_or_team = '人才'
+      AND talent_team.level = '国家级'
+    GROUP BY
+      a.univ_code,
+      a.discipline_code,
+      a.univ_name,
+      a.discipline_name
+    ) AS b
+  GROUP BY
+    b.univ_name,
+    b.discipline_name
+  ORDER BY rc_num DESC`
   client.query(sql, function (err, results) {
     if (err) {
       // 异常后调用callback并传入err
@@ -299,7 +310,47 @@ exports.gov_tjd_hold_big_project = function (req, res) {
    * 2. user_fill 去找填报记录 fill_id=
    */
   userinfo = req.user
-  sql = `select discipline_eval_turn,discipline_eval_result,count(discipline_eval_result) from discipline_eval group by discipline_eval_result ,discipline_eval_turn`
+  sql = `-- 查询各"突击队"学科的主持国家重点重大项目的总数，对应host_sciproj
+  SELECT
+    a.univ_name,
+    a.discipline_name,
+    COUNT(host_sciproj.id) AS xm_num
+  FROM
+  ((
+  SELECT
+    univ_discipline.univ_code,
+    univ_discipline.discipline_code,
+    univ_discipline.univ_name,
+    univ_discipline.subtag1 AS discipline_name
+  FROM univ_discipline
+  WHERE univ_discipline.tag1='学科群' AND univ_discipline.tag2='突击队'
+  )
+  UNION
+  (
+  SELECT
+    univ_discipline.univ_code,
+    univ_discipline.discipline_code,
+    univ_discipline.univ_name,
+    univ_discipline.discipline_name
+  FROM univ_discipline
+  WHERE univ_discipline.tag1='一流学科建设名单' AND univ_discipline.tag2='突击队'
+  )) AS a
+  INNER JOIN host_sciproj 
+    ON a.univ_code = host_sciproj.univ_code AND a.discipline_code = host_sciproj.discipline_code
+  INNER JOIN user_fill 
+    ON user_fill.id = host_sciproj.user_fill_id
+  WHERE 
+    user_fill.is_delete = '0' 
+    AND host_sciproj.is_delete = '0' 
+    AND host_sciproj.proj_level = '国家重点重大项目'
+    AND a.univ_name = '江西理工大学'	--传参数，
+    AND a.discipline_name = '冶金工程' --传参数，
+  GROUP BY
+    a.univ_code,
+    a.discipline_code,
+    a.univ_name,
+    a.discipline_name
+  ORDER BY xm_num DESC`
   client.query(sql, function (err, results) {
     if (err) {
       // 异常后调用callback并传入err
@@ -311,53 +362,18 @@ exports.gov_tjd_hold_big_project = function (req, res) {
       // 当前sql查询为空，则返回填报提示
       res.cc("无主持国家重点重大项目信息")
     } else {
+      var results_to_data = results.rows.map(function(item) {
+        return {
+            dis_name: item.univ_name+"-"+item.discipline_name,
+            rc_num: item.xm_num
+        }
+      })
+      console.log("========gov_tjd_hold_big_project   results_to_data: =========");
+      console.log(results_to_data);
       res.send({
         status: 0,
         // data: results.rows
-        data: [{
-          "dis_name": "南昌大学-绿色食品学科群",
-          "rc_num": "8"
-        },
-        {
-          "dis_name": "江西师范大学-马克思主义理论",
-          "rc_num": "7"
-        },
-        {
-          "dis_name": "江西财经大学-统计学",
-          "rc_num": "7"
-        },
-        {
-          "dis_name": "华东交通大学-交通运输工程",
-          "rc_num": "7"
-        },
-        {
-          "dis_name": "江西理工大学-冶金工程",
-          "rc_num": "7"
-        },
-        {
-          "dis_name": "景德镇陶瓷大学-陶瓷设计与美术",
-          "rc_num": "6"
-        },
-        {
-          "dis_name": "江西中医药大学-中药学",
-          "rc_num": "6"
-        },
-        {
-          "dis_name": "江西农业大学-畜牧学",
-          "rc_num": "5"
-        },
-        {
-          "dis_name": "东华理工大学-地质资源与地质工程",
-          "rc_num": "5"
-        },
-        {
-          "dis_name": "南昌航空大学-环境科学与工程",
-          "rc_num": "4"
-        },
-        {
-          "dis_name": "南昌大学-临床医学与公共卫生大健康",
-          "rc_num": "3"
-        }]
+        data: results_to_data
       })
     }
   });
