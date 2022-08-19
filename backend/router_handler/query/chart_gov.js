@@ -387,7 +387,57 @@ exports.gov_tjd_big_award = function (req, res) {
    * 2. user_fill 去找填报记录 fill_id=
    */
   userinfo = req.user
-  sql = `select discipline_eval_turn,discipline_eval_result,count(discipline_eval_result) from discipline_eval group by discipline_eval_result ,discipline_eval_turn`
+  sql = `-- 查询各"突击队"学科的国家级教学成果奖情况的总数，对应teaching_achv
+  SELECT 
+    b.univ_name,
+    b.discipline_name,
+    SUM(b.achv_num) AS achv_num
+  FROM
+  (
+  SELECT
+      a.univ_code,
+      a.discipline_code,
+      a.univ_name,
+      a.discipline_name,
+      COUNT(teaching_achv.id) AS achv_num 	--教学成果数量
+    FROM
+    ((
+    SELECT
+      univ_discipline.univ_code,
+      univ_discipline.discipline_code,
+      univ_discipline.univ_name,
+      univ_discipline.subtag1 AS discipline_name
+    FROM univ_discipline
+    WHERE univ_discipline.tag1='学科群' AND univ_discipline.tag2='突击队'
+    )
+    UNION
+    (
+    SELECT
+      univ_discipline.univ_code,
+      univ_discipline.discipline_code,
+      univ_discipline.univ_name,
+      univ_discipline.discipline_name
+    FROM univ_discipline
+    WHERE univ_discipline.tag1='一流学科建设名单' AND univ_discipline.tag2='突击队'
+    )) AS a
+    INNER JOIN teaching_achv 
+      ON a.univ_code = teaching_achv.univ_code AND a.discipline_code = teaching_achv.discipline_code
+    INNER JOIN user_fill 
+      ON user_fill.id = teaching_achv.user_fill_id
+    WHERE 
+      user_fill.is_delete = '0' 
+      AND teaching_achv.is_delete = '0' 
+      AND teaching_achv.award_ltype = '国家级教学成果奖'
+    GROUP BY
+      a.univ_code,
+      a.discipline_code,
+      a.univ_name,
+      a.discipline_name
+    ) AS b
+  GROUP BY 
+    b.univ_name,
+    b.discipline_name
+  ORDER BY achv_num DESC`
   client.query(sql, function (err, results) {
     if (err) {
       // 异常后调用callback并传入err
@@ -397,55 +447,20 @@ exports.gov_tjd_big_award = function (req, res) {
       })
     } else if (results.rowCount == 0) {
       // 当前sql查询为空，则返回填报提示
-      res.cc("无主持国家重点重大项目信息")
+      res.cc("无学科国家级教学成果奖信息")
     } else {
+      var results_to_data = results.rows.map(function(item) {
+        return {
+            dis_name: item.univ_name+"-"+item.discipline_name,
+            rc_num: item.achv_num
+        }
+      })
+      console.log("========gov_tjd_big_award   results_to_data: =========");
+      console.log(results_to_data);
       res.send({
         status: 0,
         // data: results.rows
-        data: [{
-          "dis_name": "南昌大学-绿色食品学科群",
-          "rc_num": "8"
-        },
-        {
-          "dis_name": "江西师范大学-马克思主义理论",
-          "rc_num": "7"
-        },
-        {
-          "dis_name": "江西财经大学-统计学",
-          "rc_num": "7"
-        },
-        {
-          "dis_name": "华东交通大学-交通运输工程",
-          "rc_num": "7"
-        },
-        {
-          "dis_name": "江西理工大学-冶金工程",
-          "rc_num": "7"
-        },
-        {
-          "dis_name": "景德镇陶瓷大学-陶瓷设计与美术",
-          "rc_num": "6"
-        },
-        {
-          "dis_name": "江西中医药大学-中药学",
-          "rc_num": "6"
-        },
-        {
-          "dis_name": "江西农业大学-畜牧学",
-          "rc_num": "5"
-        },
-        {
-          "dis_name": "东华理工大学-地质资源与地质工程",
-          "rc_num": "5"
-        },
-        {
-          "dis_name": "南昌航空大学-环境科学与工程",
-          "rc_num": "4"
-        },
-        {
-          "dis_name": "南昌大学-临床医学与公共卫生大健康",
-          "rc_num": "3"
-        }]
+        data: results_to_data
       })
     }
   });
