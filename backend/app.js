@@ -14,13 +14,13 @@ app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
 
 // 在路由之前封装 res.cc 函数简化res.send发送错误消息
-app.use((req,res,next)=>{
-  res.cc = function(err, status=1){
-      res.send({
-          status,
-          // 是Error类型就输出message属性，否则则可能是字符串就直接输出
-          message:err instanceof Error ? err.message:err
-      })
+app.use((req, res, next) => {
+  res.cc = function (err, status = 1) {
+    res.send({
+      status,
+      // 是Error类型就输出message属性，否则则可能是字符串就直接输出
+      message: err instanceof Error ? err.message : err
+    })
   }
   next()
 })
@@ -34,7 +34,7 @@ const config = require('./config')
 
 
 // /api/login接口的不走解析token中间件，注册要携带token
-app.use(expressJWT({secret: config.jwtSecretKey,algorithms: ['HS256']}).unless({
+app.use(expressJWT({ secret: config.jwtSecretKey, algorithms: ['HS256'] }).unless({
   path: [
     /^\/api\/login/,
     /^\/api\/download/,
@@ -46,70 +46,79 @@ app.use(expressJWT({secret: config.jwtSecretKey,algorithms: ['HS256']}).unless({
 }))
 
 
-// 导入并使用用户路由模块
+// 导入并使用用户路由模块    token 验证用
 const userRouter = require('./router/user')
 app.use('/api', userRouter)
 
-// 导入并使用用户暂存模块
+// 导入并使用用户暂存模块   学科 - 暂存 
 const user_save = require('./router/user_fill/user_save')
 app.use('/api', user_save)
 
-// 导入并使用主页展示指标模块
+// 导入并使用主页展示指标模块    政府、学校的图表展示
 const chart_show = require('./router/query/chart')
-app.use('/api',chart_show)
+app.use('/api', chart_show)
 
-// 导入并使用平台首页 学科建设进展 路由模块
+
+// 导入并使用主页对比指标模块    政府、学校的学科对比展示
+const compare_show = require('./router/query/compare')
+app.use('/api', compare_show)
+
+
+
+
+// 导入并使用平台首页 学科建设进展 路由模块    填报
 const disci_consRouter = require('./router/user_fill/disci-cons')
-app.use('/api/index/disci-cons',disci_consRouter)
+app.use('/api/index/disci-cons', disci_consRouter)
 
-// 导入并使用平台首页 培养拔尖创新人才 路由模块
+// 导入并使用平台首页 培养拔尖创新人才 路由模块     填报
 const cultivate_talentsRouter = require('./router/user_fill/cultivate-talents')
-app.use('/api/index/cultivate-talents',cultivate_talentsRouter)
+app.use('/api/index/cultivate-talents', cultivate_talentsRouter)
 
-// 导入并使用平台首页 建设一流师资队伍 路由模块
+// 导入并使用平台首页 建设一流师资队伍 路由模块    填报
 const teacher_teamRouter = require('./router/user_fill/teacher-team')
-app.use('/api/index/teacher-team',teacher_teamRouter)
+app.use('/api/index/teacher-team', teacher_teamRouter)
 
-// 导入并使用平台首页 科学研究 路由模块
+// 导入并使用平台首页 科学研究 路由模块    填报
 const researchRouter = require('./router/user_fill/research')
-app.use('/api/index/research',researchRouter)
+app.use('/api/index/research', researchRouter)
 
-// 导入并使用平台首页 社会服务 路由模块
+// 导入并使用平台首页 社会服务 路由模块    填报
 const social_servicesRouter = require('./router/user_fill/social-services')
-app.use('/api/index/social-services',social_servicesRouter)
+app.use('/api/index/social-services', social_servicesRouter)
 
 // 导入 当前学科用户哪些表填了，那些表没填，表都是打开了填报周期的表 路由模块
 const show_tables = require('./router/user_fill/show_tables')
-app.use('/api/index',show_tables)
+app.use('/api/index', show_tables)
 
 // 导入 学校管理员对已填报数据的查询（审核） 路由模块
 const school_reviewRouter = require('./router/query/school-review')
-app.use('/api/index/school-query',school_reviewRouter)
+app.use('/api/index/school-query', school_reviewRouter)
 
 // 导入 学科填报用户 对已填报数据的查询（审核） 路由模块
 const user_reviewRouter = require('./router/query/user-review')
-app.use('/api/index/user-query',user_reviewRouter)
+app.use('/api/index/user-query', user_reviewRouter)
 
 
 
 // 导入 下载模板的路由模块
 const download_router = require('./router/download')
-app.use('/api',download_router)
+app.use('/api', download_router)
 
-
+// 查所有学校
 const all_univ = require('./router/all_univ')
-app.use('/api',all_univ)
+app.use('/api', all_univ)
 
+// 查所有学科
 const all_discipline = require('./router/all_discipline')
-app.use('/api',all_discipline)
+app.use('/api', all_discipline)
 
 // 生成报告模板，并向模板中填入数据
 const download_gen_report = require('./router/gen_report')
-app.use('/api',download_gen_report)
+app.use('/api', download_gen_report)
 
 //  省厅 查询一些关于 一流学校与学科对应的关系的接口
 const gov_query_school_disc = require('./router/query/gov_query_school_disc')
-app.use('/api',gov_query_school_disc)
+app.use('/api', gov_query_school_disc)
 
 // 启动服务器
 var server = app.listen(3007, () => {
