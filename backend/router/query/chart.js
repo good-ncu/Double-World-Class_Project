@@ -27,14 +27,23 @@ router.post('/gov-tjd-hold-big-project', role_audit.is_gov, chart_handler_gov.go
 // 省厅查看 学术领军人才 详情
 router.post('/gov-tjd-hold-big-project-detail', role_audit.is_gov, chart_handler_gov.gov_tjd_hold_big_project_detail)
 
+
 // 省厅查看 学科国家级教学成果奖情况
 router.post('/gov-tjd-big-award', role_audit.is_gov, chart_handler_gov.gov_tjd_big_award)
+// 省厅查看 学术领军人才 详情
+router.post('/gov-tjd-big-award-detail', role_audit.is_gov, chart_handler_gov.gov_tjd_big_award_detail)
+
 
 // 省厅查看 教师国家级奖项情况
 router.post('/gov-tjd-big-teacher-award', role_audit.is_gov, chart_handler_gov.gov_tjd_big_teacher_award)
+// 省厅查看 教师国家级奖项情况
+router.post('/gov-tjd-big-teacher-award-detail', role_audit.is_gov, chart_handler_gov.gov_tjd_big_teacher_award_detail)
+
 
 // 省厅查看 国家级平台建设情况
 router.post('/gov-tjd-big-platform', role_audit.is_gov, chart_handler_gov.gov_tjd_big_platform)
+// 省厅查看 国家级平台建设情况
+router.post('/gov-tjd-big-platform-detail', role_audit.is_gov, chart_handler_gov.gov_tjd_big_platform_detail)
 
 
 

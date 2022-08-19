@@ -387,7 +387,7 @@ exports.gov_tjd_hold_big_project = function (req, res) {
 
 }
 
-// 省厅查看 主持国家重点重大项目情况   某学校某学科详情
+// 省厅查看 主持国家重点重大项目情况 某学校某学科详情
 exports.gov_tjd_hold_big_project_detail = function (req, res) {
   /**
    * 1. univ_discipline 先查出所有突击队学科
@@ -551,6 +551,80 @@ exports.gov_tjd_big_award = function (req, res) {
 
 }
 
+// 省厅查看 学科国家级教学成果奖情况 某学校某学科详情
+exports.gov_tjd_big_award_detail = function (req, res) {
+  /**
+   * 1. univ_discipline 先查出所有突击队学科
+   * 2. user_fill 去找填报记录 fill_id=
+   */
+  userinfo = req.user
+  detail = req.body.detail
+  var detailinfo = []
+  detailinfo = detail.split('-')
+  console.log(detailinfo)
+  console.log(detailinfo[0])
+  console.log(detailinfo[1])
+  sql = `-- 查询各"突击队"学科的国家级教学成果奖情况的名单，对应teaching_achv
+  SELECT
+    teaching_achv.award_date,	--教学成果时间
+    teaching_achv.tch_name,	--获奖教师姓名
+    teaching_achv.award_name,	--教学成果奖名称
+    teaching_achv.award_type,	--教学成果奖类型
+    teaching_achv.award_level	--教学成果奖层次
+  FROM
+  ((
+  SELECT
+    univ_discipline.univ_code,
+    univ_discipline.discipline_code,
+    univ_discipline.univ_name,
+    univ_discipline.subtag1 AS discipline_name
+  FROM univ_discipline
+  WHERE univ_discipline.tag1='学科群' AND univ_discipline.tag2='突击队'
+  )
+  UNION
+  (
+  SELECT
+    univ_discipline.univ_code,
+    univ_discipline.discipline_code,
+    univ_discipline.univ_name,
+    univ_discipline.discipline_name
+  FROM univ_discipline
+  WHERE univ_discipline.tag1='一流学科建设名单' AND univ_discipline.tag2='突击队'
+  )) AS a
+  INNER JOIN teaching_achv 
+    ON a.univ_code = teaching_achv.univ_code AND a.discipline_code = teaching_achv.discipline_code
+  INNER JOIN user_fill 
+    ON user_fill.id = teaching_achv.user_fill_id
+  WHERE 
+    user_fill.is_delete = '0' 
+    AND teaching_achv.is_delete = '0' 
+    AND teaching_achv.award_ltype = '国家级教学成果奖'
+	AND a.univ_name = '${detailinfo[0]}'	--传学校代码，江西理工大学
+	AND a.discipline_name = '${detailinfo[1]}' --传学科代码，冶金工程
+  ORDER BY award_date DESC`
+  client.query(sql, function (err, results) {
+    if (err) {
+      // 异常后调用callback并传入err
+      res.send({
+        status: 1,
+        message: err.message
+      })
+    } else if (results.rowCount == 0) {
+      // 当前sql查询为空，则返回填报提示
+      res.cc("该校学科无国家级教学成果奖情况信息")
+    } else {
+
+      console.log("========gov_tjd_big_award_detail   results_to_data: =========");
+      console.log(results.rows);
+      res.send({
+        status: 0,
+        // data: results.rows
+        data: results.rows
+      })
+    }
+  });
+}
+
 // 省厅查看 教师国家级奖项情况
 exports.gov_tjd_big_teacher_award = function (req, res) {
   /**
@@ -636,6 +710,82 @@ exports.gov_tjd_big_teacher_award = function (req, res) {
     }
   });
 
+}
+// 省厅查看 教师国家级奖项情况 某学校某学科详情
+exports.gov_tjd_big_teacher_award_detail = function (req, res) {
+  /**
+   * 1. univ_discipline 先查出所有突击队学科
+   * 2. user_fill 去找填报记录 fill_id=
+   */
+  userinfo = req.user
+  detail = req.body.detail
+  var detailinfo = []
+  detailinfo = detail.split('-')
+  console.log(detailinfo)
+  console.log(detailinfo[0])
+  console.log(detailinfo[1])
+  sql = `-- 查询各"突击队"学科的教师国家级奖项情况的名单，对应tch_award
+  SELECT
+    a.univ_name,
+    a.discipline_name,
+    tch_award.yr,	--获奖年份
+    tch_award.award_name,	--所获奖项名称
+    tch_award.tch_name,	--获奖教师姓名
+    tch_award.grade,	--获奖等级（国家一等奖、国家二等奖）
+    tch_award.award_eval_org,	--评奖组织单位
+    tch_award.award_eval_org_type	--评奖组织单位类型
+  FROM
+  ((
+  SELECT
+    univ_discipline.univ_code,
+    univ_discipline.discipline_code,
+    univ_discipline.univ_name,
+    univ_discipline.subtag1 AS discipline_name
+  FROM univ_discipline
+  WHERE univ_discipline.tag1='学科群' AND univ_discipline.tag2='突击队'
+  )
+  UNION
+  (
+  SELECT
+    univ_discipline.univ_code,
+    univ_discipline.discipline_code,
+    univ_discipline.univ_name,
+    univ_discipline.discipline_name
+  FROM univ_discipline
+  WHERE univ_discipline.tag1='一流学科建设名单' AND univ_discipline.tag2='突击队'
+  )) AS a
+  INNER JOIN tch_award
+    ON a.univ_code = tch_award.univ_code AND a.discipline_code = tch_award.discipline_code
+  INNER JOIN user_fill 
+    ON user_fill.id = tch_award.user_fill_id
+  WHERE 
+    user_fill.is_delete = '0' 
+    AND tch_award.is_delete = '0' 
+    AND tch_award.level= '国家级'
+	AND a.univ_name = '${detailinfo[0]}'	--传学校代码，江西理工大学
+	AND a.discipline_name = '${detailinfo[1]}' --传学科代码，冶金工程
+  ORDER BY yr DESC`
+  client.query(sql, function (err, results) {
+    if (err) {
+      // 异常后调用callback并传入err
+      res.send({
+        status: 1,
+        message: err.message
+      })
+    } else if (results.rowCount == 0) {
+      // 当前sql查询为空，则返回填报提示
+      res.cc("该校学科无国家级教学成果奖情况信息")
+    } else {
+
+      console.log("========gov_tjd_big_teacher_award_detail   results_to_data: =========");
+      console.log(results.rows);
+      res.send({
+        status: 0,
+        // data: results.rows
+        data: results.rows
+      })
+    }
+  });
 }
 
 // 省厅查看 国家级平台建设情况
@@ -723,5 +873,79 @@ exports.gov_tjd_big_platform = function (req, res) {
     }
   });
 
+}
+// 省厅查看 国家级平台建设情况 某学校某学科详情
+exports.gov_tjd_big_platform_detail = function (req, res) {
+  /**
+   * 1. univ_discipline 先查出所有突击队学科
+   * 2. user_fill 去找填报记录 fill_id=
+   */
+  userinfo = req.user
+  detail = req.body.detail
+  var detailinfo = []
+  detailinfo = detail.split('-')
+  console.log(detailinfo)
+  console.log(detailinfo[0])
+  console.log(detailinfo[1])
+  sql = `-- 查询所有"突击队"学科的国家级平台建设情况的名单，对应sci_innova_plat
+  SELECT
+    a.univ_name,
+    a.discipline_name,
+    sci_innova_plat.yr, 	--填报年度
+    sci_innova_plat.plat_name, 	--平台名称
+    sci_innova_plat.palt_level, 	--平台数量
+    sci_innova_plat.appro_time 	--批准时间
+  FROM
+  ((
+  SELECT
+    univ_discipline.univ_code,
+    univ_discipline.discipline_code,
+    univ_discipline.univ_name,
+    univ_discipline.subtag1 AS discipline_name
+  FROM univ_discipline
+  WHERE univ_discipline.tag1='学科群' AND  univ_discipline.tag2='突击队'
+  )
+  UNION
+  (
+  SELECT
+    univ_discipline.univ_code,
+    univ_discipline.discipline_code,
+    univ_discipline.univ_name,
+    univ_discipline.discipline_name
+  FROM univ_discipline
+  WHERE univ_discipline.tag1='一流学科建设名单' AND univ_discipline.tag2='突击队'
+  )) AS a
+  INNER JOIN sci_innova_plat
+    ON a.univ_code = sci_innova_plat.univ_code AND a.discipline_code = sci_innova_plat.discipline_code
+  INNER JOIN user_fill 
+    ON user_fill.id = sci_innova_plat.user_fill_id
+  WHERE 
+    user_fill.is_delete = '0' 
+    AND sci_innova_plat.is_delete = '0' 
+    AND sci_innova_plat.palt_level= '国家级'
+	AND a.univ_name = '${detailinfo[0]}'	--传学校代码，江西理工大学
+	AND a.discipline_name = '${detailinfo[1]}' --传学科代码，冶金工程
+  ORDER BY yr DESC`
+  client.query(sql, function (err, results) {
+    if (err) {
+      // 异常后调用callback并传入err
+      res.send({
+        status: 1,
+        message: err.message
+      })
+    } else if (results.rowCount == 0) {
+      // 当前sql查询为空，则返回填报提示
+      res.cc("该校学科无国家级教学成果奖情况信息")
+    } else {
+
+      console.log("========gov_tjd_big_platform_detail   results_to_data: =========");
+      console.log(results.rows);
+      res.send({
+        status: 0,
+        // data: results.rows
+        data: results.rows
+      })
+    }
+  });
 }
 
