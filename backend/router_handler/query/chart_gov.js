@@ -72,7 +72,43 @@ exports.gov_tjd = function(req,res) {
 // 省厅查看 第四轮学科评估情况
 exports.gov_tjd_4_evaluation = function(req,res) {
     userinfo = req.user
-    sql = `select discipline_eval_turn,discipline_eval_result,count(discipline_eval_result) from discipline_eval group by discipline_eval_result ,discipline_eval_turn`
+    sql = `SELECT
+    a.univ_code,
+    a.discipline_code,
+    a.univ_name,
+    a.discipline_name,
+    discipline_eval.discipline_eval_turn,
+    discipline_eval.discipline_eval_result 
+  FROM
+  ((
+  SELECT
+    univ_discipline.univ_code,
+    univ_discipline.discipline_code,
+    univ_discipline.univ_name,
+    univ_discipline.subtag1 AS discipline_name
+  FROM univ_discipline
+  WHERE univ_discipline.tag1='学科群' AND univ_discipline.subsubtag1='主干' AND univ_discipline.tag2='突击队'
+  )
+  UNION
+  (
+  SELECT
+    univ_discipline.univ_code,
+    univ_discipline.discipline_code,
+    univ_discipline.univ_name,
+    univ_discipline.discipline_name
+  FROM univ_discipline
+  WHERE univ_discipline.tag1='一流学科建设名单' AND univ_discipline.tag2='突击队'
+  )) AS a
+  INNER JOIN discipline_eval 
+    ON a.univ_code = discipline_eval.univ_code AND a.discipline_code = discipline_eval.discipline_code
+  INNER JOIN user_fill 
+    ON user_fill.id = discipline_eval.user_fill_id
+  WHERE 
+    user_fill.is_delete = '0' 
+    AND discipline_eval.is_delete = '0' 
+    AND discipline_eval.discipline_eval_turn = '4'
+  ORDER BY univ_code,discipline_code ASC`
+
     client.query(sql, function (err, results) {
         if (err) {
             // 异常后调用callback并传入err
@@ -84,64 +120,12 @@ exports.gov_tjd_4_evaluation = function(req,res) {
             // 当前sql查询为空，则返回填报提示
             res.cc("无第四轮学科评估信息")
         } else {
+          results_to_data = JSON.parse(JSON.stringify(results.rows).replace(/univ_name/g, 'name').replace(/discipline_name/g, 'subject').replace(/discipline_eval_result/g, 'value'))
+          console.log(results_to_data);
             res.send({
                 status: 0,
                 // data: results.rows
-                data:[{
-                    "name": "南昌大学",
-                    "subject": "绿色食品学科群",
-                    "value": "A"
-                  },
-                  {
-                    "name": "南昌大学",
-                    "subject": "临床医学与公共卫生大健康学科群",
-                    "value": "B-"
-                  },
-                  {
-                    "name": "江西师范大学",
-                    "subject": "马克思主义理论",
-                    "value": "A-"
-                  },
-                  {
-                    "name": "江西农业大学",
-                    "subject": "畜牧学",
-                    "value": "B"
-                  },
-                  {
-                    "name": "江西财经大学",
-                    "subject": "统计学",
-                    "value": "A-"
-                  },
-                  {
-                    "name": "华东交通大学",
-                    "subject": "交通运输工程",
-                    "value": "B-"
-                  },
-                  {
-                    "name": "江西中医药大学",
-                    "subject": "中药学",
-                    "value": "B+"
-                  },
-                  {
-                    "name": "景德镇陶瓷大学",
-                    "subject": "陶瓷设计与美术",
-                    "value": "B+"
-                  },
-                  {
-                    "name": "江西理工大学",
-                    "subject": "冶金工程",
-                    "value": "C+"
-                  },
-                  {
-                    "name": "东华理工大学",
-                    "subject": "地质资源与地质工程",
-                    "value": "C"
-                  },
-                  {
-                    "name": "南昌航空大学",
-                    "subject": "环境科学与工程",
-                    "value": "B-"
-                  }]
+                data:results_to_data
             })
         }
     });
