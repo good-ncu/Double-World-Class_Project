@@ -4,7 +4,7 @@ const router = express.Router()
 const chart_handler_gov = require('../../router_handler/query/chart_gov')
 const chart_handler_school = require('../../router_handler/query/chart_school')
 const chart_handler_discipline = require('../../router_handler/query/chart_discipline')
-const role_audit  = require('../../schema/role_audit')
+const role_audit = require('../../schema/role_audit')
 /**
  * 省厅
  */
@@ -15,8 +15,12 @@ router.post('/gov-tjd', role_audit.is_gov, chart_handler_gov.gov_tjd)
 // 省厅查看 第四轮学科评估情况
 router.post('/gov-tjd-4-evaluation', role_audit.is_gov, chart_handler_gov.gov_tjd_4_evaluation)
 
+
 // 省厅查看 学术领军人才
 router.post('/gov-tjd-leaders', role_audit.is_gov, chart_handler_gov.gov_tjd_leaders)
+// 省厅查看 学术领军人才  详情
+router.post('/aaa', role_audit.is_gov, chart_handler_gov.gov_tjd_leaders_detail)
+
 
 // 省厅查看 主持国家重点重大项目情况
 router.post('/gov-tjd-hold-big-project', role_audit.is_gov, chart_handler_gov.gov_tjd_hold_big_project)
@@ -40,9 +44,8 @@ router.post('/gov-tjd-big-platform', role_audit.is_gov, chart_handler_gov.gov_tj
  * 学校
  */
 
- // 学校查看 学科评估情况
+// 学校查看 学科评估情况
 router.post('/discipline-eval-school', role_audit.is_school, chart_handler_school.discipline_eval_school)
- 
 
 
 
@@ -52,11 +55,12 @@ router.post('/discipline-eval-school', role_audit.is_school, chart_handler_schoo
 
 
 
- /**
-  * 学科
-  */
 
- // 学科查看 学科评估情况
+/**
+ * 学科
+ */
+
+// 学科查看 学科评估情况
 router.post('/discipline-eval-discipline', role_audit.is_discipline, chart_handler_discipline.discipline_eval_discipline)
 
 
