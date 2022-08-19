@@ -18,8 +18,6 @@ router.post('/gov-tjd-4-evaluation', role_audit.is_gov, chart_handler_gov.gov_tj
 
 // 省厅查看 学术领军人才
 router.post('/gov-tjd-leaders', role_audit.is_gov, chart_handler_gov.gov_tjd_leaders)
-// 省厅查看 学术领军人才  详情
-router.post('/aaa', role_audit.is_gov, chart_handler_gov.gov_tjd_leaders_detail)
 
 
 // 省厅查看 主持国家重点重大项目情况
