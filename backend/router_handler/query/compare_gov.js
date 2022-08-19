@@ -7,8 +7,8 @@ exports.gov_compare_subject = function (req, res) {
   params = req.body.params
   console.log(params)
   // 字符串转array
-  params = JSON.parse(params)
-  console.log(params)
+  // params = JSON.parse(params)
+  // console.log(params)
   var arr = []
   for (let i = 0, len = params.length; i < len; i++) {
     arr[i] = params[i].split('-')
