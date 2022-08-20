@@ -505,7 +505,10 @@ LIMIT 10`
           })
         } else if (results.rowCount == 0) {
           // 当前sql查询为空，则返回填报提示
-          res.cc("无人才培养基地信息")
+          res.send({
+            status: 0,
+            data: []
+        })
         } else {
           console.log("========gov_overview_listen_02_platform =========");
           res.send({
@@ -579,7 +582,10 @@ LIMIT 10`
           })
         } else if (results.rowCount == 0) {
           // 当前sql查询为空，则返回填报提示
-          res.cc("无国家级团队数量信息")
+          res.send({
+            status: 0,
+            data: []
+        })
         } else {
           console.log("========gov_overview_listen_03_leader =========");
           res.send({
@@ -652,7 +658,10 @@ LIMIT 10`
           })
         } else if (results.rowCount == 0) {
           // 当前sql查询为空，则返回填报提示
-          res.cc("无外籍专任教师数量信息")
+          res.send({
+            status: 0,
+            data: []
+        })
         } else {
             var results_to_data = results.rows.map(function (item) {
                     if(item.rc_num!=0){
@@ -731,7 +740,10 @@ LIMIT 10`
           })
         } else if (results.rowCount == 0) {
           // 当前sql查询为空，则返回填报提示
-          res.cc("无担任国际比赛负责人信息")
+          res.send({
+            status: 0,
+            data: []
+        })
         } else {
             var results_to_data = results.rows.map(function (item) {
                     if(item.rc_num!=0){
