@@ -16,7 +16,7 @@ exports.gov_overview_listen_01 = function(req,res){
           // 当前sql查询为空，则返回填报提示
           res.cc("无学科建设进展情况信息")
         } else {
-          console.log("========gov_overview_listen_01   results_to_data: =========");
+          console.log("========gov_overview_listen_01 =========");
           res.send({
             status: 0,
             // data: results.rows
@@ -435,7 +435,7 @@ LIMIT 10`
           // 当前sql查询为空，则返回填报提示
           res.cc("无国家级教学成果奖数量信息")
         } else {
-          console.log("========gov_overview_listen_02_awards   results_to_data: =========");
+          console.log("========gov_overview_listen_02_awards =========");
           res.send({
             status: 0,
             data: results.rows
@@ -507,7 +507,7 @@ LIMIT 10`
           // 当前sql查询为空，则返回填报提示
           res.cc("无人才培养基地信息")
         } else {
-          console.log("========gov_overview_listen_02_platform   results_to_data: =========");
+          console.log("========gov_overview_listen_02_platform =========");
           res.send({
             status: 0,
             data: results.rows
@@ -581,7 +581,7 @@ LIMIT 10`
           // 当前sql查询为空，则返回填报提示
           res.cc("无国家级团队数量信息")
         } else {
-          console.log("========gov_overview_listen_03_leader   results_to_data: =========");
+          console.log("========gov_overview_listen_03_leader =========");
           res.send({
             status: 0,
             data: results.rows
@@ -662,7 +662,86 @@ LIMIT 10`
                         }
                     }
                 }).filter(Boolean)
-            console.log("========gov_overview_listen_03_foreign   results_to_data: =========");
+            console.log("========gov_overview_listen_03_foreign =========");
+            res.send({
+                status: 0,
+                data: results_to_data
+            })
+        }
+      });
+}
+// 整体 - 03 - 担任国际比赛负责人
+exports.gov_overview_listen_03_contest = function(req,res){
+    userinfo = req.user
+    sql = `SELECT 
+	concat_ws('-',b.univ_name,b.discipline_name) AS dis_name,
+	SUM(b.head_num) AS rc_num
+FROM
+(
+SELECT
+		a.univ_code,
+		a.discipline_code,
+		a.univ_name,
+		a.discipline_name,
+		COUNT(tch_judge_comp.id) AS head_num 	--教师担任国际比赛评委、裁判人员清单情况数量
+	FROM
+	((
+	SELECT
+		univ_discipline.univ_code,
+		univ_discipline.discipline_code,
+		univ_discipline.univ_name,
+		univ_discipline.subtag1 AS discipline_name
+	FROM univ_discipline
+	WHERE univ_discipline.tag1='学科群' 
+	)
+	UNION
+	(
+	SELECT
+		univ_discipline.univ_code,
+		univ_discipline.discipline_code,
+		univ_discipline.univ_name,
+		univ_discipline.discipline_name
+	FROM univ_discipline
+	WHERE univ_discipline.tag1='一流学科建设名单'
+	)) AS a
+	INNER JOIN tch_judge_comp 
+		ON a.univ_code = tch_judge_comp.univ_code AND a.discipline_code = tch_judge_comp.discipline_code
+	INNER JOIN user_fill 
+		ON user_fill.id = tch_judge_comp.user_fill_id
+	WHERE 
+		user_fill.is_delete = '0' 
+		AND tch_judge_comp.is_delete = '0' 
+	GROUP BY
+		a.univ_code,
+		a.discipline_code,
+		a.univ_name,
+		a.discipline_name
+	) AS b
+GROUP BY 
+	b.univ_name,
+	b.discipline_name
+ORDER BY rc_num DESC
+LIMIT 10`
+    client.query(sql, function (err, results) {
+        if (err) {
+          // 异常后调用callback并传入err
+          res.send({
+            status: 1,
+            message: err.message
+          })
+        } else if (results.rowCount == 0) {
+          // 当前sql查询为空，则返回填报提示
+          res.cc("无担任国际比赛负责人信息")
+        } else {
+            var results_to_data = results.rows.map(function (item) {
+                    if(item.rc_num!=0){
+                        return {
+                            dis_name: item.dis_name,
+                            rc_num: item.rc_num
+                        }
+                    }
+                }).filter(Boolean)
+            console.log("========gov_overview_listen_03_contest =========");
             res.send({
                 status: 0,
                 data: results_to_data
