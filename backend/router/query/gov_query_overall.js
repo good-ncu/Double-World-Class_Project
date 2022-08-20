@@ -13,5 +13,8 @@ router.post('/gov-overview-listen-02-awards', role_audit.is_gov, gov_query_overa
 // 整体 - 02 - 人才培养基地
 router.post('/gov-overview-listen-02-platform', role_audit.is_gov, gov_query_overall_handler.gov_overview_listen_02_platform)
 
+// 整体 - 03 - 国家级团队数量
+router.post('/gov-overview-listen-03-leader', role_audit.is_gov, gov_query_overall_handler.gov_overview_listen_03_leader)
+
 
 module.exports = router
