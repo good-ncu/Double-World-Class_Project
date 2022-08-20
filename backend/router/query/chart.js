@@ -67,13 +67,6 @@ router.post('/discipline-eval-school', role_audit.is_school, chart_handler_schoo
 
 
 
-/**
- * 学科
- */
-
-// 学科查看 学科评估情况
-router.post('/discipline-eval-discipline', role_audit.is_discipline, chart_handler_discipline.discipline_eval_discipline)
-
 
 
 
