@@ -521,7 +521,7 @@ exports.gov_overview_listen_03_leader = function(req,res){
     userinfo = req.user
     sql = `SELECT 
 	concat_ws('-',b.univ_name,b.discipline_name) AS dis_name,
-	SUM(b.plat_num) AS rc_num
+	SUM(b.team_num) AS rc_num
 FROM
 (
 SELECT
@@ -529,7 +529,7 @@ SELECT
 		a.discipline_code,
 		a.univ_name,
 		a.discipline_name,
-		COUNT(talent_platbase_const.id) AS plat_num 	--平台数量
+		COUNT(talent_team.id) AS team_num 	--团队数量
 	FROM
 	((
 	SELECT
@@ -550,14 +550,15 @@ SELECT
 	FROM univ_discipline
 	WHERE univ_discipline.tag1='一流学科建设名单'
 	)) AS a
-	INNER JOIN talent_platbase_const 
-		ON a.univ_code = talent_platbase_const.univ_code AND a.discipline_code = talent_platbase_const.discipline_code
+	INNER JOIN talent_team 
+		ON a.univ_code = talent_team.univ_code AND a.discipline_code = talent_team.discipline_code
 	INNER JOIN user_fill 
-		ON user_fill.id = talent_platbase_const.user_fill_id
+		ON user_fill.id = talent_team.user_fill_id
 	WHERE 
 		user_fill.is_delete = '0' 
-		AND talent_platbase_const.is_delete = '0' 
-		AND talent_platbase_const.plat_base_level = '国家级'
+		AND talent_team.is_delete = '0' 
+		AND talent_team.talent_or_team = '团队'
+		AND talent_team.level = '国家级'
 	GROUP BY
 		a.univ_code,
 		a.discipline_code,
@@ -581,6 +582,79 @@ LIMIT 10`
           res.cc("无人才培养基地信息")
         } else {
           console.log("========gov_overview_listen_03_leader   results_to_data: =========");
+          res.send({
+            status: 0,
+            data: results.rows
+          })
+        }
+      });
+}
+// 整体 - 03 - 外籍专任教师数量
+exports.gov_overview_listen_03_foreign = function(req,res){
+    userinfo = req.user
+    sql = `SELECT 
+	concat_ws('-',b.univ_name,b.discipline_name) AS dis_name,
+	SUM(b.ftch_num) AS rc_num
+FROM
+(
+SELECT
+		a.univ_code,
+		a.discipline_code,
+		a.univ_name,
+		a.discipline_name,
+		foreign_fulltch.sum_full_ftch AS ftch_num 	--外教数量
+	FROM
+	((
+	SELECT
+		univ_discipline.univ_code,
+		univ_discipline.discipline_code,
+		univ_discipline.univ_name,
+		univ_discipline.subtag1 AS discipline_name
+	FROM univ_discipline
+	WHERE univ_discipline.tag1='学科群' 
+	)
+	UNION
+	(
+	SELECT
+		univ_discipline.univ_code,
+		univ_discipline.discipline_code,
+		univ_discipline.univ_name,
+		univ_discipline.discipline_name
+	FROM univ_discipline
+	WHERE univ_discipline.tag1='一流学科建设名单'
+	)) AS a
+	INNER JOIN foreign_fulltch
+		ON a.univ_code = foreign_fulltch.univ_code AND a.discipline_code = foreign_fulltch.discipline_code
+	INNER JOIN user_fill 
+		ON user_fill.id = foreign_fulltch.user_fill_id
+	WHERE 
+		user_fill.is_delete = '0' 
+		AND foreign_fulltch.is_delete = '0' 
+		AND foreign_fulltch.yr = '2021-2022'	--学年参数，为YYYY-YYYY格式
+	GROUP BY
+		a.univ_code,
+		a.discipline_code,
+		a.univ_name,
+		a.discipline_name,
+		foreign_fulltch.sum_full_ftch
+	) AS b
+GROUP BY 
+	b.univ_name,
+	b.discipline_name
+ORDER BY rc_num DESC
+LIMIT 10`
+    client.query(sql, function (err, results) {
+        if (err) {
+          // 异常后调用callback并传入err
+          res.send({
+            status: 1,
+            message: err.message
+          })
+        } else if (results.rowCount == 0) {
+          // 当前sql查询为空，则返回填报提示
+          res.cc("无外籍专任教师数量信息")
+        } else {
+          console.log("========gov_overview_listen_03_foreign   results_to_data: =========");
           res.send({
             status: 0,
             data: results.rows

@@ -15,6 +15,8 @@ router.post('/gov-overview-listen-02-platform', role_audit.is_gov, gov_query_ove
 
 // 整体 - 03 - 国家级团队数量
 router.post('/gov-overview-listen-03-leader', role_audit.is_gov, gov_query_overall_handler.gov_overview_listen_03_leader)
+// 整体 - 03 - 外籍专任教师数量
+router.post('/gov-overview-listen-03-foreign', role_audit.is_gov, gov_query_overall_handler.gov_overview_listen_03_foreign)
 
 
 module.exports = router
