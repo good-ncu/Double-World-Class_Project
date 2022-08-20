@@ -65,7 +65,37 @@ app.use('/api', compare_show)
 
 // 导入并使用省厅主页  整体学科情况
 const gov_query_overall = require('./router/query/gov_query_overall')
-app.use('/api',gov_query_overall)
+app.use('/api', gov_query_overall)
+
+
+
+// 省厅
+//  学科建设进展 路由模块    详情
+const disci_consRouter = require('./router/dis_detail/disci-cons')
+app.use('/api', disci_consRouter)
+
+// 导入并使用平台首页 培养拔尖创新人才 路由模块     详情
+const cultivate_talentsRouter = require('./router/dis_detail/cultivate-talents')
+app.use('/api', cultivate_talentsRouter)
+
+// 导入并使用平台首页 建设一流师资队伍 路由模块    详情
+const teacher_teamRouter = require('./router/dis_detail/teacher-team')
+app.use('/api', teacher_teamRouter)
+
+// 导入并使用平台首页 科学研究 路由模块    详情
+const researchRouter = require('./router/dis_detail/research')
+app.use('/api', researchRouter)
+
+// 导入并使用平台首页 社会服务 路由模块    详情
+const social_servicesRouter = require('./router/dis_detail/social-services')
+app.use('/api', social_servicesRouter)
+
+
+
+
+
+
+
 
 
 
