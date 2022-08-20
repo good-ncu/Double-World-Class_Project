@@ -654,19 +654,19 @@ LIMIT 10`
           // 当前sql查询为空，则返回填报提示
           res.cc("无外籍专任教师数量信息")
         } else {
-          var results_to_data = results.rows.map(function (item) {
-                if(item.rc_num!=0){
-                    return {
-                        dis_name: item.dis_name,
-                        rc_num: item.rc_num
-                      }
-                }
-              })
-          console.log("========gov_overview_listen_03_foreign   results_to_data: =========");
-          res.send({
-            status: 0,
-            data: results.rows
-          })
+            var results_to_data = results.rows.map(function (item) {
+                    if(item.rc_num!=0){
+                        return {
+                            dis_name: item.dis_name,
+                            rc_num: item.rc_num
+                        }
+                    }
+                }).filter(Boolean)
+            console.log("========gov_overview_listen_03_foreign   results_to_data: =========");
+            res.send({
+                status: 0,
+                data: results_to_data
+            })
         }
       });
 }
