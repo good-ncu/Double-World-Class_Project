@@ -579,7 +579,7 @@ LIMIT 10`
           })
         } else if (results.rowCount == 0) {
           // 当前sql查询为空，则返回填报提示
-          res.cc("无人才培养基地信息")
+          res.cc("无国家级团队数量信息")
         } else {
           console.log("========gov_overview_listen_03_leader   results_to_data: =========");
           res.send({
