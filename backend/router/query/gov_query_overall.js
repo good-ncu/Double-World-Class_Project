@@ -19,6 +19,8 @@ router.post('/gov-overview-listen-03-leader', role_audit.is_gov, gov_query_overa
 router.post('/gov-overview-listen-03-leadernum', role_audit.is_gov, gov_query_overall_handler.gov_overview_listen_03_leadernum)
 // 整体 - 03 - 外籍专任教师数量
 router.post('/gov-overview-listen-03-foreign', role_audit.is_gov, gov_query_overall_handler.gov_overview_listen_03_foreign)
+// 整体 - 03 - 担任重要期刊负责人
+router.post('/gov-overview-listen-03-response', role_audit.is_gov, gov_query_overall_handler.gov_overview_listen_03_response)
 // 整体 - 03 - 担任国际比赛负责人
 router.post('/gov-overview-listen-03-contest', role_audit.is_gov, gov_query_overall_handler.gov_overview_listen_03_contest)
 
