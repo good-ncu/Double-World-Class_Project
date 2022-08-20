@@ -3,7 +3,6 @@ const router = express.Router()
 
 const chart_handler_gov = require('../../router_handler/query/chart_gov')
 const chart_handler_school = require('../../router_handler/query/chart_school')
-const chart_handler_discipline = require('../../router_handler/query/chart_discipline')
 const role_audit = require('../../schema/role_audit')
 /**
  * 省厅

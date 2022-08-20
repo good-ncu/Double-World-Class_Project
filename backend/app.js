@@ -63,6 +63,10 @@ app.use('/api', chart_show)
 const compare_show = require('./router/query/compare')
 app.use('/api', compare_show)
 
+// 导入并使用省厅主页  整体学科情况
+const gov_query_overall = require('./router/query/gov_query_overall')
+app.use('/api',gov_query_overall)
+
 
 
 
