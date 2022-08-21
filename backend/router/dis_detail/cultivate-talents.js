@@ -12,6 +12,10 @@ const role_audit = require('../../schema/role_audit')
 router.post('/gov-detail-2-award', role_audit.is_gov_or_school, cultivate_talents_handler.gov_detail_2_award)
 
 
+// 课程建设情况  
+router.post('/gov-detail-2-build', role_audit.is_gov_or_school, cultivate_talents_handler.gov_detail_2_build)
+
+
 // 人才培养基地  2-2-3的全部   即 2-2-3-0到2-2-3-2
 router.post('/gov-detail-2-platform', role_audit.is_gov_or_school, cultivate_talents_handler.gov_detail_2_platform)
 
