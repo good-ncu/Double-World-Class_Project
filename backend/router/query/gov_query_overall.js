@@ -15,10 +15,17 @@ router.post('/gov-overview-listen-02-platform', role_audit.is_gov, gov_query_ove
 
 // 整体 - 03 - 国家级团队数量
 router.post('/gov-overview-listen-03-leader', role_audit.is_gov, gov_query_overall_handler.gov_overview_listen_03_leader)
+// 整体 - 03 - 国家级学术领军人才
+router.post('/gov-overview-listen-03-leadernum', role_audit.is_gov, gov_query_overall_handler.gov_overview_listen_03_leadernum)
 // 整体 - 03 - 外籍专任教师数量
 router.post('/gov-overview-listen-03-foreign', role_audit.is_gov, gov_query_overall_handler.gov_overview_listen_03_foreign)
+// 整体 - 03 - 担任重要期刊负责人
+router.post('/gov-overview-listen-03-response', role_audit.is_gov, gov_query_overall_handler.gov_overview_listen_03_response)
 // 整体 - 03 - 担任国际比赛负责人
 router.post('/gov-overview-listen-03-contest', role_audit.is_gov, gov_query_overall_handler.gov_overview_listen_03_contest)
+
+// 整体 - 04 - 国内外发表顶级期刊
+router.post('/gov-overview-listen-04-top', role_audit.is_gov, gov_query_overall_handler.gov_overview_listen_04_top)
 
 
 module.exports = router

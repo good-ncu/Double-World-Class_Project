@@ -14,7 +14,10 @@ exports.gov_tjd = function (req, res) {
       })
     } else if (results.rowCount == 0) {
       // 当前sql查询为空，则返回填报提示
-      res.cc("无突击队学科信息")
+      res.send({
+        status: 0,
+        data: []
+    })
     } else {
       res.send({
         status: 0,
@@ -118,7 +121,10 @@ exports.gov_tjd_4_evaluation = function (req, res) {
       })
     } else if (results.rowCount == 0) {
       // 当前sql查询为空，则返回填报提示
-      res.cc("无第四轮学科评估信息")
+      res.send({
+        status: 0,
+        data: []
+    })
     } else {
       results_to_data = JSON.parse(JSON.stringify(results.rows).replace(/univ_name/g, 'name').replace(/discipline_name/g, 'subject').replace(/discipline_eval_result/g, 'value'))
       console.log("========gov_tjd_4_evaluation   results_to_data: =========");
@@ -201,7 +207,10 @@ exports.gov_tjd_leaders = function (req, res) {
       })
     } else if (results.rowCount == 0) {
       // 当前sql查询为空，则返回填报提示
-      res.cc("无国家级学术领军人才（含青年人才）信息")
+      res.send({
+        status: 0,
+        data: []
+    })
     } else {
       var results_to_data = results.rows.map(function (item) {
         return {
@@ -367,7 +376,10 @@ exports.gov_tjd_hold_big_project = function (req, res) {
       })
     } else if (results.rowCount == 0) {
       // 当前sql查询为空，则返回填报提示
-      res.cc("无主持国家重点重大项目信息")
+      res.send({
+        status: 0,
+        data: []
+    })
     } else {
       var results_to_data = results.rows.map(function(item) {
         return {
@@ -531,7 +543,10 @@ exports.gov_tjd_big_award = function (req, res) {
       })
     } else if (results.rowCount == 0) {
       // 当前sql查询为空，则返回填报提示
-      res.cc("无学科国家级教学成果奖信息")
+      res.send({
+        status: 0,
+        data: []
+    })
     } else {
       var results_to_data = results.rows.map(function(item) {
         return {
@@ -692,7 +707,10 @@ exports.gov_tjd_big_teacher_award = function (req, res) {
       })
     } else if (results.rowCount == 0) {
       // 当前sql查询为空，则返回填报提示
-      res.cc("无教师国家级奖项信息")
+      res.send({
+        status: 0,
+        data: []
+    })
     } else {
       var results_to_data = results.rows.map(function(item) {
         return {
@@ -855,7 +873,10 @@ exports.gov_tjd_big_platform = function (req, res) {
       })
     } else if (results.rowCount == 0) {
       // 当前sql查询为空，则返回填报提示
-      res.cc("无国家级平台建设信息")
+      res.send({
+        status: 0,
+        data: []
+    })
     } else {
       var results_to_data = results.rows.map(function(item) {
         return {
