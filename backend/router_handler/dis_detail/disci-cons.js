@@ -106,7 +106,7 @@ exports.gov_detail_1_influence = function (req, res) {
     // sql填入          ======== 修改
     sql = `SELECT 
  concat_ws('-',b.univ_name,b.discipline_name) AS dis_name,
- b.yr,
+ b.yr AS year,
  b.rank_type AS title,
  b.result AS rank
 FROM
