@@ -274,7 +274,89 @@ ORDER BY level ASC`
 
 // 学科主持科研项目情况  4-2-2   ['国家重点重大项目', '国家一般项目', '省级重点重大项目']
 exports.gov_detail_4_hold = function (req, res) {
-
+    subject = req.body.subject
+    sql = `SELECT 
+	concat_ws('-',b.univ_name,b.discipline_name) AS dis_name,
+	b.level,
+	SUM(b.num) AS num
+FROM
+(
+SELECT
+		a.univ_code,
+		a.discipline_code,
+		a.univ_name,
+		a.discipline_name,
+		host_sciproj.proj_level AS level, 	--科研项目类型
+		COUNT(host_sciproj.proj_level) AS num 	--科研项目数量
+	FROM
+	((
+	SELECT
+		univ_discipline.univ_code,
+		univ_discipline.discipline_code,
+		univ_discipline.univ_name,
+		univ_discipline.subtag1 AS discipline_name
+	FROM univ_discipline
+	WHERE univ_discipline.tag1='学科群' 
+	)
+	UNION
+	(
+	SELECT
+		univ_discipline.univ_code,
+		univ_discipline.discipline_code,
+		univ_discipline.univ_name,
+		univ_discipline.discipline_name
+	FROM univ_discipline
+	WHERE univ_discipline.tag1='一流学科建设名单'
+	)) AS a
+	INNER JOIN host_sciproj 
+		ON a.univ_code = host_sciproj.univ_code AND a.discipline_code = host_sciproj.discipline_code
+	INNER JOIN user_fill 
+		ON user_fill.id = host_sciproj.user_fill_id
+	WHERE 
+		user_fill.is_delete = '0' 
+		AND host_sciproj.is_delete = '0' 
+		AND concat_ws('-',a.univ_name,a.discipline_name)='江西理工大学-冶金工程'	--传参数
+	GROUP BY
+		a.univ_code,
+		a.discipline_code,
+		a.univ_name,
+		a.discipline_name,
+		host_sciproj.proj_level
+	) AS b
+GROUP BY 
+	b.univ_name,
+	b.discipline_name,
+	b.level
+ORDER BY level ASC`
+    client.query(sql, function (err, results){
+        if (err) {
+            // 异常后调用callback并传入err
+            return res.send({
+                status: 1,
+                message: err.message
+            })
+        } else if (results.rowCount == 0) {
+            // 当前sql查询为空，则返回填报提示           ========= 修改 标题上的注释抄下来
+            return res.send({
+                status: 0,
+                name: [],
+                value: []
+            })
+        } else {
+            console.log(results.rows);
+            var name = []
+            var value = []
+            results.rows.map(function (item){
+                name.push(item.level)
+                value.push(item.num)
+            })
+            return res.send({
+                status: 0,
+                name: name,
+                value: value
+            })
+        }
+    })
 }
 
 // 参与国内外标准指定项目数  4-3-1   ['2021年第一季度', '2021年第二季度', '2021年第三季度', '2021年第四季度']
