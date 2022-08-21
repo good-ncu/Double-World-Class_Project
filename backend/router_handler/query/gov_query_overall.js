@@ -122,7 +122,8 @@ exports.gov_overview_listen_01 = function(req,res){
         }).filter(Boolean)
           console.log("========gov_overview_listen_01- evaluation data =========");
           sql2 = `SELECT 
-          concat_ws('-',b.univ_name,b.discipline_name) AS dis_name,
+          b.univ_name AS school,
+          b.discipline_name AS subject,
           b.yr,
           b.total_fund,
           b.ctr_budg_fund,
