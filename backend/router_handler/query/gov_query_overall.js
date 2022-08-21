@@ -84,47 +84,71 @@ exports.gov_overview_listen_01 = function(req,res){
           sql2 = `SELECT 
           concat_ws('-',b.univ_name,b.discipline_name) AS dis_name,
           b.yr,
-          b.total_fund
-        FROM
-        (
-        SELECT
-            a.univ_code,
-            a.discipline_code,
-            a.univ_name,
-            a.discipline_name,
-            yr,	--年度
-            discipline_const_fund.total_fund	--建设总经费
+          b.total_fund,
+          b.ctr_budg_fund,
+          b.ctr_receive_fund,
+          b.ctr_expend_fund,
+          b.lcl_budg_fund,
+          b.lcl_receive_fund,
+          b.lcl_expend_fund,
+          b.self_budg_fund,
+          b.self_receive_fund,
+          b.self_expend_fund,
+          b.other_budg_fund,
+          b.other_receive_fund,
+          b.other_expend_fund
+         FROM
+         (
+         SELECT
+           a.univ_code,
+           a.discipline_code,
+           a.univ_name,
+           a.discipline_name,
+           yr, --年度
+           discipline_const_fund.total_fund, --建设总经费
+           discipline_const_fund.ctr_budg_fund, --中央专项预算经费
+           discipline_const_fund.ctr_receive_fund, --中央专项实际到账
+           discipline_const_fund.ctr_expend_fund, --中央专项实际支出
+           discipline_const_fund.lcl_budg_fund, --地方专项预算经费
+           discipline_const_fund.lcl_receive_fund, --地方专项实际到账
+           discipline_const_fund.lcl_expend_fund, --地方专项实际支出
+           discipline_const_fund.self_budg_fund, --学科自筹预算经费
+           discipline_const_fund.self_receive_fund, --学科自筹实际到账
+           discipline_const_fund.self_expend_fund, --学科自筹实际支出
+           discipline_const_fund.other_budg_fund, --其他预算经费
+           discipline_const_fund.other_receive_fund, --其他实际到账
+           discipline_const_fund.other_expend_fund --其他实际支出
           FROM
           ((
           SELECT
-            univ_discipline.univ_code,
-            univ_discipline.discipline_code,
-            univ_discipline.univ_name,
-            univ_discipline.subtag1 AS discipline_name
+           univ_discipline.univ_code,
+           univ_discipline.discipline_code,
+           univ_discipline.univ_name,
+           univ_discipline.subtag1 AS discipline_name
           FROM univ_discipline
           WHERE univ_discipline.tag1='学科群'
           )
           UNION
           (
           SELECT
-            univ_discipline.univ_code,
-            univ_discipline.discipline_code,
-            univ_discipline.univ_name,
-            univ_discipline.discipline_name
+           univ_discipline.univ_code,
+           univ_discipline.discipline_code,
+           univ_discipline.univ_name,
+           univ_discipline.discipline_name
           FROM univ_discipline
           WHERE univ_discipline.tag1='一流学科建设名单'
           )) AS a
           INNER JOIN discipline_const_fund 
-            ON a.univ_code = discipline_const_fund.univ_code AND a.discipline_code = discipline_const_fund.discipline_code
+           ON a.univ_code = discipline_const_fund.univ_code AND a.discipline_code = discipline_const_fund.discipline_code
           INNER JOIN user_fill 
-            ON user_fill.id = discipline_const_fund.user_fill_id
+           ON user_fill.id = discipline_const_fund.user_fill_id
           WHERE 
-            user_fill.is_delete = '0' 
-            AND discipline_const_fund.is_delete = '0' 
-            AND discipline_const_fund.yr IN (2022)	--传参数
+           user_fill.is_delete = '0' 
+           AND discipline_const_fund.is_delete = '0' 
+           AND discipline_const_fund.yr IN (2022) --传年份参数
           ) AS b
-        ORDER BY total_fund DESC
-        LIMIT 10`
+         ORDER BY total_fund DESC
+         LIMIT 10`
         console.log("========gov_overview_listen_01- find data =========");
         client.query(sql2, function(err, results){
             if (err) {
