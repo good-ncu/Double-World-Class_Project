@@ -111,13 +111,11 @@ exports.gov_overview_listen_01 = function(req,res){
         } else {
           evaluationData = results.rows.map(function (item) {
             var data = {}
+            data = item
             data.title = "第四轮学科评估"
             if(item.evaluation==undefined){
               data.evaluation = "无"
             }
-            data.school = item.school
-            data.subject = item.subject
-            data.rank = item.rank
             return data
         }).filter(Boolean)
           console.log("========gov_overview_listen_01- evaluation data =========");
