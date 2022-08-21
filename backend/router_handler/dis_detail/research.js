@@ -315,7 +315,7 @@ SELECT
 	WHERE 
 		user_fill.is_delete = '0' 
 		AND host_sciproj.is_delete = '0' 
-		AND concat_ws('-',a.univ_name,a.discipline_name)='江西理工大学-冶金工程'	--传参数
+		AND concat_ws('-',a.univ_name,a.discipline_name)='${subject}'	--传参数
 	GROUP BY
 		a.univ_code,
 		a.discipline_code,
