@@ -24,5 +24,8 @@ router.post('/gov-overview-listen-03-response', role_audit.is_gov, gov_query_ove
 // 整体 - 03 - 担任国际比赛负责人
 router.post('/gov-overview-listen-03-contest', role_audit.is_gov, gov_query_overall_handler.gov_overview_listen_03_contest)
 
+// 整体 - 04 - 国内外发表顶级期刊
+router.post('/gov-overview-listen-04-top', role_audit.is_gov, gov_query_overall_handler.gov_overview_listen_04_top)
+
 
 module.exports = router
