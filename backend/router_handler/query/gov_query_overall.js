@@ -4,371 +4,172 @@ const client = require('../../db/index')
 // 整体 - 01学科建设进展情况
 exports.gov_overview_listen_01 = function(req,res){
     userinfo = req.user
-    sql = `select * from user_fill`
+    sql = `SELECT 
+    concat_ws('-',b.univ_name,b.discipline_name) AS dis_name,
+    b.result_num AS rc_num
+  FROM
+  (
+    SELECT
+      a.univ_code,
+      a.discipline_code,
+      a.univ_name,
+      a.discipline_name,
+      discipline_eval.discipline_eval_result AS result_num 	--学科评估结果
+    FROM
+    ((
+    SELECT
+      univ_discipline.univ_code,
+      univ_discipline.discipline_code,
+      univ_discipline.univ_name,
+      univ_discipline.subtag1 AS discipline_name
+    FROM univ_discipline
+    WHERE univ_discipline.tag1='学科群' AND univ_discipline.subsubtag1='主干' 
+    )
+    UNION
+    (
+    SELECT
+      univ_discipline.univ_code,
+      univ_discipline.discipline_code,
+      univ_discipline.univ_name,
+      univ_discipline.discipline_name
+    FROM univ_discipline
+    WHERE univ_discipline.tag1='一流学科建设名单'
+    )) AS a
+    INNER JOIN discipline_eval 
+      ON a.univ_code = discipline_eval.univ_code AND a.discipline_code = discipline_eval.discipline_code
+    INNER JOIN user_fill 
+      ON user_fill.id = discipline_eval.user_fill_id
+    WHERE 
+      user_fill.is_delete = '0' 
+      AND discipline_eval.is_delete = '0' 
+      AND discipline_eval.discipline_eval_turn = 4	--参数
+    GROUP BY
+      a.univ_code,
+      a.discipline_code,
+      a.univ_name,
+      a.discipline_name,
+      discipline_eval.discipline_eval_result
+    ) AS b
+  GROUP BY 
+    b.univ_name,
+    b.discipline_name,
+    b.result_num
+  ORDER BY
+    case
+    when b.result_num = 'A+' then 1
+    when b.result_num = 'A' then 2
+    when b.result_num = 'A-' then 3
+    when b.result_num = 'B+' then 4
+    when b.result_num = 'B' then 5
+    when b.result_num = 'B-' then 6
+    when b.result_num = 'C+' then 7
+    when b.result_num = 'C' then 8
+    when b.result_num = 'C-' then 9
+    when b.result_num = '无' then 10
+    end
+  LIMIT 10`
     client.query(sql, function (err, results) {
         if (err) {
           // 异常后调用callback并传入err
-          res.send({
+          return res.send({
             status: 1,
             message: err.message
           })
         } else if (results.rowCount == 0) {
           // 当前sql查询为空，则返回填报提示
-          res.send({
-            status: 0,
-            data: []
-        })
+          evaluationData = []
         } else {
-          console.log("========gov_overview_listen_01 =========");
-          res.send({
-            status: 0,
-            // data: results.rows
-            evaluationData: [
-                {
-                  "title": "第四轮学科评估",
-                  "rank": "A",
-                  "evaluation": "A+",
-                  "school": "南昌大学",
-                  "subject": "软件工程"
-                },
-                {
-                  "title": "第四轮学科评估",
-                  "rank": "A",
-                  "evaluation": "A+",
-                  "school": "江西财经大学",
-                  "subject": "应用经济学"
-                },
-                {
-                  "title": "第四轮学科评估",
-                  "rank": "A",
-                  "evaluation": "A+",
-                  "school": "江西农业大学",
-                  "subject": "畜牧学"
-                },
-                {
-                  "title": "第四轮学科评估",
-                  "rank": "A",
-                  "evaluation": "A+",
-                  "school": "华东交通大学",
-                  "subject": "交通运输工程"
-                },
-                {
-                  "title": "第四轮学科评估",
-                  "rank": "A",
-                  "evaluation": "A+",
-                  "school": "南昌航空大学",
-                  "subject": "环境科学与工程"
-                },
-                {
-                  "title": "第四轮学科评估",
-                  "rank": "A",
-                  "evaluation": "A+",
-                  "school": "东华理工大学",
-                  "subject": "地质资源与地质工程"
-                },
-                {
-                  "title": "第四轮学科评估",
-                  "rank": "A",
-                  "evaluation": "A+",
-                  "school": "江西中医药大学",
-                  "subject": "中药学"
-                },
-                {
-                  "title": "第四轮学科评估",
-                  "rank": "A",
-                  "evaluation": "A+",
-                  "school": "南昌大学",
-                  "subject": "绿色食品学科群"
-                },
-                {
-                  "title": "第四轮学科评估",
-                  "rank": "A",
-                  "evaluation": "A+",
-                  "school": "南昌大学",
-                  "subject": "临床医学"
-                },
-                {
-                  "title": "第四轮学科评估",
-                  "rank": "A",
-                  "evaluation": "A+",
-                  "school": "南昌大学",
-                  "subject": "计算机科学与技术"
-                }
-              ],
-              rankData: [
-                {
-                  "title": "ESI",
-                  "rank": 102,
-                  "year": 2021,
-                  "ave": 100,
-                  "school": "南昌大学",
-                  "subject": "软件工程"
-                },
-                {
-                  "title": "ESI",
-                  "rank": 102,
-                  "year": 2021,
-                  "ave": 101,
-                  "school": "南昌大学",
-                  "subject": "软件工程"
-                },
-                {
-                  "title": "武书连",
-                  "rank": 102,
-                  "year": 2021,
-                  "ave": 102,
-                  "school": "南昌大学",
-                  "subject": "软件工程"
-                },
-                {
-                  "title": "武书连",
-                  "rank": 102,
-                  "year": 2021,
-                  "ave": 103,
-                  "school": "南昌大学",
-                  "subject": "软件工程"
-                },
-                {
-                  "title": "武书连",
-                  "rank": 102,
-                  "year": 2021,
-                  "ave": 104,
-                  "school": "南昌大学",
-                  "subject": "软件工程"
-                },
-                {
-                  "title": "软科",
-                  "rank": 102,
-                  "year": 2021,
-                  "ave": 105,
-                  "school": "南昌大学",
-                  "subject": "软件工程"
-                },
-                {
-                  "title": "软科",
-                  "rank": 102,
-                  "year": 2021,
-                  "ave": 106,
-                  "school": "南昌大学",
-                  "subject": "软件工程"
-                },
-                {
-                  "title": "软科",
-                  "rank": 102,
-                  "year": 2021,
-                  "ave": 107,
-                  "school": "南昌大学",
-                  "subject": "软件工程"
-                },
-                {
-                  "title": "ESI",
-                  "rank": 102,
-                  "year": 2021,
-                  "ave": 108,
-                  "school": "南昌大学",
-                  "subject": "软件工程"
-                },
-                {
-                  "title": "ESI",
-                  "rank": 102,
-                  "year": 2021,
-                  "ave": 109,
-                  "school": "南昌大学",
-                  "subject": "软件工程"
-                }
-              ],
-              findData:[
-                {
-                  "key": 1,
-                  "yr": 2015,
-                  "total_fund": 888,
-                  "ctr_budg_fund": 888,
-                  "ctr_receive_fund": 888,
-                  "ctr_expend_fund": 888,
-                  "lcl_budg_fund": 888,
-                  "lcl_receive_fund": 888,
-                  "lcl_expend_fund": 888,
-                  "self_budg_fund": 888,
-                  "self_receive_fund": 888,
-                  "self_expend_fund": 888,
-                  "other_budg_fund": 888,
-                  "other_receive_fund": 888,
-                  "other_expend_fund": 88,
-                  "school": "南昌大学",
-                  "subject": "计算机科学与技术"
-                },
-                {
-                  "key": 2,
-                  "yr": 2015,
-                  "total_fund": 889,
-                  "ctr_budg_fund": 888,
-                  "ctr_receive_fund": 888,
-                  "ctr_expend_fund": 888,
-                  "lcl_budg_fund": 888,
-                  "lcl_receive_fund": 888,
-                  "lcl_expend_fund": 888,
-                  "self_budg_fund": 888,
-                  "self_receive_fund": 888,
-                  "self_expend_fund": 888,
-                  "other_budg_fund": 888,
-                  "other_receive_fund": 888,
-                  "other_expend_fund": 88,
-                  "school": "南昌大学",
-                  "subject": "计算机科学与技术"
-                },
-                {
-                  "key": 3,
-                  "yr": 2015,
-                  "total_fund": 890,
-                  "ctr_budg_fund": 888,
-                  "ctr_receive_fund": 888,
-                  "ctr_expend_fund": 888,
-                  "lcl_budg_fund": 888,
-                  "lcl_receive_fund": 888,
-                  "lcl_expend_fund": 888,
-                  "self_budg_fund": 888,
-                  "self_receive_fund": 888,
-                  "self_expend_fund": 888,
-                  "other_budg_fund": 888,
-                  "other_receive_fund": 888,
-                  "other_expend_fund": 88,
-                  "school": "南昌大学",
-                  "subject": "计算机科学与技术"
-                },
-                {
-                  "key": 4,
-                  "yr": 2015,
-                  "total_fund": 891,
-                  "ctr_budg_fund": 888,
-                  "ctr_receive_fund": 888,
-                  "ctr_expend_fund": 888,
-                  "lcl_budg_fund": 888,
-                  "lcl_receive_fund": 888,
-                  "lcl_expend_fund": 888,
-                  "self_budg_fund": 888,
-                  "self_receive_fund": 888,
-                  "self_expend_fund": 888,
-                  "other_budg_fund": 888,
-                  "other_receive_fund": 888,
-                  "other_expend_fund": 88,
-                  "school": "南昌大学",
-                  "subject": "计算机科学与技术"
-                },
-                {
-                  "key": 5,
-                  "yr": 2015,
-                  "total_fund": 892,
-                  "ctr_budg_fund": 888,
-                  "ctr_receive_fund": 888,
-                  "ctr_expend_fund": 888,
-                  "lcl_budg_fund": 888,
-                  "lcl_receive_fund": 888,
-                  "lcl_expend_fund": 888,
-                  "self_budg_fund": 888,
-                  "self_receive_fund": 888,
-                  "self_expend_fund": 888,
-                  "other_budg_fund": 888,
-                  "other_receive_fund": 888,
-                  "other_expend_fund": 88,
-                  "school": "南昌大学",
-                  "subject": "计算机科学与技术"
-                },
-                {
-                  "key": 6,
-                  "yr": 2015,
-                  "total_fund": 893,
-                  "ctr_budg_fund": 888,
-                  "ctr_receive_fund": 888,
-                  "ctr_expend_fund": 888,
-                  "lcl_budg_fund": 888,
-                  "lcl_receive_fund": 888,
-                  "lcl_expend_fund": 888,
-                  "self_budg_fund": 888,
-                  "self_receive_fund": 888,
-                  "self_expend_fund": 888,
-                  "other_budg_fund": 888,
-                  "other_receive_fund": 888,
-                  "other_expend_fund": 88,
-                  "school": "南昌大学",
-                  "subject": "计算机科学与技术"
-                },
-                {
-                  "key": 7,
-                  "yr": 2015,
-                  "total_fund": 894,
-                  "ctr_budg_fund": 888,
-                  "ctr_receive_fund": 888,
-                  "ctr_expend_fund": 888,
-                  "lcl_budg_fund": 888,
-                  "lcl_receive_fund": 888,
-                  "lcl_expend_fund": 888,
-                  "self_budg_fund": 888,
-                  "self_receive_fund": 888,
-                  "self_expend_fund": 888,
-                  "other_budg_fund": 888,
-                  "other_receive_fund": 888,
-                  "other_expend_fund": 88,
-                  "school": "南昌大学",
-                  "subject": "计算机科学与技术"
-                },
-                {
-                  "key": 8,
-                  "yr": 2015,
-                  "total_fund": 895,
-                  "ctr_budg_fund": 888,
-                  "ctr_receive_fund": 888,
-                  "ctr_expend_fund": 888,
-                  "lcl_budg_fund": 888,
-                  "lcl_receive_fund": 888,
-                  "lcl_expend_fund": 888,
-                  "self_budg_fund": 888,
-                  "self_receive_fund": 888,
-                  "self_expend_fund": 888,
-                  "other_budg_fund": 888,
-                  "other_receive_fund": 888,
-                  "other_expend_fund": 88,
-                  "school": "南昌大学",
-                  "subject": "计算机科学与技术"
-                },
-                {
-                  "key": 9,
-                  "yr": 2015,
-                  "total_fund": 896,
-                  "ctr_budg_fund": 888,
-                  "ctr_receive_fund": 888,
-                  "ctr_expend_fund": 888,
-                  "lcl_budg_fund": 888,
-                  "lcl_receive_fund": 888,
-                  "lcl_expend_fund": 888,
-                  "self_budg_fund": 888,
-                  "self_receive_fund": 888,
-                  "self_expend_fund": 888,
-                  "other_budg_fund": 888,
-                  "other_receive_fund": 888,
-                  "other_expend_fund": 88,
-                  "school": "南昌大学",
-                  "subject": "计算机科学与技术"
-                },
-                {
-                  "key": 10,
-                  "yr": 2015,
-                  "total_fund": 897,
-                  "ctr_budg_fund": 888,
-                  "ctr_receive_fund": 888,
-                  "ctr_expend_fund": 888,
-                  "lcl_budg_fund": 888,
-                  "lcl_receive_fund": 888,
-                  "lcl_expend_fund": 888,
-                  "self_budg_fund": 888,
-                  "self_receive_fund": 888,
-                  "self_expend_fund": 888,
-                  "other_budg_fund": 888,
-                  "other_receive_fund": 888,
-                  "other_expend_fund": 88,
-                  "school": "南昌大学",
-                  "subject": "计算机科学与技术"
-                }
-              ]
+          evaluationData = results.rows
+          console.log("========gov_overview_listen_01- evaluation data =========");
+          sql2 = `SELECT 
+          concat_ws('-',b.univ_name,b.discipline_name) AS dis_name,
+          b.yr,
+          b.total_fund,
+          b.ctr_budg_fund,
+          b.ctr_receive_fund,
+          b.ctr_expend_fund,
+          b.lcl_budg_fund,
+          b.lcl_receive_fund,
+          b.lcl_expend_fund,
+          b.self_budg_fund,
+          b.self_receive_fund,
+          b.self_expend_fund,
+          b.other_budg_fund,
+          b.other_receive_fund,
+          b.other_expend_fund
+         FROM
+         (
+         SELECT
+           a.univ_code,
+           a.discipline_code,
+           a.univ_name,
+           a.discipline_name,
+           yr, --年度
+           discipline_const_fund.total_fund, --建设总经费
+           discipline_const_fund.ctr_budg_fund, --中央专项预算经费
+           discipline_const_fund.ctr_receive_fund, --中央专项实际到账
+           discipline_const_fund.ctr_expend_fund, --中央专项实际支出
+           discipline_const_fund.lcl_budg_fund, --地方专项预算经费
+           discipline_const_fund.lcl_receive_fund, --地方专项实际到账
+           discipline_const_fund.lcl_expend_fund, --地方专项实际支出
+           discipline_const_fund.self_budg_fund, --学科自筹预算经费
+           discipline_const_fund.self_receive_fund, --学科自筹实际到账
+           discipline_const_fund.self_expend_fund, --学科自筹实际支出
+           discipline_const_fund.other_budg_fund, --其他预算经费
+           discipline_const_fund.other_receive_fund, --其他实际到账
+           discipline_const_fund.other_expend_fund --其他实际支出
+          FROM
+          ((
+          SELECT
+           univ_discipline.univ_code,
+           univ_discipline.discipline_code,
+           univ_discipline.univ_name,
+           univ_discipline.subtag1 AS discipline_name
+          FROM univ_discipline
+          WHERE univ_discipline.tag1='学科群'
+          )
+          UNION
+          (
+          SELECT
+           univ_discipline.univ_code,
+           univ_discipline.discipline_code,
+           univ_discipline.univ_name,
+           univ_discipline.discipline_name
+          FROM univ_discipline
+          WHERE univ_discipline.tag1='一流学科建设名单'
+          )) AS a
+          INNER JOIN discipline_const_fund 
+           ON a.univ_code = discipline_const_fund.univ_code AND a.discipline_code = discipline_const_fund.discipline_code
+          INNER JOIN user_fill 
+           ON user_fill.id = discipline_const_fund.user_fill_id
+          WHERE 
+           user_fill.is_delete = '0' 
+           AND discipline_const_fund.is_delete = '0' 
+           AND discipline_const_fund.yr IN (2022) --传年份参数
+          ) AS b
+         ORDER BY total_fund DESC
+         LIMIT 10`
+        console.log("========gov_overview_listen_01- find data =========");
+        client.query(sql2, function(err, results){
+            if (err) {
+              // 异常后调用callback并传入err
+              return res.send({
+                status: 1,
+                message: err.message
+              })
+            } else if (results.rowCount == 0) {
+              // 当前sql查询为空，则返回填报提示
+              findData = []
+            } else {
+              findData = results.rows
+              res.send({
+                status: 0,
+                // data: results.rows
+                evaluationData: evaluationData,
+                rankData: [],
+                findData: findData
+              })
+            }
           })
         }
       });
