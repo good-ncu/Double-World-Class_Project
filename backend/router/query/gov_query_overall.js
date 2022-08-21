@@ -28,6 +28,7 @@ router.post('/gov-overview-listen-03-contest', role_audit.is_gov, gov_query_over
 router.post('/gov-overview-listen-04-top', role_audit.is_gov, gov_query_overall_handler.gov_overview_listen_04_top)
 // 整体 - 04 - 国家级科研平台数量
 router.post('/gov-overview-listen-04-research', role_audit.is_gov, gov_query_overall_handler.gov_overview_listen_04_research)
-
+// 整体 - 04 - 学科主持国家重点重大项目数量
+router.post('/gov-overview-listen-04-hold', role_audit.is_gov, gov_query_overall_handler.gov_overview_listen_04_hold)
 
 module.exports = router
