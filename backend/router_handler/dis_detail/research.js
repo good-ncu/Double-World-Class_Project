@@ -187,7 +187,89 @@ ORDER BY level ASC`
 
 // 科研创新平台建设情况  4-2-1   ['国家级平台', '省部级平台']
 exports.gov_detail_4_platform = function (req, res) {
-
+    subject = req.body.subject
+    sql = `SELECT 
+	concat_ws('-',b.univ_name,b.discipline_name) AS dis_name,
+	b.level,
+	SUM(b.num) AS num
+FROM
+(
+SELECT
+		a.univ_code,
+		a.discipline_code,
+		a.univ_name,
+		a.discipline_name,
+		sci_innova_plat.palt_level AS level, 	--科研平台类型
+		COUNT(sci_innova_plat.palt_level) AS num 	--科研平台数量
+	FROM
+	((
+	SELECT
+		univ_discipline.univ_code,
+		univ_discipline.discipline_code,
+		univ_discipline.univ_name,
+		univ_discipline.subtag1 AS discipline_name
+	FROM univ_discipline
+	WHERE univ_discipline.tag1='学科群' 
+	)
+	UNION
+	(
+	SELECT
+		univ_discipline.univ_code,
+		univ_discipline.discipline_code,
+		univ_discipline.univ_name,
+		univ_discipline.discipline_name
+	FROM univ_discipline
+	WHERE univ_discipline.tag1='一流学科建设名单'
+	)) AS a
+	INNER JOIN sci_innova_plat 
+		ON a.univ_code = sci_innova_plat.univ_code AND a.discipline_code = sci_innova_plat.discipline_code
+	INNER JOIN user_fill 
+		ON user_fill.id = sci_innova_plat.user_fill_id
+	WHERE 
+		user_fill.is_delete = '0' 
+		AND sci_innova_plat.is_delete = '0' 
+		AND concat_ws('-',a.univ_name,a.discipline_name)='${subject}'	--传参数
+	GROUP BY
+		a.univ_code,
+		a.discipline_code,
+		a.univ_name,
+		a.discipline_name,
+		sci_innova_plat.palt_level
+	) AS b
+GROUP BY 
+	b.univ_name,
+	b.discipline_name,
+	b.level
+ORDER BY level ASC`
+    client.query(sql, function (err, results){
+        if (err) {
+            // 异常后调用callback并传入err
+            return res.send({
+                status: 1,
+                message: err.message
+            })
+        } else if (results.rowCount == 0) {
+            // 当前sql查询为空，则返回填报提示           ========= 修改 标题上的注释抄下来
+            return res.send({
+                status: 0,
+                name: [],
+                value: []
+            })
+        } else {
+            console.log(results.rows);
+            var name = []
+            var value = []
+            results.rows.map(function (item){
+                name.push(item.level)
+                value.push(item.num)
+            })
+            return res.send({
+                status: 0,
+                name: name,
+                value: value
+            })
+        }
+    })
 }
 
 // 学科主持科研项目情况  4-2-2   ['国家重点重大项目', '国家一般项目', '省级重点重大项目']
