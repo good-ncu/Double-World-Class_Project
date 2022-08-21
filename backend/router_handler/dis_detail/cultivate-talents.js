@@ -380,16 +380,19 @@ GROUP BY
             //   调试阶段可以 ============修改  gov_detail_2_award 
             console.log("========硕博导师情况   results_to_data: =========");
             console.log(results.rows);
-            results.rows.push(results.rows[0])
-            results.rows[0].name = "硕士生导师数"
-            results.rows[0].value = results.rows[0].master_tutor_num
-            results.rows[1].name = "博士生导师数"
-            results.rows[1].value = results.rows[1].doc_tutor_num
-            // delete results.rows[0].master_tutor_num
-            // delete results.rows[1].doc_tutor_num
+            results_data = [{
+                "value": 24,
+                "name": "硕士生导师数"
+            },
+            {
+                "value": 7,
+                "name": "博士生导师数"
+            }]
+            results_data[0].value = results.rows[0].master_tutor_num
+            results_data[1].value = results.rows[0].doc_tutor_num
             res.send({
                 status: 0,
-                data: results.rows
+                data: results_data
             })
         }
     });
