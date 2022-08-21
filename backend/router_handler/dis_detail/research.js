@@ -12,7 +12,89 @@ var fs = require('fs');
 
 // 教师获国内外重要奖项情况  4-1-1  '国家级奖项', '省部级奖项'
 exports.gov_detail_4_award = function (req, res) {
-
+    subject = req.body.subject
+    sql = `SELECT 
+	concat_ws('-',b.univ_name,b.discipline_name) AS dis_name,
+	b.level,
+	SUM(b.num) AS num
+FROM
+(
+SELECT
+		a.univ_code,
+		a.discipline_code,
+		a.univ_name,
+		a.discipline_name,
+		tch_award.level AS level, 	--奖项级别
+		COUNT(tch_award.level) AS num 	--奖项数量
+	FROM
+	((
+	SELECT
+		univ_discipline.univ_code,
+		univ_discipline.discipline_code,
+		univ_discipline.univ_name,
+		univ_discipline.subtag1 AS discipline_name
+	FROM univ_discipline
+	WHERE univ_discipline.tag1='学科群' 
+	)
+	UNION
+	(
+	SELECT
+		univ_discipline.univ_code,
+		univ_discipline.discipline_code,
+		univ_discipline.univ_name,
+		univ_discipline.discipline_name
+	FROM univ_discipline
+	WHERE univ_discipline.tag1='一流学科建设名单'
+	)) AS a
+	INNER JOIN tch_award 
+		ON a.univ_code = tch_award.univ_code AND a.discipline_code = tch_award.discipline_code
+	INNER JOIN user_fill 
+		ON user_fill.id = tch_award.user_fill_id
+	WHERE 
+		user_fill.is_delete = '0' 
+		AND tch_award.is_delete = '0' 
+		AND concat_ws('-',a.univ_name,a.discipline_name)='${subject}'	--传参数
+	GROUP BY
+		a.univ_code,
+		a.discipline_code,
+		a.univ_name,
+		a.discipline_name,
+		tch_award.level
+	) AS b
+GROUP BY 
+	b.univ_name,
+	b.discipline_name,
+	b.level
+ORDER BY level ASC`
+    client.query(sql, function (err, results){
+        if (err) {
+            // 异常后调用callback并传入err
+            return res.send({
+                status: 1,
+                message: err.message
+            })
+        } else if (results.rowCount == 0) {
+            // 当前sql查询为空，则返回填报提示           ========= 修改 标题上的注释抄下来
+            return res.send({
+                status: 0,
+                name: [],
+                value: []
+            })
+        } else {
+            console.log(results.rows);
+            var name = []
+            var value = []
+            results.rows.map(function (item){
+                name.push(item.level)
+                value.push(item.num)
+            })
+            return res.send({
+                status: 0,
+                name: name,
+                value: value
+            })
+        }
+    })
 }
 
 
