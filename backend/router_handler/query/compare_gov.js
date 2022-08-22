@@ -1418,15 +1418,13 @@ FROM
 	)as a25 ON a25.univ_code = all_xk.un_code AND a25.discipline_code = all_xk.dis_code
 	WHERE
 		(subtag1 = '临床医学与公共卫生大健康学科群'	--传参数
-		AND tag1 = '学科群'	--传参数
-		) or
+		AND tag1 = '学科群')	--传参数
+		or
 		(subtag1 = '新材料创新发展学科群'	--传参数
-		AND tag1 = '学科群'	--传参数
-		)
+		AND tag1 = '学科群')	--传参数
 		or
 		(subtag1 = '绿色食品学科群'	--传参数
-		AND tag1 = '学科群'	--传参数
-		)
+		AND tag1 = '学科群')	--传参数
 	) AS b
 GROUP BY
 		b.subtag1
