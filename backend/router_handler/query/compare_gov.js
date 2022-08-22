@@ -1644,6 +1644,10 @@ GROUP BY
 					{
 						"school": "南昌大学",
 						"subject": "新材料创新发展学科群"
+					},
+					{
+						"school": "南昌大学",
+						"subject": "绿色食品学科群"
 					}
 				],
 				// data: [
