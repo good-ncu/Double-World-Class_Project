@@ -5,8 +5,10 @@ const client = require('../../db/index')
 exports.gov_overview_listen_01 = function(req,res){
     userinfo = req.user
     sql = `SELECT 
-    concat_ws('-',b.univ_name,b.discipline_name) AS dis_name,
-    b.result_num AS rc_num
+    b1.univ_name AS school,
+    b1.discipline_name AS subject,
+    b1.result4 AS rank ,
+    b2.result5 AS evaluation
   FROM
   (
     SELECT
@@ -14,7 +16,7 @@ exports.gov_overview_listen_01 = function(req,res){
       a.discipline_code,
       a.univ_name,
       a.discipline_name,
-      discipline_eval.discipline_eval_result AS result_num 	--学科评估结果
+      discipline_eval.discipline_eval_result AS result4 	--学科评估结果
     FROM
     ((
     SELECT
@@ -43,29 +45,57 @@ exports.gov_overview_listen_01 = function(req,res){
       user_fill.is_delete = '0' 
       AND discipline_eval.is_delete = '0' 
       AND discipline_eval.discipline_eval_turn = 4	--参数
-    GROUP BY
+    ) AS b1
+    LEFT JOIN
+  (
+    SELECT
       a.univ_code,
       a.discipline_code,
       a.univ_name,
       a.discipline_name,
-      discipline_eval.discipline_eval_result
-    ) AS b
-  GROUP BY 
-    b.univ_name,
-    b.discipline_name,
-    b.result_num
-  ORDER BY
+      discipline_eval.discipline_eval_result AS result5 	--学科评估结果
+    FROM
+    ((
+    SELECT
+      univ_discipline.univ_code,
+      univ_discipline.discipline_code,
+      univ_discipline.univ_name,
+      univ_discipline.subtag1 AS discipline_name
+    FROM univ_discipline
+    WHERE univ_discipline.tag1='学科群' AND univ_discipline.subsubtag1='主干' 
+    )
+    UNION
+    (
+    SELECT
+      univ_discipline.univ_code,
+      univ_discipline.discipline_code,
+      univ_discipline.univ_name,
+      univ_discipline.discipline_name
+    FROM univ_discipline
+    WHERE univ_discipline.tag1='一流学科建设名单'
+    )) AS a
+    INNER JOIN discipline_eval 
+      ON a.univ_code = discipline_eval.univ_code AND a.discipline_code = discipline_eval.discipline_code
+    INNER JOIN user_fill 
+      ON user_fill.id = discipline_eval.user_fill_id
+    WHERE 
+      user_fill.is_delete = '0' 
+      AND discipline_eval.is_delete = '0' 
+      AND discipline_eval.discipline_eval_turn = 5	--参数
+    ) AS b2 ON b1.univ_code = b2.univ_code AND b1.discipline_code = b2.discipline_code
+    
+    ORDER BY
     case
-    when b.result_num = 'A+' then 1
-    when b.result_num = 'A' then 2
-    when b.result_num = 'A-' then 3
-    when b.result_num = 'B+' then 4
-    when b.result_num = 'B' then 5
-    when b.result_num = 'B-' then 6
-    when b.result_num = 'C+' then 7
-    when b.result_num = 'C' then 8
-    when b.result_num = 'C-' then 9
-    when b.result_num = '无' then 10
+    when b1.result4 = 'A+' then 1
+    when b1.result4 = 'A' then 2
+    when b1.result4 = 'A-' then 3
+    when b1.result4 = 'B+' then 4
+    when b1.result4 = 'B' then 5
+    when b1.result4 = 'B-' then 6
+    when b1.result4 = 'C+' then 7
+    when b1.result4 = 'C' then 8
+    when b1.result4 = 'C-' then 9
+    when b1.result4 = '无' then 10
     end
   LIMIT 10`
     client.query(sql, function (err, results) {
@@ -79,10 +109,19 @@ exports.gov_overview_listen_01 = function(req,res){
           // 当前sql查询为空，则返回填报提示
           evaluationData = []
         } else {
-          evaluationData = results.rows
+          evaluationData = results.rows.map(function (item) {
+            var data = {}
+            data = item
+            data.title = "第四轮学科评估"
+            if(item.evaluation==undefined){
+              data.evaluation = "无"
+            }
+            return data
+        }).filter(Boolean)
           console.log("========gov_overview_listen_01- evaluation data =========");
           sql2 = `SELECT 
-          concat_ws('-',b.univ_name,b.discipline_name) AS dis_name,
+          b.univ_name AS school,
+          b.discipline_name AS subject,
           b.yr,
           b.total_fund,
           b.ctr_budg_fund,
