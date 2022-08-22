@@ -1423,6 +1423,10 @@ FROM
 		(subtag1 = '新材料创新发展学科群'	--传参数
 		AND tag1 = '学科群'	--传参数
 		)
+		or
+		(subtag1 = '绿色食品学科群'	--传参数
+		AND tag1 = '学科群'	--传参数
+		)
 	) AS b
 GROUP BY
 		b.subtag1
