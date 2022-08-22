@@ -450,7 +450,7 @@ LEFT JOIN
 		host_acjour.univ_code,
 		host_acjour.discipline_code
 	) AS a3 ON all_xk.univ_code = a3.univ_code AND all_xk.discipline_code = a3.discipline_code
-WHERE concat_ws('-',all_xk.univ_name,all_xk.discipline_name)='江西理工大学-冶金工程'	--传参数
+WHERE concat_ws('-',all_xk.univ_name,all_xk.discipline_name)='${subject}'	--传参数
 GROUP BY
 	all_xk.univ_name,
 	all_xk.discipline_name`
