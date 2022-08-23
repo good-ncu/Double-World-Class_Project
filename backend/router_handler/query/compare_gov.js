@@ -931,7 +931,7 @@ function results_to_front(results){
 	var data = [	
 		{
 			name: "学科建设进展",
-			datas: [["学科评估情况"],["学科影响力情况（软科世界一流学科排名）"],["本学科建设经费数额（万元）"]]
+			datas: [["学科评估情况（第四轮）"],["学科影响力情况（软科世界一流学科排名）"],["本学科建设经费数额（万元）"]]
 		},
 		{
 			name: "培养拔尖创新人才",
@@ -982,7 +982,7 @@ function results_to_front(results){
 		//----------------- 学科建设进展
 		// 学科评估情况
 		data[0].datas[0].push({
-			value: "第四轮评估："+item.de_result,
+			value: item.de_result,
 			award: false
 		})
 		// 学科影响力情况 
