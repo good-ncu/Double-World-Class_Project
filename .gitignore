@@ -3,3 +3,4 @@
 /backend/db/
 /backend/apidoc/
 /backend/excels/*
+/backend/router_handler/*.docx
