@@ -954,6 +954,7 @@ exports.gov_compare_subject = function (req, res) {
 			
 		})
 	} else {
+		// 只有学科
 		client.query(sql2, function(err,results){
 			if (err) {
 				// 异常后调用callback并传入err
@@ -965,9 +966,11 @@ exports.gov_compare_subject = function (req, res) {
 				// 当前sql查询为空，则返回填报提示
 				res.cc("无学科信息")
 			} else {
-				var results_xkq = results.rows 
-				client.query(sql2,function(err,results){
-					
+				return res.send({
+					status: 0,
+					// data: results.rows
+					subjects: subject,
+					data: results_to_front(results)
 				})
 			}
 			
