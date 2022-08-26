@@ -37,7 +37,7 @@ exports.query_all_discipline = function (req, res) {
     AND user_info.discipline_code=discipline.discipline_code
     AND user_info.univ_code='${userinfo.univ_code}'
     AND user_fill.fill_id IN (SELECT id FROM fill WHERE fill.flag=1)
-    AND user_fill.is_delete=0
+    AND user_fill.is_delete=0 
     GROUP BY user_info.discipline_code,discipline.discipline_name,user_fill.user_id
     HAVING COUNT(user_fill.user_id) = (SELECT COUNT(fill.flag) FROM fill WHERE fill.flag=1)
     ORDER BY discipline.discipline_name`
@@ -53,7 +53,7 @@ exports.query_all_discipline = function (req, res) {
             })
         } else if (results.rowCount == 0) {
             // 当前sql查询为空，则返回填报提示
-            
+
 
             res.send({
                 status: 1,
@@ -133,7 +133,7 @@ exports.query_all_discipline_current = function (req, res) {
                 message: "当前周期下，您选择的学科还未录入任何有效信息。"
             })
         } else {
-            for (let i = 0, len = results.rows.length; i < len; i++) { 
+            for (let i = 0, len = results.rows.length; i < len; i++) {
                 results.rows[i]["填报对象"] = "学科填报"
             }
             res.send({
@@ -248,7 +248,7 @@ exports.query_all_discipline_table = function (req, res) {
                     console.log(err.message)
                     res.send({
                         status: 1,
-                        message:  "服务器错误，请稍后再试"
+                        message: "服务器错误，请稍后再试"
                     })
                 } else if (results.rowCount == 0) {
                     // 当前sql影响等于0，则错误
