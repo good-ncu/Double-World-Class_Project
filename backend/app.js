@@ -50,6 +50,15 @@ app.use(expressJWT({ secret: config.jwtSecretKey, algorithms: ['HS256'] }).unles
 const userRouter = require('./router/user')
 app.use('/api', userRouter)
 
+
+// 导入并使用用户暂存模块   学科 - 暂存 
+const fill_switch = require('./router/fill_switch')
+app.use('/api/fill_switch', fill_switch)
+
+
+
+
+
 // 导入并使用用户暂存模块   学科 - 暂存 
 const user_save = require('./router/user_fill/user_save')
 app.use('/api', user_save)
