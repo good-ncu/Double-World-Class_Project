@@ -192,3 +192,44 @@ exports.login = function(req, res){
     } 
   })
 }
+
+// 修改密码接口
+exports.alter_pwd_internal = function(req, res){
+  // 接收表单数据
+  const userinfo = req.body
+  // 定义SQL
+  const sql = `select * from user_info where username = '${userinfo.username}'`
+  client.query(sql, (err,results)=>{
+    if(err) {
+      console.log(err.message);
+      return res.cc(err)
+    }
+    // 检查有无该用户
+    if(results.rows.length<1){
+      return res.cc('无该用户')
+    }
+    // 判断旧密码是否正确
+    const compareResult = bcrypt.compareSync(userinfo.oldpassword, results.rows[0].passwd)
+    if(!compareResult) return res.cc('密码错误，修改失败')
+    user_id = results.rows[0].id
+    // 修改为新密码
+    newpassword = bcrypt.hashSync(userinfo.newpassword, 10)
+    console.log(newpassword);
+    console.log(userinfo.newpassword);
+    // 修改密码sql
+    const update_sql = `UPDATE user_info SET passwd = '${newpassword}' WHERE id = ${user_id};`
+    client.query(update_sql, (err,results)=>{
+      if(err) {
+        console.log(err.message);
+        return res.cc(err)
+      }
+      console.log("密码修改成功");
+      return res.send({
+          status: 0,
+          user_id: user_id, 
+          newpassword: newpassword ,
+          message: '修改成功'
+      })
+    })
+  })
+}

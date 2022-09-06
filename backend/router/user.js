@@ -22,6 +22,8 @@ router.post('/pre-register', user_handler.pre_register)
 
 // 登录（所有类型的用户都用该接口）
 router.post('/login', expressJoi(login_schema), user_handler.login)
+// 修改密码， 不对用户暴露接口
+router.post('/alter-pwd-internal', user_handler.alter_pwd_internal)
 
 
 
