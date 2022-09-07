@@ -15,9 +15,11 @@ const role_audit = require('../schema/role_audit')
 // 查看每张表的填报状态
 router.post('/fill_status', role_audit.is_gov, fill_switch_handler.fill_status)
 
-// // 查看每张表的填报状态
-// router.post('/fill_status', role_audit.is_gov, fill_switch_handler.fill_status)
+// 单一表格填报状态修改    从开启到关闭  
+router.post('/status_change_close', role_audit.is_gov, fill_switch_handler.status_change_close)
 
+// 单一表格填报状态修改    从关闭到开启 
+router.post('/status_change_open', role_audit.is_gov, fill_switch_handler.status_change_open)
 
 
 
