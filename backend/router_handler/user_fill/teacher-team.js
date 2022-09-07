@@ -316,7 +316,7 @@ exports.honor_counts_word_sub = function (req, res) {
  */
   exports.all_high_counts_sub = function(req,res){
     // 接收表单数据
-    const submit_info = req.body.data_3_2_2_0
+    const submit_info = req.body.data_3_2_2_3
     // console.log(submit_info)
     user = req.user
     var user_fill_id = uuidv4().replace(/-/g, '')
@@ -382,7 +382,7 @@ exports.honor_counts_word_sub = function (req, res) {
  */
  exports.nation_team_sub = function(req,res){
     // 接收表单数据
-    const submit_info = req.body.data_3_2_2_0
+    const submit_info = req.body.data_3_2_2_4
     // console.log(submit_info)
     user = req.user
     var user_fill_id = uuidv4().replace(/-/g, '')
