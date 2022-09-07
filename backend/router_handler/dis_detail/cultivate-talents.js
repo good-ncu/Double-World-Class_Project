@@ -318,6 +318,7 @@ exports.gov_detail_2_teacher = function (req, res) {
     // sql填入          ======== 修改
     sql = `SElECT
 	concat_ws('-',all_xk.univ_name,all_xk.discipline_name) AS dis_name,
+	a1.yr,	--最新的学年
 	sum(COALESCE(a1.master_tutor_num,0)) AS master_tutor_num,	--硕士生导师数量
 	sum(COALESCE(a1.doc_tutor_num,0)) AS doc_tutor_num	--博士生导师数量
 FROM
@@ -361,16 +362,18 @@ LEFT JOIN
 		mphd_tutor_const.univ_code,
 		mphd_tutor_const.discipline_code,
 		mphd_tutor_const.yr,
-		mphd_tutor_const.master_tutor_num ,	--硕士生导师数量
+		mphd_tutor_const.master_tutor_num ,
 		mphd_tutor_const.doc_tutor_num	
-	ORDER BY
-		mphd_tutor_const.yr DESC
-	LIMIT 1
 	)  AS a1 ON all_xk.univ_code = a1.univ_code AND all_xk.discipline_code = a1.discipline_code	
-WHERE concat_ws('-',all_xk.univ_name,all_xk.discipline_name)='${subject}'	--传参数
+WHERE 
+	concat_ws('-',all_xk.univ_name,all_xk.discipline_name)='${subject}'	--传参数
+	AND yr IS NOT NULL
 GROUP BY
 	all_xk.univ_name,
-	all_xk.discipline_name`
+	all_xk.discipline_name,
+	a1.yr
+ORDER BY yr DESC
+LIMIT 1`
     client.query(sql, function (err, results) {
         if (err) {
             // 异常后调用callback并传入err
@@ -614,6 +617,7 @@ exports.gov_detail_2_graduate = function (req, res) {
     // sql填入          ======== 修改
     sql = `SElECT
 	concat_ws('-',all_xk.univ_name,all_xk.discipline_name) AS dis_name,
+	a1.yr,	--最新的学年
 	sum(COALESCE(a1.award_bd_num,0)) AS award_bd_num,	--授予学士学位数量
 	sum(COALESCE(a1.award_md_num,0)) AS award_md_num,	--授予硕士学位数量
 	sum(COALESCE(a1.award_phd_num,0)) AS award_phd_num	--授予博士学位数量
@@ -662,14 +666,16 @@ LEFT JOIN
 		ann_award_bdmdphd.award_bd_num,
 		ann_award_bdmdphd.award_md_num,
 		ann_award_bdmdphd.award_phd_num
-	ORDER BY
-		ann_award_bdmdphd.yr DESC
-	LIMIT 1
 	) AS a1 ON all_xk.univ_code = a1.univ_code AND all_xk.discipline_code = a1.discipline_code	
-WHERE concat_ws('-',all_xk.univ_name,all_xk.discipline_name)='${subject}'	--传参数
+WHERE 
+	concat_ws('-',all_xk.univ_name,all_xk.discipline_name)='${subject}'	--传参数
+	AND yr IS NOT NULL
 GROUP BY
 	all_xk.univ_name,
-	all_xk.discipline_name`
+	all_xk.discipline_name,
+	a1.yr
+ORDER BY yr DESC
+LIMIT 1`
     client.query(sql, function (err, results) {
         if (err) {
             // 异常后调用callback并传入err
@@ -731,6 +737,7 @@ exports.gov_detail_2_exchange = function (req, res) {
     // sql填入          ======== 修改
     sql = `SElECT
 	concat_ws('-',all_xk.univ_name,all_xk.discipline_name) AS dis_name,
+	a1.yr,	--最新学年
 	sum(COALESCE(a1.b_cur_num,0)) AS b_cur_num,	--本科留学生
 	sum(COALESCE(a1.m_cur_num,0)) AS m_cur_num,	--硕士留学生
 	sum(COALESCE(a1.phd_cur_num,0)) AS phd_cur_num	--博士留学生
@@ -779,14 +786,16 @@ LEFT JOIN
 		intna_exch_stu.b_cur_num,
 		intna_exch_stu.m_cur_num,
 		intna_exch_stu.phd_cur_num
-	ORDER BY
-		intna_exch_stu.yr DESC
-	LIMIT 1
 	)  AS a1 ON all_xk.univ_code = a1.univ_code AND all_xk.discipline_code = a1.discipline_code	
-WHERE concat_ws('-',all_xk.univ_name,all_xk.discipline_name)='${subject}'	--传参数
+WHERE 
+	concat_ws('-',all_xk.univ_name,all_xk.discipline_name)='${subject}'	--传参数
+	AND yr IS NOT NULL
 GROUP BY
 	all_xk.univ_name,
-	all_xk.discipline_name`
+	all_xk.discipline_name,
+	a1.yr
+ORDER BY yr DESC
+LIMIT 1`
     client.query(sql, function (err, results) {
         if (err) {
             // 异常后调用callback并传入err
@@ -851,95 +860,97 @@ exports.gov_detail_2_number = function (req, res) {
     subject = req.body.subject
     // sql填入          ======== 修改
     sql = `SElECT
-        concat_ws('-',all_xk.univ_name,all_xk.discipline_name) AS dis_name,
-        sum(COALESCE(a1.num,0)) AS full_prof_num,	--正教授
-        sum(COALESCE(a2.num,0)) AS nbstu_num,	--突出毕业生:学科领域突出贡献者情况
-        sum(COALESCE(a3.num,0)) AS stu_rpt_num	--学术报告人:学术报告人参加本领域重要学术会议做报告人
-    FROM
-    (
-        (
-        SELECT
-            univ_discipline.univ_code,
-            univ_discipline.discipline_code,
-            univ_discipline.univ_name,
-            univ_discipline.subtag1 AS discipline_name
-        FROM univ_discipline
-        WHERE univ_discipline.tag1='学科群' 
-        )
-        UNION
-        (
-        SELECT
-            univ_discipline.univ_code,
-            univ_discipline.discipline_code,
-            univ_discipline.univ_name,
-            univ_discipline.discipline_name
-        FROM univ_discipline
-        WHERE univ_discipline.tag1='一流学科建设名单'
-        )
-    ) AS all_xk
-    LEFT JOIN
-    (
-        SELECT
-            fullprof_tch_underg.univ_code,
-            fullprof_tch_underg.discipline_code,
-            fullprof_tch_underg.yr,
-            fullprof_tch_underg.sem,
-            fullprof_tch_underg.num_full_prof AS num
-        FROM
-            fullprof_tch_underg
-        INNER JOIN user_fill 
-            ON user_fill.id = fullprof_tch_underg.user_fill_id
-        WHERE 
-            user_fill.is_delete = '0' 
-            AND fullprof_tch_underg.is_delete = '0'
-        GROUP BY
-            fullprof_tch_underg.univ_code,
-            fullprof_tch_underg.discipline_code,
-            fullprof_tch_underg.yr,
-            fullprof_tch_underg.sem,
-            fullprof_tch_underg.num_full_prof 
-        ORDER BY
-            fullprof_tch_underg.yr,fullprof_tch_underg.sem DESC
-        LIMIT 1
-        )  AS a1 ON all_xk.univ_code = a1.univ_code AND all_xk.discipline_code = a1.discipline_code	
-    LEFT JOIN
-    (
-        SELECT
-            stu_attdrpt_imptacconf.univ_code,
-            stu_attdrpt_imptacconf.discipline_code,
-            count(stu_attdrpt_imptacconf.id) AS num
-        FROM
-            stu_attdrpt_imptacconf
-        INNER JOIN user_fill 
-            ON user_fill.id = stu_attdrpt_imptacconf.user_fill_id
-        WHERE 
-            user_fill.is_delete = '0' 
-            AND stu_attdrpt_imptacconf.is_delete = '0'
-        GROUP BY
-            stu_attdrpt_imptacconf.univ_code,
-            stu_attdrpt_imptacconf.discipline_code
-        ) AS a2 ON all_xk.univ_code = a2.univ_code AND all_xk.discipline_code = a2.discipline_code	
-    LEFT JOIN
-    (
-        SELECT
-            graduate_is_procontrib.univ_code,
-            graduate_is_procontrib.discipline_code,
-            count(graduate_is_procontrib.id) AS num
-        FROM
-            graduate_is_procontrib
-        INNER JOIN user_fill 
-            ON user_fill.id = graduate_is_procontrib.user_fill_id
-        WHERE 
-            user_fill.is_delete = '0' 
-            AND graduate_is_procontrib.is_delete = '0'
-        GROUP BY
-            graduate_is_procontrib.univ_code,
-            graduate_is_procontrib.discipline_code
-        ) AS a3 ON all_xk.univ_code = a3.univ_code AND all_xk.discipline_code = a3.discipline_code
-    WHERE concat_ws('-',all_xk.univ_name,all_xk.discipline_name)='${subject}'	--传参数
-    GROUP BY
-        all_xk.univ_name,
-        all_xk.discipline_name`
+	concat_ws('-',all_xk.univ_name,all_xk.discipline_name) AS dis_name,
+	a1.yr_sem AS yr_sem,	--学年学期，YYYY-YYYY-1/2,最新学年-学期
+	sum(COALESCE(a1.num,0)) AS full_prof_num,	--正教授
+	sum(COALESCE(a2.num,0)) AS nbstu_num,	--突出毕业生:学科领域突出贡献者情况
+	sum(COALESCE(a3.num,0)) AS stu_rpt_num	--学术报告人:学术报告人参加本领域重要学术会议做报告人
+FROM
+(
+	(
+	SELECT
+		univ_discipline.univ_code,
+		univ_discipline.discipline_code,
+		univ_discipline.univ_name,
+		univ_discipline.subtag1 AS discipline_name
+	FROM univ_discipline
+	WHERE univ_discipline.tag1='学科群' 
+	)
+	UNION
+	(
+	SELECT
+		univ_discipline.univ_code,
+		univ_discipline.discipline_code,
+		univ_discipline.univ_name,
+		univ_discipline.discipline_name
+	FROM univ_discipline
+	WHERE univ_discipline.tag1='一流学科建设名单'
+	)
+) AS all_xk
+LEFT JOIN
+(
+	SELECT
+		fullprof_tch_underg.univ_code,
+		fullprof_tch_underg.discipline_code,
+		concat_ws('-',fullprof_tch_underg.yr,fullprof_tch_underg.sem) AS yr_sem, 
+		fullprof_tch_underg.num_full_prof AS num
+	FROM
+		fullprof_tch_underg
+	INNER JOIN user_fill 
+		ON user_fill.id = fullprof_tch_underg.user_fill_id
+	WHERE 
+		user_fill.is_delete = '0' 
+		AND fullprof_tch_underg.is_delete = '0'
+	GROUP BY
+		fullprof_tch_underg.univ_code,
+		fullprof_tch_underg.discipline_code,
+		fullprof_tch_underg.yr,
+		fullprof_tch_underg.sem,
+		fullprof_tch_underg.num_full_prof 
+	)  AS a1 ON all_xk.univ_code = a1.univ_code AND all_xk.discipline_code = a1.discipline_code	
+LEFT JOIN
+(
+	SELECT
+		graduate_is_procontrib.univ_code,
+		graduate_is_procontrib.discipline_code,
+		count(graduate_is_procontrib.id) AS num
+	FROM
+		graduate_is_procontrib
+	INNER JOIN user_fill 
+		ON user_fill.id = graduate_is_procontrib.user_fill_id
+	WHERE 
+		user_fill.is_delete = '0' 
+		AND graduate_is_procontrib.is_delete = '0'
+	GROUP BY
+		graduate_is_procontrib.univ_code,
+		graduate_is_procontrib.discipline_code
+	)AS a2 ON all_xk.univ_code = a2.univ_code AND all_xk.discipline_code = a2.discipline_code	
+LEFT JOIN
+(
+	SELECT
+		stu_attdrpt_imptacconf.univ_code,
+		stu_attdrpt_imptacconf.discipline_code,
+		count(stu_attdrpt_imptacconf.id) AS num
+	FROM
+		stu_attdrpt_imptacconf
+	INNER JOIN user_fill 
+		ON user_fill.id = stu_attdrpt_imptacconf.user_fill_id
+	WHERE 
+		user_fill.is_delete = '0' 
+		AND stu_attdrpt_imptacconf.is_delete = '0'
+	GROUP BY
+		stu_attdrpt_imptacconf.univ_code,
+		stu_attdrpt_imptacconf.discipline_code
+	) AS a3 ON all_xk.univ_code = a3.univ_code AND all_xk.discipline_code = a3.discipline_code
+WHERE 
+	concat_ws('-',all_xk.univ_name,all_xk.discipline_name)='${subject}'	--传参数
+	AND yr_sem IS NOT NULL
+GROUP BY
+	all_xk.univ_name,
+	all_xk.discipline_name,
+	a1.yr_sem
+ORDER BY yr_sem DESC
+LIMIT 1`
     client.query(sql, function (err, results) {
         if (err) {
             // 异常后调用callback并传入err

@@ -11,11 +11,10 @@ var fs = require('fs');
 
 // 成果转化    5-1 成果转化xxxx万元    
 exports.gov_detail_5_earn = function (req, res) {
-    subject = req.body.subject
-    sql = `SElECT
+	subject = req.body.subject
+	sql = `SElECT
 	concat_ws('-',all_xk.univ_name,all_xk.discipline_name) AS dis_name,
-	a1.yr,
-	sum(COALESCE(a1.achv_to_univfund,0)) AS achv_to_univfund	--成果转化到校金额
+	sum(COALESCE(a1.achv_to_univfund,0)) AS achv_to_univfund	--成果转化到校金额累加
 FROM
 (
 	(
@@ -57,48 +56,44 @@ LEFT JOIN
 		achv_to_univfund.discipline_code,
 		achv_to_univfund.yr,
 		achv_to_univfund.achv_to_univfund
-	ORDER BY
-		achv_to_univfund.yr DESC
-	LIMIT 5
 	)  AS a1 ON all_xk.univ_code = a1.univ_code AND all_xk.discipline_code = a1.discipline_code	
-WHERE concat_ws('-',all_xk.univ_name,all_xk.discipline_name)='${subject}'	--传参数
+WHERE
+	concat_ws('-',all_xk.univ_name,all_xk.discipline_name)='${subject}'	--传参数
 GROUP BY
 	all_xk.univ_name,
-	all_xk.discipline_name,
-	a1.yr
-ORDER BY yr DESC`
-    client.query(sql, function (err, results){
-        if (err) {
-            // 异常后调用callback并传入err
-            return res.send({
-                status: 1,
-                message: err.message
-            })
-        } else if (results.rowCount == 0) {
-            // 当前sql查询为空，则返回填报提示           ========= 修改 标题上的注释抄下来
-            return res.send({
-                status: 0,
-                data: ""
-            })
-        } else {
-            console.log(results.rows);
-            var count = 0 
-            results.rows.map(function (item){
-                count+=item.achv_to_univfund
-            })
-            return res.send({
-                status: 0,
-                data: count
-            })
-        }
-    })
+	all_xk.discipline_name`
+	client.query(sql, function (err, results) {
+		if (err) {
+			// 异常后调用callback并传入err
+			return res.send({
+				status: 1,
+				message: err.message
+			})
+		} else if (results.rowCount == 0) {
+			// 当前sql查询为空，则返回填报提示           ========= 修改 标题上的注释抄下来
+			return res.send({
+				status: 0,
+				data: ""
+			})
+		} else {
+			console.log(results.rows);
+			var count = 0
+			results.rows.map(function (item) {
+				count += item.achv_to_univfund
+			})
+			return res.send({
+				status: 0,
+				data: count
+			})
+		}
+	})
 }
 
 
 // 智库建设  5-2
 exports.gov_detail_5_intelligent = function (req, res) {
-    subject = req.body.subject
-    sql = `SElECT
+	subject = req.body.subject
+	sql = `SElECT
 	concat_ws('-',all_xk.univ_name,all_xk.discipline_name) AS dis_name,
 	sum(COALESCE(a1.prodedu_plat_num,0)) AS gcj_num,	--国家级产教融合平台数，为null则置为0
 	sum(COALESCE(a2.prodedu_plat_num,0)) AS scj_plat_num,	--省部级产教融合平台数，为null则置为0
@@ -206,51 +201,51 @@ WHERE concat_ws('-',all_xk.univ_name,all_xk.discipline_name)='${subject}'	--传�
 GROUP BY
 	all_xk.univ_name,
 	all_xk.discipline_name`
-    client.query(sql, function (err, results){
-        if (err) {
-            // 异常后调用callback并传入err
-            return res.send({
-                status: 1,
-                message: err.message
-            })
-        } else if (results.rowCount == 0) {
-            // 当前sql查询为空，则返回填报提示           ========= 修改 标题上的注释抄下来
-            return res.send({
-                status: 0,
-                data: []
-            })
-        } else {
-            console.log(results.rows);
-            var data = [{
-                "title": "国家级产教融合平台数",
-                "number": 0,
-                "old_number": -1
-              },
-              {
-                "title": "省部级产教融合平台数",
-                "number": 0,
-                "old_number": -1
-              },
-              {
-                "title": "咨政研究获国家领导人肯定性批示数",
-                "number": 0,
-                "old_number": -1
-              },
-              {
-                "title": "咨政研究获省部级领导人肯定性批示数",
-                "number": 0,
-                "old_number": -1
-              }]
-            results.rows.map(function (item){
+	client.query(sql, function (err, results) {
+		if (err) {
+			// 异常后调用callback并传入err
+			return res.send({
+				status: 1,
+				message: err.message
+			})
+		} else if (results.rowCount == 0) {
+			// 当前sql查询为空，则返回填报提示           ========= 修改 标题上的注释抄下来
+			return res.send({
+				status: 0,
+				data: []
+			})
+		} else {
+			console.log(results.rows);
+			var data = [{
+				"title": "国家级产教融合平台数",
+				"number": 0,
+				"old_number": -1
+			},
+			{
+				"title": "省部级产教融合平台数",
+				"number": 0,
+				"old_number": -1
+			},
+			{
+				"title": "咨政研究获国家领导人肯定性批示数",
+				"number": 0,
+				"old_number": -1
+			},
+			{
+				"title": "咨政研究获省部级领导人肯定性批示数",
+				"number": 0,
+				"old_number": -1
+			}]
+			results.rows.map(function (item) {
 				data[0].number = item.gcj_num
-                data[1].number = item.scj_plat_num
-                data[2].number = item.gzz_plat_num
-                data[3].number = item.zz_plat_num
-            })
-            return res.send({
-                status: 0,
-                data: data
-            })
-        }
-    })
+				data[1].number = item.scj_plat_num
+				data[2].number = item.gzz_plat_num
+				data[3].number = item.zz_plat_num
+			})
+			return res.send({
+				status: 0,
+				data: data
+			})
+		}
+	})
 }

@@ -191,41 +191,41 @@ exports.gov_detail_1_found = function (req, res) {
     // sql填入          ======== 修改
     sql = `SELECT 
 	concat_ws('-',b.univ_name,b.discipline_name) AS dis_name,
-	b.yr,
-	b.total_fund,
-	b.ctr_budg_fund,
-	b.ctr_receive_fund,
-	b.ctr_expend_fund,
-	b.lcl_budg_fund,
-	b.lcl_receive_fund,
-	b.lcl_expend_fund,
-	b.self_budg_fund,
-	b.self_receive_fund,
-	b.self_expend_fund,
-	b.other_budg_fund,
-	b.other_receive_fund,
-	b.other_expend_fund
+	b.yr,	--年度
+	SUM(COALESCE(b.total_fund,0)) AS total_fund,	--建设总经费
+	SUM(COALESCE(b.ctr_budg_fund,0)) AS ctr_budg_fund,	--中央专项预算经费
+	SUM(COALESCE(b.ctr_receive_fund,0)) AS ctr_receive_fund,	--中央专项实际到账
+	SUM(COALESCE(b.ctr_expend_fund,0)) AS ctr_expend_fund,	--中央专项实际支出
+	SUM(COALESCE(b.lcl_budg_fund,0)) AS lcl_budg_fund,	--地方专项预算经费
+	SUM(COALESCE(b.lcl_receive_fund,0)) AS lcl_receive_fund,	--地方专项实际到账
+	SUM(COALESCE(b.lcl_expend_fund,0)) AS lcl_expend_fund,	--地方专项实际支出
+	SUM(COALESCE(b.self_budg_fund,0)) AS self_budg_fund,	--学科自筹预算经费
+	SUM(COALESCE(b.self_receive_fund,0)) AS self_receive_fund,	--学科自筹实际到账
+	SUM(COALESCE(b.self_expend_fund,0)) AS self_expend_fund,	--学科自筹实际支出
+	SUM(COALESCE(b.other_budg_fund,0)) AS other_budg_fund,	--其他预算经费
+	SUM(COALESCE(b.other_receive_fund,0)) AS other_receive_fund,	--其他实际到账
+	SUM(COALESCE(b.other_expend_fund,0)) AS other_expend_fund	--其他实际支出
 FROM
 (
-SELECT
+	SELECT
 		a.univ_code,
 		a.discipline_code,
 		a.univ_name,
 		a.discipline_name,
-		yr,	--年度
-		discipline_const_fund.total_fund,	--建设总经费
-		discipline_const_fund.ctr_budg_fund,	--中央专项预算经费
-		discipline_const_fund.ctr_receive_fund,	--中央专项实际到账
-		discipline_const_fund.ctr_expend_fund,	--中央专项实际支出
-		discipline_const_fund.lcl_budg_fund,	--地方专项预算经费
-		discipline_const_fund.lcl_receive_fund,	--地方专项实际到账
-		discipline_const_fund.lcl_expend_fund,	--地方专项实际支出
-		discipline_const_fund.self_budg_fund,	--学科自筹预算经费
-		discipline_const_fund.self_receive_fund,	--学科自筹实际到账
-		discipline_const_fund.self_expend_fund,	--学科自筹实际支出
-		discipline_const_fund.other_budg_fund,	--其他预算经费
-		discipline_const_fund.other_receive_fund,	--其他实际到账
-		discipline_const_fund.other_expend_fund	--其他实际支出
+		discipline_const_fund.yr,
+		discipline_const_fund.total_fund,
+		discipline_const_fund.ctr_budg_fund,
+		discipline_const_fund.ctr_receive_fund,
+		discipline_const_fund.ctr_expend_fund,
+		discipline_const_fund.lcl_budg_fund,
+		discipline_const_fund.lcl_receive_fund,
+		discipline_const_fund.lcl_expend_fund,
+		discipline_const_fund.self_budg_fund,
+		discipline_const_fund.self_receive_fund,
+		discipline_const_fund.self_expend_fund,
+		discipline_const_fund.other_budg_fund,
+		discipline_const_fund.other_receive_fund,
+		discipline_const_fund.other_expend_fund
 	FROM
 	((
 	SELECT
@@ -253,10 +253,14 @@ SELECT
 	WHERE 
 		user_fill.is_delete = '0' 
 		AND discipline_const_fund.is_delete = '0' 
-		AND discipline_const_fund.yr IN (2022,2021,2023,2024,2025,2026)	--传参数
 		AND concat_ws('-',a.univ_name,a.discipline_name)='${subject}'	--传参数
 	) AS b
-ORDER BY yr DESC`
+GROUP BY
+b.univ_name,
+b.discipline_name,
+b.yr
+ORDER BY yr DESC
+LIMIT 5	--展示近五年数据，按年份降序排序`
     client.query(sql, function (err, results) {
         if (err) {
             // 异常后调用callback并传入err
