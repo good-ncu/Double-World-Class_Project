@@ -165,8 +165,8 @@ const gov_query_school_disc = require('./router/query/gov_query_school_disc')
 app.use('/api', gov_query_school_disc)
 
 // 启动服务器
-var server = app.listen(3007, () => {
-  console.log('api server running at http://127.0.0.1:3007')
+var server = app.listen(8081, () => {
+  console.log('api server running at http://127.0.0.1:8081')
 })
 // 将超时机制关闭，避免 Error: read ECONNRESET
 server.setTimeout(0)
