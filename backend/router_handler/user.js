@@ -219,7 +219,7 @@ exports.alter_pwd_internal = function(req, res){
     console.log(newpassword);
     console.log(userinfo.newpassword);
     // 修改密码sql
-    const update_sql = `UPDATE user_info SET passwd = '${newpassword}' WHERE id = ${user_id};`
+    const update_sql = `UPDATE user_info SET passwd = '${newpassword}' WHERE id = '${user_id}';`
     console.log(update_sql);
     client.query(update_sql, (err,results)=>{
       if(err) {
