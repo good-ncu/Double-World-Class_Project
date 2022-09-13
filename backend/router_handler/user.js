@@ -200,7 +200,7 @@ exports.alter_pwd_internal = function(req, res){
   // 定义SQL
   const sql = `select * from user_info where username = '${userinfo.username}'`
   console.log("=====修改密码接口=====");
-  console.log(log);
+  console.log(sql);
   client.query(sql, (err,results)=>{
     if(err) {
       console.log(err.message);
