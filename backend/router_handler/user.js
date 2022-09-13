@@ -199,6 +199,8 @@ exports.alter_pwd_internal = function(req, res){
   const userinfo = req.body
   // 定义SQL
   const sql = `select * from user_info where username = '${userinfo.username}'`
+  console.log("=====修改密码接口=====");
+  console.log(log);
   client.query(sql, (err,results)=>{
     if(err) {
       console.log(err.message);
@@ -218,6 +220,7 @@ exports.alter_pwd_internal = function(req, res){
     console.log(userinfo.newpassword);
     // 修改密码sql
     const update_sql = `UPDATE user_info SET passwd = '${newpassword}' WHERE id = ${user_id};`
+    console.log(update_sql);
     client.query(update_sql, (err,results)=>{
       if(err) {
         console.log(err.message);
