@@ -4,7 +4,32 @@ const client = require('../../db/index')
 // 省厅查看 突击队学科 （柱状图对比数据）
 exports.gov_tjd = function (req, res) {
   userinfo = req.user
-  sql = `select discipline_eval_turn,discipline_eval_result,count(discipline_eval_result) from discipline_eval group by discipline_eval_result ,discipline_eval_turn`
+  sql = `SELECT
+ a.univ_code,
+ a.discipline_code,
+ a.univ_name as name,
+ a.discipline_name as subject
+FROM
+((
+SELECT
+ univ_discipline.univ_code,
+ univ_discipline.discipline_code,
+ univ_discipline.univ_name,
+ univ_discipline.subtag1 AS discipline_name
+FROM univ_discipline
+WHERE univ_discipline.tag1='学科群' AND univ_discipline.subsubtag1='主干' AND univ_discipline.tag2='突击队'
+)
+UNION
+(
+SELECT
+ univ_discipline.univ_code,
+ univ_discipline.discipline_code,
+ univ_discipline.univ_name,
+ univ_discipline.discipline_name
+FROM univ_discipline
+WHERE univ_discipline.tag1='一流学科建设名单' AND univ_discipline.tag2='突击队'
+)) AS a
+ORDER BY a.univ_code,a.discipline_code ASC`
   client.query(sql, function (err, results) {
     if (err) {
       // 异常后调用callback并传入err
@@ -12,60 +37,54 @@ exports.gov_tjd = function (req, res) {
         status: 1,
         message: err.message
       })
-    } else if (results.rowCount == 0) {
-      // 当前sql查询为空，则返回填报提示
-      res.send({
-        status: 0,
-        data: []
-    })
     } else {
       res.send({
         status: 0,
-        // data: results.rows
-        data: [{
-          "name": "南昌大学",
-          "subject": "绿色食品学科群"
-        },
-        {
-          "name": "南昌大学",
-          "subject": "临床医学与公共卫生大健康学科群"
-        },
-        {
-          "name": "江西师范大学",
-          "subject": "马克思主义理论"
-        },
-        {
-          "name": "江西农业大学",
-          "subject": "畜牧学"
-        },
-        {
-          "name": "江西财经大学",
-          "subject": "统计学"
-        },
-        {
-          "name": "华东交通大学",
-          "subject": "交通运输工程"
-        },
-        {
-          "name": "江西中医药大学",
-          "subject": "中药学"
-        },
-        {
-          "name": "景德镇陶瓷大学",
-          "subject": "陶瓷设计与美术"
-        },
-        {
-          "name": "江西理工大学",
-          "subject": "冶金工程"
-        },
-        {
-          "name": "东华理工大学",
-          "subject": "地质资源与地质工程"
-        },
-        {
-          "name": "南昌航空大学",
-          "subject": "环境科学与工程"
-        }]
+        data: results.rows
+        // data: [{
+        //   "name": "南昌大学",
+        //   "subject": "绿色食品学科群"
+        // },
+        // {
+        //   "name": "南昌大学",
+        //   "subject": "临床医学与公共卫生大健康学科群"
+        // },
+        // {
+        //   "name": "江西师范大学",
+        //   "subject": "马克思主义理论"
+        // },
+        // {
+        //   "name": "江西农业大学",
+        //   "subject": "畜牧学"
+        // },
+        // {
+        //   "name": "江西财经大学",
+        //   "subject": "统计学"
+        // },
+        // {
+        //   "name": "华东交通大学",
+        //   "subject": "交通运输工程"
+        // },
+        // {
+        //   "name": "江西中医药大学",
+        //   "subject": "中药学"
+        // },
+        // {
+        //   "name": "景德镇陶瓷大学",
+        //   "subject": "陶瓷设计与美术"
+        // },
+        // {
+        //   "name": "江西理工大学",
+        //   "subject": "冶金工程"
+        // },
+        // {
+        //   "name": "东华理工大学",
+        //   "subject": "地质资源与地质工程"
+        // },
+        // {
+        //   "name": "南昌航空大学",
+        //   "subject": "环境科学与工程"
+        // }]
       })
     }
   });
@@ -124,7 +143,7 @@ exports.gov_tjd_4_evaluation = function (req, res) {
       res.send({
         status: 0,
         data: []
-    })
+      })
     } else {
       results_to_data = JSON.parse(JSON.stringify(results.rows).replace(/univ_name/g, 'name').replace(/discipline_name/g, 'subject').replace(/discipline_eval_result/g, 'value'))
       console.log("========gov_tjd_4_evaluation   results_to_data: =========");
@@ -210,7 +229,7 @@ exports.gov_tjd_leaders = function (req, res) {
       res.send({
         status: 0,
         data: []
-    })
+      })
     } else {
       var results_to_data = results.rows.map(function (item) {
         return {
@@ -379,12 +398,12 @@ exports.gov_tjd_hold_big_project = function (req, res) {
       res.send({
         status: 0,
         data: []
-    })
+      })
     } else {
-      var results_to_data = results.rows.map(function(item) {
+      var results_to_data = results.rows.map(function (item) {
         return {
-            dis_name: item.univ_name+"-"+item.discipline_name,
-            rc_num: item.xm_num
+          dis_name: item.univ_name + "-" + item.discipline_name,
+          rc_num: item.xm_num
         }
       })
       console.log("========gov_tjd_hold_big_project   results_to_data: =========");
@@ -546,12 +565,12 @@ exports.gov_tjd_big_award = function (req, res) {
       res.send({
         status: 0,
         data: []
-    })
+      })
     } else {
-      var results_to_data = results.rows.map(function(item) {
+      var results_to_data = results.rows.map(function (item) {
         return {
-            dis_name: item.univ_name+"-"+item.discipline_name,
-            rc_num: item.achv_num
+          dis_name: item.univ_name + "-" + item.discipline_name,
+          rc_num: item.achv_num
         }
       })
       console.log("========gov_tjd_big_award   results_to_data: =========");
@@ -710,12 +729,12 @@ exports.gov_tjd_big_teacher_award = function (req, res) {
       res.send({
         status: 0,
         data: []
-    })
+      })
     } else {
-      var results_to_data = results.rows.map(function(item) {
+      var results_to_data = results.rows.map(function (item) {
         return {
-            dis_name: item.univ_name+"-"+item.discipline_name,
-            rc_num: item.award_num
+          dis_name: item.univ_name + "-" + item.discipline_name,
+          rc_num: item.award_num
         }
       })
       console.log("========gov_tjd_big_teacher_award   results_to_data: =========");
@@ -876,12 +895,12 @@ exports.gov_tjd_big_platform = function (req, res) {
       res.send({
         status: 0,
         data: []
-    })
+      })
     } else {
-      var results_to_data = results.rows.map(function(item) {
+      var results_to_data = results.rows.map(function (item) {
         return {
-            dis_name: item.univ_name+"-"+item.discipline_name,
-            rc_num: item.plat_num
+          dis_name: item.univ_name + "-" + item.discipline_name,
+          rc_num: item.plat_num
         }
       })
       console.log("========gov_tjd_big_platform   results_to_data: =========");
