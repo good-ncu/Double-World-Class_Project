@@ -118,7 +118,7 @@ exports.province_subjects_of_school = function (req, res) {
     school_name = req.body.school
     sql = []
     sql.push(`SELECT
-    b.discipline_name AS dis_name,
+    b.discipline_name AS name,
     b.already_fill_num,
     COUNT( DISTINCT fill.id)* b.user_num AS need_fill_num
    FROM
