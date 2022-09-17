@@ -50,10 +50,7 @@ exports.query_single_table_info = function (req, res) {
                     })
                 } else if (results.rowCount == 0) {
                     // 当前sql查询为空，则返回填报提示
-                    res.send({
-                        status: 1,
-                        message: "该表格本周期您还未填报数据"
-                    })
+                    return res.cc('该表格下无填报的数据')
                 } else {
                     for (var i = 0; i < results2.rows.length; i++) {
                         // results2.rows[i]["is_seen"] = null
