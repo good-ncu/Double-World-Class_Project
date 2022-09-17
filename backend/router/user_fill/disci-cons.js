@@ -14,7 +14,7 @@ const expressJoi = require('@escook/express-joi')
 
 // 2. 导入需要的验证规则对象
 
-const sub_schema1  = require('../../schema/学科建设进展')
+const sub_schema1 = require('../../schema/学科建设进展')
 
 // 3. 导入解析文件中间件
 const excel_parsing1 = require('../../excel_parsing/学科建设进展_xls')
@@ -63,14 +63,23 @@ router.post('/progress/disci-funds', expressJoi(sub_schema1.table_1_1_4), disci_
 
 
 // 填写学科评估情况（1-1-2）
-router.post('/progress/disci-eval-situation-template', public.upload_file_callback, excel_parsing1.deal_table_1_1_2,expressJoi(sub_schema1.table_1_1_2), pre_view_handler.preview_table)
+router.post('/progress/disci-eval-situation-template', public.upload_file_callback, excel_parsing1.deal_table_1_1_2, expressJoi(sub_schema1.table_1_1_2), pre_view_handler.preview_table)
 
 
 // 填写学科影响力情况（1-1-3）
-router.post('/progress/disci-influence-template', public.upload_file_callback, excel_parsing1.deal_table_1_1_3,expressJoi(sub_schema1.table_1_1_3), pre_view_handler.preview_table)
+router.post('/progress/disci-influence-template', public.upload_file_callback, excel_parsing1.deal_table_1_1_3, expressJoi(sub_schema1.table_1_1_3), pre_view_handler.preview_table)
 
 // 填写学科建设经费数额（1-1-4）
-router.post('/progress/disci-funds-template', public.upload_file_callback, excel_parsing1.deal_table_1_1_4,expressJoi(sub_schema1.table_1_1_4), pre_view_handler.preview_table)
+router.post('/progress/disci-funds-template', public.upload_file_callback, excel_parsing1.deal_table_1_1_4, expressJoi(sub_schema1.table_1_1_4), pre_view_handler.preview_table)
+
+
+
+
+
+
+
+//  这是一个公共的接口： 对某个学校某个学科的任何一个表来说，如果没有数据需要填入，那么可以做一个伪插入操作
+router.post('/fill-empty', disci_cons_handler.fill_empty)
 
 
 

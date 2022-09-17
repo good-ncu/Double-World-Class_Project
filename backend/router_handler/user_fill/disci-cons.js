@@ -26,7 +26,7 @@ exports.progress_situation_sub = function (req, res) {
     fil_id = '1_1_1'
     path_temp = req.body.path
     // 先判断前端传来的path数组有无字段，无则直接return
-    if (path_temp.length == 0){
+    if (path_temp.length == 0) {
         return res.cc("请先选择文件再点击提交！")
     }
     var path_ora = []
@@ -54,10 +54,10 @@ exports.progress_situation_sub = function (req, res) {
                 });
 
             } else {
-                return res.cc("您提交的第"+(i+1)+"个文件不存在，请稍后再试")
+                return res.cc("您提交的第" + (i + 1) + "个文件不存在，请稍后再试")
             }
         } catch (err) {
-            return res.cc('第'+(i+1)+'个文件上传失败，请稍后再试')
+            return res.cc('第' + (i + 1) + '个文件上传失败，请稍后再试')
         }
     }
 
@@ -580,4 +580,77 @@ exports.query_is_time = function (req, res) {
 
         }
     });
+}
+
+
+
+
+
+
+
+/**
+ * 该handler用于任意表格的空数据插入操作
+ * 需要传入该张表的表id  如 2_2_2_1
+ * @param {*} req 
+ * @param {*} res 
+ */
+exports.fill_empty = function (req, res) {
+    // 接收表单数据
+    const fill_id = req.body.fill_id
+    console.log('插入空数据的表id是' + fill_id)
+    user = req.user
+    // 插入所有的数据都用同一个，与user_fill表的id相匹配
+    var user_fill_id = uuidv4().replace(/-/g, '')
+
+
+    var sqls = []
+    sqls.push(`SELECT * FROM user_fill WHERE user_id='${user.id}' AND fill_id = '${fill_id}' AND flag=1`)
+    async.each(sqls, function (item, callback) {
+        // 遍历每条SQL并执行
+        client.query(item, function (err, results) {
+            // console.log(results.rows.length)
+            if (err) {
+                // 异常后调用callback并传入err
+                console.log(err.message);
+                console.log("出错了，系统即将奔溃");
+                err = "系统错误，请刷新页面后重试"
+                callback(err);
+            } else {
+                if (results.rows.length !== 0 && results.rows[0].flag == 1) {
+                    err = "请勿重复提交"
+                }
+                // 执行完成后也要调用callback，不需要参数
+                if (err == "请勿重复提交") {
+                    callback(err)
+                } else {
+                    callback();
+
+                }
+
+
+            }
+        });
+    }, function (err) {
+        // 所有SQL执行完成后回调
+        if (err) {
+            res.send({
+                status: 1,
+                message: err
+            })
+        } else {
+            client.query(`insert into user_fill(id, user_id, fill_id, flag) values('${user_fill_id}','${user.id}','${fill_id}',1)`, function (err, result) {
+
+                if (err) {
+                    console.log(err.message);
+                    return res.cc('系统繁忙,请稍后再试')
+                }
+                if (result.rowCount !== 1) return res.cc('系统繁忙,请稍后再试')
+                res.send({
+                    status: 0,
+                    message: "填报成功！！"
+                })
+            })
+        }
+    });
+
 }
