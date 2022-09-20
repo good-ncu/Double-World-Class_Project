@@ -114,12 +114,14 @@ var fs = require('fs');
                                                     // 空数据，c=2
                                                     if(results.rows.length==0){
                                                         c = 2 
+                                                    } else {
+                                                        c = 1
                                                     }
+                                                    all_fill_period[count-1].is_filled = c
                                                 }
                                             })
                                         }
                                     })
-                                    all_fill_period[count-1].is_filled = c
                                     // all_user_fill.push(results.rows[0])
                                 } else {
                                     all_fill_period[count-1].is_filled = 0
