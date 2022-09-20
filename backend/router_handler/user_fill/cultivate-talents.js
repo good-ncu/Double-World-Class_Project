@@ -104,40 +104,6 @@ exports.query_is_time = function(req,res){
                                             break
                                         }
                                     }
-                                    // flag为1，本周期存在有效数据，去查看该表数据是否为空，如果是空数据is_filled=2
-                                    // if (c==1) {
-                                        
-                                    //     // client.query(`select * from fill where id = '${fill_id}'`, function(err, results){
-                                    //     //     console.log("============================================");
-                                    //     //     console.log(`select * from fill where id = '${fill_id}'`);
-                                    //     //     console.log(results.rows[0]);
-                                    //     //     if (err) {
-                                    //     //         callback(err)
-                                    //     //     } else {
-                                    //     //         to_dbtable = results.rows[0].to_dbtable
-                                    //     //         client.query(`select * from ${to_dbtable} where id = '${user_fill_id}'`, function(err, results){
-                                    //     //             if(err) {
-                                    //     //                 callback(err)
-                                    //     //             } else {
-                                    //     //                 // 空数据，c=2
-                                    //     //                 if(results.rows.length==0){
-                                    //     //                     console.log(fill_id);
-                                    //     //                     console.log("空数据！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！");
-                                    //     //                     c = 2 
-                                    //     //                 } else {
-                                    //     //                     c = 1
-                                    //     //                 }
-                                    //     //                 console.log("count: ",count);
-                                    //     //                 console.log(all_fill_period[count-1],"  xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx ",c);
-                                    //     //                 console.log("8766789876989768796987698679867");
-                                    //     //                 all_fill_period[count-1].is_filled = c
-                                    //     //             }
-                                    //     //         })
-                                    //     //     }
-                                    //     // })
-                                    // }
-                                    // console.log("222222222222222222222");
-                                    // all_user_fill.push(results.rows[0])
                                 } else {  //0
                                     all_fill_period[count-1].is_filled = 0
                                 }
