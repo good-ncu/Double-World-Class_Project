@@ -26,6 +26,8 @@ var fs = require('fs');
     var resultt = []
     var sqls = []
     userinfo = req.user
+    console.log("=============");
+    console.log(userinfo);
     for (let i = 0, len = submit_info.length; i < len; i++) {
         var t1 = submit_info[i]+'_%'
         sqls[i] = `select id,fill_about,flag,fill_cycle from fill where id like '${t1}'`
@@ -48,7 +50,7 @@ var fs = require('fs');
     }, function (err) {
         // 所有SQL执行完成后回调
         if (err) {
-            // console.log(3);
+            console.log(err);
             return res.cc('系统繁忙,请稍后再试')
         } else {
             // fill表内的记录
@@ -88,13 +90,35 @@ var fs = require('fs');
                                         all_fill_period[count-1].is_filled = results.rows[0].flag
                                     }
                                     var c = 0
+                                    var fill_id 
+                                    var user_fill_id
                                     // 还可能存在多个记录，检索所有记录，是不是user_fill中的flag都为0
                                     for(let i = 0, len = results.rows.length; i < len; i++){
                                         if(results.rows[i].flag == 1){
                                             c=1
+                                            fill_id = results.rows[i].fill_id
+                                            user_fill_id = results.rows[i].user_fill_id
                                             break
                                         }
                                     }
+                                    // flag为1，本周期存在有效数据，去查看该表数据是否为空，如果是空数据is_filled=2
+                                    client.query(`select * from fill where id = '${fill_id}'`, function(err, results){
+                                        if (err) {
+                                            callback(err)
+                                        } else {
+                                            to_dbtable = results.rows[0].to_dbtable
+                                            client.query(`select * from ${to_dbtable} where id = '${user_fill_id}'`, function(err, results){
+                                                if(err) {
+                                                    callback(err)
+                                                } else {
+                                                    // 空数据，c=2
+                                                    if(results.rows.length==0){
+                                                        c = 2 
+                                                    }
+                                                }
+                                            })
+                                        }
+                                    })
                                     all_fill_period[count-1].is_filled = c
                                     // all_user_fill.push(results.rows[0])
                                 } else {
