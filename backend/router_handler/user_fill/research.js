@@ -156,7 +156,7 @@ var fs = require('fs');
                                 var temp = 0
                                 for(let i=0; i< all_fill_period.length; i++){
                                     if(all_fill_period[i].more_query==1){
-                                        sqls4[temp++] = `select * from ${all_fill_period[i].to_dbtable} where id = '${all_fill_period[i].user_fill_id}'`
+                                        sqls4[temp++] = `select * from ${all_fill_period[i].to_dbtable} where user_fill_id = '${all_fill_period[i].user_fill_id}'`
                                     }
                                 }
                                 console.log(sqls4);
