@@ -463,7 +463,7 @@ var fs = require('fs');
         const strUUID2 = strUUID.replace(/-/g, '');       // 去掉-字符
 
         sqls[i+1] = `INSERT INTO tch_paper(id, univ_code, discipline_code, yr, paper_title, paper_au, jour_name, jour_level, yr_mth_volum, remarks, path, user_fill_id) 
-        VALUES ('${strUUID2}','${user.univ_code}','${user.discipline_code}', ${toLiteral(submit_info[i].yr)}, '${toLiteral(submit_info[i].paper_title)}', '${toLiteral(submit_info[i].paper_au)}', '${toLiteral(submit_info[i].jour_name)}', '国内外顶级期刊', '${toLiteral(submit_info[i].yr_mth_volum)}', '${toLiteral(submit_info[i].remarks)}', NULL, '${user_fill_id}');`
+        VALUES ('${strUUID2}','${user.univ_code}','${user.discipline_code}', ${toLiteral(submit_info[i].yr.toString())}, '${toLiteral(submit_info[i].paper_title.toString())}', '${toLiteral(submit_info[i].paper_au.toString())}', '${toLiteral(submit_info[i].jour_name.toString())}', '国内外顶级期刊', '${toLiteral(submit_info[i].yr_mth_volum.toString())}', '${toLiteral(submit_info[i].remarks.toString())}', NULL, '${user_fill_id}');`
         
     }
     async.eachSeries(sqls, function (item, callback) {
