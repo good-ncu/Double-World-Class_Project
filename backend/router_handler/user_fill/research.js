@@ -508,9 +508,9 @@ var fs = require('fs');
 
 
 function toLiteral(str) {
-    var dict = { '\b': 'b', '\t': 't', '\n': 'n', '\v': 'v', '\f': 'f', '\r': 'r' };
-    return str.replace(/([\\'"\b\t\n\v\f\r])/g, function($0, $1) {
-        return '\'' + (dict[$1] || $1);
+    // var dict = { '\b': 'b', '\t': 't', '\n': 'n', '\v': 'v', '\f': 'f', '\r': 'r' };
+    return str.replace(/([\\'])/g, function($0, $1) {
+        return '\'' + $1;
     });
 }
 
