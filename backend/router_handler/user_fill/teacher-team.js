@@ -1052,13 +1052,10 @@ exports.honor_counts_word_sub = function (req, res) {
     var resultt = []
     var sqls = []
     userinfo = req.user
-    console.log("=============");
-    console.log(userinfo);
     for (let i = 0, len = submit_info.length; i < len; i++) {
         var t1 = submit_info[i]+'_%'
         sqls[i] = `select id,fill_about,flag,fill_cycle from fill where id like '${t1}'`
     }
-    var is_more_query=0
     async.each(sqls, function (item, callback) {
         // 遍历每条SQL并执行
         client.query(item, function (err, results) {
@@ -1077,7 +1074,7 @@ exports.honor_counts_word_sub = function (req, res) {
     }, function (err) {
         // 所有SQL执行完成后回调
         if (err) {
-            console.log(err);
+            // console.log(3);
             return res.cc('系统繁忙,请稍后再试')
         } else {
             // fill表内的记录
@@ -1088,13 +1085,10 @@ exports.honor_counts_word_sub = function (req, res) {
                     circle: item.fill_cycle,
                     target: "学科填报",
                     is_period: item.flag,
-                    is_filled: "",
-                    more_query: "",
-                    to_dbtable: "",
-                    user_fill_id: ""
+                    is_filled: ""
                 }
             })
-            // console.log(all_fill_period);
+            console.log(all_fill_period);
             var sqls2 = []
             var temp  = 0
             for(let i = 0,len = all_fill_period.length;i<len;i++){
@@ -1105,40 +1099,33 @@ exports.honor_counts_word_sub = function (req, res) {
             var count = 0 
             async.each(sqls2,
                 function(item,callback){
-                    // console.log("loulou");
-                    // console.log(item);
+                    console.log("loulou");
+                    console.log(item);
                     client.query(item, function(err,results) {
                             count++
-                            console.log(count);
                             if (err) {
                                 callback(err)
                             } else {
-                                // 非NULL   0 1 2
+                                // 非NULL
                                 if(results.rows.length!==0){
-                                    // console.log(results.rows);
+                                    console.log(results.rows);
                                     // 只有一条记录
-                                    if(results.rows.length==1){   // 1||0
+                                    if(results.rows.length==1){
                                         all_fill_period[count-1].is_filled = results.rows[0].flag
                                     }
                                     var c = 0
-                                    var fill_id 
-                                    var user_fill_id
                                     // 还可能存在多个记录，检索所有记录，是不是user_fill中的flag都为0
                                     for(let i = 0, len = results.rows.length; i < len; i++){
                                         if(results.rows[i].flag == 1){
                                             c=1
-                                            fill_id = results.rows[i].fill_id
-                                            user_fill_id = results.rows[i].user_fill_id
-                                            all_fill_period[count-1].more_query = 1
-                                            all_fill_period[count-1].user_fill_id = results.rows[i].id
-                                            is_more_query = 1
                                             break
                                         }
                                     }
-                                } else {  //0
+                                    all_fill_period[count-1].is_filled = c
+                                    // all_user_fill.push(results.rows[0])
+                                } else {
                                     all_fill_period[count-1].is_filled = 0
                                 }
-                                console.log("333333333333333333333333");
                                 callback()
                             }
                     })
@@ -1148,90 +1135,15 @@ exports.honor_counts_word_sub = function (req, res) {
                         console.log(err);
                         res.cc('系统繁忙，请稍后再试')
                     } else {
-                        if(is_more_query==0){
-                            return res.send({
-                                menus: all_fill_period,
-                            })
-                        }
-                        var sqls3=[]
-                        var temp = 0
-                        var temparr = []
-                        for(let i=0; i< all_fill_period.length; i++){
-                            if(all_fill_period[i].more_query==1){
-                                temparr[temp]=i
-                                sqls3[temp++] = `select * from fill where id = '${all_fill_period[i].id}'`
-                            }
-                        }
-                        var count =0 
-                        async.each(sqls3, function(item,callback){
-                            client.query(item, function(err,results){
-                                count++
-                                if(err){
-                                    callback(err)
-                                } else {
-                                    all_fill_period[temparr[count-1]].to_dbtable = results.rows[0].to_dbtable
-                                    callback()
-                                } 
-                            })
-                        },function(err){
-                            if(err){
-                                console.log(err);
-                                return res.cc('系统繁忙，请稍后再试')
-                            } else {
-                                var sqls4 = []
-                                var temp = 0
-                                for(let i=0; i< all_fill_period.length; i++){
-                                    if(all_fill_period[i].more_query==1){
-                                        sqls4[temp++] = `select * from ${all_fill_period[i].to_dbtable} where user_fill_id = '${all_fill_period[i].user_fill_id}'`
-                                    }
-                                }
-                                console.log(sqls4);
-                                var count = 0
-                                async.each(sqls4, function(item,callback){
-                                    client.query(item,function(err,results){
-                                        count++
-                                        if(err){
-                                            callback(err)
-                                        }else{
-                                            // 空数据，c=2
-                                            if(results.rows.length==0){
-                                                console.log("空数据！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！");
-                                                c = 2 
-                                            } else {
-                                                c = 1
-                                            }
-                                            all_fill_period[temparr[count-1]].is_filled = c
-                                            callback()
-                                        }
-                                    })
-                                },function(err){
-                                    if(err){
-                                        console.log(err);
-                                        return res.cc('系统繁忙，请稍后再试')
-                                    } else {
-                                        return res.send({
-                                            menus: all_fill_period,
-                                        })
-                                    }
-                                })
-                            }
-                        }
-                        )
+                        console.log("======================");
+                        console.log(count);
+                        console.log(all_fill_period);
+                        res.send({
+                            menus: all_fill_period,
+                        })
                     }
                 }
-                )
-        }
-    }       
-    )
-}
-            // return res.send({
-            //     fill_status: resultt[0]
-            // })
-        /**
-         * 旧代码 返回不能填报的表格
-         * 
-         */
-        //     // sqls执行没有报错，
+            )
         //     var sqls2 = []
         //     console.log(resultt[0]);
         //     resultt = resultt[0]
@@ -1307,3 +1219,6 @@ exports.honor_counts_word_sub = function (req, res) {
         //     //     result: resultt
         //     // })
         //     // console.log("SQL全部执行成功");
+        }
+    });
+}
