@@ -179,10 +179,9 @@ var server = app.listen(8081, () => {
 server.setTimeout(0)
 
 // 错误中间件
-// app.use(function (err, req, res, next) {
-//   console.log(11111111111111);
-//   // 数据验证失败
-//   if (err instanceof joi.ValidationError) return res.cc(err)
-//   // 未知错误
-//   res.cc(err)
-// })
+app.use(function (err, req, res, next) {
+  // 数据验证失败
+  if (err instanceof joi.ValidationError) return res.cc(err)
+  // 未知错误
+  res.cc(err)
+})
