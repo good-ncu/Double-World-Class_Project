@@ -62,7 +62,7 @@ const data_4_1_3_0 = joi.array().items(
         paper_title:joi.string().min(1).required().error(new Error('论文标题填报错误！')),
         paper_au:joi.string().min(1).required().error(new Error('作者姓名填报错误！')),
         jour_name:joi.string().min(1).required().error(new Error('发表期刊填报错误！')),
-        // yr_mth_volum:joi.string().error(new Error('发表年月及期刊卷（期）数填报错误！')),
+        yr_mth_volum:joi.required().error(new Error('发表年月及期刊卷（期）数填报错误！')),
         remarks: joi.string().max(200).allow("").error(new Error('备注在200字以内！')),
 
         quarter:joi.string().valid('第一季度','第二季度','第三季度','第四季度').error(new Error('填报季度填报错误！')),
