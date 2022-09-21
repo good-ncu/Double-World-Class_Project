@@ -461,8 +461,9 @@ var fs = require('fs');
         }
         const strUUID = uuidv4(); // ⇨ '1b9d6bcd-bbfd-4b2d-9b5d-ab8dfbbd4bed'
         const strUUID2 = strUUID.replace(/-/g, '');       // 去掉-字符
+
         sqls[i+1] = `INSERT INTO tch_paper(id, univ_code, discipline_code, yr, paper_title, paper_au, jour_name, jour_level, yr_mth_volum, remarks, path, user_fill_id) 
-        VALUES ('${strUUID2}','${user.univ_code}','${user.discipline_code}', ${submit_info[i].yr}, '${submit_info[i].paper_title}', '${submit_info[i].paper_au}', '${submit_info[i].jour_name}', '国内外顶级期刊', '${submit_info[i].yr_mth_volum}', '${submit_info[i].remarks}', NULL, '${user_fill_id}');`
+        VALUES ('${strUUID2}','${user.univ_code}','${user.discipline_code}', ${toLiteral(submit_info[i].yr)}, '${toLiteral(submit_info[i].paper_title)}', '${toLiteral(submit_info[i].paper_au)}', '${toLiteral(submit_info[i].jour_name)}', '国内外顶级期刊', '${toLiteral(submit_info[i].yr_mth_volum)}', '${toLiteral(submit_info[i].remarks)}', NULL, '${user_fill_id}');`
         
     }
     async.eachSeries(sqls, function (item, callback) {
@@ -501,6 +502,14 @@ var fs = require('fs');
                 console.log("SQL全部执行成功");
             })
         }
+    });
+}
+
+
+function toLiteral(str) {
+    var dict = { '\b': 'b', '\t': 't', '\n': 'n', '\v': 'v', '\f': 'f', '\r': 'r' };
+    return str.replace(/([\\'"\b\t\n\v\f\r])/g, function($0, $1) {
+        return '\\' + (dict[$1] || $1);
     });
 }
 
