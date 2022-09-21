@@ -7,6 +7,9 @@ const joi = require('@hapi/joi')
 // 导入并配置 cors 中间件
 const cors = require('cors')
 app.use(cors())
+var bodyParser = require('body-parser');
+app.use(bodyParser.json({limit: '5000mb'}));
+app.use(bodyParser.urlencoded({limit: '5000mb', extended: true}));
 
 // 解析完成之后会挂载到req.body上
 app.use(express.json())
@@ -33,6 +36,8 @@ const config = require('./config')
 
 
 
+
+
 // /api/login接口的不走解析token中间件，注册要携带token
 app.use(expressJWT({ secret: config.jwtSecretKey, algorithms: ['HS256'] }).unless({
   path: [
@@ -52,10 +57,12 @@ const userRouter = require('./router/user')
 app.use('/api', userRouter)
 
 
+console.log("lou");
+
 // 导入并使用用户暂存模块   学科 - 暂存 
 const fill_switch = require('./router/fill_switch')
 app.use('/api/fill_switch', fill_switch)
-
+console.log("jun");
 
 
 
@@ -172,9 +179,10 @@ var server = app.listen(8081, () => {
 server.setTimeout(0)
 
 // 错误中间件
-app.use(function (err, req, res, next) {
-  // 数据验证失败
-  if (err instanceof joi.ValidationError) return res.cc(err)
-  // 未知错误
-  res.cc(err)
-})
+// app.use(function (err, req, res, next) {
+//   console.log(11111111111111);
+//   // 数据验证失败
+//   if (err instanceof joi.ValidationError) return res.cc(err)
+//   // 未知错误
+//   res.cc(err)
+// })
