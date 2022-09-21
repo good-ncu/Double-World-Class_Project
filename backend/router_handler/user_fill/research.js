@@ -470,6 +470,7 @@ var fs = require('fs');
         // 遍历每条SQL并执行
         client.query(item, function (err, results) {
             if (err) {
+                console.log(item);
                 console.log(err.message);
                 // 异常后调用callback并传入err
                 err = "系统错误，请刷新页面后重试"
@@ -509,7 +510,7 @@ var fs = require('fs');
 function toLiteral(str) {
     var dict = { '\b': 'b', '\t': 't', '\n': 'n', '\v': 'v', '\f': 'f', '\r': 'r' };
     return str.replace(/([\\'"\b\t\n\v\f\r])/g, function($0, $1) {
-        return '\\' + (dict[$1] || $1);
+        return '\'' + (dict[$1] || $1);
     });
 }
 
