@@ -100,12 +100,13 @@ exports.gov_overview_listen_01 = function(req,res){
   LIMIT 10`
     client.query(sql, function (err, results) {
         if (err) {
-          // 异常后调用callback并传入err
+          console.log(err);
           return res.send({
             status: 1,
             message: err.message
           })
-        } else if (results.rowCount == 0) {
+        } 
+        if (results.rowCount == 0) {
           // 当前sql查询为空，则返回填报提示
           evaluationData = []
         } else {
@@ -117,100 +118,97 @@ exports.gov_overview_listen_01 = function(req,res){
               data.evaluation = "无"
             }
             return data
-        }).filter(Boolean)
-          console.log("========gov_overview_listen_01- evaluation data =========");
-          sql2 = `SELECT 
-          b.univ_name AS school,
-          b.discipline_name AS subject,
-          b.yr,
-          b.total_fund,
-          b.ctr_budg_fund,
-          b.ctr_receive_fund,
-          b.ctr_expend_fund,
-          b.lcl_budg_fund,
-          b.lcl_receive_fund,
-          b.lcl_expend_fund,
-          b.self_budg_fund,
-          b.self_receive_fund,
-          b.self_expend_fund,
-          b.other_budg_fund,
-          b.other_receive_fund,
-          b.other_expend_fund
-         FROM
-         (
-         SELECT
-           a.univ_code,
-           a.discipline_code,
-           a.univ_name,
-           a.discipline_name,
-           yr, --年度
-           discipline_const_fund.total_fund, --建设总经费
-           discipline_const_fund.ctr_budg_fund, --中央专项预算经费
-           discipline_const_fund.ctr_receive_fund, --中央专项实际到账
-           discipline_const_fund.ctr_expend_fund, --中央专项实际支出
-           discipline_const_fund.lcl_budg_fund, --地方专项预算经费
-           discipline_const_fund.lcl_receive_fund, --地方专项实际到账
-           discipline_const_fund.lcl_expend_fund, --地方专项实际支出
-           discipline_const_fund.self_budg_fund, --学科自筹预算经费
-           discipline_const_fund.self_receive_fund, --学科自筹实际到账
-           discipline_const_fund.self_expend_fund, --学科自筹实际支出
-           discipline_const_fund.other_budg_fund, --其他预算经费
-           discipline_const_fund.other_receive_fund, --其他实际到账
-           discipline_const_fund.other_expend_fund --其他实际支出
-          FROM
-          ((
-          SELECT
-           univ_discipline.univ_code,
-           univ_discipline.discipline_code,
-           univ_discipline.univ_name,
-           univ_discipline.subtag1 AS discipline_name
-          FROM univ_discipline
-          WHERE univ_discipline.tag1='学科群'
-          )
-          UNION
-          (
-          SELECT
-           univ_discipline.univ_code,
-           univ_discipline.discipline_code,
-           univ_discipline.univ_name,
-           univ_discipline.discipline_name
-          FROM univ_discipline
-          WHERE univ_discipline.tag1='一流学科建设名单'
-          )) AS a
-          INNER JOIN discipline_const_fund 
-           ON a.univ_code = discipline_const_fund.univ_code AND a.discipline_code = discipline_const_fund.discipline_code
-          INNER JOIN user_fill 
-           ON user_fill.id = discipline_const_fund.user_fill_id
-          WHERE 
-           user_fill.is_delete = '0' 
-           AND discipline_const_fund.is_delete = '0' 
-           AND discipline_const_fund.yr IN (2022) --传年份参数
-          ) AS b
-         ORDER BY total_fund DESC
-         LIMIT 10`
+          }).filter(Boolean)
+        }
+        console.log("========gov_overview_listen_01- evaluation data =========");
+        // console.log(evaluationData);
+        sql2 = `SELECT 
+        b.univ_name AS school,
+        b.discipline_name AS subject,
+        b.yr,
+        b.total_fund,
+        b.ctr_budg_fund,
+        b.ctr_receive_fund,
+        b.ctr_expend_fund,
+        b.lcl_budg_fund,
+        b.lcl_receive_fund,
+        b.lcl_expend_fund,
+        b.self_budg_fund,
+        b.self_receive_fund,
+        b.self_expend_fund,
+        b.other_budg_fund,
+        b.other_receive_fund,
+        b.other_expend_fund
+       FROM
+       (
+       SELECT
+         a.univ_code,
+         a.discipline_code,
+         a.univ_name,
+         a.discipline_name,
+         yr, --年度
+         discipline_const_fund.total_fund, --建设总经费
+         discipline_const_fund.ctr_budg_fund, --中央专项预算经费
+         discipline_const_fund.ctr_receive_fund, --中央专项实际到账
+         discipline_const_fund.ctr_expend_fund, --中央专项实际支出
+         discipline_const_fund.lcl_budg_fund, --地方专项预算经费
+         discipline_const_fund.lcl_receive_fund, --地方专项实际到账
+         discipline_const_fund.lcl_expend_fund, --地方专项实际支出
+         discipline_const_fund.self_budg_fund, --学科自筹预算经费
+         discipline_const_fund.self_receive_fund, --学科自筹实际到账
+         discipline_const_fund.self_expend_fund, --学科自筹实际支出
+         discipline_const_fund.other_budg_fund, --其他预算经费
+         discipline_const_fund.other_receive_fund, --其他实际到账
+         discipline_const_fund.other_expend_fund --其他实际支出
+        FROM
+        ((
+        SELECT
+         univ_discipline.univ_code,
+         univ_discipline.discipline_code,
+         univ_discipline.univ_name,
+         univ_discipline.subtag1 AS discipline_name
+        FROM univ_discipline
+        WHERE univ_discipline.tag1='学科群'
+        )
+        UNION
+        (
+        SELECT
+         univ_discipline.univ_code,
+         univ_discipline.discipline_code,
+         univ_discipline.univ_name,
+         univ_discipline.discipline_name
+        FROM univ_discipline
+        WHERE univ_discipline.tag1='一流学科建设名单'
+        )) AS a
+        INNER JOIN discipline_const_fund 
+         ON a.univ_code = discipline_const_fund.univ_code AND a.discipline_code = discipline_const_fund.discipline_code
+        INNER JOIN user_fill 
+         ON user_fill.id = discipline_const_fund.user_fill_id
+        WHERE 
+         user_fill.is_delete = '0' 
+         AND discipline_const_fund.is_delete = '0' 
+         AND discipline_const_fund.yr IN (2022) --传年份参数
+        ) AS b
+       ORDER BY total_fund DESC
+        LIMIT 10`
         console.log("========gov_overview_listen_01- find data =========");
         client.query(sql2, function(err, results){
-            if (err) {
-              // 异常后调用callback并传入err
-              return res.send({
-                status: 1,
-                message: err.message
-              })
-            } else if (results.rowCount == 0) {
-              // 当前sql查询为空，则返回填报提示
-              findData = []
-            } else {
-              findData = results.rows
-              res.send({
-                status: 0,
-                // data: results.rows
-                evaluationData: evaluationData,
-                rankData: [],
-                findData: findData
-              })
-            }
+          if (err) {
+            // 异常后调用callback并传入err
+            return res.send({
+              status: 1,
+              message: err.message
+            })
+          } 
+          findData = results.rows
+          res.send({
+            status: 0,
+            // data: results.rows
+            evaluationData: evaluationData,
+            rankData: [],
+            findData: findData
           })
-        }
+        })
       });
 }
 
