@@ -882,7 +882,7 @@ exports.gov_tjd_big_platform = function (req, res) {
   GROUP BY
     b.univ_name,
     b.discipline_name
-  ORDER BY plat_num`
+  ORDER BY plat_num DESC`
   client.query(sql, function (err, results) {
     if (err) {
       // 异常后调用callback并传入err
