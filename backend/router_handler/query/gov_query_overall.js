@@ -194,6 +194,7 @@ exports.gov_overview_listen_01 = function(req,res){
         console.log("========gov_overview_listen_01- find data =========");
         client.query(sql2, function(err, results){
           if (err) {
+            console.log(err);
             // 异常后调用callback并传入err
             return res.send({
               status: 1,
@@ -267,6 +268,7 @@ ORDER BY rc_num DESC
 LIMIT 10`
     client.query(sql, function (err, results) {
         if (err) {
+          console.log(err);
           // 异常后调用callback并传入err
           res.send({
             status: 1,
@@ -342,6 +344,7 @@ ORDER BY rc_num DESC
 LIMIT 10`
     client.query(sql, function (err, results) {
         if (err) {
+          console.log(err);
           // 异常后调用callback并传入err
           res.send({
             status: 1,
@@ -419,6 +422,7 @@ ORDER BY rc_num DESC
 LIMIT 10`
     client.query(sql, function (err, results) {
         if (err) {
+          console.log(err);
           // 异常后调用callback并传入err
           res.send({
             status: 1,
@@ -503,6 +507,7 @@ ORDER BY rc_num DESC
 LIMIT 10`
     client.query(sql, function (err, results) {
         if (err) {
+          console.log(err);
           // 异常后调用callback并传入err
           res.send({
             status: 1,
@@ -587,6 +592,7 @@ ORDER BY rc_num DESC
 LIMIT 10`
     client.query(sql, function (err, results) {
         if (err) {
+          console.log(err);
           // 异常后调用callback并传入err
           res.send({
             status: 1,
@@ -669,6 +675,7 @@ ORDER BY rc_num DESC
 LIMIT 10`
     client.query(sql, function (err, results) {
         if (err) {
+          console.log(err);
           // 异常后调用callback并传入err
           res.send({
             status: 1,
@@ -751,6 +758,7 @@ ORDER BY rc_num DESC
 LIMIT 10`
     client.query(sql, function (err, results) {
         if (err) {
+          console.log(err);
           // 异常后调用callback并传入err
           res.send({
             status: 1,
@@ -836,6 +844,7 @@ ORDER BY rc_num DESC
 LIMIT 10`
   client.query(sql, function (err, results) {
       if (err) {
+        console.log(err);
         // 异常后调用callback并传入err
         res.send({
           status: 1,
@@ -919,6 +928,7 @@ ORDER BY rc_num DESC
 LIMIT 10`
   client.query(sql, function (err, results) {
       if (err) {
+        console.log(err);
         // 异常后调用callback并传入err
         res.send({
           status: 1,
@@ -1000,6 +1010,7 @@ ORDER BY rc_num DESC
 LIMIT 10`
   client.query(sql, function (err, results) {
       if (err) {
+        console.log(err);
         // 异常后调用callback并传入err
         res.send({
           status: 1,
@@ -1083,6 +1094,7 @@ ORDER BY rc_num DESC
 LIMIT 10`
   client.query(sql, function (err, results) {
       if (err) {
+        console.log(err);
         // 异常后调用callback并传入err
         res.send({
           status: 1,
