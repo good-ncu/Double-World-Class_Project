@@ -56,6 +56,7 @@ SELECT
       ON user_fill.id = discipline_eval.user_fill_id
   WHERE 
       user_fill.is_delete = '0' 
+      AND user_fill.is_seen = '1'
       AND discipline_eval.is_delete = '0' 
       AND discipline_eval.discipline_eval_turn IN (4,5)	--第四、五轮学科评估，根据需要可以加入6
       AND concat_ws('-',a.univ_name,a.discipline_name)='${subject}'	--参数
@@ -145,6 +146,7 @@ FROM
   ON user_fill.id = discipline_influ.user_fill_id
  WHERE 
   user_fill.is_delete = '0' 
+  AND user_fill.is_seen = '1'
   AND discipline_influ.is_delete = '0' 
     AND discipline_influ.yr = 2022
 --   AND rank_type ='软科中国大学专业排名' --根据需要限定排名类型
@@ -252,6 +254,7 @@ FROM
 		ON user_fill.id = discipline_const_fund.user_fill_id
 	WHERE 
 		user_fill.is_delete = '0' 
+        AND user_fill.is_seen = '1'
 		AND discipline_const_fund.is_delete = '0' 
 		AND concat_ws('-',a.univ_name,a.discipline_name)='${subject}'	--传参数
 	) AS b

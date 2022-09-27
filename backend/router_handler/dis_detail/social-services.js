@@ -50,6 +50,7 @@ LEFT JOIN
 		ON user_fill.id = achv_to_univfund.user_fill_id
 	WHERE 
 		user_fill.is_delete = '0' 
+		AND user_fill.is_seen = '1'
 		AND achv_to_univfund.is_delete = '0'
 	GROUP BY
 		achv_to_univfund.univ_code,
@@ -133,6 +134,7 @@ LEFT JOIN
 		ON user_fill.id = prodedu_plat.user_fill_id
 	WHERE 
 		user_fill.is_delete = '0' 
+		AND user_fill.is_seen = '1'
 		AND prodedu_plat.is_delete = '0'
 		AND prodedu_plat.plat_level = '国家级'
 	GROUP BY
@@ -152,6 +154,7 @@ LEFT JOIN
 		ON user_fill.id = prodedu_plat.user_fill_id
 	WHERE 
 		user_fill.is_delete = '0' 
+		AND user_fill.is_seen = '1'
 		AND prodedu_plat.is_delete = '0'
 		AND prodedu_plat.plat_level = '省级'
 	GROUP BY
@@ -171,6 +174,7 @@ LEFT JOIN
 		ON user_fill.id = consult_policy.user_fill_id
 	WHERE 
 		user_fill.is_delete = '0' 
+		AND user_fill.is_seen = '1'
 		AND consult_policy.is_delete = '0'
 		AND consult_policy.level = '国家级'
 	GROUP BY
@@ -190,6 +194,7 @@ LEFT JOIN
 		ON user_fill.id = consult_policy.user_fill_id
 	WHERE 
 		user_fill.is_delete = '0' 
+		AND user_fill.is_seen = '1'
 		AND consult_policy.is_delete = '0'
 		AND consult_policy.level = '省级'
 	GROUP BY

@@ -58,6 +58,7 @@ SELECT
 		ON user_fill.id = teaching_achv.user_fill_id
 	WHERE 
 		user_fill.is_delete = '0' 
+        AND user_fill.is_seen = '1'
 		AND teaching_achv.is_delete = '0' 
 		AND concat_ws('-',a.univ_name,a.discipline_name)='${subject}'	--传参数
 	GROUP BY
@@ -153,6 +154,7 @@ SELECT
        ON user_fill.id = firstclass_course_const.user_fill_id
    WHERE 
        user_fill.is_delete = '0' 
+       AND user_fill.is_seen = '1'
        AND firstclass_course_const.is_delete = '0' 
        AND concat_ws('-',a.univ_name,a.discipline_name)='${subject}'	--传参数
    GROUP BY
@@ -251,6 +253,7 @@ SELECT
 		ON user_fill.id = talent_platbase_const.user_fill_id
 	WHERE 
 		user_fill.is_delete = '0' 
+        AND user_fill.is_seen = '1'
 		AND talent_platbase_const.is_delete = '0' 
 		AND concat_ws('-',a.univ_name,a.discipline_name)='${subject}'	--传参数
 	GROUP BY
@@ -357,6 +360,7 @@ LEFT JOIN
 		ON user_fill.id = mphd_tutor_const.user_fill_id
 	WHERE 
 		user_fill.is_delete = '0' 
+        AND user_fill.is_seen = '1'
 		AND mphd_tutor_const.is_delete = '0'
 	GROUP BY
 		mphd_tutor_const.univ_code,
@@ -457,6 +461,7 @@ SELECT
      ON user_fill.id = stu_award_comp.user_fill_id
  WHERE 
      user_fill.is_delete = '0' 
+     AND user_fill.is_seen = '1'
      AND stu_award_comp.is_delete = '0' 
      AND stu_award_comp.award_level != '其他'	--不统计其他级别奖项
      AND concat_ws('-',a.univ_name,a.discipline_name)='${subject}'	--传参数
@@ -551,6 +556,7 @@ SELECT
 		ON user_fill.id = stu_publish_rep_paper.user_fill_id
 	WHERE 
 		user_fill.is_delete = '0' 
+        AND user_fill.is_seen = '1'
 		AND stu_publish_rep_paper.is_delete = '0' 
 		AND concat_ws('-',a.univ_name,a.discipline_name)='${subject}'	--传参数
 	GROUP BY
@@ -658,6 +664,7 @@ LEFT JOIN
 		ON user_fill.id = ann_award_bdmdphd.user_fill_id
 	WHERE 
 		user_fill.is_delete = '0' 
+        AND user_fill.is_seen = '1'
 		AND ann_award_bdmdphd.is_delete = '0'
 	GROUP BY
 		ann_award_bdmdphd.univ_code,
@@ -778,6 +785,7 @@ LEFT JOIN
 		ON user_fill.id = intna_exch_stu.user_fill_id
 	WHERE 
 		user_fill.is_delete = '0' 
+        AND user_fill.is_seen = '1'
 		AND intna_exch_stu.is_delete = '0'
 	GROUP BY
 		intna_exch_stu.univ_code,
@@ -900,6 +908,7 @@ LEFT JOIN
 		ON user_fill.id = fullprof_tch_underg.user_fill_id
 	WHERE 
 		user_fill.is_delete = '0' 
+        AND user_fill.is_seen = '1'
 		AND fullprof_tch_underg.is_delete = '0'
 	GROUP BY
 		fullprof_tch_underg.univ_code,
@@ -920,6 +929,7 @@ LEFT JOIN
 		ON user_fill.id = graduate_is_procontrib.user_fill_id
 	WHERE 
 		user_fill.is_delete = '0' 
+        AND user_fill.is_seen = '1'
 		AND graduate_is_procontrib.is_delete = '0'
 	GROUP BY
 		graduate_is_procontrib.univ_code,
@@ -937,6 +947,7 @@ LEFT JOIN
 		ON user_fill.id = stu_attdrpt_imptacconf.user_fill_id
 	WHERE 
 		user_fill.is_delete = '0' 
+        AND user_fill.is_seen = '1'
 		AND stu_attdrpt_imptacconf.is_delete = '0'
 	GROUP BY
 		stu_attdrpt_imptacconf.univ_code,

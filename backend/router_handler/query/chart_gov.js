@@ -41,50 +41,6 @@ ORDER BY a.univ_code,a.discipline_code ASC`
       res.send({
         status: 0,
         data: results.rows
-        // data: [{
-        //   "name": "南昌大学",
-        //   "subject": "绿色食品学科群"
-        // },
-        // {
-        //   "name": "南昌大学",
-        //   "subject": "临床医学与公共卫生大健康学科群"
-        // },
-        // {
-        //   "name": "江西师范大学",
-        //   "subject": "马克思主义理论"
-        // },
-        // {
-        //   "name": "江西农业大学",
-        //   "subject": "畜牧学"
-        // },
-        // {
-        //   "name": "江西财经大学",
-        //   "subject": "统计学"
-        // },
-        // {
-        //   "name": "华东交通大学",
-        //   "subject": "交通运输工程"
-        // },
-        // {
-        //   "name": "江西中医药大学",
-        //   "subject": "中药学"
-        // },
-        // {
-        //   "name": "景德镇陶瓷大学",
-        //   "subject": "陶瓷设计与美术"
-        // },
-        // {
-        //   "name": "江西理工大学",
-        //   "subject": "冶金工程"
-        // },
-        // {
-        //   "name": "东华理工大学",
-        //   "subject": "地质资源与地质工程"
-        // },
-        // {
-        //   "name": "南昌航空大学",
-        //   "subject": "环境科学与工程"
-        // }]
       })
     }
   });
@@ -127,6 +83,7 @@ exports.gov_tjd_4_evaluation = function (req, res) {
     ON user_fill.id = discipline_eval.user_fill_id
   WHERE 
     user_fill.is_delete = '0' 
+    AND user_fill.is_seen = '1'
     AND discipline_eval.is_delete = '0' 
     AND discipline_eval.discipline_eval_turn = '4'
   ORDER BY univ_code,discipline_code ASC`
@@ -204,6 +161,7 @@ exports.gov_tjd_leaders = function (req, res) {
       ON user_fill.id = talent_team.user_fill_id
     WHERE 
       user_fill.is_delete = '0' 
+      AND user_fill.is_seen = '1'
       AND talent_team.is_delete = '0' 
       AND	talent_team.talent_or_team = '人才'
       AND talent_team.level = '国家级'
@@ -259,9 +217,9 @@ exports.gov_tjd_leaders_detail = function (req, res) {
   detail = req.body.detail
   var detailinfo = []
   detailinfo = detail.split('-')
-  console.log(detailinfo)
-  console.log(detailinfo[0])
-  console.log(detailinfo[1])
+  // console.log(detailinfo)
+  // console.log(detailinfo[0])
+  // console.log(detailinfo[1])
   sql = `SELECT
 	a.univ_code,
 	a.discipline_code,
@@ -296,6 +254,7 @@ INNER JOIN user_fill
 	ON user_fill.id = talent_team.user_fill_id
 WHERE 
 	user_fill.is_delete = '0' 
+  AND user_fill.is_seen = '1'
 	AND talent_team.is_delete = '0' 
 	AND	talent_team.talent_or_team = '人才'
 	AND talent_team.level = '国家级'
@@ -373,6 +332,7 @@ exports.gov_tjd_hold_big_project = function (req, res) {
    ON user_fill.id = host_sciproj.user_fill_id
   WHERE 
    user_fill.is_delete = '0' 
+   AND user_fill.is_seen = '1'
    AND host_sciproj.is_delete = '0' 
    AND host_sciproj.proj_level = '国家重点重大项目'
   GROUP BY
@@ -428,9 +388,9 @@ exports.gov_tjd_hold_big_project_detail = function (req, res) {
   detail = req.body.detail
   var detailinfo = []
   detailinfo = detail.split('-')
-  console.log(detailinfo)
-  console.log(detailinfo[0])
-  console.log(detailinfo[1])
+  // console.log(detailinfo)
+  // console.log(detailinfo[0])
+  // console.log(detailinfo[1])
   sql = `-- 查询各"突击队"学科的主持国家重点重大项目的名单，对应host_sciproj
   SELECT
     a.univ_name,
@@ -466,6 +426,7 @@ exports.gov_tjd_hold_big_project_detail = function (req, res) {
     ON user_fill.id = host_sciproj.user_fill_id
   WHERE 
     user_fill.is_delete = '0' 
+    AND user_fill.is_seen = '1'
     AND host_sciproj.is_delete = '0' 
     AND host_sciproj.proj_level = '国家重点重大项目'
 	AND a.univ_name = '${detailinfo[0]}'	--传学校代码，江西理工大学
@@ -541,6 +502,7 @@ exports.gov_tjd_big_award = function (req, res) {
       ON user_fill.id = teaching_achv.user_fill_id
     WHERE 
       user_fill.is_delete = '0' 
+      AND user_fill.is_seen = '1'
       AND teaching_achv.is_delete = '0' 
       AND teaching_achv.award_ltype = '国家级教学成果奖'
     GROUP BY
@@ -595,9 +557,9 @@ exports.gov_tjd_big_award_detail = function (req, res) {
   detail = req.body.detail
   var detailinfo = []
   detailinfo = detail.split('-')
-  console.log(detailinfo)
-  console.log(detailinfo[0])
-  console.log(detailinfo[1])
+  // console.log(detailinfo)
+  // console.log(detailinfo[0])
+  // console.log(detailinfo[1])
   sql = `-- 查询各"突击队"学科的国家级教学成果奖情况的名单，对应teaching_achv
   SELECT
     teaching_achv.award_date,	--教学成果时间
@@ -631,6 +593,7 @@ exports.gov_tjd_big_award_detail = function (req, res) {
     ON user_fill.id = teaching_achv.user_fill_id
   WHERE 
     user_fill.is_delete = '0' 
+    AND user_fill.is_seen = '1'
     AND teaching_achv.is_delete = '0' 
     AND teaching_achv.award_ltype = '国家级教学成果奖'
 	AND a.univ_name = '${detailinfo[0]}'	--传学校代码，江西理工大学
@@ -705,6 +668,7 @@ exports.gov_tjd_big_teacher_award = function (req, res) {
       ON user_fill.id = tch_award.user_fill_id
     WHERE 
       user_fill.is_delete = '0' 
+      AND user_fill.is_seen = '1'
       AND tch_award.is_delete = '0' 
       AND tch_award.level= '国家级'
     GROUP BY
@@ -758,9 +722,9 @@ exports.gov_tjd_big_teacher_award_detail = function (req, res) {
   detail = req.body.detail
   var detailinfo = []
   detailinfo = detail.split('-')
-  console.log(detailinfo)
-  console.log(detailinfo[0])
-  console.log(detailinfo[1])
+  // console.log(detailinfo)
+  // console.log(detailinfo[0])
+  // console.log(detailinfo[1])
   sql = `-- 查询各"突击队"学科的教师国家级奖项情况的名单，对应tch_award
   SELECT
     a.univ_name,
@@ -797,6 +761,7 @@ exports.gov_tjd_big_teacher_award_detail = function (req, res) {
     ON user_fill.id = tch_award.user_fill_id
   WHERE 
     user_fill.is_delete = '0' 
+    AND user_fill.is_seen = '1'
     AND tch_award.is_delete = '0' 
     AND tch_award.level= '国家级'
 	AND a.univ_name = '${detailinfo[0]}'	--传学校代码，江西理工大学
@@ -871,6 +836,7 @@ exports.gov_tjd_big_platform = function (req, res) {
       ON user_fill.id = sci_innova_plat.user_fill_id
     WHERE 
       user_fill.is_delete = '0' 
+      AND user_fill.is_seen = '1'
       AND sci_innova_plat.is_delete = '0' 
       AND sci_innova_plat.palt_level= '国家级'
     GROUP BY
@@ -924,9 +890,9 @@ exports.gov_tjd_big_platform_detail = function (req, res) {
   detail = req.body.detail
   var detailinfo = []
   detailinfo = detail.split('-')
-  console.log(detailinfo)
-  console.log(detailinfo[0])
-  console.log(detailinfo[1])
+  // console.log(detailinfo)
+  // console.log(detailinfo[0])
+  // console.log(detailinfo[1])
   sql = `-- 查询所有"突击队"学科的国家级平台建设情况的名单，对应sci_innova_plat
   SELECT
     a.univ_name,
@@ -961,6 +927,7 @@ exports.gov_tjd_big_platform_detail = function (req, res) {
     ON user_fill.id = sci_innova_plat.user_fill_id
   WHERE 
     user_fill.is_delete = '0' 
+    AND user_fill.is_seen = '1'
     AND sci_innova_plat.is_delete = '0' 
     AND sci_innova_plat.palt_level= '国家级'
 	AND a.univ_name = '${detailinfo[0]}'	--传学校代码，江西理工大学
