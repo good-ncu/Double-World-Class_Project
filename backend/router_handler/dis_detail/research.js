@@ -52,6 +52,7 @@ SELECT
 		ON user_fill.id = tch_award.user_fill_id
 	WHERE 
 		user_fill.is_delete = '0' 
+		AND user_fill.is_seen = '1'
 		AND tch_award.is_delete = '0' 
 		AND concat_ws('-',a.univ_name,a.discipline_name)='${subject}'	--传参数
 	GROUP BY
@@ -140,6 +141,7 @@ SELECT
 		ON user_fill.id = tch_paper.user_fill_id
 	WHERE 
 		user_fill.is_delete = '0' 
+		AND user_fill.is_seen = '1'
 		AND tch_paper.is_delete = '0' 
 		AND concat_ws('-',a.univ_name,a.discipline_name)='${subject}'	--传参数
 	GROUP BY
@@ -227,6 +229,7 @@ SELECT
 		ON user_fill.id = sci_innova_plat.user_fill_id
 	WHERE 
 		user_fill.is_delete = '0' 
+		AND user_fill.is_seen = '1'
 		AND sci_innova_plat.is_delete = '0' 
 		AND concat_ws('-',a.univ_name,a.discipline_name)='${subject}'	--传参数
 	GROUP BY
@@ -314,6 +317,7 @@ SELECT
 		ON user_fill.id = host_sciproj.user_fill_id
 	WHERE 
 		user_fill.is_delete = '0' 
+		AND user_fill.is_seen = '1'
 		AND host_sciproj.is_delete = '0' 
 		AND concat_ws('-',a.univ_name,a.discipline_name)='${subject}'	--传参数
 	GROUP BY
@@ -411,6 +415,7 @@ LEFT JOIN
 		ON user_fill.id = tch_monog.user_fill_id
 	WHERE 
 		user_fill.is_delete = '0' 
+		AND user_fill.is_seen = '1'
 		AND tch_monog.is_delete = '0'
 	GROUP BY
 		tch_monog.univ_code,
@@ -428,6 +433,7 @@ LEFT JOIN
 		ON user_fill.id = utk_desgshow.user_fill_id
 	WHERE 
 		user_fill.is_delete = '0' 
+		AND user_fill.is_seen = '1'
 		AND utk_desgshow.is_delete = '0'
 	GROUP BY
 		utk_desgshow.univ_code,
@@ -445,6 +451,7 @@ LEFT JOIN
 		ON user_fill.id = host_acjour.user_fill_id
 	WHERE 
 		user_fill.is_delete = '0' 
+		AND user_fill.is_seen = '1'
 		AND host_acjour.is_delete = '0'
 	GROUP BY
 		host_acjour.univ_code,

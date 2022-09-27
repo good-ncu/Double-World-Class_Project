@@ -60,6 +60,7 @@ LEFT JOIN
 		ON user_fill.id = talent_team.user_fill_id
 	WHERE 
 		user_fill.is_delete = '0' 
+		AND user_fill.is_seen = '1'
 		AND talent_team.is_delete = '0'
 	GROUP BY
 		talent_team.univ_code,
@@ -77,6 +78,7 @@ LEFT JOIN
 		ON user_fill.id = talent_team.user_fill_id
 	WHERE 
 		user_fill.is_delete = '0' 
+		AND user_fill.is_seen = '1'
 		AND talent_team.is_delete = '0'
 		AND talent_team.level = '国家级'
 	GROUP BY
@@ -95,6 +97,7 @@ LEFT JOIN
 		ON user_fill.id = talent_team.user_fill_id
 	WHERE 
 		user_fill.is_delete = '0' 
+		AND user_fill.is_seen = '1'
 		AND talent_team.is_delete = '0'
 		AND talent_team.level = '省级'
 	GROUP BY
@@ -136,6 +139,7 @@ LEFT JOIN
 		ON user_fill.id = fulltch.user_fill_id
 	WHERE 
 		user_fill.is_delete = '0' 
+		AND user_fill.is_seen = '1'
 		AND fulltch.is_delete = '0'
 	)  AS a4 ON all_xk.univ_code = a4.univ_code AND all_xk.discipline_code = a4.discipline_code
 LEFT JOIN
@@ -176,6 +180,7 @@ LEFT JOIN
 		ON user_fill.id = pdoc_ra.user_fill_id
 	WHERE 
 		user_fill.is_delete = '0' 
+		AND user_fill.is_seen = '1'
 		AND pdoc_ra.is_delete = '0'
 	)
 	)  AS a5 ON all_xk.univ_code = a5.univ_code AND all_xk.discipline_code = a5.discipline_code
@@ -214,6 +219,7 @@ LEFT JOIN
 		ON user_fill.id = foreign_fulltch.user_fill_id
 	WHERE 
 		user_fill.is_delete = '0' 
+		AND user_fill.is_seen = '1'
 		AND foreign_fulltch.is_delete = '0'
 	)  AS a6 ON all_xk.univ_code = a6.univ_code AND all_xk.discipline_code = a6.discipline_code
 WHERE concat_ws('-',all_xk.univ_name,all_xk.discipline_name)='${subject}'	--传参数
@@ -331,6 +337,7 @@ LEFT JOIN
 		ON user_fill.id = tch_head_jour.user_fill_id
 	WHERE 
 		user_fill.is_delete = '0' 
+		AND user_fill.is_seen = '1'
 		AND tch_head_jour.is_delete = '0'
 	GROUP BY
 		tch_head_jour.univ_code,
@@ -348,6 +355,7 @@ LEFT JOIN
 		ON user_fill.id = tch_head_acorg.user_fill_id
 	WHERE 
 		user_fill.is_delete = '0' 
+		AND user_fill.is_seen = '1'
 		AND tch_head_acorg.is_delete = '0'
 	GROUP BY
 		tch_head_acorg.univ_code,
@@ -365,6 +373,7 @@ LEFT JOIN
 		ON user_fill.id = tch_attdrpt_acconf.user_fill_id
 	WHERE 
 		user_fill.is_delete = '0' 
+		AND user_fill.is_seen = '1'
 		AND tch_attdrpt_acconf.is_delete = '0'
 	GROUP BY
 		tch_attdrpt_acconf.univ_code,
@@ -382,6 +391,7 @@ LEFT JOIN
 		ON user_fill.id = tch_judge_comp.user_fill_id
 	WHERE 
 		user_fill.is_delete = '0' 
+		AND user_fill.is_seen = '1'
 		AND tch_judge_comp.is_delete = '0'
 	GROUP BY
 		tch_judge_comp.univ_code,

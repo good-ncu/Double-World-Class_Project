@@ -120,7 +120,9 @@ FROM
 			discipline_eval
 			INNER JOIN user_fill ON user_fill.ID = discipline_eval.user_fill_id
 	WHERE
-			user_fill.is_delete = '0' AND discipline_eval.is_delete = '0'
+			user_fill.is_delete = '0' 
+			AND user_fill.is_seen = '1'
+			AND discipline_eval.is_delete = '0'
 			AND discipline_eval.discipline_eval_turn = '4'  ---后端修改学科评估轮次
 	) as a1 ON a1.univ_code = all_xk.un_code AND a1.discipline_code = all_xk.dis_code
 	LEFT JOIN(
@@ -134,7 +136,9 @@ FROM
 			discipline_influ
 			INNER JOIN user_fill ON user_fill.ID = discipline_influ.user_fill_id
 	WHERE
-			user_fill.is_delete = '0' AND discipline_influ.is_delete = '0'
+			user_fill.is_delete = '0' 
+			AND user_fill.is_seen = '1'
+			AND discipline_influ.is_delete = '0'
 			AND rank_type = '软科世界一流学科排名'  --后端改参数
 	) as a2 ON a2.univ_code = all_xk.un_code AND a2.discipline_code = all_xk.dis_code
 	LEFT JOIN(
@@ -146,7 +150,8 @@ FROM
 			discipline_const_fund
 			INNER JOIN user_fill ON user_fill.ID = discipline_const_fund.user_fill_id
 	WHERE
-			user_fill.is_delete = '0' AND discipline_const_fund.is_delete = '0'
+			user_fill.is_delete = '0' 
+			AND user_fill.is_seen = '1' AND discipline_const_fund.is_delete = '0'
 	) as a3 ON a3.univ_code = all_xk.un_code AND a3.discipline_code = all_xk.dis_code
 	LEFT JOIN(
 			SELECT
@@ -157,7 +162,8 @@ FROM
 			teaching_achv
 			INNER JOIN user_fill ON user_fill.ID = teaching_achv.user_fill_id
 	WHERE
-			user_fill.is_delete = '0' AND teaching_achv.is_delete = '0'
+			user_fill.is_delete = '0' 
+			AND user_fill.is_seen = '1' AND teaching_achv.is_delete = '0'
 			AND teaching_achv.award_ltype = '国家级教学成果奖'
 	GROUP BY
 			univ_code,
@@ -172,7 +178,8 @@ FROM
 			firstclass_course_const
 			INNER JOIN user_fill ON user_fill.ID = firstclass_course_const.user_fill_id
 	WHERE
-			user_fill.is_delete = '0' AND firstclass_course_const.is_delete = '0'
+			user_fill.is_delete = '0' 
+			AND user_fill.is_seen = '1' AND firstclass_course_const.is_delete = '0'
 			AND firstclass_course_const.cour_type = '国家级一流本科课程'
 	GROUP BY
 			univ_code,
@@ -187,7 +194,8 @@ FROM
 			talent_platbase_const
 			INNER JOIN user_fill ON user_fill.ID = talent_platbase_const.user_fill_id
 	WHERE
-			user_fill.is_delete = '0' AND talent_platbase_const.is_delete = '0'
+			user_fill.is_delete = '0' 
+			AND user_fill.is_seen = '1' AND talent_platbase_const.is_delete = '0'
 			AND talent_platbase_const.plat_base_type = '国家级人才培养平台'
 	GROUP BY
 			univ_code,
@@ -202,7 +210,8 @@ FROM
 			fullprof_tch_underg
 			INNER JOIN user_fill ON user_fill.ID = fullprof_tch_underg.user_fill_id
 	WHERE
-			user_fill.is_delete = '0' AND fullprof_tch_underg.is_delete = '0'
+			user_fill.is_delete = '0' 
+			AND user_fill.is_seen = '1' AND fullprof_tch_underg.is_delete = '0'
 			AND fullprof_tch_underg.yr = '2020-2021'    ---改年度
 			AND fullprof_tch_underg.sem = '1'           ---改学期
 	)as a7 ON a7.univ_code = all_xk.un_code AND a7.discipline_code = all_xk.dis_code
@@ -216,7 +225,8 @@ FROM
 			ann_award_bdmdphd
 			INNER JOIN user_fill ON user_fill.ID = ann_award_bdmdphd.user_fill_id
 	WHERE
-			user_fill.is_delete = '0' AND ann_award_bdmdphd.is_delete = '0'
+			user_fill.is_delete = '0' 
+			AND user_fill.is_seen = '1' AND ann_award_bdmdphd.is_delete = '0'
 			AND ann_award_bdmdphd.yr = '2021-2022' ---修改年度
 	)as a8 ON a8.univ_code = all_xk.un_code AND a8.discipline_code = all_xk.dis_code
 	LEFT JOIN (
@@ -228,7 +238,8 @@ FROM
 			talent_team
 			INNER JOIN user_fill ON user_fill.ID = talent_team.user_fill_id
 	WHERE
-			user_fill.is_delete = '0' AND talent_team.is_delete = '0'
+			user_fill.is_delete = '0' 
+			AND user_fill.is_seen = '1' AND talent_team.is_delete = '0'
 			AND talent_team.talent_or_team = '团队'
 			AND talent_team."level" = '国家级'
 	GROUP BY
@@ -244,7 +255,8 @@ FROM
 			talent_team
 			INNER JOIN user_fill ON user_fill.ID = talent_team.user_fill_id
 	WHERE
-			user_fill.is_delete = '0' AND talent_team.is_delete = '0'
+			user_fill.is_delete = '0' 
+			AND user_fill.is_seen = '1' AND talent_team.is_delete = '0'
 			AND talent_team.talent_or_team = '人才'
 			AND talent_team."level" = '国家级'
 	GROUP BY
@@ -261,7 +273,8 @@ FROM
 			fulltch
 			INNER JOIN user_fill ON user_fill.ID = fulltch.user_fill_id
 	WHERE
-			user_fill.is_delete = '0' AND fulltch.is_delete = '0'
+			user_fill.is_delete = '0' 
+			AND user_fill.is_seen = '1' AND fulltch.is_delete = '0'
 			AND fulltch.yr = '2021-2022' ---修改年度
 	)as a11 ON a11.univ_code = all_xk.un_code AND a11.discipline_code = all_xk.dis_code
 	LEFT JOIN(
@@ -274,7 +287,8 @@ FROM
 			pdoc_ra
 			INNER JOIN user_fill ON user_fill.ID = pdoc_ra.user_fill_id
 	WHERE
-			user_fill.is_delete = '0' AND pdoc_ra.is_delete = '0'
+			user_fill.is_delete = '0' 
+			AND user_fill.is_seen = '1' AND pdoc_ra.is_delete = '0'
 			AND pdoc_ra.yr = '2021'
 	)as a12 ON a12.univ_code = all_xk.un_code AND a12.discipline_code = all_xk.dis_code
 	LEFT JOIN(
@@ -287,7 +301,8 @@ FROM
 			discipline_const_fund
 			INNER JOIN user_fill ON user_fill.ID = discipline_const_fund.user_fill_id
 	WHERE
-			user_fill.is_delete = '0' AND discipline_const_fund.is_delete = '0'
+			user_fill.is_delete = '0' 
+			AND user_fill.is_seen = '1' AND discipline_const_fund.is_delete = '0'
 			AND discipline_const_fund.yr = '2022'
 	)as a13 ON a13.univ_code = all_xk.un_code AND a13.discipline_code = all_xk.dis_code
 	LEFT JOIN(
@@ -299,7 +314,8 @@ FROM
 			tch_head_jour
 			INNER JOIN user_fill ON user_fill.ID = tch_head_jour.user_fill_id
 	WHERE
-			user_fill.is_delete = '0' AND tch_head_jour.is_delete = '0'
+			user_fill.is_delete = '0' 
+			AND user_fill.is_seen = '1' AND tch_head_jour.is_delete = '0'
 	GROUP BY
 			univ_code,
 			discipline_code
@@ -313,7 +329,8 @@ FROM
 			tch_head_acorg
 			INNER JOIN user_fill ON user_fill.ID = tch_head_acorg.user_fill_id
 	WHERE
-			user_fill.is_delete = '0' AND tch_head_acorg.is_delete = '0'
+			user_fill.is_delete = '0' 
+			AND user_fill.is_seen = '1' AND tch_head_acorg.is_delete = '0'
 	GROUP BY
 			univ_code,
 			discipline_code
@@ -327,7 +344,8 @@ FROM
 			tch_attdrpt_acconf
 			INNER JOIN user_fill ON user_fill.ID = tch_attdrpt_acconf.user_fill_id
 	WHERE
-			user_fill.is_delete = '0' AND tch_attdrpt_acconf.is_delete = '0'
+			user_fill.is_delete = '0' 
+			AND user_fill.is_seen = '1' AND tch_attdrpt_acconf.is_delete = '0'
 			AND tch_attdrpt_acconf.yr = '2021'
 	GROUP BY
 			univ_code,
@@ -342,7 +360,8 @@ FROM
 			tch_judge_comp
 			INNER JOIN user_fill ON user_fill.ID = tch_judge_comp.user_fill_id
 	WHERE
-			user_fill.is_delete = '0' AND tch_judge_comp.is_delete = '0'
+			user_fill.is_delete = '0' 
+			AND user_fill.is_seen = '1' AND tch_judge_comp.is_delete = '0'
 	GROUP BY
 			univ_code,
 			discipline_code
@@ -356,7 +375,8 @@ FROM
 			tch_award
 			INNER JOIN user_fill ON user_fill.ID = tch_award.user_fill_id
 	WHERE
-			user_fill.is_delete = '0' AND tch_award.is_delete = '0'
+			user_fill.is_delete = '0' 
+			AND user_fill.is_seen = '1' AND tch_award.is_delete = '0'
 			AND tch_award."level" = '国家级'
 	GROUP BY
 			univ_code,
@@ -371,7 +391,8 @@ FROM
 			tch_paper
 			INNER JOIN user_fill ON user_fill.ID = tch_paper.user_fill_id
 	WHERE
-			user_fill.is_delete = '0' AND tch_paper.is_delete = '0'
+			user_fill.is_delete = '0' 
+			AND user_fill.is_seen = '1' AND tch_paper.is_delete = '0'
 			AND tch_paper.jour_level = '国内外顶级期刊'
 	GROUP BY
 			univ_code,
@@ -386,7 +407,8 @@ FROM
 			utk_desgshow
 			INNER JOIN user_fill ON user_fill.ID = utk_desgshow.user_fill_id
 	WHERE
-			user_fill.is_delete = '0' AND utk_desgshow.is_delete = '0'
+			user_fill.is_delete = '0' 
+			AND user_fill.is_seen = '1' AND utk_desgshow.is_delete = '0'
 	GROUP BY
 			univ_code,
 			discipline_code
@@ -400,7 +422,8 @@ FROM
 			host_sciproj
 			INNER JOIN user_fill ON user_fill.ID = host_sciproj.user_fill_id
 	WHERE
-			user_fill.is_delete = '0' AND host_sciproj.is_delete = '0'
+			user_fill.is_delete = '0' 
+			AND user_fill.is_seen = '1' AND host_sciproj.is_delete = '0'
 			AND host_sciproj.proj_level = '国家重点重大项目'
 	GROUP BY
 			univ_code,
@@ -416,7 +439,8 @@ FROM
 			touniv_scifund
 			INNER JOIN user_fill ON user_fill.ID = touniv_scifund.user_fill_id
 	WHERE
-			user_fill.is_delete = '0' AND touniv_scifund.is_delete = '0' AND touniv_scifund.subj_type = '横向'
+			user_fill.is_delete = '0' 
+			AND user_fill.is_seen = '1' AND touniv_scifund.is_delete = '0' AND touniv_scifund.subj_type = '横向'
 	GROUP BY
 			univ_code,
 			discipline_code,
@@ -432,7 +456,8 @@ FROM
 			touniv_scifund
 			INNER JOIN user_fill ON user_fill.ID = touniv_scifund.user_fill_id
 	WHERE
-			user_fill.is_delete = '0' AND touniv_scifund.is_delete = '0'  AND touniv_scifund.subj_type = '纵向'							
+			user_fill.is_delete = '0' 
+			AND user_fill.is_seen = '1' AND touniv_scifund.is_delete = '0'  AND touniv_scifund.subj_type = '纵向'							
 	GROUP BY
 			univ_code,
 			discipline_code,
@@ -448,7 +473,8 @@ FROM
 			achv_to_univfund
 			INNER JOIN user_fill ON user_fill.ID = achv_to_univfund.user_fill_id
 	WHERE
-			user_fill.is_delete = '0' AND achv_to_univfund.is_delete = '0' 		
+			user_fill.is_delete = '0' 
+			AND user_fill.is_seen = '1' AND achv_to_univfund.is_delete = '0' 		
 	GROUP BY
 			univ_code,
 			discipline_code,
@@ -463,7 +489,8 @@ FROM
 			prodedu_plat
 			INNER JOIN user_fill ON user_fill.ID = prodedu_plat.user_fill_id
 	WHERE
-			user_fill.is_delete = '0' AND prodedu_plat.is_delete = '0'
+			user_fill.is_delete = '0' 
+			AND user_fill.is_seen = '1' AND prodedu_plat.is_delete = '0'
 			AND prodedu_plat.plat_level = '国家级'
 	GROUP BY
 			univ_code,
@@ -478,7 +505,8 @@ FROM
 			consult_policy
 			INNER JOIN user_fill ON user_fill.ID = consult_policy.user_fill_id
 	WHERE
-			user_fill.is_delete = '0' AND consult_policy.is_delete = '0'
+			user_fill.is_delete = '0' 
+			AND user_fill.is_seen = '1' AND consult_policy.is_delete = '0'
 			AND consult_policy."level" = '国家级'
 			AND consult_policy.adopt_sit = '已采纳'
 	GROUP BY
@@ -546,7 +574,8 @@ FROM
 	discipline_eval
 	INNER JOIN user_fill ON user_fill.ID = discipline_eval.user_fill_id 
 WHERE
-	user_fill.is_delete = '0' AND discipline_eval.is_delete = '0'
+	user_fill.is_delete = '0' 
+			AND user_fill.is_seen = '1' AND discipline_eval.is_delete = '0'
 	AND discipline_eval.discipline_eval_turn = '4'  ---后端修改学科评估轮次
 ) as a1 ON a1.univ_code = all_xk.un_code AND a1.discipline_code = all_xk.dis_code
 LEFT JOIN(
@@ -560,7 +589,8 @@ FROM
 	discipline_influ
 	INNER JOIN user_fill ON user_fill.ID = discipline_influ.user_fill_id 
 WHERE
-	user_fill.is_delete = '0' AND discipline_influ.is_delete = '0'
+	user_fill.is_delete = '0' 
+			AND user_fill.is_seen = '1' AND discipline_influ.is_delete = '0'
 	AND rank_type = '软科世界一流学科排名'
 ) as a2 ON a2.univ_code = all_xk.un_code AND a2.discipline_code = all_xk.dis_code
 LEFT JOIN(
@@ -572,7 +602,8 @@ FROM
 	discipline_const_fund
 	INNER JOIN user_fill ON user_fill.ID = discipline_const_fund.user_fill_id 
 WHERE
-	user_fill.is_delete = '0' AND discipline_const_fund.is_delete = '0'
+	user_fill.is_delete = '0' 
+			AND user_fill.is_seen = '1' AND discipline_const_fund.is_delete = '0'
 ) as a3 ON a3.univ_code = all_xk.un_code AND a3.discipline_code = all_xk.dis_code
 LEFT JOIN(
 	SELECT
@@ -583,7 +614,8 @@ FROM
 	teaching_achv
 	INNER JOIN user_fill ON user_fill.ID = teaching_achv.user_fill_id 
 WHERE
-	user_fill.is_delete = '0' AND teaching_achv.is_delete = '0'
+	user_fill.is_delete = '0' 
+			AND user_fill.is_seen = '1' AND teaching_achv.is_delete = '0'
 	AND teaching_achv.award_ltype = '国家级教学成果奖'
 GROUP BY
 	univ_code,
@@ -598,7 +630,8 @@ FROM
 	firstclass_course_const
 	INNER JOIN user_fill ON user_fill.ID = firstclass_course_const.user_fill_id 
 WHERE
-	user_fill.is_delete = '0' AND firstclass_course_const.is_delete = '0'
+	user_fill.is_delete = '0' 
+			AND user_fill.is_seen = '1' AND firstclass_course_const.is_delete = '0'
 	AND firstclass_course_const.cour_type = '国家级一流本科课程'
 GROUP BY
 	univ_code,
@@ -613,7 +646,8 @@ FROM
 	talent_platbase_const
 	INNER JOIN user_fill ON user_fill.ID = talent_platbase_const.user_fill_id 
 WHERE
-	user_fill.is_delete = '0' AND talent_platbase_const.is_delete = '0'
+	user_fill.is_delete = '0' 
+			AND user_fill.is_seen = '1' AND talent_platbase_const.is_delete = '0'
 	AND talent_platbase_const.plat_base_type = '国家级人才培养平台'
 GROUP BY
 	univ_code,
@@ -628,7 +662,8 @@ FROM
 	fullprof_tch_underg
 	INNER JOIN user_fill ON user_fill.ID = fullprof_tch_underg.user_fill_id 
 WHERE
-	user_fill.is_delete = '0' AND fullprof_tch_underg.is_delete = '0'
+	user_fill.is_delete = '0' 
+			AND user_fill.is_seen = '1' AND fullprof_tch_underg.is_delete = '0'
 	AND fullprof_tch_underg.yr = '2020-2021'    ---改年度
 	AND fullprof_tch_underg.sem = '1'           ---改学期
 )as a7 ON a7.univ_code = all_xk.un_code AND a7.discipline_code = all_xk.dis_code
@@ -642,7 +677,8 @@ FROM
 	ann_award_bdmdphd
 	INNER JOIN user_fill ON user_fill.ID = ann_award_bdmdphd.user_fill_id 
 WHERE
-	user_fill.is_delete = '0' AND ann_award_bdmdphd.is_delete = '0'
+	user_fill.is_delete = '0' 
+			AND user_fill.is_seen = '1' AND ann_award_bdmdphd.is_delete = '0'
 	AND ann_award_bdmdphd.yr = '2021-2022' ---修改年度
 )as a8 ON a8.univ_code = all_xk.un_code AND a8.discipline_code = all_xk.dis_code
 LEFT JOIN (
@@ -654,7 +690,8 @@ FROM
 	talent_team
 	INNER JOIN user_fill ON user_fill.ID = talent_team.user_fill_id 
 WHERE
-	user_fill.is_delete = '0' AND talent_team.is_delete = '0'
+	user_fill.is_delete = '0' 
+			AND user_fill.is_seen = '1' AND talent_team.is_delete = '0'
 	AND talent_team.talent_or_team = '团队'
 	AND talent_team."level" = '国家级'
 GROUP BY
@@ -670,7 +707,8 @@ FROM
 	talent_team
 	INNER JOIN user_fill ON user_fill.ID = talent_team.user_fill_id 
 WHERE
-	user_fill.is_delete = '0' AND talent_team.is_delete = '0'
+	user_fill.is_delete = '0' 
+			AND user_fill.is_seen = '1' AND talent_team.is_delete = '0'
 	AND talent_team.talent_or_team = '人才'
 	AND talent_team."level" = '国家级'
 GROUP BY
@@ -687,7 +725,8 @@ FROM
 	fulltch
 	INNER JOIN user_fill ON user_fill.ID = fulltch.user_fill_id 
 WHERE
-	user_fill.is_delete = '0' AND fulltch.is_delete = '0'
+	user_fill.is_delete = '0' 
+			AND user_fill.is_seen = '1' AND fulltch.is_delete = '0'
 	AND fulltch.yr = '2021-2022' ---修改年度
 )as a11 ON a11.univ_code = all_xk.un_code AND a11.discipline_code = all_xk.dis_code
 LEFT JOIN(
@@ -700,7 +739,8 @@ FROM
 	pdoc_ra
 	INNER JOIN user_fill ON user_fill.ID = pdoc_ra.user_fill_id 
 WHERE
-	user_fill.is_delete = '0' AND pdoc_ra.is_delete = '0'
+	user_fill.is_delete = '0' 
+			AND user_fill.is_seen = '1' AND pdoc_ra.is_delete = '0'
 	AND pdoc_ra.yr = '2021'
 )as a12 ON a12.univ_code = all_xk.un_code AND a12.discipline_code = all_xk.dis_code
 LEFT JOIN(
@@ -713,7 +753,8 @@ FROM
 	discipline_const_fund
 	INNER JOIN user_fill ON user_fill.ID = discipline_const_fund.user_fill_id 
 WHERE
-	user_fill.is_delete = '0' AND discipline_const_fund.is_delete = '0'
+	user_fill.is_delete = '0' 
+			AND user_fill.is_seen = '1' AND discipline_const_fund.is_delete = '0'
 	AND discipline_const_fund.yr = '2022'
 )as a13 ON a13.univ_code = all_xk.un_code AND a13.discipline_code = all_xk.dis_code
 LEFT JOIN(
@@ -725,7 +766,8 @@ FROM
 	tch_head_jour
 	INNER JOIN user_fill ON user_fill.ID = tch_head_jour.user_fill_id 
 WHERE
-	user_fill.is_delete = '0' AND tch_head_jour.is_delete = '0'
+	user_fill.is_delete = '0' 
+			AND user_fill.is_seen = '1' AND tch_head_jour.is_delete = '0'
 GROUP BY
 	univ_code,
 	discipline_code
@@ -739,7 +781,8 @@ FROM
 	tch_head_acorg
 	INNER JOIN user_fill ON user_fill.ID = tch_head_acorg.user_fill_id 
 WHERE
-	user_fill.is_delete = '0' AND tch_head_acorg.is_delete = '0'
+	user_fill.is_delete = '0' 
+			AND user_fill.is_seen = '1' AND tch_head_acorg.is_delete = '0'
 GROUP BY
 	univ_code,
 	discipline_code
@@ -753,7 +796,8 @@ FROM
 	tch_attdrpt_acconf
 	INNER JOIN user_fill ON user_fill.ID = tch_attdrpt_acconf.user_fill_id 
 WHERE
-	user_fill.is_delete = '0' AND tch_attdrpt_acconf.is_delete = '0'
+	user_fill.is_delete = '0' 
+			AND user_fill.is_seen = '1' AND tch_attdrpt_acconf.is_delete = '0'
 	AND tch_attdrpt_acconf.yr = '2021'
 GROUP BY
 	univ_code,
@@ -768,7 +812,8 @@ FROM
 	tch_judge_comp
 	INNER JOIN user_fill ON user_fill.ID = tch_judge_comp.user_fill_id 
 WHERE
-	user_fill.is_delete = '0' AND tch_judge_comp.is_delete = '0'
+	user_fill.is_delete = '0' 
+			AND user_fill.is_seen = '1' AND tch_judge_comp.is_delete = '0'
 GROUP BY
 	univ_code,
 	discipline_code
@@ -782,7 +827,8 @@ FROM
 	tch_award
 	INNER JOIN user_fill ON user_fill.ID = tch_award.user_fill_id 
 WHERE
-	user_fill.is_delete = '0' AND tch_award.is_delete = '0'
+	user_fill.is_delete = '0' 
+			AND user_fill.is_seen = '1' AND tch_award.is_delete = '0'
 	AND tch_award."level" = '国家级'
 GROUP BY
 	univ_code,
@@ -797,7 +843,8 @@ FROM
 	tch_paper
 	INNER JOIN user_fill ON user_fill.ID = tch_paper.user_fill_id 
 WHERE
-	user_fill.is_delete = '0' AND tch_paper.is_delete = '0'
+	user_fill.is_delete = '0' 
+			AND user_fill.is_seen = '1' AND tch_paper.is_delete = '0'
 	AND tch_paper.jour_level = '国内外顶级期刊'
 GROUP BY
 	univ_code,
@@ -812,7 +859,8 @@ FROM
 	utk_desgshow
 	INNER JOIN user_fill ON user_fill.ID = utk_desgshow.user_fill_id 
 WHERE
-	user_fill.is_delete = '0' AND utk_desgshow.is_delete = '0'
+	user_fill.is_delete = '0' 
+			AND user_fill.is_seen = '1' AND utk_desgshow.is_delete = '0'
 GROUP BY
 	univ_code,
 	discipline_code
@@ -826,7 +874,8 @@ FROM
 	host_sciproj
 	INNER JOIN user_fill ON user_fill.ID = host_sciproj.user_fill_id 
 WHERE
-	user_fill.is_delete = '0' AND host_sciproj.is_delete = '0'
+	user_fill.is_delete = '0' 
+			AND user_fill.is_seen = '1' AND host_sciproj.is_delete = '0'
 	AND host_sciproj.proj_level = '国家重点重大项目'
 GROUP BY
 	univ_code,
@@ -842,7 +891,8 @@ FROM
 	touniv_scifund
 	INNER JOIN user_fill ON user_fill.ID = touniv_scifund.user_fill_id 
 WHERE
-	user_fill.is_delete = '0' AND touniv_scifund.is_delete = '0' AND subj_type ='横向'
+	user_fill.is_delete = '0' 
+			AND user_fill.is_seen = '1' AND touniv_scifund.is_delete = '0' AND subj_type ='横向'
 GROUP BY
 	univ_code,
 	discipline_code,
@@ -858,7 +908,8 @@ FROM
 	touniv_scifund
 	INNER JOIN user_fill ON user_fill.ID = touniv_scifund.user_fill_id 
 WHERE
-	user_fill.is_delete = '0' AND touniv_scifund.is_delete = '0' AND subj_type ='纵向'
+	user_fill.is_delete = '0' 
+			AND user_fill.is_seen = '1' AND touniv_scifund.is_delete = '0' AND subj_type ='纵向'
 GROUP BY
 	univ_code,
 	discipline_code,
@@ -874,7 +925,8 @@ FROM
 	achv_to_univfund
 	INNER JOIN user_fill ON user_fill.ID = achv_to_univfund.user_fill_id 
 WHERE
-	user_fill.is_delete = '0' AND achv_to_univfund.is_delete = '0'
+	user_fill.is_delete = '0' 
+			AND user_fill.is_seen = '1' AND achv_to_univfund.is_delete = '0'
 GROUP BY
 	univ_code,
 	discipline_code,
@@ -889,7 +941,8 @@ FROM
 	prodedu_plat
 	INNER JOIN user_fill ON user_fill.ID = prodedu_plat.user_fill_id 
 WHERE
-	user_fill.is_delete = '0' AND prodedu_plat.is_delete = '0'
+	user_fill.is_delete = '0' 
+			AND user_fill.is_seen = '1' AND prodedu_plat.is_delete = '0'
 	AND prodedu_plat.plat_level = '国家级'
 GROUP BY
 	univ_code,
@@ -904,7 +957,8 @@ FROM
 	consult_policy
 	INNER JOIN user_fill ON user_fill.ID = consult_policy.user_fill_id 
 WHERE
-	user_fill.is_delete = '0' AND consult_policy.is_delete = '0'
+	user_fill.is_delete = '0' 
+			AND user_fill.is_seen = '1' AND consult_policy.is_delete = '0'
 	AND consult_policy."level" = '国家级'
 	AND consult_policy.adopt_sit = '已采纳'
 GROUP BY

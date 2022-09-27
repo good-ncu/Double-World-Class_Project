@@ -43,6 +43,7 @@ exports.gov_overview_listen_01 = function(req,res){
       ON user_fill.id = discipline_eval.user_fill_id
     WHERE 
       user_fill.is_delete = '0' 
+      AND user_fill.is_seen = '1'
       AND discipline_eval.is_delete = '0' 
       AND discipline_eval.discipline_eval_turn = 4	--参数
     ) AS b1
@@ -80,6 +81,7 @@ exports.gov_overview_listen_01 = function(req,res){
       ON user_fill.id = discipline_eval.user_fill_id
     WHERE 
       user_fill.is_delete = '0' 
+      AND user_fill.is_seen = '1'
       AND discipline_eval.is_delete = '0' 
       AND discipline_eval.discipline_eval_turn = 5	--参数
     ) AS b2 ON b1.univ_code = b2.univ_code AND b1.discipline_code = b2.discipline_code
@@ -253,6 +255,7 @@ SELECT
 		ON user_fill.id = teaching_achv.user_fill_id
 	WHERE 
 		user_fill.is_delete = '0' 
+    AND user_fill.is_seen = '1'
 		AND teaching_achv.is_delete = '0' 
 		AND teaching_achv.award_ltype = '国家级教学成果奖'
 	GROUP BY
@@ -329,6 +332,7 @@ SELECT
 		ON user_fill.id = talent_platbase_const.user_fill_id
 	WHERE 
 		user_fill.is_delete = '0' 
+    AND user_fill.is_seen = '1'
 		AND talent_platbase_const.is_delete = '0' 
 		AND talent_platbase_const.plat_base_level = '国家级'
 	GROUP BY
@@ -406,6 +410,7 @@ SELECT
 		ON user_fill.id = talent_team.user_fill_id
 	WHERE 
 		user_fill.is_delete = '0' 
+    AND user_fill.is_seen = '1'
 		AND talent_team.is_delete = '0' 
 		AND talent_team.talent_or_team = '团队'
 		AND talent_team.level = '国家级'
@@ -491,6 +496,7 @@ SELECT
 		ON user_fill.id = talent_team.user_fill_id
 	WHERE 
 		user_fill.is_delete = '0' 
+    AND user_fill.is_seen = '1'
 		AND talent_team.is_delete = '0' 
 		AND talent_team.talent_or_team = '人才'
 		AND talent_team.level = '国家级'
@@ -576,6 +582,7 @@ SELECT
 		ON user_fill.id = foreign_fulltch.user_fill_id
 	WHERE 
 		user_fill.is_delete = '0' 
+    AND user_fill.is_seen = '1'
 		AND foreign_fulltch.is_delete = '0' 
 		AND foreign_fulltch.yr = '2021-2022'	--学年参数，为YYYY-YYYY格式
 	GROUP BY
@@ -661,6 +668,7 @@ SELECT
 		ON user_fill.id = tch_head_jour.user_fill_id
 	WHERE 
 		user_fill.is_delete = '0' 
+    AND user_fill.is_seen = '1'
 		AND tch_head_jour.is_delete = '0' 
 	GROUP BY
 		a.univ_code,
@@ -744,6 +752,7 @@ SELECT
 		ON user_fill.id = tch_judge_comp.user_fill_id
 	WHERE 
 		user_fill.is_delete = '0' 
+    AND user_fill.is_seen = '1'
 		AND tch_judge_comp.is_delete = '0' 
 	GROUP BY
 		a.univ_code,
@@ -829,6 +838,7 @@ SELECT
 		ON user_fill.id = tch_paper.user_fill_id
 	WHERE 
 		user_fill.is_delete = '0' 
+    AND user_fill.is_seen = '1'
 		AND tch_paper.is_delete = '0' 
 		AND tch_paper.jour_level = '国内外顶级期刊' 
 	GROUP BY
@@ -913,6 +923,7 @@ SELECT
 		ON user_fill.id = sci_innova_plat.user_fill_id
 	WHERE 
 		user_fill.is_delete = '0' 
+    AND user_fill.is_seen = '1'
 		AND sci_innova_plat.is_delete = '0' 
 		AND sci_innova_plat.palt_level = '国家级' 
 	GROUP BY
@@ -995,6 +1006,7 @@ FROM
 		ON user_fill.id = host_sciproj.user_fill_id
 	WHERE 
 		user_fill.is_delete = '0' 
+    AND user_fill.is_seen = '1'
 		AND host_sciproj.is_delete = '0' 
 		AND host_sciproj.proj_level = '国家重点重大项目'
 	GROUP BY
@@ -1079,6 +1091,7 @@ FROM
 		ON user_fill.id = prodedu_plat.user_fill_id
 	WHERE 
 		user_fill.is_delete = '0' 
+    AND user_fill.is_seen = '1'
 		AND prodedu_plat.is_delete = '0' 
 		AND prodedu_plat.plat_level = '国家级'
 	GROUP BY
