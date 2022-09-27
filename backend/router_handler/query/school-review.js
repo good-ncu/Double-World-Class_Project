@@ -279,7 +279,7 @@ exports.query_single_discipline_current = function (req, res) {
         } else if (results.rowCount == 0) {
             // 当前sql查询为空，则返回填报提示
             res.send({
-                status: 0,
+                status: 1,
                 message: "当前周期下，您选择的学科还未录入任何有效信息。"
             })
         } else {
