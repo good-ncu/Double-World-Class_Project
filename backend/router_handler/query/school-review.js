@@ -111,7 +111,17 @@ GROUP BY
                 for (let i = 0, len = results.rows.length; i < len; i++) {
                     results.rows[i].percentage = Math.ceil((results.rows[i].already_fill_num) / (results.rows[i].need_fill_num) * 100)
                     results.rows[i].percentage = results.rows[i].percentage + '%'
-                    console.log(results.rows[i])
+                    // console.log(results.rows[i])
+                }
+                if (userinfo.univ_name == '南昌大学') {
+                    for (let i = 0, len = results.rows.length; i < len; i++) {
+                        results.rows[i].is_subject_group = 1
+                    }
+
+                } else {
+                    for (let i = 0, len = results.rows.length; i < len; i++) {
+                        results.rows[i].is_subject_group = 0
+                    }
                 }
                 return_data = results.rows
                 callback()
