@@ -238,7 +238,7 @@ GROUP BY
  * @param {*} req  univ_code（无需传），discipline_name
  * @param {*} res  id（uuid）， fill_id（表的id），fill_cycle（填报频次），is_seen（是否审核），fill_about（表名），填报对象
  */
-exports.query_all_discipline_current = function (req, res) {
+exports.query_single_discipline_current = function (req, res) {
 
     userinfo = req.user
     discipline_name = req.body.discipline_name
@@ -291,7 +291,7 @@ exports.query_all_discipline_current = function (req, res) {
  * @param {data_id (第二步中的id),即uuid} req 
  * @param {*} res  成功
  */
-exports.check_all_discipline_current = function (req, res) {
+exports.check_single_discipline_current = function (req, res) {
     userinfo = req.user
     // 第二步中的id  ，即uuid
     subinfo = req.body.data_id
@@ -339,10 +339,10 @@ exports.check_all_discipline_current = function (req, res) {
 /**
  * 第三步
  * 查询 学校管理员  查看某学科的某张表的数据
- * @param {*} req 
+ * @param {*} req   fill_id 表的id，   id （uuid）
  * @param {*} res 
  */
-exports.query_all_discipline_table = function (req, res) {
+exports.query_single_discipline_table = function (req, res) {
     userinfo = req.user
     subinfo = req.body
     console.log(subinfo.id, subinfo.fill_id)
@@ -406,7 +406,7 @@ exports.query_all_discipline_table = function (req, res) {
 
 /**
  * 第三步之后可做的操作，   驳回功能
- * @param {*} req 
+ * @param {*} req  uuid
  * @param {*} res 
  */
 exports.delete_single_discipline_table = function (req, res) {

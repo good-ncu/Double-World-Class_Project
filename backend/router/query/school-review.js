@@ -11,32 +11,39 @@
  * 
  */
 
- const express = require('express')
- const router = express.Router()
- 
- // 导入并使用平台首页 培养拔尖创新人才 路由处理函数对应的模块
- const school_review_handler = require('../../router_handler/query/school-review')
- 
- 
+const express = require('express')
+const router = express.Router()
+
+// 导入并使用平台首页 培养拔尖创新人才 路由处理函数对应的模块
+const school_review_handler = require('../../router_handler/query/school-review')
+
+
 
 // userinfo  
 /* 
     步骤1-1查询 当前学校拥有的所有学科 路由
 */
 router.post('/query-all-discipline', school_review_handler.query_all_discipline)
+/* 
+    步骤1-1查询 南昌大学某学科群拥有的所有学科 路由
+*/
+router.post('/query-ncu-all-discipline', school_review_handler.query_ncu_all_discipline)
 
-//已知： userinfo  + discipline_code 
+
+
+//已知： userinfo  + univ_code（无需传），discipline_name 
 /* 
     步骤1-2查询 学校管理员选择某一学科后， 将当前周期下，该学科 所有已经填报了的表格，将其返回 路由
 */
-router.post('/query-single-discipline-current', school_review_handler.query_all_discipline_current)
+router.post('/query-single-discipline-current', school_review_handler.query_single_discipline_current)
+
 
 
 // 已知： userinfo + user_fill_id(前端给的是id 记得转换或对应起来)  +  fill_id 
 /* 
     步骤1-3查询 学校管理员选择某一学科当前周期下某个已经填报的表后，将该表的数据返回 路由
 */
-router.post('/query-single-discipline-table', school_review_handler.query_all_discipline_table)
+router.post('/query-single-discipline-table', school_review_handler.query_single_discipline_table)
 
 
 
@@ -44,13 +51,13 @@ router.post('/query-single-discipline-table', school_review_handler.query_all_di
  * 步骤1-4      在步骤1-2的页面下， 给予学校管理员 一键查阅 或 部分查阅 的功能       user_fill表中 ，选中id的记录   is_seen : 0 --> 1
  * 
  */
- router.post('/check-single-discipline-current', school_review_handler.check_all_discipline_current)
+router.post('/check-single-discipline-current', school_review_handler.check_single_discipline_current)
 
 
 /***
  * 步骤1-5      在步骤1-4的页面下，删除该页面展示这次填报的所有数据！    即，删除当前周期 该学科、该表的数据 。   user_fill表中，选中id的记录    flag ：1-->0   is_delete : 0 -->1   
  */
-router.post('/delete-single-discipline-table',school_review_handler.delete_single_discipline_table)
+router.post('/delete-single-discipline-table', school_review_handler.delete_single_discipline_table)
 
 
 module.exports = router
