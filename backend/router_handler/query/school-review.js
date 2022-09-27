@@ -242,7 +242,7 @@ exports.query_single_discipline_current = function (req, res) {
 
     userinfo = req.user
     discipline_name = req.body.discipline_name
-    console.log(discipline_code)
+    console.log(discipline_name)
 
     //  约束： 账户权限必须是3 ==> 学校id    拿到它选择的学科代码        
     sql = `select
