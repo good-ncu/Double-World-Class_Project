@@ -52,7 +52,11 @@ exports.query_single_table_info = function (req, res) {
                     // 当前sql查询为空，则返回填报提示
                     return res.cc('该表格下无填报的数据')
                 } else {
+                    console.log(results2.rows);
                     for (var i = 0; i < results2.rows.length; i++) {
+                        if (results2.rows[i]["adopt_date"]=='undefined'){
+                            results2.rows[i]["adopt_date"] = ""
+                        }
                         // results2.rows[i]["is_seen"] = null
                         // results2.rows[i]["is_delete"] = null
                         // results2.rows[i]["path"] = null
