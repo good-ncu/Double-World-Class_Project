@@ -14,6 +14,13 @@ const { query } = require('express');
 var fs = require('fs');
 const { timeStamp } = require('console');
 
+function toLiteral(str) {
+    // var dict = { '\b': 'b', '\t': 't', '\n': 'n', '\v': 'v', '\f': 'f', '\r': 'r' };
+    return str.replace(/([\\'])/g, function ($0, $1) {
+        return '\'' + $1;
+    });
+}
+
 
 /**
  * 文档1-1-1 学科建设进展情况写实 
@@ -206,7 +213,7 @@ exports.disci_influence_sub = function (req, res) {
         const strUUID = uuidv4(); // ⇨ '1b9d6bcd-bbfd-4b2d-9b5d-ab8dfbbd4bed'
         const strUUID2 = strUUID.replace(/-/g, '');       // 去掉-字符
         sqls[i + 1] = `INSERT INTO discipline_influ(id, univ_code, discipline_code, yr, rank_type, rank,user_fill_id) 
-        VALUES ('${strUUID2}','${user.univ_code}','${user.discipline_code}',${submit_info[i].yr},'${submit_info[i].rank_type}','${submit_info[i].rank}','${user_fill_id}')`
+        VALUES ('${strUUID2}','${user.univ_code}','${user.discipline_code}',${submit_info[i].yr},'${toLiteral(submit_info[i].rank_type.toString())}','${toLiteral(submit_info[i].rank.toString())}','${user_fill_id}')`
     }
     // console.log(sqls)
 
@@ -475,7 +482,7 @@ exports.disci_funds_sub = function (req, res) {
 /**
  *  二级表格下的表格是否可以填报
  *  */
- exports.query_is_time = function(req,res){
+exports.query_is_time = function (req, res) {
     // 1. 在fill表内根据fill_id检查flag（1在填报周期，0不在填报周期）
     // 2. 根据fill_id、user_id去user_fill表内查找flag，若为1则已经填报，若为0或者null则未填报
     // 接收表单数据
@@ -486,7 +493,7 @@ exports.disci_funds_sub = function (req, res) {
     var sqls = []
     userinfo = req.user
     for (let i = 0, len = submit_info.length; i < len; i++) {
-        var t1 = submit_info[i]+'_%'
+        var t1 = submit_info[i] + '_%'
         sqls[i] = `select id,fill_about,flag,fill_cycle from fill where id like '${t1}'`
     }
     async.each(sqls, function (item, callback) {
@@ -511,7 +518,7 @@ exports.disci_funds_sub = function (req, res) {
             return res.cc('系统繁忙,请稍后再试')
         } else {
             // fill表内的记录
-            var all_fill_period = resultt[0].map(function(item) {
+            var all_fill_period = resultt[0].map(function (item) {
                 return {
                     id: item.id,
                     name: item.fill_about,
@@ -523,48 +530,48 @@ exports.disci_funds_sub = function (req, res) {
             })
             console.log(all_fill_period);
             var sqls2 = []
-            var temp  = 0
-            for(let i = 0,len = all_fill_period.length;i<len;i++){
-                sqls2[temp++]=(`select * from user_fill where user_id = '${userinfo.id}' and fill_id='${all_fill_period[i].id}'`)
+            var temp = 0
+            for (let i = 0, len = all_fill_period.length; i < len; i++) {
+                sqls2[temp++] = (`select * from user_fill where user_id = '${userinfo.id}' and fill_id='${all_fill_period[i].id}'`)
             }
             // user_fill表内的记录
             // var all_user_fill = []
-            var count = 0 
+            var count = 0
             async.each(sqls2,
-                function(item,callback){
+                function (item, callback) {
                     console.log("loulou");
                     console.log(item);
-                    client.query(item, function(err,results) {
-                            count++
-                            if (err) {
-                                callback(err)
-                            } else {
-                                // 非NULL
-                                if(results.rows.length!==0){
-                                    console.log(results.rows);
-                                    // 只有一条记录
-                                    if(results.rows.length==1){
-                                        all_fill_period[count-1].is_filled = results.rows[0].flag
-                                    }
-                                    var c = 0
-                                    // 还可能存在多个记录，检索所有记录，是不是user_fill中的flag都为0
-                                    for(let i = 0, len = results.rows.length; i < len; i++){
-                                        if(results.rows[i].flag == 1){
-                                            c=1
-                                            break
-                                        }
-                                    }
-                                    all_fill_period[count-1].is_filled = c
-                                    // all_user_fill.push(results.rows[0])
-                                } else {
-                                    all_fill_period[count-1].is_filled = 0
+                    client.query(item, function (err, results) {
+                        count++
+                        if (err) {
+                            callback(err)
+                        } else {
+                            // 非NULL
+                            if (results.rows.length !== 0) {
+                                console.log(results.rows);
+                                // 只有一条记录
+                                if (results.rows.length == 1) {
+                                    all_fill_period[count - 1].is_filled = results.rows[0].flag
                                 }
-                                callback()
+                                var c = 0
+                                // 还可能存在多个记录，检索所有记录，是不是user_fill中的flag都为0
+                                for (let i = 0, len = results.rows.length; i < len; i++) {
+                                    if (results.rows[i].flag == 1) {
+                                        c = 1
+                                        break
+                                    }
+                                }
+                                all_fill_period[count - 1].is_filled = c
+                                // all_user_fill.push(results.rows[0])
+                            } else {
+                                all_fill_period[count - 1].is_filled = 0
                             }
+                            callback()
+                        }
                     })
-                }, 
-                function(err){
-                    if(err){
+                },
+                function (err) {
+                    if (err) {
                         console.log(err);
                         res.cc('系统繁忙，请稍后再试')
                     } else {
@@ -580,7 +587,6 @@ exports.disci_funds_sub = function (req, res) {
         }
     });
 }
-
 
 
 
