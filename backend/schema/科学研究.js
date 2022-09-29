@@ -58,7 +58,7 @@ const data_4_1_2 = joi.array().items(
 //tch_publish_paper 
 const data_4_1_3_0 = joi.array().items(
     joi.object().keys({
-        yr:joi.required().error(new Error('年度填报错误！')),
+        yr:joi.required().number().integer().less(2021).greater(1950).error(new Error('年度填报错误！')),
         paper_title:joi.string().min(1).required().error(new Error('论文标题填报错误！')),
         paper_au:joi.string().min(1).required().error(new Error('作者姓名填报错误！')),
         jour_name:joi.required().error(new Error('发表期刊填报错误！')),
