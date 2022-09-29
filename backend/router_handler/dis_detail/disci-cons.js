@@ -83,7 +83,16 @@ ORDER BY turn ASC`
             var results_data = []
             for (let i = 0, len = results.rows.length; i < len; i++) {
                 if (results.rows[i]["turn"] == 4) {
-
+                    results_data.push(results.rows[i]["result"])
+                }
+                if (results.rows[i]["turn"] != 4 && results.rows[i]["turn"] != 5) {
+                    results_data.push('无')
+                }
+                if (results.rows[i]["turn"] == 5 && i==0) {
+                    results_data.push("无")
+                    results_data.push(results.rows[i]["result"])
+                }
+                if (results.rows[i]["turn"] == 5 && i!=0) {
                     results_data.push(results.rows[i]["result"])
                 }
             }
