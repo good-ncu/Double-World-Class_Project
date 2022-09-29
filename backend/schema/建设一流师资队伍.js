@@ -155,7 +155,7 @@ const data_3_3_2 = joi.array().items(
         tch_name: joi.string().min(1).max(100).required().error(new Error('教师姓名填报错误！')),
         ac_org: joi.string().min(1).max(100).required().error(new Error('学术组织名称填报错误！')),
         pos: joi.string().valid('会长', '副会长', '理事会', '副理事会', '秘书长', '副秘书长').required().error(new Error('担任职务填报错误！')),
-        tenure: joi.string().pattern(/^((1[9][5-9][0-9]|2[0][0-2][0-9])-(0[1-9]|1[0-2]))至((1[9][5-9][0-9]|2[0][0-2][0-9])-(0[1-9]|1[0-2]))$/).required().error(new Error('任职期限填报错误！')),
+        tenure: joi.string().pattern(/^((1[9][5-9][0-9]|2[0][0-2][0-9])-(0[1-9]|1[0-2]))至((2[0][2][1-9])-(0[1-9]|1[0-2]))$/).required().error(new Error('任职期限填报错误！')),
 
         // yr:joi.number().integer().less(2029).greater(2020).error(new Error('填报年度填报错误！')),
     }
