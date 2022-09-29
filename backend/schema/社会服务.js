@@ -44,7 +44,7 @@ const data_5_2_2_1 = joi.array().items(
         // adopt_date:joi.string().when('adopt_sit',{is:'未采纳',then:joi.string().valid('')})
         // .when('adopt_sit',{is:'已采纳',then:joi.string().pattern(/^(2[0][2][1-9])-(0[1-9]|1[0-2])$/)})
         // .error(new Error('采纳/批示时间填报错误！')),
-        adopt_date:joi.string().allow('')
+        adopt_date:joi.string()
                 // .when('adopt_sit',{is:'未采纳',then:joi.string()})
                  .when('adopt_sit',{is:'未采纳',then:joi.string().allow('')})
                 .when('adopt_sit',{is:'已采纳',then:joi.string().pattern(/^((2[0][2][1-9])-(0[1-9]|1[0-2]))$/)})
@@ -62,7 +62,7 @@ const data_5_2_2_2 = joi.array().items(
         topic:joi.string().min(1).max(200).required().error(new Error('主题填报错误！')),
         adopt_leader:joi.string().min(1).max(50).required().error(new Error('批示领导填报错误！')),
         adopt_sit:joi.string().valid('已采纳','未采纳').required().error(new Error('采纳情况错误！')),
-        adopt_date:joi.string().allow('')
+        adopt_date:joi.string()
                 // .when('adopt_sit',{is:'未采纳',then:joi.string()})
                  .when('adopt_sit',{is:'未采纳',then:joi.string().allow('')})
                 .when('adopt_sit',{is:'已采纳',then:joi.string().pattern(/^((2[0][2][1-9])-(0[1-9]|1[0-2]))$/)})
