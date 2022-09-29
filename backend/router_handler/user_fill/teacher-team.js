@@ -13,6 +13,13 @@ const async = require('async');
 const { query } = require('express');
 var fs = require('fs');
 
+function toLiteral(str) {
+    // var dict = { '\b': 'b', '\t': 't', '\n': 'n', '\v': 'v', '\f': 'f', '\r': 'r' };
+    return str.replace(/([\\'])/g, function($0, $1) {
+        return '\'' + $1;
+    });
+}
+
 // 3_1_1docx 
  
 exports.honor_counts_word_sub = function (req, res) {
@@ -125,7 +132,7 @@ exports.honor_counts_word_sub = function (req, res) {
         const strUUID2 = strUUID.replace(/-/g, '');       // 去掉-字符
         sqls[i+1] = `INSERT INTO tch_moral(id, univ_code, discipline_code, yr, tch_name, recogn_honor,user_fill_id) 
         VALUES ('${strUUID2}','${user.univ_code}','${user.discipline_code}',${submit_info[i].yr},
-        '${submit_info[i].tch_name}','${submit_info[i].recogn_honor}','${user_fill_id}')`
+        '${toLiteral(submit_info[i].tch_name.toString())}','${toLiteral(submit_info[i].recogn_honor.toString())}','${user_fill_id}')`
 
     }
 
@@ -193,7 +200,7 @@ exports.honor_counts_word_sub = function (req, res) {
         const strUUID = uuidv4(); // ⇨ '1b9d6bcd-bbfd-4b2d-9b5d-ab8dfbbd4bed'
         const strUUID2 = strUUID.replace(/-/g, '');       // 去掉-字符
         sqls[i+1] = `INSERT INTO leader_youthcore(id, univ_code, discipline_code,user_fill_id,tch_name,tch_type,tch_title,age,rep_work,discipline) 
-        VALUES ('${strUUID2}','${user.univ_code}','${user.discipline_code}','${user_fill_id}','${submit_info[i].tch_name}','${submit_info[i].tch_type}','${submit_info[i].tch_title}',${submit_info[i].age},'${submit_info[i].rep_work}','${submit_info[i].discipline}')`
+        VALUES ('${strUUID2}','${user.univ_code}','${user.discipline_code}','${user_fill_id}','${toLiteral(submit_info[i].tch_name.toString())}','${submit_info[i].tch_type}','${submit_info[i].tch_title}',${submit_info[i].age},'${toLiteral(submit_info[i].rep_work.toString())}','${toLiteral(submit_info[i].discipline.toString())}')`
 
     }
 
@@ -260,7 +267,7 @@ exports.honor_counts_word_sub = function (req, res) {
         const strUUID2 = strUUID.replace(/-/g, '');       // 去掉-字符
         sqls[i+1] = `INSERT INTO talent_team(id, univ_code, discipline_code,user_fill_id,talent_team_name,level,honor_name,yr,talent_or_team) 
         VALUES ('${strUUID2}','${user.univ_code}','${user.discipline_code}','${user_fill_id}',
-        '${submit_info[i].talent_team_name}','${submit_info[i].level}','${submit_info[i].honor_name}',${submit_info[i].yr},'团队')`
+        '${toLiteral(submit_info[i].talent_team_name.toString())}','${submit_info[i].level}','${toLiteral(submit_info[i].honor_name.toString())}',${submit_info[i].yr},'团队')`
 
     }
     async.eachSeries(sqls, function (item, callback) {
@@ -327,8 +334,8 @@ exports.honor_counts_word_sub = function (req, res) {
         const strUUID = uuidv4(); // ⇨ '1b9d6bcd-bbfd-4b2d-9b5d-ab8dfbbd4bed'
         const strUUID2 = strUUID.replace(/-/g, '');       // 去掉-字符
         sqls[i+1] = `INSERT INTO talent_team(id, univ_code, discipline_code,user_fill_id,talent_team_name,level,honor_name,yr,talent_or_team) 
-        VALUES ('${strUUID2}','${user.univ_code}','${user.discipline_code}','${user_fill_id}','${submit_info[i].talent_team_name}',
-        '${submit_info[i].level}','${submit_info[i].honor_name}',${submit_info[i].yr},'人才')`
+        VALUES ('${strUUID2}','${user.univ_code}','${user.discipline_code}','${user_fill_id}','${toLiteral(submit_info[i].talent_team_name.toString())}',
+        '${submit_info[i].level}','${toLiteral(submit_info[i].honor_name.toString())}',${submit_info[i].yr},'人才')`
 
     }
     async.eachSeries(sqls, function (item, callback) {
@@ -393,8 +400,8 @@ exports.honor_counts_word_sub = function (req, res) {
         const strUUID = uuidv4(); // ⇨ '1b9d6bcd-bbfd-4b2d-9b5d-ab8dfbbd4bed'
         const strUUID2 = strUUID.replace(/-/g, '');       // 去掉-字符
         sqls[i+1] = `INSERT INTO talent_team(id, univ_code, discipline_code,user_fill_id,talent_team_name,level,honor_name,yr,talent_or_team) 
-        VALUES ('${strUUID2}','${user.univ_code}','${user.discipline_code}','${user_fill_id}','${submit_info[i].talent_team_name}',
-        '国家级','${submit_info[i].honor_name}',${submit_info[i].yr},'团队')`
+        VALUES ('${strUUID2}','${user.univ_code}','${user.discipline_code}','${user_fill_id}','${toLiteral(submit_info[i].talent_team_name.toString())}',
+        '国家级','${toLiteral(submit_info[i].honor_name.toString())}',${submit_info[i].yr},'团队')`
 
     }
     async.eachSeries(sqls, function (item, callback) {
@@ -459,7 +466,7 @@ exports.honor_counts_word_sub = function (req, res) {
         const strUUID = uuidv4(); // ⇨ '1b9d6bcd-bbfd-4b2d-9b5d-ab8dfbbd4bed'
         const strUUID2 = strUUID.replace(/-/g, '');       // 去掉-字符
         sqls[i+1] = `INSERT INTO talent_team(id, univ_code, discipline_code,user_fill_id,talent_team_name,level,honor_name,yr,talent_or_team) 
-        VALUES ('${strUUID2}','${user.univ_code}','${user.discipline_code}','${user_fill_id}','${submit_info[i].talent_team_name}','国家级','${submit_info[i].honor_name}',${submit_info[i].yr},'人才')`
+        VALUES ('${strUUID2}','${user.univ_code}','${user.discipline_code}','${user_fill_id}','${toLiteral(submit_info[i].talent_team_name.toString())}','国家级','${toLiteral(submit_info[i].honor_name.toString())}',${submit_info[i].yr},'人才')`
     }
 
     async.eachSeries(sqls, function (item, callback) {
@@ -526,7 +533,7 @@ exports.honor_counts_word_sub = function (req, res) {
         const strUUID = uuidv4(); // ⇨ '1b9d6bcd-bbfd-4b2d-9b5d-ab8dfbbd4bed'
         const strUUID2 = strUUID.replace(/-/g, '');       // 去掉-字符
         sqls[i+1] = `INSERT INTO talent_team(id, univ_code, discipline_code,user_fill_id,talent_team_name,level,honor_name,yr) 
-        VALUES ('${strUUID2}','${user.univ_code}','${user.discipline_code}','${user_fill_id}','${submit_info[i].talent_team_name}','省级','${submit_info[i].honor_name}',${submit_info[i].yr})`
+        VALUES ('${strUUID2}','${user.univ_code}','${user.discipline_code}','${user_fill_id}','${toLiteral(submit_info[i].talent_team_name.toString())}','省级','${toLiteral(submit_info[i].honor_name.toString())}',${submit_info[i].yr})`
      }
 
     async.eachSeries(sqls, function (item, callback) {
@@ -789,8 +796,8 @@ exports.honor_counts_word_sub = function (req, res) {
         const strUUID = uuidv4(); // ⇨ '1b9d6bcd-bbfd-4b2d-9b5d-ab8dfbbd4bed'
         const strUUID2 = strUUID.replace(/-/g, '');       // 去掉-字符
         sqls[i+1] = `INSERT INTO tch_head_jour(id, univ_code, discipline_code,user_fill_id,tch_name,jour_name,in_jour_code,out_jour_code,jour_collect,pos,tenure) 
-        VALUES ('${strUUID2}','${user.univ_code}','${user.discipline_code}','${user_fill_id}','${submit_info[i].tch_name}','${submit_info[i].jour_name}','${submit_info[i].in_jour_code}',
-        '${submit_info[i].out_jour_code}','${submit_info[i].jour_collect}','${submit_info[i].pos}','${submit_info[i].tenure}')`
+        VALUES ('${strUUID2}','${user.univ_code}','${user.discipline_code}','${user_fill_id}','${toLiteral(submit_info[i].tch_name.toString())}','${toLiteral(submit_info[i].jour_name.toString())}','${toLiteral(submit_info[i].in_jour_code.toString())}',
+        '${toLiteral(submit_info[i].out_jour_code.toString())}','${submit_info[i].jour_collect}','${submit_info[i].pos}','${submit_info[i].tenure}')`
     }
 
     async.eachSeries(sqls, function (item, callback) {
@@ -855,8 +862,8 @@ exports.honor_counts_word_sub = function (req, res) {
         const strUUID = uuidv4(); // ⇨ '1b9d6bcd-bbfd-4b2d-9b5d-ab8dfbbd4bed'
         const strUUID2 = strUUID.replace(/-/g, '');       // 去掉-字符
         sqls[i+1] = `INSERT INTO tch_head_acorg(id, univ_code, discipline_code,user_fill_id,tch_name,ac_org,pos,tenure) 
-        VALUES ('${strUUID2}','${user.univ_code}','${user.discipline_code}','${user_fill_id}','${submit_info[i].tch_name}',
-        '${submit_info[i].ac_org}','${submit_info[i].pos}','${submit_info[i].tenure}')`
+        VALUES ('${strUUID2}','${user.univ_code}','${user.discipline_code}','${user_fill_id}','${toLiteral(submit_info[i].tch_name.toString())}',
+        '${toLiteral(submit_info[i].ac_org.toString())}','${submit_info[i].pos}','${submit_info[i].tenure}')`
     }
 
     async.eachSeries(sqls, function (item, callback) {
@@ -922,8 +929,8 @@ exports.honor_counts_word_sub = function (req, res) {
         const strUUID2 = strUUID.replace(/-/g, '');       // 去掉-字符
         sqls[i+1] = `INSERT INTO tch_attdrpt_acconf(id, univ_code, discipline_code,user_fill_id,yr,tch_name,conf_name,rpt_title,
             rpt_yr_mth,rpt_place) 
-        VALUES ('${strUUID2}','${user.univ_code}','${user.discipline_code}','${user_fill_id}',${submit_info[i].yr},'${submit_info[i].tch_name}',
-        '${submit_info[i].conf_name}','${submit_info[i].rpt_title}','${submit_info[i].rpt_yr_mth}','${submit_info[i].rpt_place}')`
+        VALUES ('${strUUID2}','${user.univ_code}','${user.discipline_code}','${user_fill_id}',${submit_info[i].yr},'${toLiteral(submit_info[i].tch_name.toString())}',
+        '${toLiteral(submit_info[i].conf_name.toString())}','${toLiteral(submit_info[i].rpt_title.toString())}','${submit_info[i].rpt_yr_mth}','${toLiteral(submit_info[i].rpt_place.toString())}')`
     }
 
     async.eachSeries(sqls, function (item, callback) {
@@ -989,8 +996,8 @@ exports.honor_counts_word_sub = function (req, res) {
         const strUUID = uuidv4(); // ⇨ '1b9d6bcd-bbfd-4b2d-9b5d-ab8dfbbd4bed'
         const strUUID2 = strUUID.replace(/-/g, '');       // 去掉-字符
         sqls[i+1] = `INSERT INTO tch_judge_comp(id, univ_code, discipline_code,user_fill_id,tch_name, comp_name, comp_yr_mth,pos) 
-        VALUES ('${strUUID2}','${user.univ_code}','${user.discipline_code}','${user_fill_id}','${submit_info[i].tch_name}',
-        '${submit_info[i].comp_name}','${submit_info[i].comp_yr_mth}','${submit_info[i].pos}')`
+        VALUES ('${strUUID2}','${user.univ_code}','${user.discipline_code}','${user_fill_id}','${toLiteral(submit_info[i].tch_name.toString())}',
+        '${toLiteral(submit_info[i].comp_name.toString())}','${submit_info[i].comp_yr_mth}','${submit_info[i].pos}')`
     }
 
     async.eachSeries(sqls, function (item, callback) {
