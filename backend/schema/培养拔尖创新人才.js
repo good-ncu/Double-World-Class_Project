@@ -145,7 +145,7 @@ const data_2_2_3_2 = joi.array().items(
 //mphd_tutor_const 
 const data_2_2_4 = joi.array().items(
     joi.object().keys({
-        yr:joi.string().pattern(/^(1[9][5-9][0-9]|2[0][0-2][0-9])-(1[9][5-9][0-9]|2[0][0-2][0-9])$/).required().error(new Error('学年度填报错误！')),
+        yr:joi.string().pattern(/^(2[0][2][1-9])-(2[0][2][1-9])$/).required().error(new Error('学年度填报错误！')),
         master_tutor_num:joi.number().integer().min(0).required().error(new Error('硕士研究生导师数量填报错误！')),
         doc_tutor_num:joi.number().integer().min(0).required().error(new Error('博士研究生导师数量填报错误！')),
     }
@@ -155,7 +155,7 @@ const data_2_2_4 = joi.array().items(
 //fullprof_tch_underg 
 const data_2_2_5 = joi.array().items(
     joi.object().keys({
-        yr:joi.string().pattern(/^(1[9][5-9][0-9]|2[0][0-2][0-9])-(1[9][5-9][0-9]|2[0][0-2][0-9])$/).required().error(new Error('学年度填报错误！')),
+        yr:joi.string().pattern(/^(2[0][2][1-9])-(2[0][2][1-9])$/).required().error(new Error('学年度填报错误！')),
         sem:joi.number().integer().less(3).greater(0).error(new Error('学期填报错误！')),
         num_full_prof:joi.number().integer().min(0).required().error(new Error('学科正教授数填报错误！')),
         num_full_prof_teach_underg:joi.number().integer().min(0).required().error(new Error('为本科生上课的正教授数填报错误！')),
