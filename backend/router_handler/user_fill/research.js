@@ -14,7 +14,7 @@ const { query } = require('express');
 var fs = require('fs');
 function toLiteral(str) {
     // var dict = { '\b': 'b', '\t': 't', '\n': 'n', '\v': 'v', '\f': 'f', '\r': 'r' };
-    return str.replace(/([\\'])/g, function ($0, $1) {
+    return str.replace(/(['])/g, function ($0, $1) {
         return '\'' + $1;
     });
 }
