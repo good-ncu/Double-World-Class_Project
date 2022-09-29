@@ -13,11 +13,17 @@ const async = require('async');
 const { query } = require('express');
 var fs = require('fs');
 
+function toLiteral(str) {
+    // var dict = { '\b': 'b', '\t': 't', '\n': 'n', '\v': 'v', '\f': 'f', '\r': 'r' };
+    return str.replace(/([\\'])/g, function ($0, $1) {
+        return '\'' + $1;
+    });
+}
 
 /**
  *  二级表格下的表格是否可以填报
- *  */ 
- exports.query_is_time = function(req,res){
+ *  */
+exports.query_is_time = function (req, res) {
     // 1. 在fill表内根据fill_id检查flag（1在填报周期，0不在填报周期）
     // 2. 根据fill_id、user_id去user_fill表内查找flag，若为1则已经填报，若为0或者null则未填报
     // 接收表单数据
@@ -28,7 +34,7 @@ var fs = require('fs');
     var sqls = []
     userinfo = req.user
     for (let i = 0, len = submit_info.length; i < len; i++) {
-        var t1 = submit_info[i]+'_%'
+        var t1 = submit_info[i] + '_%'
         sqls[i] = `select id,fill_about,flag,fill_cycle from fill where id like '${t1}'`
     }
     async.each(sqls, function (item, callback) {
@@ -53,7 +59,7 @@ var fs = require('fs');
             return res.cc('系统繁忙,请稍后再试')
         } else {
             // fill表内的记录
-            var all_fill_period = resultt[0].map(function(item) {
+            var all_fill_period = resultt[0].map(function (item) {
                 return {
                     id: item.id,
                     name: item.fill_about,
@@ -65,48 +71,48 @@ var fs = require('fs');
             })
             console.log(all_fill_period);
             var sqls2 = []
-            var temp  = 0
-            for(let i = 0,len = all_fill_period.length;i<len;i++){
-                sqls2[temp++]=(`select * from user_fill where user_id = '${userinfo.id}' and fill_id='${all_fill_period[i].id}'`)
+            var temp = 0
+            for (let i = 0, len = all_fill_period.length; i < len; i++) {
+                sqls2[temp++] = (`select * from user_fill where user_id = '${userinfo.id}' and fill_id='${all_fill_period[i].id}'`)
             }
             // user_fill表内的记录
             // var all_user_fill = []
-            var count = 0 
+            var count = 0
             async.each(sqls2,
-                function(item,callback){
+                function (item, callback) {
                     console.log("loulou");
                     console.log(item);
-                    client.query(item, function(err,results) {
-                            count++
-                            if (err) {
-                                callback(err)
-                            } else {
-                                // 非NULL
-                                if(results.rows.length!==0){
-                                    console.log(results.rows);
-                                    // 只有一条记录
-                                    if(results.rows.length==1){
-                                        all_fill_period[count-1].is_filled = results.rows[0].flag
-                                    }
-                                    var c = 0
-                                    // 还可能存在多个记录，检索所有记录，是不是user_fill中的flag都为0
-                                    for(let i = 0, len = results.rows.length; i < len; i++){
-                                        if(results.rows[i].flag == 1){
-                                            c=1
-                                            break
-                                        }
-                                    }
-                                    all_fill_period[count-1].is_filled = c
-                                    // all_user_fill.push(results.rows[0])
-                                } else {
-                                    all_fill_period[count-1].is_filled = 0
+                    client.query(item, function (err, results) {
+                        count++
+                        if (err) {
+                            callback(err)
+                        } else {
+                            // 非NULL
+                            if (results.rows.length !== 0) {
+                                console.log(results.rows);
+                                // 只有一条记录
+                                if (results.rows.length == 1) {
+                                    all_fill_period[count - 1].is_filled = results.rows[0].flag
                                 }
-                                callback()
+                                var c = 0
+                                // 还可能存在多个记录，检索所有记录，是不是user_fill中的flag都为0
+                                for (let i = 0, len = results.rows.length; i < len; i++) {
+                                    if (results.rows[i].flag == 1) {
+                                        c = 1
+                                        break
+                                    }
+                                }
+                                all_fill_period[count - 1].is_filled = c
+                                // all_user_fill.push(results.rows[0])
+                            } else {
+                                all_fill_period[count - 1].is_filled = 0
                             }
+                            callback()
+                        }
                     })
-                }, 
-                function(err){
-                    if(err){
+                },
+                function (err) {
+                    if (err) {
                         console.log(err);
                         res.cc('系统繁忙，请稍后再试')
                     } else {
@@ -119,81 +125,81 @@ var fs = require('fs');
                     }
                 }
             )
-        //     var sqls2 = []
-        //     console.log(resultt[0]);
-        //     resultt = resultt[0]
-        //     var count = 0 
-        //     // 循环遍历上个查询结果时，可以顺便就把下个sql定义了
-        //     // 临时变量，用于当作sqls2的移动下标，不宜直接在循环中用i作下标
-        //     var temp = 0
-        //     // 临时变量，用于当作real_result的移动下标，不宜直接在循环中用i作下标
-        //     var temp_for_real_result = 0
-        //     // 记录 无法填报的表格的id
-        //     var real_result = []
-        //     // 先检查填报周期，如果全部不在填报周期，就直接返回数据（所有按钮灰色）
-        //     for(let i = 0,len = resultt.length;i<len;i++){
-        //         if(resultt[i].flag===0){
-        //             count++
-        //             real_result[temp_for_real_result++] = resultt[i].id
-        //             if(count===len){
-        //                 return res.send({
-        //                     result: resultt
-        //                 })
-        //             }
-        //         }
-        //         if(resultt[i].flag===1){
-        //             // 存在处于填报周期的字段
-        //             sqls2[temp]=(`select * from user_fill where user_id = '${userinfo.id}' and fill_id='${resultt[i].id}'`)
-        //         }
-        //     }
-        //     console.log("===========================");
-        //     console.log(real_result);
-        //     console.log(sqls2);
-        //     var resultt2 = []
-        //     // 否则再依次检查flag为1的fill_id是否填报过
-        //     async.each(sqls2,function(item,callback){
-        //         client.query(item, function(err,results) {
-        //             if (err) {
-        //                 callback(err)
-        //             } else {
-        //                 // 非NULL
-        //                 if(results.rows.length!==0){
-        //                     resultt2.push(results.rows[0])
-        //                 }
-        //                 callback()
-        //             }
-        //         })
-        //     }, function(err){
-        //         if(err){
-        //             console.log(err);
-        //         } else {
-        //             console.log(resultt2);
-        //             for(let i = 0,len = resultt2.length;i<len;i++){
-        //                 if(resultt2[i].flag===1){
-        //                     // 记录无法填报的表格的id
-        //                     real_result[temp_for_real_result++] = resultt2[i].fill_id
-        //                 }
-        //             }
-        //             // 记录无法填报的表格的完整信息（id, name, cycle）
-        //             var unable_fill_result = []
-        //             var temp_unable_fill_result = 0
-        //             for(let i = 0,len = resultt.length;i<len;i++){
-        //                 if(real_result.includes(resultt[i].id)){
-        //                     unable_fill_result[temp_unable_fill_result] = resultt[i]
-        //                     // flag置空 避免误解
-        //                     unable_fill_result[temp_unable_fill_result].flag = ''
-        //                     temp_unable_fill_result++
-        //                 }
-        //             }
-        //             res.send({
-        //                 unable_fill: unable_fill_result
-        //             })
-        //         }
-        //     })
-        //     // res.send({
-        //     //     result: resultt
-        //     // })
-        //     // console.log("SQL全部执行成功");
+            //     var sqls2 = []
+            //     console.log(resultt[0]);
+            //     resultt = resultt[0]
+            //     var count = 0 
+            //     // 循环遍历上个查询结果时，可以顺便就把下个sql定义了
+            //     // 临时变量，用于当作sqls2的移动下标，不宜直接在循环中用i作下标
+            //     var temp = 0
+            //     // 临时变量，用于当作real_result的移动下标，不宜直接在循环中用i作下标
+            //     var temp_for_real_result = 0
+            //     // 记录 无法填报的表格的id
+            //     var real_result = []
+            //     // 先检查填报周期，如果全部不在填报周期，就直接返回数据（所有按钮灰色）
+            //     for(let i = 0,len = resultt.length;i<len;i++){
+            //         if(resultt[i].flag===0){
+            //             count++
+            //             real_result[temp_for_real_result++] = resultt[i].id
+            //             if(count===len){
+            //                 return res.send({
+            //                     result: resultt
+            //                 })
+            //             }
+            //         }
+            //         if(resultt[i].flag===1){
+            //             // 存在处于填报周期的字段
+            //             sqls2[temp]=(`select * from user_fill where user_id = '${userinfo.id}' and fill_id='${resultt[i].id}'`)
+            //         }
+            //     }
+            //     console.log("===========================");
+            //     console.log(real_result);
+            //     console.log(sqls2);
+            //     var resultt2 = []
+            //     // 否则再依次检查flag为1的fill_id是否填报过
+            //     async.each(sqls2,function(item,callback){
+            //         client.query(item, function(err,results) {
+            //             if (err) {
+            //                 callback(err)
+            //             } else {
+            //                 // 非NULL
+            //                 if(results.rows.length!==0){
+            //                     resultt2.push(results.rows[0])
+            //                 }
+            //                 callback()
+            //             }
+            //         })
+            //     }, function(err){
+            //         if(err){
+            //             console.log(err);
+            //         } else {
+            //             console.log(resultt2);
+            //             for(let i = 0,len = resultt2.length;i<len;i++){
+            //                 if(resultt2[i].flag===1){
+            //                     // 记录无法填报的表格的id
+            //                     real_result[temp_for_real_result++] = resultt2[i].fill_id
+            //                 }
+            //             }
+            //             // 记录无法填报的表格的完整信息（id, name, cycle）
+            //             var unable_fill_result = []
+            //             var temp_unable_fill_result = 0
+            //             for(let i = 0,len = resultt.length;i<len;i++){
+            //                 if(real_result.includes(resultt[i].id)){
+            //                     unable_fill_result[temp_unable_fill_result] = resultt[i]
+            //                     // flag置空 避免误解
+            //                     unable_fill_result[temp_unable_fill_result].flag = ''
+            //                     temp_unable_fill_result++
+            //                 }
+            //             }
+            //             res.send({
+            //                 unable_fill: unable_fill_result
+            //             })
+            //         }
+            //     })
+            //     // res.send({
+            //     //     result: resultt
+            //     // })
+            //     // console.log("SQL全部执行成功");
         }
     });
 }
@@ -205,7 +211,7 @@ var fs = require('fs');
  * @param {*} req 
  * @param {*} res 
  */
- exports.get_funds_sub = function(req,res){
+exports.get_funds_sub = function (req, res) {
 
     // 接收表单数据
     const submit_info = req.body.data_5_1_1
@@ -218,7 +224,7 @@ var fs = require('fs');
     for (let i = 0, len = submit_info.length; i < len; i++) {
         const strUUID = uuidv4(); // ⇨ '1b9d6bcd-bbfd-4b2d-9b5d-ab8dfbbd4bed'
         const strUUID2 = strUUID.replace(/-/g, '');       // 去掉-字符
-        sqls[i+1] = `INSERT INTO achv_to_univfund(id, univ_code, discipline_code, yr, quarter, achv_to_univfund,user_fill_id) 
+        sqls[i + 1] = `INSERT INTO achv_to_univfund(id, univ_code, discipline_code, yr, quarter, achv_to_univfund,user_fill_id) 
         VALUES ('${strUUID2}','${user.univ_code}','${user.discipline_code}',${submit_info[i].yr},
         '${submit_info[i].quarter}',${submit_info[i].achv_to_univfund},'${user_fill_id}')`
     }
@@ -273,7 +279,7 @@ var fs = require('fs');
  * @param {*} req 
  * @param {*} res 
  */
- exports.industry_nation_counts_sub = function(req,res){
+exports.industry_nation_counts_sub = function (req, res) {
 
     // 接收表单数据
     const submit_info = req.body.data_5_2_1_1
@@ -288,9 +294,9 @@ var fs = require('fs');
     for (let i = 0, len = submit_info.length; i < len; i++) {
         const strUUID = uuidv4(); // ⇨ '1b9d6bcd-bbfd-4b2d-9b5d-ab8dfbbd4bed'
         const strUUID2 = strUUID.replace(/-/g, '');       // 去掉-字符
-        sqls[i+1] = `INSERT INTO prodedu_plat(id, univ_code, discipline_code,yr, plat_name, plat_level, appro_date,user_fill_id) 
+        sqls[i + 1] = `INSERT INTO prodedu_plat(id, univ_code, discipline_code,yr, plat_name, plat_level, appro_date,user_fill_id) 
         VALUES ('${strUUID2}','${user.univ_code}','${user.discipline_code}',${submit_info[i].yr},
-        '${submit_info[i].plat_name}','${submit_info[i].plat_level}','${submit_info[i].appro_date}','${user_fill_id}')`
+        '${toLiteral(submit_info[i].plat_name.toString())}','${submit_info[i].plat_level}','${submit_info[i].appro_date}','${user_fill_id}')`
 
     }
 
@@ -343,7 +349,7 @@ var fs = require('fs');
  * @param {*} req 
  * @param {*} res 
  */
- exports.industry_province_counts_sub = function(req,res){
+exports.industry_province_counts_sub = function (req, res) {
 
     // 接收表单数据
     const submit_info = req.body.data_5_2_1_2
@@ -357,9 +363,9 @@ var fs = require('fs');
     for (let i = 0, len = submit_info.length; i < len; i++) {
         const strUUID = uuidv4(); // ⇨ '1b9d6bcd-bbfd-4b2d-9b5d-ab8dfbbd4bed'
         const strUUID2 = strUUID.replace(/-/g, '');       // 去掉-字符
-        sqls[i+1] = `INSERT INTO prodedu_plat(id, univ_code, discipline_code,yr, plat_name, plat_level, appro_date,user_fill_id) 
+        sqls[i + 1] = `INSERT INTO prodedu_plat(id, univ_code, discipline_code,yr, plat_name, plat_level, appro_date,user_fill_id) 
         VALUES ('${strUUID2}','${user.univ_code}','${user.discipline_code}',${submit_info[i].yr},
-        '${submit_info[i].plat_name}','${submit_info[i].plat_level}','${submit_info[i].appro_date}','${user_fill_id}')`
+        '${toLiteral(submit_info[i].plat_name.toString())}','${submit_info[i].plat_level}','${submit_info[i].appro_date}','${user_fill_id}')`
         console.log(sqls[i])
     }
 
@@ -413,7 +419,7 @@ var fs = require('fs');
  * @param {*} req 
  * @param {*} res 
  */
- exports.consultative_nation_counts_sub = function(req,res){
+exports.consultative_nation_counts_sub = function (req, res) {
 
     // 接收表单数据
     const submit_info = req.body.data_5_2_2_1
@@ -427,9 +433,9 @@ var fs = require('fs');
     for (let i = 0, len = submit_info.length; i < len; i++) {
         const strUUID = uuidv4(); // ⇨ '1b9d6bcd-bbfd-4b2d-9b5d-ab8dfbbd4bed'
         const strUUID2 = strUUID.replace(/-/g, '');       // 去掉-字符
-        sqls[i+1] = `INSERT INTO consult_policy(id, univ_code, discipline_code, yr, level, topic, adopt_leader, adopt_sit, adopt_date,user_fill_id) 
+        sqls[i + 1] = `INSERT INTO consult_policy(id, univ_code, discipline_code, yr, level, topic, adopt_leader, adopt_sit, adopt_date,user_fill_id) 
         VALUES ('${strUUID2}','${user.univ_code}','${user.discipline_code}',${submit_info[i].yr},
-        '国家级','${submit_info[i].topic}','${submit_info[i].adopt_leader}','${submit_info[i].adopt_sit}','${submit_info[i].adopt_date}','${user_fill_id}')`
+        '国家级','${toLiteral(submit_info[i].topic.toString())}','${toLiteral(submit_info[i].adopt_leader.toString())}','${submit_info[i].adopt_sit}','${submit_info[i].adopt_date}','${user_fill_id}')`
 
     }
 
@@ -483,7 +489,7 @@ var fs = require('fs');
  * @param {*} req 
  * @param {*} res 
  */
- exports.consultative_province_counts_sub = function(req,res){
+exports.consultative_province_counts_sub = function (req, res) {
 
     // 接收表单数据
     const submit_info = req.body.data_5_2_2_2
@@ -496,10 +502,10 @@ var fs = require('fs');
     for (let i = 0, len = submit_info.length; i < len; i++) {
         const strUUID = uuidv4(); // ⇨ '1b9d6bcd-bbfd-4b2d-9b5d-ab8dfbbd4bed'
         const strUUID2 = strUUID.replace(/-/g, '');       // 去掉-字符
-        sqls[i+1] = `INSERT INTO consult_policy(id, univ_code, discipline_code, yr, level, topic, adopt_leader, adopt_sit, adopt_date,user_fill_id) 
+        sqls[i + 1] = `INSERT INTO consult_policy(id, univ_code, discipline_code, yr, level, topic, adopt_leader, adopt_sit, adopt_date,user_fill_id) 
         VALUES ('${strUUID2}','${user.univ_code}','${user.discipline_code}',${submit_info[i].yr},
-        '省部级','${submit_info[i].topic}','${submit_info[i].adopt_leader}','${submit_info[i].adopt_sit}','${submit_info[i].adopt_date}','${user_fill_id}')`
-       
+        '省部级','${toLiteral(submit_info[i].topic.toString())}','${toLiteral(submit_info[i].adopt_leader.toString())}','${submit_info[i].adopt_sit}','${submit_info[i].adopt_date}','${user_fill_id}')`
+
     }
 
     async.eachSeries(sqls, function (item, callback) {
@@ -534,7 +540,7 @@ var fs = require('fs');
             client.query(`insert into user_fill(id, user_id, fill_id) values('${user_fill_id}','${user.id}','5_2_2_2')`, function (err, result) {
                 if (err) return res.cc('系统繁忙,请稍后再试')
                 if (result.rowCount !== 1) return res.cc('系统繁忙,请稍后再试')
-  
+
                 res.send({
                     status: 0,
                     message: "填报成功！！"
@@ -542,19 +548,19 @@ var fs = require('fs');
             })
         }
     });
- }
+}
 
 
 
- // 5_4_1      docx
- exports.kjxt_sub = function (req, res) {
+// 5_4_1      docx
+exports.kjxt_sub = function (req, res) {
     user = req.user
-    
+
     fil_id = '5_4_1'
-    
+
     path_temp = req.body.path
     // 先判断前端传来的path数组有无字段，无则直接return
-    if (path_temp.length == 0){
+    if (path_temp.length == 0) {
         return res.cc("请先选择文件再点击提交！")
     }
     var path_ora = []
@@ -578,10 +584,10 @@ var fs = require('fs');
                 });
 
             } else {
-                return res.cc("您提交的第"+(i+1)+"个文件不存在，请稍后再试")
+                return res.cc("您提交的第" + (i + 1) + "个文件不存在，请稍后再试")
             }
         } catch (err) {
-            return res.cc('第'+(i+1)+'个文件上传失败，请稍后再试')
+            return res.cc('第' + (i + 1) + '个文件上传失败，请稍后再试')
         }
     }
 
@@ -641,12 +647,12 @@ var fs = require('fs');
 // 5_4_2      docx
 exports.fwgj_sub = function (req, res) {
     user = req.user
-    
+
     fil_id = '5_4_2'
-    
+
     path_temp = req.body.path
     // 先判断前端传来的path数组有无字段，无则直接return
-    if (path_temp.length == 0){
+    if (path_temp.length == 0) {
         return res.cc("请先选择文件再点击提交！")
     }
     var path_ora = []
@@ -670,10 +676,10 @@ exports.fwgj_sub = function (req, res) {
                 });
 
             } else {
-                return res.cc("您提交的第"+(i+1)+"个文件不存在，请稍后再试")
+                return res.cc("您提交的第" + (i + 1) + "个文件不存在，请稍后再试")
             }
         } catch (err) {
-            return res.cc('第'+(i+1)+'个文件上传失败，请稍后再试')
+            return res.cc('第' + (i + 1) + '个文件上传失败，请稍后再试')
         }
     }
 
