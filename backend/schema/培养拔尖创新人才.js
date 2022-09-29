@@ -25,7 +25,7 @@ const data_2_2_1_0 = joi.array().items(
         .when('award_ltype',{is:'省级教学成果奖',then:joi.string().valid('特等奖','一等奖','二等奖')})
         .required().error(new Error('奖项等级填报错误！')),
         tch_name:joi.string().min(1).max(100).required().error(new Error('成果完成人姓名填报错误！')),
-        award_date:joi.string().pattern(/^(1[9][5-9][0-9]|2[0][0-2][0-9]|2020)-(0[1-9]|1[0-2])$/).error(new Error('获奖时间填写错误！')),
+        award_date:joi.string().pattern(/^(1[9][5-9][0-9]|2[0][0-1][0-9]|2020)-(0[1-9]|1[0-2])$/).error(new Error('获奖时间填写错误！')),
     })
 )
 //  截止日期1950到2020年12月31日：/^(1[9][5-9][0-9]|2[0][0-2][0-9]|2020)-(0[1-9]|1[0-2])$/
@@ -128,7 +128,7 @@ const data_2_2_3_1 = joi.array().items(
         plat_base_type:joi.string().valid('国家级人才培养平台').required().error(new Error('平台/基地类别填报错误！')),
         plat_base_name:joi.string().min(1).max(100).required().error(new Error('平台/基地名称填报错误！')),
         head_name:joi.string().min(1).max(13).required().error(new Error('负责人填报错误！')),
-        yr:joi.number().integer().less(2029).greater(2020).required().error(new Error('获批填报错误！')),
+        yr:joi.number().integer().less(2029).greater(2020).required().error(new Error('获批年份填报错误！')),
     }
     )
 )
