@@ -160,6 +160,7 @@ exports.province_subjects_of_school = function (req, res) {
     WHERE user_fill.fill_id IN (SELECT id FROM fill WHERE fill.flag=1)
      AND user_fill.is_delete = '0'
      AND user_fill.flag = 1
+     AND user_fill.is_seen = 1
    ) AS a ON a.user_id = user_info.id
    WHERE 
     all_xk.univ_name = '${school_name}' --传参数
