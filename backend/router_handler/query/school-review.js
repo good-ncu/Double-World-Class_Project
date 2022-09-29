@@ -396,6 +396,14 @@ exports.query_single_discipline_table = function (req, res) {
                 } else {
                     console.log(sql2 + "执行成功")
                     // 将查询出的表的全部信息返回
+                    for (var i = 0; i < results.rows.length; i++) {
+                        if (results.rows[i]["adopt_date"]=='undefined'){
+                            results.rows[i]["adopt_date"] = ""
+                        }
+                        // results2.rows[i]["is_seen"] = null
+                        // results2.rows[i]["is_delete"] = null
+                        // results2.rows[i]["path"] = null
+                    }
                     res.send({
                         status: 0,
                         message: results.rows
