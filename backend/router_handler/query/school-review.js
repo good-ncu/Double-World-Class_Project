@@ -393,10 +393,6 @@ exports.query_single_discipline_table = function (req, res) {
                 if (err) {
                     console.log(err.message)
                     res.cc('服务器错误，请稍后再试')
-                } else if (results.rowCount == 0) {
-                    // 当前sql影响等于0，则错误
-                    err = sql2 + "查询失败"
-                    res.cc(err)
                 } else {
                     console.log(sql2 + "执行成功")
                     // 将查询出的表的全部信息返回
