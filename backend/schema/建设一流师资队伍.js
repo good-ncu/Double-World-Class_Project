@@ -143,7 +143,7 @@ const data_3_3_1 = joi.array().items(
         out_jour_code: joi.string().min(1).allow('').required().error(new Error('国际期刊编号填报错误！')),
         jour_collect: joi.string().valid('CSSCI', 'CSCD', 'SCI', 'SSCI', 'EI', 'A&HCI', '其他').required().error(new Error('期刊收录情况填报错误！')),
         pos: joi.string().valid('主编', '副主编', '编委').required().error(new Error('担任职务填报错误！')),
-        tenure: joi.string().pattern(/^((1[9][5-9][0-9]|2[0][0-2][0-9])-(0[1-9]|1[0-2]))至((1[9][5-9][0-9]|2[0][0-2][0-9])-(0[1-9]|1[0-2]))$/).required().error(new Error('任职期限填报错误！')),
+        tenure: joi.string().pattern(/^((1[9][5-9][0-9]|2[0][0-2][0-9])-(0[1-9]|1[0-2]))至((2[0][2][1-9])-(0[1-9]|1[0-2]))$/).required().error(new Error('任职期限填报错误！')),
         // tenure:joi.string().min(1).max(100).error(new Error('担任职务填报错误！')),
     }
     )
