@@ -23,7 +23,13 @@ exports.upload_sub = function(req, res) {
         // path_ora[i] = '/root/syl_backend/temp_upload/' + path_temp[i]
         // path_ora[i] = 'D:\\project\\temp_upload\\' + path_temp[i]
         path_ora[i] = '/root/syl_backend/temp_upload/' + path_temp[i]
-
+        fs.mkdir(`/root/syl_backend/attachment_upload/${file_dir}`, function(error){
+            if(error){
+                console.log(error);
+                return res.cc('系统错误请稍后再试');
+            }
+            console.log('创建目录成功：',`/root/syl_backend/attachment_upload/${file_dir}`);
+        })
         try {
             if (fs.existsSync(path_ora[i]) && path_temp[i] != '') {
                 path.push(path_ora[i].replace("temp_upload", `attachment_upload/${file_dir}`))
