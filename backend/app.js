@@ -65,7 +65,9 @@ app.use('/api/fill_switch', fill_switch)
 console.log("jun");
 
 
-
+// 导入并使用 附件上传模块
+const upload_attachment = require('./router/user_fill/upload_attachment')
+app.use('/api', upload_attachment)
 
 // 导入并使用用户暂存模块   学科 - 暂存 
 const user_save = require('./router/user_fill/user_save')
