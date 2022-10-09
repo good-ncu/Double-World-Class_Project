@@ -5,3 +5,4 @@
 /backend/excels/*
 /backend/router_handler/*.docx
 /backend/.history/
+/backend/*.log
