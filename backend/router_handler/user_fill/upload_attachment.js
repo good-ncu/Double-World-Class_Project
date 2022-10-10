@@ -9,7 +9,7 @@ exports.upload_sub = function(req, res) {
     path_temp = req.body.path
     if (path_temp.length == 0) {
         return res.send({
-            status: 0,
+            status: 1,
             message: "无附件上传"
         })
     }
@@ -62,7 +62,7 @@ exports.upload_sub = function(req, res) {
         }
         res.send({
             status: 0,
-            message: "填报成功！！"
+            message: "提交附件成功！！"
         })
     })
 }
