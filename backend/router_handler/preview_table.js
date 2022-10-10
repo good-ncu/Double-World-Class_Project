@@ -55,7 +55,9 @@ exports.preview_attachment = function (req, res) {
         // 拼接新的文件名
         var orname = up_file[i].originalname
         console.log(up_file[i].originalname);
-        var str = user.id + '_' + i + '_'  + orname;
+        var index = orname.lastIndexOf(".");
+        orname = orname.substring(index + 1, orname.length);
+        var str = user.id + '_' + i + '_' + timenow + '.'  + orname;
         // 保存自定义规则生成的文件名
         file_sava_name[i] = str
         console.log(str);
