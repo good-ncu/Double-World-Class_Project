@@ -15,6 +15,12 @@ exports.attach_query_download = function(req,res){
             console.error(err);
             return res.cc("系统繁忙，请稍后再试")
         } else {
+            if (results.rowCount==0){
+                return res.send({
+                    status: 0,
+                    filenameList: []
+                })
+            }
             path_dir = results.rows[0].path
             // path_dir = 'D:\\temp_upload'
             // dirs: path_dir下的所有文件
