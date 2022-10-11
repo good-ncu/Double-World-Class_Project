@@ -18,10 +18,13 @@ exports.upload_sub = function(req, res) {
     timenow = new Date().getTime()
     // 附件所属的文件夹名称
     file_dir = user.id+'-'+fill_id+'-'+timenow
+    if (!(fs.existsSync('/root/syl_backend/temp_upload/' + path_temp[0]) && path_temp[0] != '')){
+        return res.cc("无待提交附件")
+    }
     // 创建文件夹
     fs.mkdir(`/root/syl_backend/attachment_upload/${file_dir}`, function(error){
         if(error){
-            console.log(error);
+            console.error(error);
             return res.cc('系统错误请稍后再试');
         }
         console.log('创建目录成功：',`/root/syl_backend/attachment_upload/${file_dir}`);
@@ -46,6 +49,10 @@ exports.upload_sub = function(req, res) {
                 });
 
             } else {
+                if(i==0){
+                    // 避免多次点击提交附件按钮
+                    return res.cc("无待提交附件")
+                }
                 return res.cc("您提交的第" + (i + 1) + "个文件不存在，请稍后再试")
             }
         } catch (err) {
@@ -57,7 +64,7 @@ exports.upload_sub = function(req, res) {
     console.log(sql);
     client.query(sql, function (err, result) {
         if (err) {
-            console.log(err);
+            console.error(err);
             return res.cc('上传附件错误,请稍后再试')
         }
         res.send({

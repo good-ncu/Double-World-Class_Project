@@ -57,17 +57,18 @@ const userRouter = require('./router/user')
 app.use('/api', userRouter)
 
 
-console.log("lou");
-
 // 导入并使用用户暂存模块   学科 - 暂存 
 const fill_switch = require('./router/fill_switch')
 app.use('/api/fill_switch', fill_switch)
-console.log("jun");
 
 
 // 导入并使用 附件上传模块
 const upload_attachment = require('./router/user_fill/upload_attachment')
 app.use('/api', upload_attachment)
+
+// 导入并使用 附件下载模块
+const download_attachment = require('./router/query/download_attachment')
+app.use('/api', download_attachment)
 
 // 导入并使用用户暂存模块   学科 - 暂存 
 const user_save = require('./router/user_fill/user_save')
