@@ -22,13 +22,8 @@ exports.upload_sub = function(req, res) {
         return res.cc("无待提交附件")
     }
     // 创建文件夹
-    fs.mkdir(`/root/syl_backend/attachment_upload/${file_dir}`, function(error){
-        if(error){
-            console.error(error);
-            return res.cc('系统错误请稍后再试');
-        }
-        console.log('创建目录成功：',`/root/syl_backend/attachment_upload/${file_dir}`);
-    })
+    fs.mkdirSync(`/root/syl_backend/attachment_upload/${file_dir}`)
+    console.log('创建目录成功：',`/root/syl_backend/attachment_upload/${file_dir}`);
     // for循环， 每一个循环都是移动一个文件从temp_upload 到 upload文件
     for (let i = 0, len = path_temp.length; i < len; i++) {
         // path_ora[i] = '/root/syl_backend/temp_upload/' + path_temp[i]
