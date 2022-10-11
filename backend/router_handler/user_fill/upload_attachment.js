@@ -39,14 +39,10 @@ exports.upload_sub = function(req, res) {
                 path.push(path_ora[i].replace("temp_upload", `attachment_upload/${file_dir}`))
                 // path.push(path_ora[i].replace("temp_", "temp2222_"))
                 console.log(path[i]);
-                fs.renameSync(path_ora[i], path[i], function (err) {
-                    if (path_ora[i])
-                        if (err) err = '文件上传失败，请稍后再试'
-                    fs.stat(path[i], function (err, stats) {
-                        console.log('stats: ' + JSON.stringify(stats));
-                        if (err) err = '文件上传失败，请稍后再试'
-                    });
-                });
+                fs.renameSync(path_ora[i], path[i])
+                if(fs.existsSync(path_ora[i])){
+                    err = '文件上传失败，请稍后再试'
+                }
 
             } else {
                 if(i==0){
