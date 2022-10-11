@@ -53,8 +53,9 @@ exports.attach_filled_download = function(req,res){
     filename = req.body.filename
     id = req.body.id
     discipline_name = req.body.name
-    user = req.user
-    sql1 = `select * from univ_discipline where univ_code = '${univ_code}' and discipline_name = '${discipline_name}'`
+    // user = req.user
+    univ_name = req.body.univ_name
+    sql1 = `select * from univ_discipline where univ_name = '${univ_name}' and discipline_name = '${discipline_name}'`
     client.query(sql1,function(err,results){
         if(err){
             console.error(err);
