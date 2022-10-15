@@ -84,7 +84,7 @@ const data_3_2_2_2 = joi.array().items(
 //numstru_fulltch 
 const data_3_2_3 = joi.array().items(
     joi.object().keys({
-        yr: joi.string().pattern(/^(2[0][2][1-9])-(2[0][2][1-9])$/).required().error(new Error('学年度填报错误！')),
+        yr: joi.string().pattern(/^(2[0][2][0-9])-(2[0][2][1-9])$/).required().error(new Error('学年度填报错误！')),
         full_tch_num: joi.number().integer().min(0).required().error(new Error('专任教师总数填报错误！')),
         ageblow25: joi.number().integer().min(0).required().error(new Error('25岁以下数量填报错误！')),
         age2535: joi.number().integer().min(0).required().error(new Error('25-35岁数量填报错误！')),
@@ -123,7 +123,7 @@ const data_3_2_4 = joi.array().items(
 //numstru_for_fulltch 
 const data_3_2_5 = joi.array().items(
     joi.object().keys({
-        yr: joi.string().pattern(/^(2[0][2][1-9])-(2[0][2][1-9])$/).required().error(new Error('学年度填报错误！')),
+        yr: joi.string().pattern(/^(2[0][2][0-9])-(2[0][2][1-9])$/).required().error(new Error('学年度填报错误！')),
         sum_full_ftch: joi.number().integer().min(0).required().error(new Error('数量(总数)填报错误！')),
         sum_high_title: joi.number().integer().min(0).required().error(new Error('正高级职称数量(总数)填报错误！')),
         lang_full_ftch: joi.number().integer().min(0).required().error(new Error('数量(语言类外籍专任教师数)填报错误！')),
