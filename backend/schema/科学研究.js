@@ -285,7 +285,7 @@ const data_4_3_1 = joi.array().items(
    joi.object().keys({
        yr:joi.number().integer().less(2029).greater(2020).required().error(new Error('年度填报错误！')),
        proj_name:joi.string().min(1).max(200).required().error(new Error('名称填报错误！')),
-       proj_type:joi.string().valid('纵向','横向').required().error(new Error('类型填报错误！')),
+       proj_type:joi.string().required().error(new Error('类型填报错误！')),
        quarter:joi.string().valid('第一季度','第二季度','第三季度','第四季度').required().error(new Error('季度填报错误！')),
        parti_type:joi.string().min(1).max(100).required().error(new Error('参与类型填报错误！')),              //
    }
