@@ -397,7 +397,7 @@ exports.query_single_discipline_table = function (req, res) {
                     console.log(sql2 + "执行成功")
                     // 将查询出的表的全部信息返回
                     for (var i = 0; i < results.rows.length; i++) {
-                        if (results.rows[i]["adopt_date"]=='undefined'){
+                        if (results.rows[i]["adopt_date"] == 'undefined') {
                             results.rows[i]["adopt_date"] = ""
                         }
                         // results2.rows[i]["is_seen"] = null
@@ -432,6 +432,89 @@ exports.delete_single_discipline_table = function (req, res) {
     for (let i = 0, len = subinfo.length; i < len; i++) {
         sqls[i] = `update user_fill set flag = 0 , is_delete = 1 where id = '${subinfo[i].id}'`
     }
+    async.each(sqls, function (item, callback) {
+        // 遍历每条SQL并执行
+        client.query(item, function (err, results) {
+            if (err) {
+                // 异常后调用callback并传入err
+                callback(err);
+            } else if (results.rowCount !== 1) {
+                // 当前sql影响不为1，则错误
+                err = "驳回失败,请刷新页面，重新操作"
+                callback(err);
+            } else {
+                console.log(item + "执行成功");
+                // 执行完成后也要调用callback，不需要参数
+                callback();
+            }
+        });
+    }, function (err) {
+        // 所有SQL执行完成后回调
+        if (err) {
+            res.send({
+                status: 1,
+                message: err
+            })
+        } else {
+            res.send({
+                status: 0,
+                message: "驳回成功！"
+            })
+        }
+    });
+}
+
+
+// 6个文档的审核
+exports.check_word_discipline_current = function (req, res) {
+    userinfo = req.user
+    // 第二步中的id  ，即uuid
+    id = req.body.id
+    var sqls = []
+    // var to_dbtable
+
+    sqls.push(`update user_fill set is_seen = 1 where id = '${id}'`)
+    console.log(sqls)
+    async.each(sqls, function (item, callback) {
+        // 遍历每条SQL并执行
+        client.query(item, function (err, results) {
+            if (err) {
+                // 异常后调用callback并传入err
+                callback(err);
+            } else if (results.rowCount !== 1) {
+                // 当前sql影响不为1，则错误
+                err = "审核失败,请刷新页面，重新操作"
+                callback(err);
+            } else {
+                console.log(item + "执行成功");
+                // 执行完成后也要调用callback，不需要参数
+                callback();
+            }
+        });
+    }, function (err) {
+        // 所有SQL执行完成后回调
+        if (err) {
+            res.send({
+                status: 1,
+                message: err
+            })
+        } else {
+            res.send({
+                status: 0,
+                message: "已审阅！"
+            })
+        }
+    });
+}
+
+//6个文档的驳回
+exports.delete_word_discipline_table = function (req, res) {
+    userinfo = req.user
+    id = req.body.id
+    var sqls = []
+    // var to_dbtable
+
+    sqls.push(`update user_fill set flag = 0 , is_delete = 1 where id = '${id}'`)
     async.each(sqls, function (item, callback) {
         // 遍历每条SQL并执行
         client.query(item, function (err, results) {
