@@ -3,7 +3,7 @@ const client = require('../../db/index')
 var fs = require('fs'); // 引入fs模块
 
 
-exports.upload_sub = function(req, res) {
+exports.upload_sub = function (req, res) {
     user = req.user
     fill_id = req.body.fill_id
     path_temp = req.body.path
@@ -17,30 +17,36 @@ exports.upload_sub = function(req, res) {
     var path = []
     timenow = new Date().getTime()
     // 附件所属的文件夹名称
-    file_dir = user.id+'-'+fill_id+'-'+timenow
-    if (!(fs.existsSync('/root/syl_backend/temp_upload/' + path_temp[0]) && path_temp[0] != '')){
+    file_dir = user.id + '-' + fill_id + '-' + timenow
+    // if (!(fs.existsSync('/root/syl_backend/temp_upload/' + path_temp[0]) && path_temp[0] != '')){
+    if (!(fs.existsSync('D:\\project\\temp_upload\\' + path_temp[0]) && path_temp[0] != '')) {
         return res.cc("无待提交附件")
     }
     // 创建文件夹
-    fs.mkdirSync(`/root/syl_backend/attachment_upload/${file_dir}`)
-    console.log('创建目录成功：',`/root/syl_backend/attachment_upload/${file_dir}`);
+
+    // fs.mkdirSync(`/root/syl_backend/attachment_upload/${file_dir}`)
+    fs.mkdirSync(`D:\\project\\attachment_upload\\${file_dir}`)
+
+    // console.log('创建目录成功：', `/root/syl_backend/attachment_upload/${file_dir}`);
+
+    console.log('创建目录成功：', `D:\\project\\attachment_upload\\${file_dir}`);
     // for循环， 每一个循环都是移动一个文件从temp_upload 到 upload文件
     for (let i = 0, len = path_temp.length; i < len; i++) {
         // path_ora[i] = '/root/syl_backend/temp_upload/' + path_temp[i]
-        // path_ora[i] = 'D:\\project\\temp_upload\\' + path_temp[i]
-        path_ora[i] = '/root/syl_backend/temp_upload/' + path_temp[i]
+        path_ora[i] = 'D:\\project\\temp_upload\\' + path_temp[i]
+        // path_ora[i] = '/root/syl_backend/temp_upload/' + path_temp[i]
         try {
             if (fs.existsSync(path_ora[i]) && path_temp[i] != '') {
                 path.push(path_ora[i].replace("temp_upload", `attachment_upload/${file_dir}`))
                 // path.push(path_ora[i].replace("temp_", "temp2222_"))
                 console.log(path[i]);
                 fs.renameSync(path_ora[i], path[i])
-                if(fs.existsSync(path_ora[i])){
+                if (fs.existsSync(path_ora[i])) {
                     err = '文件上传失败，请稍后再试'
                 }
 
             } else {
-                if(i==0){
+                if (i == 0) {
                     // 避免多次点击提交附件按钮
                     return res.cc("无待提交附件")
                 }
@@ -51,7 +57,8 @@ exports.upload_sub = function(req, res) {
         }
     }
 
-    sql = `insert into attachment(id, user_id, fill_id, path) values('${file_dir}','${user.id}','${fill_id}','/root/syl_backend/attachment_upload/${file_dir}/')`
+    // sql = `insert into attachment(id, user_id, fill_id, path) values('${file_dir}','${user.id}','${fill_id}','/root/syl_backend/attachment_upload/${file_dir}/')`
+    sql = `insert into attachment(id, user_id, fill_id, path) values('${file_dir}','${user.id}','${fill_id}','D:\\project\\attachment_upload\\${file_dir}\\')`
     console.log(sql);
     client.query(sql, function (err, result) {
         if (err) {

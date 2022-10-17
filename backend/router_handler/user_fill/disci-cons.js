@@ -40,8 +40,8 @@ exports.progress_situation_sub = function (req, res) {
     var path = []
     // for循环， 每一个循环都是移动一个文件从temp_upload 到 upload文件
     for (let i = 0, len = path_temp.length; i < len; i++) {
-        path_ora[i] = '/root/syl_backend/temp_upload/' + path_temp[i]
-        // path_ora[i] = 'D:\\project\\temp_upload\\' + path_temp[i]
+        // path_ora[i] = '/root/syl_backend/temp_upload/' + path_temp[i]
+        path_ora[i] = 'D:\\project\\temp_upload\\' + path_temp[i]
 
         try {
             if (fs.existsSync(path_ora[i]) && path_temp[i] != '') {

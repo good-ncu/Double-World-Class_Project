@@ -24,7 +24,8 @@ exports.download_excels = function (req, res) {
             return res.cc('系统繁忙，请稍后再试！')
         }
         var filename = results.rows[0].fill_about
-        var path = `/root/syl_backend/template/excels/${filename}.xlsx`
+        // var path = `/root/syl_backend/template/excels/${filename}.xlsx`
+        var path = `D:\\project\\template\\excels\\${filename}.xlsx`
         console.log(path);
 
         // check if directory exists
@@ -76,7 +77,9 @@ exports.download_filled_word = function (req, res) {
     var filename = req.query.filename
 
 
-    var path = `/root/syl_backend/upload/${filename}`
+    // var path = `/root/syl_backend/upload/${filename}`
+    var path = `D:\\project\\upload\\${filename}`
+
     console.log(path)
 
     // check if directory exists
@@ -160,7 +163,9 @@ exports.review_download_filled_word = function (req, res) {
     var filename = req.query.filename
 
 
-    var path = `/root/syl_backend/upload/${filename}`
+    // var path = `/root/syl_backend/upload/${filename}`
+    var path = `D:\\project\\upload\\${filename}`
+
     console.log(path)
 
     // check if directory exists
@@ -250,7 +255,9 @@ exports.download_report = function (req, res) {
     console.log(req.url);
     console.log(req.query);
     var filename = '阶段性数据报告.docx'
-    var path = `/root/syl_backend/template/${filename}`
+    // var path = `/root/syl_backend/template/${filename}`
+    var path = `D:\\project\\template\\${filename}`
+    // D:\\project\\upload
     console.log(path);
 
     // check if directory exists
@@ -281,7 +288,8 @@ exports.download_allexcels = function (req, res) {
     console.log(req.url);
     console.log(req.query);
     var filename = '阶段性学科填报信息.xlsx'
-    var path = `/root/syl_backend/template/${filename}`
+    // var path = `/root/syl_backend/template/${filename}`
+    var path = `D:\\project\\template\\${filename}`
     console.log(path);
 
     // check if directory exists
