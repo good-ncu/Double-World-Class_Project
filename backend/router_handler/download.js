@@ -157,7 +157,7 @@ exports.review_download_filled_word = function (req, res) {
     console.log("=============下载选中的文件================");
     // 表的id  如 1_1_1
     // user = req.user
-    var filename = req.body.filename
+    var filename = req.query.filename
 
 
     var path = `/root/syl_backend/upload/${filename}`
@@ -193,8 +193,8 @@ exports.review_download_query_wordname = function (req, res) {
     console.log("=============查询某表已提交文档的文档名================");
 
     // 表的id  如 1_1_1
-    user = req.user
-    var id = req.body.id
+    // user = req.user
+    var id = req.query.id
     console.log(id);
 
     var filenameList = []

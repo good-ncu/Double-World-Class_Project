@@ -62,7 +62,7 @@ router.post('/delete-single-discipline-table', school_review_handler.delete_sing
 
 
 // 审核6个文档的接口
-router.post('review-download-filled-word',word_review_handler.review_download_filled_word)
-router.post('review-download-query-wordname',word_review_handler.review_download_query_wordname)
+router.get('review-download-filled-word',word_review_handler.review_download_filled_word)
+router.get('review-download-query-wordname',word_review_handler.review_download_query_wordname)
 
 module.exports = router

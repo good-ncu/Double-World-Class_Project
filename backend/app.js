@@ -48,7 +48,9 @@ app.use(expressJWT({ secret: config.jwtSecretKey, algorithms: ['HS256'] }).unles
     /^\/api\/download-report/,
     /^\/api\/word-filled-download/,
     /^\/api\/alter-pwd-internal/,
-    /^\/api\/attach-filled-download/
+    /^\/api\/attach-filled-download/,
+    /^\/api\/index\/school-query\/review-download-filled-word/,
+    /^\/api\/index\/school-query\/review-download-query-wordname/
   ]
 }))
 
