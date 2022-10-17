@@ -188,6 +188,7 @@ server.setTimeout(0)
 app.use(function (err, req, res, next) {
   // 数据验证失败
   if (err instanceof joi.ValidationError) return res.cc(err)
+  if(err.code=='ENAMETOOLONG') return res.cc('文件名过长，请以默认模板文件名命名文件！');
   // 未知错误
   console.error(err);
   res.cc(err)
