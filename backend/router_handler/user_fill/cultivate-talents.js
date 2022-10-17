@@ -1149,7 +1149,7 @@ exports.student_paper_sub = function (req, res) {
         const strUUID = uuidv4(); // ⇨ '1b9d6bcd-bbfd-4b2d-9b5d-ab8dfbbd4bed'
         const strUUID2 = strUUID.replace(/-/g, '');       // 去掉-字符
         sqls[i + 1] = `INSERT INTO stu_publish_rep_paper(id, univ_code, discipline_code, stu_name, paper_title, publish_date, stu_type, jour_name, jour_volume, jour_collec, is_delete, path, user_fill_id) 
-        VALUES ('${strUUID2}', '${user.univ_code}', '${user.discipline_code}', '${toLiteral(submit_info[i].stu_name.toString())}', '${toLiteral(submit_info[i].paper_title.toString())}', ${submit_info[i].publish_date}, '${submit_info[i].stu_type}', '${toLiteral(submit_info[i].jour_name.toString())}', '${toLiteral(submit_info[i].jour_volume.toString())}', '${submit_info[i].jour_collec}', 0, NULL, '${user_fill_id}');`
+        VALUES ('${strUUID2}', '${user.univ_code}', '${user.discipline_code}', '${toLiteral(submit_info[i].stu_name.toString())}', '${toLiteral(submit_info[i].paper_title.toString())}', '${submit_info[i].publish_date}', '${submit_info[i].stu_type}', '${toLiteral(submit_info[i].jour_name.toString())}', '${toLiteral(submit_info[i].jour_volume.toString())}', '${submit_info[i].jour_collec}', 0, NULL, '${user_fill_id}');`
 
     }
     async.eachSeries(sqls, function (item, callback) {
