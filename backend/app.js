@@ -189,5 +189,6 @@ app.use(function (err, req, res, next) {
   // 数据验证失败
   if (err instanceof joi.ValidationError) return res.cc(err)
   // 未知错误
+  console.error(err);
   res.cc(err)
 })
