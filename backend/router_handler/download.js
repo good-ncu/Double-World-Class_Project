@@ -75,29 +75,29 @@ exports.download_filled_word = function (req, res) {
     // user = req.user
     var filename = req.query.filename
 
-        
-        var path = `/root/syl_backend/upload/${filename}`
-        console.log(path)
 
-        // check if directory exists
-        if (!fs.existsSync(path)) {
-            console.log("没有该文件！");
-            return res.cc('系统繁忙，请稍后再试！')
-        }
+    var path = `/root/syl_backend/upload/${filename}`
+    console.log(path)
 
-        res.writeHead(200, {
-            'Access-Control-Expose-Headers': 'Authorization',
-            'Content-Type': 'application/octet-stream;charset=utf8',
-            'Content-Disposition': "attachment;filename*=UTF-8''" + urlencode(filename)
-        });
-        var opt = {
-            flags: 'r'
-        };
-        var stream = fs.createReadStream(path, opt);
-        stream.pipe(res);
-        stream.on('end', function () {
-            res.end();
-        });
+    // check if directory exists
+    if (!fs.existsSync(path)) {
+        console.log("没有该文件！");
+        return res.cc('系统繁忙，请稍后再试！')
+    }
+
+    res.writeHead(200, {
+        'Access-Control-Expose-Headers': 'Authorization',
+        'Content-Type': 'application/octet-stream;charset=utf8',
+        'Content-Disposition': "attachment;filename*=UTF-8''" + urlencode(filename)
+    });
+    var opt = {
+        flags: 'r'
+    };
+    var stream = fs.createReadStream(path, opt);
+    stream.pipe(res);
+    stream.on('end', function () {
+        res.end();
+    });
 
 }
 
@@ -131,7 +131,7 @@ exports.download_query_wordname = function (req, res) {
         let all_path = results.rows[0].path
         // 转化为数组
         let all_path_arr = all_path.split(',');
-        
+
 
         for (let i = 0, len = all_path_arr.length; i < len; i++) {
             // 拿出所有文件名
@@ -147,6 +147,94 @@ exports.download_query_wordname = function (req, res) {
 
     })
 }
+
+
+/**
+ * 下面这两个方法是用于6个文档给学校审核专门用的
+ */
+// 下载用户已经上传过的文档
+exports.review_download_filled_word = function (req, res) {
+    console.log("=============下载选中的文件================");
+    // 表的id  如 1_1_1
+    // user = req.user
+    var filename = req.body.filename
+
+
+    var path = `/root/syl_backend/upload/${filename}`
+    console.log(path)
+
+    // check if directory exists
+    if (!fs.existsSync(path)) {
+        console.log("没有该文件！");
+        return res.cc('系统繁忙，请稍后再试！')
+    }
+
+    res.writeHead(200, {
+        'Access-Control-Expose-Headers': 'Authorization',
+        'Content-Type': 'application/octet-stream;charset=utf8',
+        'Content-Disposition': "attachment;filename*=UTF-8''" + urlencode(filename)
+    });
+    var opt = {
+        flags: 'r'
+    };
+    var stream = fs.createReadStream(path, opt);
+    stream.pipe(res);
+    stream.on('end', function () {
+        res.end();
+    });
+
+}
+
+
+
+
+//  查询某表已提交文档的文档名
+exports.review_download_query_wordname = function (req, res) {
+    console.log("=============查询某表已提交文档的文档名================");
+
+    // 表的id  如 1_1_1
+    user = req.user
+    var id = req.body.id
+    console.log(id);
+
+    var filenameList = []
+    // 根据表格id(1_1_1)去找它的中文名
+    const sql = `select path from user_fill where id = '${id}' AND flag = 1 AND is_delete = 0 AND path!=''`
+    console.log(sql);
+    client.query(sql, function (err, results) {
+        console.log(results.rows);
+        if (err) {
+            console.log(err.message);
+            return res.cc('系统繁忙，请稍后再试！')
+        }
+        if (results.rows.length !== 1) {
+            console.log("长度不为1");
+            return res.cc('您还未上传相关文档或文档已被学校管理员驳回！')
+        }
+        console.log(results.rows[0].path);
+        let all_path = results.rows[0].path
+        // 转化为数组
+        let all_path_arr = all_path.split(',');
+
+
+        for (let i = 0, len = all_path_arr.length; i < len; i++) {
+            // 拿出所有文件名
+            if (fs.existsSync(all_path_arr[i])) {
+                var index = all_path_arr[i].lastIndexOf("/");
+                filenameList.push(all_path_arr[i].substring(index + 1, all_path_arr[i].length))
+            }
+        }
+        res.send({
+            status: 0,
+            filenameList: filenameList
+        })
+
+    })
+}
+
+
+
+
 
 
 
