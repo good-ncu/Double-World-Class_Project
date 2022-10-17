@@ -192,7 +192,7 @@ const data_4_2_2_0 = joi.array().items(
        yr:joi.number().integer().less(2021).greater(1950).required().error(new Error('填报年度填报错误！')),
        proj_name:joi.string().min(1).max(200).required().error(new Error('项目名称填报错误！')),
        proj_level:joi.string().valid('国家重点重大项目','其他国家项目').required().error(new Error('层次填报错误！')),
-       proj_type:joi.string().valid('纵向','横向').required().error(new Error('项目类型填报错误！')),
+       proj_type:joi.string().required().error(new Error('项目类型填报错误！')),
        proj_fromto_ymth:joi.string().pattern(/^(1[9][5-9][0-9]|2[0][0-2][0-9])-(0[1-9]|1[0-2])至(1[9][5-9][0-9]|2[0][0-2][0-9])-(0[1-9]|1[0-2])$/).required().error(new Error('项目起止年月（YYYY-MM至YYYY-MM）填写错误！')),
        proj_fund:joi.number().min(0).required().error(new Error('项目经费填报错误！')),
    }
@@ -204,7 +204,7 @@ const data_4_2_2_1 = joi.array().items(
    joi.object().keys({
        yr:joi.number().integer().less(2029).greater(2020).required().error(new Error('填报年度填报错误！')),
        proj_name:joi.string().min(1).max(200).required().error(new Error('项目名称填报错误！')),
-       proj_type:joi.string().valid('纵向','横向').required().error(new Error('项目类型填报错误！')),
+       proj_type:joi.string().required().error(new Error('项目类型填报错误！')),
        proj_fromto_ymth:joi.string().pattern(/^(1[9][5-9][0-9]|2[0][0-2][0-9])-(0[1-9]|1[0-2])至(1[9][5-9][0-9]|2[0][0-2][0-9])-(0[1-9]|1[0-2])$/).required().error(new Error('项目起止年月（YYYY-MM至YYYY-MM）填写错误！')),
        proj_fund:joi.number().min(0).required().error(new Error('项目经费填报错误！')),
 
@@ -218,7 +218,7 @@ const data_4_2_2_2 = joi.array().items(
    joi.object().keys({
        yr:joi.number().integer().less(2029).greater(2020).required().error(new Error('填报年度填报错误！')),
        proj_name:joi.string().min(1).max(200).required().error(new Error('项目名称填报错误！')),
-       proj_type:joi.string().valid('纵向','横向').required().error(new Error('项目类型填报错误！')),
+       proj_type:joi.string().required().error(new Error('项目类型填报错误！')),
        proj_fromto_ymth:joi.string().pattern(/^(1[9][5-9][0-9]|2[0][0-2][0-9])-(0[1-9]|1[0-2])至(1[9][5-9][0-9]|2[0][0-2][0-9])-(0[1-9]|1[0-2])$/).required().error(new Error('项目起止年月（YYYY-MM至YYYY-MM）填写错误！')),
        proj_fund:joi.number().min(0).required().error(new Error('项目经费填报错误！')),
         // 删除require
@@ -232,7 +232,7 @@ const data_4_2_2_3 = joi.array().items(
    joi.object().keys({
        yr:joi.number().integer().less(2029).greater(2020).required().error(new Error('填报年度填报错误！')),
        proj_name:joi.string().min(1).max(200).required().error(new Error('项目名称填报错误！')),
-       proj_type:joi.string().valid('纵向','横向').required().error(new Error('项目类型填报错误！')),
+       proj_type:joi.string().required().error(new Error('项目类型填报错误！')),
        proj_fromto_ymth:joi.string().pattern(/^(1[9][5-9][0-9]|2[0][0-2][0-9])-(0[1-9]|1[0-2])至(1[9][5-9][0-9]|2[0][0-2][0-9])-(0[1-9]|1[0-2])$/).required().error(new Error('项目起止年月（YYYY-MM至YYYY-MM）填写错误！')),
        proj_fund:joi.number().min(0).required().error(new Error('项目经费填报错误！')),
         // 删除require
