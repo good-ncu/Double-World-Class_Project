@@ -16,6 +16,7 @@ const router = express.Router()
 
 // 导入并使用平台首页 培养拔尖创新人才 路由处理函数对应的模块
 const school_review_handler = require('../../router_handler/query/school-review')
+const word_review_handler = require('../../router_handler/download')
 
 
 
@@ -59,5 +60,9 @@ router.post('/check-single-discipline-current', school_review_handler.check_sing
  */
 router.post('/delete-single-discipline-table', school_review_handler.delete_single_discipline_table)
 
+
+// 审核6个文档的接口
+router.post('review-download-filled-word',word_review_handler.review_download_filled_word)
+router.post('review-download-query-wordname',word_review_handler.review_download_query_wordname)
 
 module.exports = router
