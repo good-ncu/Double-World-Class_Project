@@ -17,7 +17,7 @@ const data_3_2_1 = joi.array().items(
         tch_name: joi.string().min(1).max(300).required().error(new Error('姓名填报错误！')),
         age: joi.number().integer().min(1).max(150).required().error(new Error('年龄填写错误！')),
         tch_title: joi.string().valid('其他正高级', "其他副高级", "其他中级", "其他", '讲师', '副教授', '教授').required().error(new Error(new Error('职称填报错误！'))),
-        rep_work: joi.string().min(1).max(300).required().error(new Error('代表性学术成果（限3项）填报错误！')),
+        rep_work: joi.string().min(1).required().error(new Error('代表性学术成果（限3项）填报错误！')),
 
     }
     )
@@ -138,7 +138,7 @@ const data_3_2_5 = joi.array().items(
 const data_3_3_1 = joi.array().items(
     joi.object().keys({
         tch_name: joi.string().min(1).max(100).required().error(new Error('教师姓名填报错误！')),
-        jour_name: joi.string().min(1).max(100).required().error(new Error('任职期刊名称填报错误！')),
+        jour_name: joi.string().min(1).required().error(new Error('任职期刊名称填报错误！')),
         in_jour_code: joi.string().min(1).allow('').error(new Error('国内期刊编号填报错误！')),//改
         out_jour_code: joi.string().min(1).allow('').required().error(new Error('国际期刊编号填报错误！')),
         jour_collect: joi.string().valid('CSSCI', 'CSCD', 'SCI', 'SSCI', 'EI', 'A&HCI', '其他').required().error(new Error('期刊收录情况填报错误！')),
@@ -153,7 +153,7 @@ const data_3_3_1 = joi.array().items(
 const data_3_3_2 = joi.array().items(
     joi.object().keys({
         tch_name: joi.string().min(1).max(100).required().error(new Error('教师姓名填报错误！')),
-        ac_org: joi.string().min(1).max(100).required().error(new Error('学术组织名称填报错误！')),
+        ac_org: joi.string().min(1).required().error(new Error('学术组织名称填报错误！')),
         pos: joi.string().valid('会长', '副会长', '理事长', '副理事长', '秘书长', '副秘书长').required().error(new Error('担任职务填报错误！')),
         tenure: joi.string().pattern(/^((1[9][5-9][0-9]|2[0][0-2][0-9])-(0[1-9]|1[0-2]))至((2[0][2][1-9])-(0[1-9]|1[0-2]))$/).required().error(new Error('任职期限填报错误！')),
 
@@ -167,10 +167,10 @@ const data_3_3_3 = joi.array().items(
     joi.object().keys({
         yr: joi.number().integer().less(2029).greater(2020).required().error(new Error('年度填报错误！')),
         tch_name: joi.string().min(1).max(50).required().error(new Error('教师姓名填报错误！')),
-        conf_name: joi.string().min(1).max(200).required().error(new Error('会议名称填报错误！')),
-        rpt_title: joi.string().min(1).max(200).required().error(new Error('报告题目填报错误！')),
+        conf_name: joi.string().min(1).required().error(new Error('会议名称填报错误！')),
+        rpt_title: joi.string().min(1).required().error(new Error('报告题目填报错误！')),
         rpt_yr_mth: joi.string().pattern(/^(2[0][2][1-9])-(0[1-9]|1[0-2])$/).required().error(new Error('报告年月填写错误！')),
-        rpt_place: joi.string().min(1).max(100).required().error(new Error('报告地点填报错误！')),
+        rpt_place: joi.string().min(1).required().error(new Error('报告地点填报错误！')),
     }
     )
 )
@@ -181,7 +181,7 @@ const data_3_3_3 = joi.array().items(
 const data_3_3_4 = joi.array().items(
     joi.object().keys({
         tch_name: joi.string().min(1).max(50).required().error(new Error('教师姓名填报错误！')),
-        comp_name: joi.string().min(1).max(100).required().error(new Error('比赛名称填报错误！')),
+        comp_name: joi.string().min(1).required().error(new Error('比赛名称填报错误！')),
         comp_yr_mth: joi.string().pattern(/^(2[0][2][1-9])-(0[1-9]|1[0-2])$/).required().error(new Error('比赛年月填写错误！')),
         pos: joi.string().valid('裁判', '评委').required().error(new Error('担任职务填报错误！')),
     }
