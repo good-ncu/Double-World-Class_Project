@@ -3,7 +3,7 @@ const joi = require('joi')
 const data_2_1_1 = joi.array().items(
     joi.object().keys({
         project_type:joi.string().min(1).required().error(new Error('荣誉表彰和项目类型填报错误！')),
-        project_person:joi.string().min(1).max(100).required().error(new Error('获得者格式填报错误！')),
+        project_person:joi.string().min(1).max(1000).required().error(new Error('获得者格式填报错误！')),
         project_year:joi.number().integer().less(2029).greater(2020).required().error(new Error('获得年份填报错误！')),
     })
 ) 
@@ -11,7 +11,7 @@ const data_2_1_1 = joi.array().items(
 const data_2_2_1_0 = joi.array().items(
     joi.object().keys({
         award_ltype:joi.string().valid('国家级教学成果奖','研究生教育成果奖','省级教学成果奖').required().error(new Error('成果奖级别填报错误！')),
-        award_name:joi.string().min(1).max(200).required().error(new Error('成果名称填报错误！')),
+        award_name:joi.string().min(1).max(1000).required().error(new Error('成果名称填报错误！')),
         // award_type:joi.string().valid('国家级基础教育教学成果奖','国家级高等教育教学成果奖','国家级职业教育教学成果奖').required().error(new Error('奖项类型填报错误！')),
         award_type:joi.string()
         .when('award_ltype',{is:'国家级教学成果奖',then:joi.string().valid('国家级基础教育教学成果奖','国家级高等教育教学成果奖','国家级职业教育教学成果奖')})
@@ -24,7 +24,7 @@ const data_2_2_1_0 = joi.array().items(
         .when('award_ltype',{is:'研究生教育成果奖',then:joi.string().valid('特等奖','一等奖','二等奖')})
         .when('award_ltype',{is:'省级教学成果奖',then:joi.string().valid('特等奖','一等奖','二等奖')})
         .required().error(new Error('奖项等级填报错误！')),
-        tch_name:joi.string().min(1).max(100).required().error(new Error('成果完成人姓名填报错误！')),
+        tch_name:joi.string().min(1).max(1000).required().error(new Error('成果完成人姓名填报错误！')),
         award_date:joi.string().pattern(/^(1[9][5-9][0-9]|2[0][0-1][0-9]|2020)-(0[1-9]|1[0-2])$/).error(new Error('获奖时间填写错误！')),
     })
 )
@@ -35,11 +35,11 @@ const data_2_2_1_0 = joi.array().items(
 //teaching_achv 
 const data_2_2_1_1 = joi.array().items(
     joi.object().keys({
-        award_name:joi.string().min(1).max(200).required().error(new Error('成果名称填报错误！')),
+        award_name:joi.string().min(1).max(1000).required().error(new Error('成果名称填报错误！')),
         award_type:joi.string().valid('国家级基础教育教学成果奖','国家级高等教育教学成果奖','国家级职业教育教学成果奖').required().error(new Error('奖项类型填报错误！')),
         award_level:joi.string().valid('国家特等奖','国家一等奖','国家二等奖').required().error(new Error('奖项等级填报错误！')),
         // 
-        tch_name:joi.string().min(1).max(100).required().error(new Error('成果完成人姓名填报错误！')),
+        tch_name:joi.string().min(1).max(1000).required().error(new Error('成果完成人姓名填报错误！')),
         award_date:joi.string().pattern(/^(2[0][2][1-9])-(0[1-9]|1[0-2])$/).error(new Error('获奖时间填写错误！')),
 
         // award_ltype:joi.string().valid('国家级教学成果奖').error(new Error('成果奖级别填报错误！')),//
@@ -53,8 +53,8 @@ const data_2_2_1_2 = joi.array().items(
         award_level:joi.string().valid('特等奖','一等奖','二等奖').required().error(new Error('奖项等级填报错误！')),
         award_type:joi.string().valid('研究生教育理论研究','研究生教育教学实践').required().error(new Error('成果奖类型填报错误！')),//
         award_date:joi.string().pattern(/^(2[0][2][1-9])-(0[1-9]|1[0-2])$/).error(new Error('获奖时间填写错误！')),
-        tch_name:joi.string().min(1).max(100).required().error(new Error('成果完成人姓名填报错误！')),
-        award_name:joi.string().min(1).max(200).required().error(new Error('成果名称填报错误！')),
+        tch_name:joi.string().min(1).max(1000).required().error(new Error('成果完成人姓名填报错误！')),
+        award_name:joi.string().min(1).max(1000).required().error(new Error('成果名称填报错误！')),
 
         //award_ltype:joi.string().valid('研究生教育成果奖')  .error(new Error('成果奖级别填报错误！')),//
     })
@@ -65,8 +65,8 @@ const data_2_2_1_3 = joi.array().items(
         award_level:joi.string().valid('特等奖','一等奖','二等奖').required().error(new Error('奖项等级填报错误！')),
         award_type:joi.string().valid('省级基础教育教学成果奖','省级高等教育教学成果奖','省级职业教育教学成果奖').required().error(new Error('教学成果奖类型填报错误！')),//
         award_date:joi.string().pattern(/^(2[0][2][1-9])-(0[1-9]|1[0-2])$/).error(new Error('获奖年月填写错误！')),
-        tch_name:joi.string().min(1).max(100).required().error(new Error('成果完成人姓名填报错误！')),
-        award_name:joi.string().min(1).max(200).required().error(new Error('成果名称填报错误！')),
+        tch_name:joi.string().min(1).max(1000).required().error(new Error('成果完成人姓名填报错误！')),
+        award_name:joi.string().min(1).max(1000).required().error(new Error('成果名称填报错误！')),
 
         award_ltype:joi.string().valid('省级教学成果奖').error(new Error('成果奖级别填报错误！')),//
     })
@@ -76,24 +76,24 @@ const data_2_2_1_3 = joi.array().items(
 //publish_textbook 
 const data_2_2_2_1 = joi.array().items(
     joi.object().keys({
-        textbook:joi.string().min(1).max(100).required().error(new Error('教材名称填报错误！')),
-        au_or_tans:joi.string().min(1).max(100).required().error(new Error('主要作者/译者填报错误！')),
+        textbook:joi.string().min(1).max(1000).required().error(new Error('教材名称填报错误！')),
+        au_or_tans:joi.string().min(1).max(1000).required().error(new Error('主要作者/译者填报错误！')),
         sig:joi.string().valid('主编','系列教材总主编','系列教材分册主编','首席专家（仅对’马工程‘教材）').required().error(new Error('署名情况填报错误！')),
         publish_date:joi.string().pattern(/^(2[0][2][1-9])-(0[1-9]|1[0-2])$/).required().error(new Error('出版/再出版时间填写错误！')),
-        publisher:joi.string().min(1).max(200).required().error(new Error('出版社填报错误！')),
+        publisher:joi.string().min(1).max(1000).required().error(new Error('出版社填报错误！')),
         revision: joi.number().integer().less(50).greater(0).required().error(new Error('版次填报错误！')),
-        textbook_using:joi.string().max(100).allow("").error(new Error('教材使用情况在100字以内！')),
+        textbook_using:joi.string().max(1000).allow("").error(new Error('教材使用情况在100字以内！')),
         remarks: joi.string().valid('国家级规划教材','’马工程‘教材','优秀教材').allow("").error(new Error('备注填报错误！')),
 
-        tch_name:joi.string().min(1).max(100).error(new Error('教师姓名填报错误！')),
+        tch_name:joi.string().min(1).max(1000).error(new Error('教师姓名填报错误！')),
     })
 )
 //firstclass_course_const 
 const data_2_2_2_3 = joi.array().items(
     joi.object().keys({
         cour_type: joi.string().valid('国家级一流本科课程','国家级课程思政示范课程','教育部来华留学英语授课品牌课程','中国专业学位教学案例中心入库案例课程').required().error(new Error('课程类别填报错误！')),
-        cour_name:joi.string().min(1).max(200).required().error(new Error('课程名称填报错误！')),
-        head_name:joi.string().min(1).max(100).required().error(new Error('负责人填报错误！')),
+        cour_name:joi.string().min(1).max(1000).required().error(new Error('课程名称填报错误！')),
+        head_name:joi.string().min(1).max(1000).required().error(new Error('负责人填报错误！')),
         appro_year:joi.number().integer().less(2029).greater(2020).required().error(new Error('批准年度填报错误！')),
         
         cour_level:joi.string().valid('国家级').error(new Error('课程级别填报错误！')),
@@ -104,8 +104,8 @@ const data_2_2_2_3 = joi.array().items(
 const data_2_2_2_4 = joi.array().items(
     joi.object().keys({
         cour_type: joi.string().valid('省级一流本科课程','省级课程思政示范课程').required().error(new Error('课程类别填报错误！')),
-        cour_name:joi.string().min(1).max(100).required().error(new Error('课程名称填报错误！')),
-        head_name:joi.string().min(1).max(100).required().error(new Error('负责人填报错误！')),
+        cour_name:joi.string().min(1).max(1000).required().error(new Error('课程名称填报错误！')),
+        head_name:joi.string().min(1).max(1000).required().error(new Error('负责人填报错误！')),
         appro_year:joi.number().integer().less(2029).greater(2020).required().error(new Error('批准年度填报错误！')),
         
         cour_level:joi.string().valid('省级').error(new Error('课程级别填报错误！')),
@@ -116,8 +116,8 @@ const data_2_2_2_4 = joi.array().items(
 const data_2_2_3_0 = joi.array().items(
     joi.object().keys({
         plat_base_type:joi.string().valid('国家级人才培养平台','省部级人才培养平台').required().error(new Error('平台/基地类别填报错误！')),
-        plat_base_name:joi.string().min(1).max(200).required().error(new Error('平台/基地名称填报错误！')),
-        head_name:joi.string().min(1).max(100).required().error(new Error('负责人填报错误！')),
+        plat_base_name:joi.string().min(1).max(1000).required().error(new Error('平台/基地名称填报错误！')),
+        head_name:joi.string().min(1).max(1000).required().error(new Error('负责人填报错误！')),
         yr:joi.number().integer().less(2021).greater(1950).required().error(new Error('获批年份填报错误！')),
     }
     )
@@ -126,7 +126,7 @@ const data_2_2_3_0 = joi.array().items(
 const data_2_2_3_1 = joi.array().items(
     joi.object().keys({
         plat_base_type:joi.string().valid('国家级人才培养平台').required().error(new Error('平台/基地类别填报错误！')),
-        plat_base_name:joi.string().min(1).max(100).required().error(new Error('平台/基地名称填报错误！')),
+        plat_base_name:joi.string().min(1).max(1000).required().error(new Error('平台/基地名称填报错误！')),
         head_name:joi.string().min(1).max(13).required().error(new Error('负责人填报错误！')),
         yr:joi.number().integer().less(2029).greater(2020).required().error(new Error('获批年份填报错误！')),
     }
@@ -136,8 +136,8 @@ const data_2_2_3_1 = joi.array().items(
 const data_2_2_3_2 = joi.array().items(
     joi.object().keys({
         plat_base_type:joi.string().valid('省部级人才培养平台').required().error(new Error('平台/基地类别填报错误！')),
-        plat_base_name:joi.string().min(1).max(100).required().error(new Error('平台/基地名称填报错误！')),
-        head_name:joi.string().min(1).max(100).required().error(new Error('负责人填报错误！')),
+        plat_base_name:joi.string().min(1).max(1000).required().error(new Error('平台/基地名称填报错误！')),
+        head_name:joi.string().min(1).max(1000).required().error(new Error('负责人填报错误！')),
         yr:joi.number().integer().less(2029).greater(2020).required().error(new Error('年度填报错误！')),
     }
     )
@@ -166,12 +166,12 @@ const data_2_2_5 = joi.array().items(
 const data_2_2_6 = joi.array().items(
     joi.object().keys({
         award_date:joi.string().pattern(/^(2[0][2][1-9])-(0[1-9]|1[0-2])$/).required().error(new Error('获奖时间填写错误！')),
-        award_name:joi.string().min(1).max(200).required().error(new Error('奖项名称填报错误！')),
-        award_work:joi.string().min(1).max(200).allow("").error(new Error('获奖作品填报错误！')),
+        award_name:joi.string().min(1).max(1000).required().error(new Error('奖项名称填报错误！')),
+        award_work:joi.string().min(1).max(1000).allow("").error(new Error('获奖作品填报错误！')),
         award_level:joi.string().valid('特等奖','一等奖','二等奖','团体奖','其他').required().error(new Error('获奖等级填报错误！')),
         org_name:joi.string().min(1).required().error(new Error('组织单位名称填报错误！')),
         org_type:joi.string().valid('政府','学会','协会','其他').required().error(new Error('组织单位类型填报错误！')),
-        stu_name:joi.string().min(1).max(100).required().error(new Error('学生姓名填报错误！')),
+        stu_name:joi.string().min(1).max(1000).required().error(new Error('学生姓名填报错误！')),
         stu_type:joi.string().valid('本科生','硕士研究生',"博士研究生").required().error(new Error(new Error('学生类型填报错误！'))),
     }
     )
@@ -182,10 +182,10 @@ const data_2_2_7 = joi.array().items(
     joi.object().keys({
         publish_date:joi.string().pattern(/^(2[0][2][1-9])-(0[1-9]|1[0-2])$/).required().error(new Error('发表时间填写错误！')),
         paper_title:joi.string().min(1).required().error(new Error('论文标题填报错误！')),
-        stu_name:joi.string().min(1).max(100).required().error(new Error('学生姓名填报错误！')),
+        stu_name:joi.string().min(1).max(1000).required().error(new Error('学生姓名填报错误！')),
         stu_type:joi.string().valid('本科生','硕士研究生',"博士研究生").required().error(new Error(new Error('学生类型填报错误！'))),
-        jour_name:joi.string().min(1).max(100).required().error(new Error('期刊名称填报错误！')),
-        jour_volume:joi.string().min(1).max(100).required().error(new Error('发表年月及卷（期）数！填报错误！')),
+        jour_name:joi.string().min(1).max(1000).required().error(new Error('期刊名称填报错误！')),
+        jour_volume:joi.string().min(1).max(1000).required().error(new Error('发表年月及卷（期）数！填报错误！')),
         jour_collec:joi.string().valid('CSSCI','CSCD','SCI','SSCI','EI','A&HCI','其他').required().error(new Error('期刊收录情况填报错误！')),
     }
     )
@@ -203,9 +203,9 @@ const data_2_3_1 = joi.array().items(
 //graduate_is_procontrib 
 const data_2_3_2 = joi.array().items(
     joi.object().keys({
-        stu_name:joi.string().min(1).max(100).required().error(new Error('学生姓名填报错误！')),
+        stu_name:joi.string().min(1).max(1000).required().error(new Error('学生姓名填报错误！')),
         grad_year:joi.number().integer().less(2029).greater(2010).required().error(new Error('毕业年份填报错误！')),
-        pro_contribute_proj:joi.string().min(1).max(500).required().error(new Error('突出贡献项目填报错误！')),
+        pro_contribute_proj:joi.string().min(1).max(1000).required().error(new Error('突出贡献项目填报错误！')),
     }
     )
 )
