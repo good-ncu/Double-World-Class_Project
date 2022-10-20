@@ -21,7 +21,7 @@ const data_1_1_2 = joi.array().items(
 
 const data_1_1_3 = joi.array().items(
     joi.object().keys({
-        yr: joi.number().integer().greater(2000).less(2029).required().error(new Error('年度填报错误！')),
+        yr: joi.number().integer().greater(1959).less(2029).required().error(new Error('年度填报错误！')),
         rank_type: joi.string().min(1).required().error(new Error('排名类别填报错误！')),
         rank: joi.string().pattern(/^(\d+\.?\d{0,3}%)|([1-9]\d*)-([1-9]\d*)|([1-9]\d*)$/).required().error(new Error('排名填报错误！')),
         // 至多两位小数百分比：\d+\.?\d{0,2}%
