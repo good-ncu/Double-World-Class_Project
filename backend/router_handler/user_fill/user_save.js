@@ -41,7 +41,7 @@ exports.user_save_sub = function(req,res){
 exports.user_save_show = function(req,res){
     fill_id = req.body.fill_id
     user = req.user
-    client.query(`select * from user_save where user_id = '${user.id}' and fill_id = '${fill_id}'`, function(err, results){
+    client.query(`select * from user_save where user_id = '${user.id}' and fill_id = '${fill_id}' order by create_time desc limit 1`, function(err, results){
         if(err){
             console.log(err.message);
             return res.cc('系统繁忙,请稍后再试')
