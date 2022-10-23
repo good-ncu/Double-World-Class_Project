@@ -269,7 +269,7 @@ exports.disci_funds_sub = function (req, res) {
 
     // 接收表单数据
     const submit_info = req.body.data_1_1_4
-    console.log(submit_info)
+    // console.log(submit_info)
     user = req.user
     // 插入所有的数据都用同一个，与user_fill表的id相匹配
     var user_fill_id = uuidv4().replace(/-/g, '')
@@ -277,7 +277,7 @@ exports.disci_funds_sub = function (req, res) {
 
     var sqls = []
     sqls.push(`SELECT * FROM user_fill WHERE user_id='${user.id}' AND fill_id = '1_1_4' AND flag=1`)
-    console.log(submit_info.length);
+    // console.log(submit_info.length);
     for (let i = 0, len = submit_info.length; i < len; i++) {
         const strUUID = uuidv4(); // ⇨ '1b9d6bcd-bbfd-4b2d-9b5d-ab8dfbbd4bed'
         const strUUID2 = strUUID.replace(/-/g, '');       // 去掉-字符
@@ -288,14 +288,14 @@ exports.disci_funds_sub = function (req, res) {
         ${submit_info[i].lcl_receive_fund},${submit_info[i].lcl_expend_fund},${submit_info[i].self_budg_fund},${submit_info[i].self_receive_fund},${submit_info[i].self_expend_fund},
         ${submit_info[i].other_budg_fund},${submit_info[i].other_receive_fund},${submit_info[i].other_expend_fund},${submit_info[i].ctr_receive_fund},'${user_fill_id}')`
     }
-    console.log(sqls);
+    // console.log(sqls);
     async.each(sqls, function (item, callback) {
         // 遍历每条SQL并执行
         client.query(item, function (err, results) {
             // console.log(results.rows.length)
             if (err) {
                 // 异常后调用callback并传入err
-                console.log(err.message);
+                console.error(err.message);
                 console.log("aaaaaaaaaaaaaaaaaaaa");
                 err = "系统错误，请刷新页面后重试"
                 callback(err);
@@ -325,7 +325,7 @@ exports.disci_funds_sub = function (req, res) {
             client.query(`insert into user_fill(id, user_id, fill_id, flag) values('${user_fill_id}','${user.id}','1_1_4',1)`, function (err, result) {
 
                 if (err) {
-                    console.log(err.message);
+                    console.error(err.message);
                     return res.cc('系统繁忙,请稍后再试')
                 }
                 if (result.rowCount !== 1) return res.cc('系统繁忙,请稍后再试')
@@ -487,7 +487,7 @@ exports.query_is_time = function (req, res) {
     // 2. 根据fill_id、user_id去user_fill表内查找flag，若为1则已经填报，若为0或者null则未填报
     // 接收表单数据
     const submit_info = req.body.id
-    console.log(submit_info)
+    // console.log(submit_info)
     // console.log(submit_info.length)
     var resultt = []
     var sqls = []
@@ -506,7 +506,7 @@ exports.query_is_time = function (req, res) {
             } else {
                 // console.log(2);
                 resultt.push(results.rows)
-                console.log(item + "执行成功");
+                // console.log(item + "执行成功");
                 // 执行完成后也要调用callback，不需要参数
                 callback();
             }
@@ -528,7 +528,7 @@ exports.query_is_time = function (req, res) {
                     is_filled: ""
                 }
             })
-            console.log(all_fill_period);
+            // console.log(all_fill_period);
             var sqls2 = []
             var temp = 0
             for (let i = 0, len = all_fill_period.length; i < len; i++) {
@@ -539,8 +539,8 @@ exports.query_is_time = function (req, res) {
             var count = 0
             async.each(sqls2,
                 function (item, callback) {
-                    console.log("loulou");
-                    console.log(item);
+                    // console.log("loulou");
+                    // console.log(item);
                     client.query(item, function (err, results) {
                         count++
                         if (err) {
@@ -548,7 +548,7 @@ exports.query_is_time = function (req, res) {
                         } else {
                             // 非NULL
                             if (results.rows.length !== 0) {
-                                console.log(results.rows);
+                                // console.log(results.rows);
                                 // 只有一条记录
                                 if (results.rows.length == 1) {
                                     all_fill_period[count - 1].is_filled = results.rows[0].flag
@@ -572,12 +572,12 @@ exports.query_is_time = function (req, res) {
                 },
                 function (err) {
                     if (err) {
-                        console.log(err);
+                        console.error(err.message);
                         res.cc('系统繁忙，请稍后再试')
                     } else {
                         console.log("======================");
-                        console.log(count);
-                        console.log(all_fill_period);
+                        // console.log(count);
+                        // console.log(all_fill_period);
                         res.send({
                             menus: all_fill_period,
                         })
@@ -616,8 +616,8 @@ exports.fill_empty = function (req, res) {
             // console.log(results.rows.length)
             if (err) {
                 // 异常后调用callback并传入err
-                console.log(err.message);
-                console.log("出错了，系统即将奔溃");
+                console.error(err.message);
+                console.error("出错了，系统即将奔溃");
                 err = "系统错误，请刷新页面后重试"
                 callback(err);
             } else {
@@ -646,7 +646,7 @@ exports.fill_empty = function (req, res) {
             client.query(`insert into user_fill(id, user_id, fill_id, flag) values('${user_fill_id}','${user.id}','${fill_id}',1)`, function (err, result) {
 
                 if (err) {
-                    console.log(err.message);
+                    console.error(err.message);
                     return res.cc('系统繁忙,请稍后再试')
                 }
                 if (result.rowCount !== 1) return res.cc('系统繁忙,请稍后再试')
