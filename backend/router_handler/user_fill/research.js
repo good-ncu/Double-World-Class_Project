@@ -26,7 +26,7 @@ exports.query_is_time = function (req, res) {
     // 2. 根据fill_id、user_id去user_fill表内查找flag，若为1则已经填报，若为0或者null则未填报
     // 接收表单数据
     const submit_info = req.body.id
-    console.log(submit_info)
+    // console.log(submit_info)
     // console.log(submit_info.length)
     var resultt = []
     var sqls = []
@@ -45,7 +45,7 @@ exports.query_is_time = function (req, res) {
             } else {
                 // console.log(2);
                 resultt.push(results.rows)
-                console.log(item + "执行成功");
+                // console.log(item + "执行成功");
                 // 执行完成后也要调用callback，不需要参数
                 callback();
             }
@@ -78,8 +78,8 @@ exports.query_is_time = function (req, res) {
             var count = 0
             async.each(sqls2,
                 function (item, callback) {
-                    console.log("loulou");
-                    console.log(item);
+                    // console.log("loulou");
+                    // console.log(item);
                     client.query(item, function (err, results) {
                         count++
                         if (err) {
@@ -87,7 +87,7 @@ exports.query_is_time = function (req, res) {
                         } else {
                             // 非NULL
                             if (results.rows.length !== 0) {
-                                console.log(results.rows);
+                                // console.log(results.rows);
                                 // 只有一条记录
                                 if (results.rows.length == 1) {
                                     all_fill_period[count - 1].is_filled = results.rows[0].flag
@@ -111,12 +111,12 @@ exports.query_is_time = function (req, res) {
                 },
                 function (err) {
                     if (err) {
-                        console.log(err);
+                        console.error(err);
                         res.cc('系统繁忙，请稍后再试')
                     } else {
                         console.log("======================");
-                        console.log(count);
-                        console.log(all_fill_period);
+                        // console.log(count);
+                        // console.log(all_fill_period);
                         res.send({
                             menus: all_fill_period,
                         })
@@ -225,7 +225,7 @@ exports.teacher_prize_prize_counts_sub = function (req, res) {
         // 遍历每条SQL并执行
         client.query(item, function (err, results) {
             if (err) {
-                console.log(err.message);
+                console.error(err);
                 // 异常后调用callback并传入err
                 err = "系统错误，请刷新页面后重试"
                 callback(err);
@@ -244,7 +244,7 @@ exports.teacher_prize_prize_counts_sub = function (req, res) {
     }, function (err) {
         // 所有SQL执行完成后回调
         if (err) {
-            console.log(err);
+            console.error(err);
             return res.cc(err)
         } else {
             client.query(`insert into user_fill(id, user_id, fill_id, flag) values('${user_fill_id}','${user.id}','4_1_1_0',1)`, function (err, result) {
@@ -254,7 +254,7 @@ exports.teacher_prize_prize_counts_sub = function (req, res) {
                     status: 0,
                     message: "填报成功！！"
                 })
-                console.log("SQL全部执行成功");
+                // console.log("SQL全部执行成功");
             })
         }
     });
@@ -287,7 +287,7 @@ exports.teacher_prize_nation_counts_sub = function (req, res) {
         // 遍历每条SQL并执行
         client.query(item, function (err, results) {
             if (err) {
-                console.log(err.message);
+                console.error(err);
                 // 异常后调用callback并传入err
                 err = "系统错误，请刷新页面后重试"
                 callback(err);
@@ -306,7 +306,7 @@ exports.teacher_prize_nation_counts_sub = function (req, res) {
     }, function (err) {
         // 所有SQL执行完成后回调
         if (err) {
-            console.log(err);
+            console.error(err);
             return res.cc(err)
         } else {
             client.query(`insert into user_fill(id, user_id, fill_id) values('${user_fill_id}','${user.id}','4_1_1_1')`, function (err, result) {
@@ -316,7 +316,7 @@ exports.teacher_prize_nation_counts_sub = function (req, res) {
                     status: 0,
                     message: "填报成功！！"
                 })
-                console.log("SQL全部执行成功");
+                // console.log("SQL全部执行成功");
             })
         }
     });
@@ -331,7 +331,7 @@ exports.teacher_prize_nation_counts_sub = function (req, res) {
 exports.teacher_prize_province_counts_sub = function (req, res) {
     // 接收表单数据
     const submit_info = req.body.data_4_1_1_2
-    console.log(submit_info)
+    // console.log(submit_info)
     user = req.user
 
     var sqls = []
@@ -349,7 +349,7 @@ exports.teacher_prize_province_counts_sub = function (req, res) {
         // 遍历每条SQL并执行
         client.query(item, function (err, results) {
             if (err) {
-                console.log(err.message);
+                console.error(err);
                 // 异常后调用callback并传入err
                 err = "系统错误，请刷新页面后重试"
                 callback(err);
@@ -368,7 +368,7 @@ exports.teacher_prize_province_counts_sub = function (req, res) {
     }, function (err) {
         // 所有SQL执行完成后回调
         if (err) {
-            console.log(err);
+            console.error(err);
             return res.cc(err)
         } else {
             client.query(`insert into user_fill(id, user_id, fill_id) values('${user_fill_id}','${user.id}','4_1_1_2')`, function (err, result) {
@@ -378,7 +378,7 @@ exports.teacher_prize_province_counts_sub = function (req, res) {
                     status: 0,
                     message: "填报成功！！"
                 })
-                console.log("SQL全部执行成功");
+                // console.log("SQL全部执行成功");
             })
         }
     });
@@ -392,7 +392,7 @@ exports.teacher_prize_province_counts_sub = function (req, res) {
 exports.teacher_prize_book_counts_sub = function (req, res) {
     // 接收表单数据
     const submit_info = req.body.data_4_1_2
-    console.log(submit_info)
+    // console.log(submit_info)
     user = req.user
 
     var sqls = []
@@ -410,7 +410,7 @@ exports.teacher_prize_book_counts_sub = function (req, res) {
         // 遍历每条SQL并执行
         client.query(item, function (err, results) {
             if (err) {
-                console.log(err.message);
+                console.error(err);
                 // 异常后调用callback并传入err
                 err = "系统错误，请刷新页面后重试"
                 callback(err);
@@ -429,7 +429,7 @@ exports.teacher_prize_book_counts_sub = function (req, res) {
     }, function (err) {
         // 所有SQL执行完成后回调
         if (err) {
-            console.log(err);
+            console.error(err);
             return res.cc(err)
         } else {
             client.query(`insert into user_fill(id, user_id, fill_id) values('${user_fill_id}','${user.id}','4_1_2')`, function (err, result) {
@@ -439,7 +439,7 @@ exports.teacher_prize_book_counts_sub = function (req, res) {
                     status: 0,
                     message: "填报成功！！"
                 })
-                console.log("SQL全部执行成功");
+                // console.log("SQL全部执行成功");
             })
         }
     });
@@ -453,7 +453,7 @@ exports.teacher_prize_book_counts_sub = function (req, res) {
 exports.paper_list_all_counts_sub = function (req, res) {
     // 接收表单数据
     const submit_info = req.body.data_4_1_3_0
-    console.log(submit_info)
+    // console.log(submit_info)
     user = req.user
 
     var sqls = []
@@ -461,7 +461,7 @@ exports.paper_list_all_counts_sub = function (req, res) {
     sqls.push(`SELECT * FROM user_fill WHERE user_id='${user.id}' AND fill_id = '4_1_3_0' AND flag=1`)
     for (let i = 0, len = submit_info.length; i < len; i++) {
         if (submit_info[i].remarks == undefined) {
-            console.log("备注为undefined，转为空");
+            // console.log("备注为undefined，转为空");
             submit_info[i].remarks = ""
         }
         const strUUID = uuidv4(); // ⇨ '1b9d6bcd-bbfd-4b2d-9b5d-ab8dfbbd4bed'
@@ -475,8 +475,8 @@ exports.paper_list_all_counts_sub = function (req, res) {
         // 遍历每条SQL并执行
         client.query(item, function (err, results) {
             if (err) {
-                console.log(item);
-                console.log(err.message);
+                // console.log(item);
+                console.error(err);
                 // 异常后调用callback并传入err
                 err = "系统错误，请刷新页面后重试"
                 callback(err);
@@ -495,7 +495,7 @@ exports.paper_list_all_counts_sub = function (req, res) {
     }, function (err) {
         // 所有SQL执行完成后回调
         if (err) {
-            console.log(err);
+            console.error(err);
             return res.cc(err)
         } else {
             client.query(`insert into user_fill(id, user_id, fill_id) values('${user_fill_id}','${user.id}','4_1_3_0')`, function (err, result) {
@@ -505,7 +505,7 @@ exports.paper_list_all_counts_sub = function (req, res) {
                     status: 0,
                     message: "填报成功！！"
                 })
-                console.log("SQL全部执行成功");
+                // console.log("SQL全部执行成功");
             })
         }
     });
@@ -522,7 +522,7 @@ exports.paper_list_all_counts_sub = function (req, res) {
 exports.paper_list_top_counts_sub = function (req, res) {
     // 接收表单数据
     const submit_info = req.body.data_4_1_3_1
-    console.log(submit_info)
+    // console.log(submit_info)
     user = req.user
 
     var sqls = []
@@ -530,7 +530,7 @@ exports.paper_list_top_counts_sub = function (req, res) {
     sqls.push(`SELECT * FROM user_fill WHERE user_id='${user.id}' AND fill_id = '4_1_3_1' AND flag=1`)
     for (let i = 0, len = submit_info.length; i < len; i++) {
         if (submit_info[i].remarks == undefined) {
-            console.log("备注为undefined，转为空");
+            // console.log("备注为undefined，转为空");
             submit_info[i].remarks = ""
         }
         const strUUID = uuidv4(); // ⇨ '1b9d6bcd-bbfd-4b2d-9b5d-ab8dfbbd4bed'
@@ -544,7 +544,7 @@ exports.paper_list_top_counts_sub = function (req, res) {
         // 遍历每条SQL并执行
         client.query(item, function (err, results) {
             if (err) {
-                console.log(err.message);
+                console.error(err);
                 // 异常后调用callback并传入err
                 err = "系统错误，请刷新页面后重试"
                 callback(err);
@@ -563,7 +563,7 @@ exports.paper_list_top_counts_sub = function (req, res) {
     }, function (err) {
         // 所有SQL执行完成后回调
         if (err) {
-            console.log(err);
+            console.error(err);
             return res.cc(err)
         } else {
             client.query(`insert into user_fill(id, user_id, fill_id) values('${user_fill_id}','${user.id}','4_1_3_1')`, function (err, result) {
@@ -573,7 +573,7 @@ exports.paper_list_top_counts_sub = function (req, res) {
                     status: 0,
                     message: "填报成功！！"
                 })
-                console.log("SQL全部执行成功");
+                // console.log("SQL全部执行成功");
             })
         }
     });
@@ -589,7 +589,7 @@ exports.paper_list_top_counts_sub = function (req, res) {
 exports.paper_list_good_counts_sub = function (req, res) {
     // 接收表单数据
     const submit_info = req.body.data_4_1_3_2
-    console.log(submit_info)
+    // console.log(submit_info)
     user = req.user
 
     var sqls = []
@@ -597,7 +597,7 @@ exports.paper_list_good_counts_sub = function (req, res) {
     sqls.push(`SELECT * FROM user_fill WHERE user_id='${user.id}' AND fill_id = '4_1_3_2' AND flag=1`)
     for (let i = 0, len = submit_info.length; i < len; i++) {
         if (submit_info[i].remarks == undefined) {
-            console.log("备注为undefined，转为空");
+            // console.log("备注为undefined，转为空");
             submit_info[i].remarks = ""
         }
         const strUUID = uuidv4(); // ⇨ '1b9d6bcd-bbfd-4b2d-9b5d-ab8dfbbd4bed'
@@ -612,7 +612,7 @@ exports.paper_list_good_counts_sub = function (req, res) {
         // 遍历每条SQL并执行
         client.query(item, function (err, results) {
             if (err) {
-                console.log(err.message);
+                console.error(err);
                 // 异常后调用callback并传入err
                 err = "系统错误，请刷新页面后重试"
                 callback(err);
@@ -631,7 +631,7 @@ exports.paper_list_good_counts_sub = function (req, res) {
     }, function (err) {
         // 所有SQL执行完成后回调
         if (err) {
-            console.log(err);
+            console.error(err);
             return res.cc(err)
         } else {
             client.query(`insert into user_fill(id, user_id, fill_id) values('${user_fill_id}','${user.id}','4_1_3_2')`, function (err, result) {
@@ -641,7 +641,7 @@ exports.paper_list_good_counts_sub = function (req, res) {
                     status: 0,
                     message: "填报成功！！"
                 })
-                console.log("SQL全部执行成功");
+                // console.log("SQL全部执行成功");
             })
         }
     });
@@ -655,7 +655,7 @@ exports.paper_list_good_counts_sub = function (req, res) {
 exports.paper_list_other_counts_sub = function (req, res) {
     // 接收表单数据
     const submit_info = req.body.data_4_1_3_3
-    console.log(submit_info)
+    // console.log(submit_info)
     user = req.user
 
     var sqls = []
@@ -663,7 +663,7 @@ exports.paper_list_other_counts_sub = function (req, res) {
     sqls.push(`SELECT * FROM user_fill WHERE user_id='${user.id}' AND fill_id = '4_1_3_3' AND flag=1`)
     for (let i = 0, len = submit_info.length; i < len; i++) {
         if (submit_info[i].remarks == undefined) {
-            console.log("备注为undefined，转为空");
+            // console.log("备注为undefined，转为空");
             submit_info[i].remarks = ""
         }
         const strUUID = uuidv4(); // ⇨ '1b9d6bcd-bbfd-4b2d-9b5d-ab8dfbbd4bed'
@@ -678,7 +678,7 @@ exports.paper_list_other_counts_sub = function (req, res) {
         // 遍历每条SQL并执行
         client.query(item, function (err, results) {
             if (err) {
-                console.log(err.message);
+                console.error(err);
                 // 异常后调用callback并传入err
                 err = "系统错误，请刷新页面后重试"
                 callback(err);
@@ -697,7 +697,7 @@ exports.paper_list_other_counts_sub = function (req, res) {
     }, function (err) {
         // 所有SQL执行完成后回调
         if (err) {
-            console.log(err);
+            console.error(err);
             return res.cc(err)
         } else {
             client.query(`insert into user_fill(id, user_id, fill_id) values('${user_fill_id}','${user.id}','4_1_3_3')`, function (err, result) {
@@ -707,7 +707,7 @@ exports.paper_list_other_counts_sub = function (req, res) {
                     status: 0,
                     message: "填报成功！！"
                 })
-                console.log("SQL全部执行成功");
+                // console.log("SQL全部执行成功");
             })
         }
     });
@@ -723,7 +723,7 @@ exports.paper_list_other_counts_sub = function (req, res) {
 exports.design_display_sub = function (req, res) {
     // 接收表单数据
     const submit_info = req.body.data_4_1_4
-    console.log(submit_info)
+    // console.log(submit_info)
     user = req.user
 
     var sqls = []
@@ -741,7 +741,7 @@ exports.design_display_sub = function (req, res) {
         // 遍历每条SQL并执行
         client.query(item, function (err, results) {
             if (err) {
-                console.log(err.message);
+                console.error(err);
                 // 异常后调用callback并传入err
                 err = "系统错误，请刷新页面后重试"
                 callback(err);
@@ -760,7 +760,7 @@ exports.design_display_sub = function (req, res) {
     }, function (err) {
         // 所有SQL执行完成后回调
         if (err) {
-            console.log(err);
+            console.error(err);
             return res.cc(err)
         } else {
             client.query(`insert into user_fill(id, user_id, fill_id) values('${user_fill_id}','${user.id}','4_1_4')`, function (err, result) {
@@ -770,7 +770,7 @@ exports.design_display_sub = function (req, res) {
                     status: 0,
                     message: "填报成功！！"
                 })
-                console.log("SQL全部执行成功");
+                // console.log("SQL全部执行成功");
             })
         }
     });
@@ -784,7 +784,7 @@ exports.design_display_sub = function (req, res) {
 exports.innovate_platform_platform_counts_sub = function (req, res) {
     // 接收表单数据
     const submit_info = req.body.data_4_2_1_0
-    console.log(submit_info)
+    // console.log(submit_info)
     user = req.user
 
     var sqls = []
@@ -804,7 +804,7 @@ exports.innovate_platform_platform_counts_sub = function (req, res) {
         // 遍历每条SQL并执行
         client.query(item, function (err, results) {
             if (err) {
-                console.log(err.message);
+                console.error(err);
                 // 异常后调用callback并传入err
                 err = "系统错误，请刷新页面后重试"
                 callback(err);
@@ -823,7 +823,7 @@ exports.innovate_platform_platform_counts_sub = function (req, res) {
     }, function (err) {
         // 所有SQL执行完成后回调
         if (err) {
-            console.log(err);
+            console.error(err);
             return res.cc(err)
         } else {
             client.query(`insert into user_fill(id, user_id, fill_id) values('${user_fill_id}','${user.id}','4_2_1_0')`, function (err, result) {
@@ -833,7 +833,7 @@ exports.innovate_platform_platform_counts_sub = function (req, res) {
                     status: 0,
                     message: "填报成功！！"
                 })
-                console.log("SQL全部执行成功");
+                // console.log("SQL全部执行成功");
             })
         }
     });
@@ -847,7 +847,7 @@ exports.innovate_platform_platform_counts_sub = function (req, res) {
 exports.innovate_platform_all_nation_counts_sub = function (req, res) {
     // 接收表单数据
     const submit_info = req.body.data_4_2_1_1
-    console.log(submit_info)
+    // console.log(submit_info)
     user = req.user
 
     var sqls = []
@@ -867,7 +867,7 @@ exports.innovate_platform_all_nation_counts_sub = function (req, res) {
         // 遍历每条SQL并执行
         client.query(item, function (err, results) {
             if (err) {
-                console.log(err.message);
+                console.error(err);
                 // 异常后调用callback并传入err
                 err = "系统错误，请刷新页面后重试"
                 callback(err);
@@ -886,7 +886,7 @@ exports.innovate_platform_all_nation_counts_sub = function (req, res) {
     }, function (err) {
         // 所有SQL执行完成后回调
         if (err) {
-            console.log(err);
+            console.error(err);
             return res.cc(err)
         } else {
             client.query(`insert into user_fill(id, user_id, fill_id) values('${user_fill_id}','${user.id}','4_2_1_1')`, function (err, result) {
@@ -896,7 +896,7 @@ exports.innovate_platform_all_nation_counts_sub = function (req, res) {
                     status: 0,
                     message: "填报成功！！"
                 })
-                console.log("SQL全部执行成功");
+                // console.log("SQL全部执行成功");
             })
         }
     });
@@ -910,7 +910,7 @@ exports.innovate_platform_all_nation_counts_sub = function (req, res) {
 exports.innovate_platform_nation_counts_sub = function (req, res) {
     // 接收表单数据
     const submit_info = req.body.data_4_2_1_2
-    console.log(submit_info)
+    // console.log(submit_info)
     user = req.user
 
     var sqls = []
@@ -930,7 +930,7 @@ exports.innovate_platform_nation_counts_sub = function (req, res) {
         // 遍历每条SQL并执行
         client.query(item, function (err, results) {
             if (err) {
-                console.log(err.message);
+                console.error(err);
                 // 异常后调用callback并传入err
                 err = "系统错误，请刷新页面后重试"
                 callback(err);
@@ -949,7 +949,7 @@ exports.innovate_platform_nation_counts_sub = function (req, res) {
     }, function (err) {
         // 所有SQL执行完成后回调
         if (err) {
-            console.log(err);
+            console.error(err);
             return res.cc(err)
         } else {
             client.query(`insert into user_fill(id, user_id, fill_id) values('${user_fill_id}','${user.id}','4_2_1_2')`, function (err, result) {
@@ -959,7 +959,7 @@ exports.innovate_platform_nation_counts_sub = function (req, res) {
                     status: 0,
                     message: "填报成功！！"
                 })
-                console.log("SQL全部执行成功");
+                // console.log("SQL全部执行成功");
             })
         }
     });
@@ -973,7 +973,7 @@ exports.innovate_platform_nation_counts_sub = function (req, res) {
 exports.innovate_platform_province_counts_sub = function (req, res) {
     // 接收表单数据
     const submit_info = req.body.data_4_2_1_3
-    console.log(submit_info)
+    // console.log(submit_info)
     user = req.user
 
     var sqls = []
@@ -993,7 +993,7 @@ exports.innovate_platform_province_counts_sub = function (req, res) {
         // 遍历每条SQL并执行
         client.query(item, function (err, results) {
             if (err) {
-                console.log(err.message);
+                console.error(err);
                 // 异常后调用callback并传入err
                 err = "系统错误，请刷新页面后重试"
                 callback(err);
@@ -1012,7 +1012,7 @@ exports.innovate_platform_province_counts_sub = function (req, res) {
     }, function (err) {
         // 所有SQL执行完成后回调
         if (err) {
-            console.log(err);
+            console.error(err);
             return res.cc(err)
         } else {
             client.query(`insert into user_fill(id, user_id, fill_id) values('${user_fill_id}','${user.id}','4_2_1_3')`, function (err, result) {
@@ -1022,7 +1022,7 @@ exports.innovate_platform_province_counts_sub = function (req, res) {
                     status: 0,
                     message: "填报成功！！"
                 })
-                console.log("SQL全部执行成功");
+                // console.log("SQL全部执行成功");
             })
         }
     });
@@ -1036,7 +1036,7 @@ exports.innovate_platform_province_counts_sub = function (req, res) {
 exports.project_list_project_counts_sub = function (req, res) {
     // 接收表单数据
     const submit_info = req.body.data_4_2_2_0
-    console.log(submit_info)
+    // console.log(submit_info)
     user = req.user
 
     var sqls = []
@@ -1056,7 +1056,7 @@ exports.project_list_project_counts_sub = function (req, res) {
         // 遍历每条SQL并执行
         client.query(item, function (err, results) {
             if (err) {
-                console.log(err.message);
+                console.error(err);
                 // 异常后调用callback并传入err
                 err = "系统错误，请刷新页面后重试"
                 callback(err);
@@ -1075,7 +1075,7 @@ exports.project_list_project_counts_sub = function (req, res) {
     }, function (err) {
         // 所有SQL执行完成后回调
         if (err) {
-            console.log(err);
+            console.error(err);
             return res.cc(err)
         } else {
             client.query(`insert into user_fill(id, user_id, fill_id) values('${user_fill_id}','${user.id}','4_2_2_0')`, function (err, result) {
@@ -1085,7 +1085,7 @@ exports.project_list_project_counts_sub = function (req, res) {
                     status: 0,
                     message: "填报成功！！"
                 })
-                console.log("SQL全部执行成功");
+                // console.log("SQL全部执行成功");
             })
         }
     });
@@ -1099,7 +1099,7 @@ exports.project_list_project_counts_sub = function (req, res) {
 exports.project_list_top_counts_sub = function (req, res) {
     // 接收表单数据
     const submit_info = req.body.data_4_2_2_1
-    console.log(submit_info)
+    // console.log(submit_info)
     user = req.user
 
     var sqls = []
@@ -1119,7 +1119,7 @@ exports.project_list_top_counts_sub = function (req, res) {
         // 遍历每条SQL并执行
         client.query(item, function (err, results) {
             if (err) {
-                console.log(err.message);
+                console.error(err);
                 // 异常后调用callback并传入err
                 err = "系统错误，请刷新页面后重试"
                 callback(err);
@@ -1138,7 +1138,7 @@ exports.project_list_top_counts_sub = function (req, res) {
     }, function (err) {
         // 所有SQL执行完成后回调
         if (err) {
-            console.log(err);
+            console.error(err);
             return res.cc(err)
         } else {
             client.query(`insert into user_fill(id, user_id, fill_id) values('${user_fill_id}','${user.id}','4_2_2_1')`, function (err, result) {
@@ -1148,7 +1148,7 @@ exports.project_list_top_counts_sub = function (req, res) {
                     status: 0,
                     message: "填报成功！！"
                 })
-                console.log("SQL全部执行成功");
+                // console.log("SQL全部执行成功");
             })
         }
     });
@@ -1163,7 +1163,7 @@ exports.project_list_top_counts_sub = function (req, res) {
 exports.project_list_nation_counts_sub = function (req, res) {
     // 接收表单数据
     const submit_info = req.body.data_4_2_2_2
-    console.log(submit_info)
+    // console.log(submit_info)
     user = req.user
     var sqls = []
     var user_fill_id = uuidv4().replace(/-/g, '')
@@ -1182,7 +1182,7 @@ exports.project_list_nation_counts_sub = function (req, res) {
         // 遍历每条SQL并执行
         client.query(item, function (err, results) {
             if (err) {
-                console.log(err.message);
+                console.error(err);
                 // 异常后调用callback并传入err
                 err = "系统错误，请刷新页面后重试"
                 callback(err);
@@ -1201,7 +1201,7 @@ exports.project_list_nation_counts_sub = function (req, res) {
     }, function (err) {
         // 所有SQL执行完成后回调
         if (err) {
-            console.log(err);
+            console.error(err);
             return res.cc(err)
         } else {
             client.query(`insert into user_fill(id, user_id, fill_id) values('${user_fill_id}','${user.id}','4_2_2_2')`, function (err, result) {
@@ -1211,7 +1211,7 @@ exports.project_list_nation_counts_sub = function (req, res) {
                     status: 0,
                     message: "填报成功！！"
                 })
-                console.log("SQL全部执行成功");
+                // console.log("SQL全部执行成功");
             })
         }
     });
@@ -1225,7 +1225,7 @@ exports.project_list_nation_counts_sub = function (req, res) {
 exports.project_list_province_counts_sub = function (req, res) {
     // 接收表单数据
     const submit_info = req.body.data_4_2_2_3
-    console.log(submit_info)
+    // console.log(submit_info)
     user = req.user
     var sqls = []
     var user_fill_id = uuidv4().replace(/-/g, '')
@@ -1244,7 +1244,7 @@ exports.project_list_province_counts_sub = function (req, res) {
         // 遍历每条SQL并执行
         client.query(item, function (err, results) {
             if (err) {
-                console.log(err.message);
+                console.error(err);
                 // 异常后调用callback并传入err
                 err = "系统错误，请刷新页面后重试"
                 callback(err);
@@ -1263,7 +1263,7 @@ exports.project_list_province_counts_sub = function (req, res) {
     }, function (err) {
         // 所有SQL执行完成后回调
         if (err) {
-            console.log(err);
+            console.error(err);
             return res.cc(err)
         } else {
             client.query(`insert into user_fill(id, user_id, fill_id) values('${user_fill_id}','${user.id}','4_2_2_3')`, function (err, result) {
@@ -1273,7 +1273,7 @@ exports.project_list_province_counts_sub = function (req, res) {
                     status: 0,
                     message: "填报成功！！"
                 })
-                console.log("SQL全部执行成功");
+                // console.log("SQL全部执行成功");
             })
         }
     });
@@ -1288,7 +1288,7 @@ exports.project_list_province_counts_sub = function (req, res) {
 exports.funds_portrait_counts_sub = function (req, res) {
     // 接收表单数据
     const submit_info = req.body.data_4_2_3_1
-    console.log(submit_info)
+    // console.log(submit_info)
     user = req.user
     var sqls = []
     var user_fill_id = uuidv4().replace(/-/g, '')
@@ -1307,7 +1307,7 @@ exports.funds_portrait_counts_sub = function (req, res) {
         // 遍历每条SQL并执行
         client.query(item, function (err, results) {
             if (err) {
-                console.log(err.message);
+                console.error(err);
                 // 异常后调用callback并传入err
                 err = "系统错误，请刷新页面后重试"
                 callback(err);
@@ -1326,7 +1326,7 @@ exports.funds_portrait_counts_sub = function (req, res) {
     }, function (err) {
         // 所有SQL执行完成后回调
         if (err) {
-            console.log(err);
+            console.error(err);
             return res.cc(err)
         } else {
             client.query(`insert into user_fill(id, user_id, fill_id) values('${user_fill_id}','${user.id}','4_2_3_1')`, function (err, result) {
@@ -1336,7 +1336,7 @@ exports.funds_portrait_counts_sub = function (req, res) {
                     status: 0,
                     message: "填报成功！！"
                 })
-                console.log("SQL全部执行成功");
+                // console.log("SQL全部执行成功");
             })
         }
     });
@@ -1351,7 +1351,7 @@ exports.funds_portrait_counts_sub = function (req, res) {
 exports.funds_transverse_counts_sub = function (req, res) {
     // 接收表单数据
     const submit_info = req.body.data_4_2_3_2
-    console.log(submit_info)
+    // console.error(submit_info)
     user = req.user
     var sqls = []
     var user_fill_id = uuidv4().replace(/-/g, '')
@@ -1370,7 +1370,7 @@ exports.funds_transverse_counts_sub = function (req, res) {
         // 遍历每条SQL并执行
         client.query(item, function (err, results) {
             if (err) {
-                console.log(err.message);
+                console.error(err);
                 // 异常后调用callback并传入err
                 err = "系统错误，请刷新页面后重试"
                 callback(err);
@@ -1389,7 +1389,7 @@ exports.funds_transverse_counts_sub = function (req, res) {
     }, function (err) {
         // 所有SQL执行完成后回调
         if (err) {
-            console.log(err);
+            console.error(err);
             return res.cc(err)
         } else {
             client.query(`insert into user_fill(id, user_id, fill_id) values('${user_fill_id}','${user.id}','4_2_3_2')`, function (err, result) {
@@ -1399,7 +1399,7 @@ exports.funds_transverse_counts_sub = function (req, res) {
                     status: 0,
                     message: "填报成功！！"
                 })
-                console.log("SQL全部执行成功");
+                // console.log("SQL全部执行成功");
             })
         }
     });
@@ -1414,7 +1414,7 @@ exports.funds_transverse_counts_sub = function (req, res) {
 exports.hold_journals_sub = function (req, res) {
     // 接收表单数据
     const submit_info = req.body.data_4_2_4
-    console.log(submit_info)
+    // console.log(submit_info)
     user = req.user
     var sqls = []
     var user_fill_id = uuidv4().replace(/-/g, '')
@@ -1451,7 +1451,7 @@ exports.hold_journals_sub = function (req, res) {
     }, function (err) {
         // 所有SQL执行完成后回调
         if (err) {
-            console.log(err);
+            console.error(err);
             return res.cc(err)
         } else {
             client.query(`insert into user_fill(id, user_id, fill_id) values('${user_fill_id}','${user.id}','4_2_4')`, function (err, result) {
@@ -1461,7 +1461,7 @@ exports.hold_journals_sub = function (req, res) {
                     status: 0,
                     message: "填报成功！！"
                 })
-                console.log("SQL全部执行成功");
+                // console.log("SQL全部执行成功");
             })
         }
     });
@@ -1475,7 +1475,7 @@ exports.hold_journals_sub = function (req, res) {
 exports.international_influence_standard_counts_sub = function (req, res) {
     // 接收表单数据
     const submit_info = req.body.data_4_3_1
-    console.log(submit_info)
+    // console.log(submit_info)
     user = req.user
     var sqls = []
     var user_fill_id = uuidv4().replace(/-/g, '')
@@ -1494,7 +1494,7 @@ exports.international_influence_standard_counts_sub = function (req, res) {
         // 遍历每条SQL并执行
         client.query(item, function (err, results) {
             if (err) {
-                console.log(err);
+                console.error(err);
                 // 异常后调用callback并传入err
                 err = "系统错误，请刷新页面后重试"
                 callback(err);
@@ -1513,7 +1513,7 @@ exports.international_influence_standard_counts_sub = function (req, res) {
     }, function (err) {
         // 所有SQL执行完成后回调
         if (err) {
-            console.log(err);
+            console.error(err);
             return res.cc(err)
         } else {
             client.query(`insert into user_fill(id, user_id, fill_id) values('${user_fill_id}','${user.id}','4_3_1')`, function (err, result) {
@@ -1523,7 +1523,7 @@ exports.international_influence_standard_counts_sub = function (req, res) {
                     status: 0,
                     message: "填报成功！！"
                 })
-                console.log("SQL全部执行成功");
+                // console.log("SQL全部执行成功");
             })
         }
     });
@@ -1537,7 +1537,7 @@ exports.international_influence_standard_counts_sub = function (req, res) {
 exports.international_influence_paper_counts_sub = function (req, res) {
     // 接收表单数据
     const submit_info = req.body.data_4_3_2
-    console.log(submit_info)
+    // console.log(submit_info)
     user = req.user
     var sqls = []
     var user_fill_id = uuidv4().replace(/-/g, '')
@@ -1556,7 +1556,7 @@ exports.international_influence_paper_counts_sub = function (req, res) {
         // 遍历每条SQL并执行
         client.query(item, function (err, results) {
             if (err) {
-                console.log(err);
+                console.error(err);
                 // 异常后调用callback并传入err
                 err = "系统错误，请刷新页面后重试"
                 callback(err);
@@ -1575,7 +1575,7 @@ exports.international_influence_paper_counts_sub = function (req, res) {
     }, function (err) {
         // 所有SQL执行完成后回调
         if (err) {
-            console.log(err);
+            console.error(err);
             return res.cc(err)
         } else {
             client.query(`insert into user_fill(id, user_id, fill_id) values('${user_fill_id}','${user.id}','4_3_2')`, function (err, result) {
@@ -1585,7 +1585,7 @@ exports.international_influence_paper_counts_sub = function (req, res) {
                     status: 0,
                     message: "填报成功！！"
                 })
-                console.log("SQL全部执行成功");
+                // console.log("SQL全部执行成功");
             })
         }
     });

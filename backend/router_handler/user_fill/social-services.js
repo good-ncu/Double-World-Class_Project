@@ -28,7 +28,7 @@ exports.query_is_time = function (req, res) {
     // 2. 根据fill_id、user_id去user_fill表内查找flag，若为1则已经填报，若为0或者null则未填报
     // 接收表单数据
     const submit_info = req.body.id
-    console.log(submit_info)
+    // console.log(submit_info)
     // console.log(submit_info.length)
     var resultt = []
     var sqls = []
@@ -41,6 +41,7 @@ exports.query_is_time = function (req, res) {
         // 遍历每条SQL并执行
         client.query(item, function (err, results) {
             if (err) {
+                console.error(err)
                 // console.log(1);
                 // 异常后调用callback并传入err
                 callback(err);
@@ -55,6 +56,7 @@ exports.query_is_time = function (req, res) {
     }, function (err) {
         // 所有SQL执行完成后回调
         if (err) {
+            console.error(err)
             // console.log(3);
             return res.cc('系统繁忙,请稍后再试')
         } else {
@@ -69,7 +71,7 @@ exports.query_is_time = function (req, res) {
                     is_filled: ""
                 }
             })
-            console.log(all_fill_period);
+            // console.log(all_fill_period);
             var sqls2 = []
             var temp = 0
             for (let i = 0, len = all_fill_period.length; i < len; i++) {
@@ -80,16 +82,17 @@ exports.query_is_time = function (req, res) {
             var count = 0
             async.each(sqls2,
                 function (item, callback) {
-                    console.log("loulou");
-                    console.log(item);
+                    // console.log("loulou");
+                    // console.log(item);
                     client.query(item, function (err, results) {
                         count++
                         if (err) {
+                            console.error(err)
                             callback(err)
                         } else {
                             // 非NULL
                             if (results.rows.length !== 0) {
-                                console.log(results.rows);
+                                // console.log(results.rows);
                                 // 只有一条记录
                                 if (results.rows.length == 1) {
                                     all_fill_period[count - 1].is_filled = results.rows[0].flag
@@ -113,12 +116,12 @@ exports.query_is_time = function (req, res) {
                 },
                 function (err) {
                     if (err) {
-                        console.log(err);
+                        console.error(err);
                         res.cc('系统繁忙，请稍后再试')
                     } else {
-                        console.log("======================");
-                        console.log(count);
-                        console.log(all_fill_period);
+                        // console.log("======================");
+                        // console.log(count);
+                        // console.log(all_fill_period);
                         res.send({
                             menus: all_fill_period,
                         })
@@ -234,6 +237,7 @@ exports.get_funds_sub = function (req, res) {
         client.query(item, function (err, results) {
             // console.log(results.rows.length)
             if (err) {
+                console.error(err)
                 // 系统级别错误   异常后调用callback并传入err
                 err = "系统错误，请刷新页面后重试"
                 callback(err);
@@ -253,7 +257,7 @@ exports.get_funds_sub = function (req, res) {
     }, function (err) {
         // 所有SQL执行完成后回调
         if (err) {
-            // console.log(err.message)
+            console.error(err)
             res.send({
                 status: 1,
                 message: err
@@ -305,6 +309,7 @@ exports.industry_nation_counts_sub = function (req, res) {
         client.query(item, function (err, results) {
             // console.log(results.rows.length)
             if (err) {
+                console.error(err)
                 // 系统级别错误   异常后调用callback并传入err
                 err = "系统错误，请刷新页面后重试"
                 callback(err);
@@ -324,7 +329,7 @@ exports.industry_nation_counts_sub = function (req, res) {
     }, function (err) {
         // 所有SQL执行完成后回调
         if (err) {
-            // console.log(err.message)
+            console.error(err)
             res.send({
                 status: 1,
                 message: err
@@ -366,7 +371,7 @@ exports.industry_province_counts_sub = function (req, res) {
         sqls[i + 1] = `INSERT INTO prodedu_plat(id, univ_code, discipline_code,yr, plat_name, plat_level, appro_date,user_fill_id) 
         VALUES ('${strUUID2}','${user.univ_code}','${user.discipline_code}',${submit_info[i].yr},
         '${toLiteral(submit_info[i].plat_name.toString())}','${submit_info[i].plat_level}','${submit_info[i].appro_date}','${user_fill_id}')`
-        console.log(sqls[i])
+        // console.log(sqls[i])
     }
 
     async.eachSeries(sqls, function (item, callback) {
@@ -374,6 +379,7 @@ exports.industry_province_counts_sub = function (req, res) {
         client.query(item, function (err, results) {
             // console.log(results.rows.length)
             if (err) {
+                console.error(err)
                 // 系统级别错误   异常后调用callback并传入err
                 err = "系统错误，请刷新页面后重试"
                 callback(err);
@@ -393,7 +399,7 @@ exports.industry_province_counts_sub = function (req, res) {
     }, function (err) {
         // 所有SQL执行完成后回调
         if (err) {
-            // console.log(err.message)
+            console.error(err)
             res.send({
                 status: 1,
                 message: err
@@ -444,6 +450,7 @@ exports.consultative_nation_counts_sub = function (req, res) {
         client.query(item, function (err, results) {
             // console.log(results.rows.length)
             if (err) {
+                console.error(err)
                 // 系统级别错误   异常后调用callback并传入err
                 err = "系统错误，请刷新页面后重试"
                 callback(err);
@@ -463,7 +470,7 @@ exports.consultative_nation_counts_sub = function (req, res) {
     }, function (err) {
         // 所有SQL执行完成后回调
         if (err) {
-
+            console.error(err)
             res.send({
                 status: 1,
                 message: err
@@ -513,6 +520,7 @@ exports.consultative_province_counts_sub = function (req, res) {
         client.query(item, function (err, results) {
             // console.log(results.rows.length)
             if (err) {
+                console.error(err)
                 // 系统级别错误   异常后调用callback并传入err
                 err = "系统错误，请刷新页面后重试"
                 callback(err);
@@ -603,6 +611,7 @@ exports.kjxt_sub = function (req, res) {
         client.query(item, function (err, results) {
             // console.log(results.rows.length)
             if (err) {
+                console.error(err)
                 // 异常后调用callback并传入err
                 err = "系统错误，请刷新页面后重试"
                 callback(err);
@@ -624,6 +633,7 @@ exports.kjxt_sub = function (req, res) {
     }, function (err) {
         // 所有SQL执行完成后回调
         if (err) {
+            console.error(err)
             return res.cc(err)
         } else {
             // 当前用户所填数据都成功后，说明当前周期对应的excel表已经填报完成， 则在user_fill插入一条记录，flag置为1， 说明该表
@@ -696,6 +706,7 @@ exports.fwgj_sub = function (req, res) {
         client.query(item, function (err, results) {
             // console.log(results.rows.length)
             if (err) {
+                console.error(err)
                 // 异常后调用callback并传入err
                 err = "系统错误，请刷新页面后重试"
                 callback(err);
