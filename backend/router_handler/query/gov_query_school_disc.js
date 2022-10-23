@@ -179,7 +179,7 @@ exports.province_subjects_of_school = function (req, res) {
         // 遍历每条SQL并执行
         client.query(item, function (err, results) {
             if (err) {
-                console.log(err.message);
+                console.error(err.message);
                 // 异常后调用callback并传入err
                 err = "系统错误，请刷新页面后重试"
                 callback(err);
@@ -190,7 +190,7 @@ exports.province_subjects_of_school = function (req, res) {
                 for (let i = 0, len = results.rows.length; i < len; i++) {
                     results.rows[i].percentage = Math.ceil((results.rows[i].already_fill_num) / (results.rows[i].need_fill_num) * 100)
                     results.rows[i].percentage = results.rows[i].percentage + '%'
-                    console.log(results.rows[i])
+                    // console.log(results.rows[i])
                 }
                 return_data = results.rows
                 callback()
@@ -198,7 +198,7 @@ exports.province_subjects_of_school = function (req, res) {
         });
     }, function (err) {
         if (err) {
-            console.log(err);
+            console.error(err);
             return res.cc(err)
         } else {
 
