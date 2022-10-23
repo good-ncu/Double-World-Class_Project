@@ -7,7 +7,7 @@ const public = require('../../excel_parsing/公用中间件multer')
 
 router.post('/upload-attachment',
     function(req,res,next){
-        res.set('Access-Control-Allow-Origin','*')
+        // res.set('Access-Control-Allow-Origin','*')
         next()
     },
     public.tempupload_word_file_callback,
