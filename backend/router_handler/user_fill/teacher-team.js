@@ -23,11 +23,11 @@ function toLiteral(str) {
 // 3_1_1docx 
 
 exports.honor_counts_word_sub = function (req, res) {
-    user = req.user
+    var user = req.user
 
-    fil_id = '3_1_1docx'
+    var fil_id = '3_1_1docx'
 
-    path_temp = req.body.path
+    var path_temp = req.body.path
     // 先判断前端传来的path数组有无字段，无则直接return
     if (path_temp.length == 0) {
         return res.cc("请先选择文件再点击提交！")
@@ -122,7 +122,7 @@ exports.honor_counts_sub = function (req, res) {
     // 接收表单数据
     const submit_info = req.body.data_3_1_1
     // console.log(submit_info)
-    user = req.user
+    var user = req.user
     var user_fill_id = uuidv4().replace(/-/g, '')
 
     var sqls = []
@@ -191,7 +191,7 @@ exports.subject_counts_sub = function (req, res) {
     // 接收表单数据
     const submit_info = req.body.data_3_2_1
     // console.log(submit_info)
-    user = req.user
+    var user = req.user
     var user_fill_id = uuidv4().replace(/-/g, '')
 
     var sqls = []
@@ -257,7 +257,7 @@ exports.all_counts_sub = function (req, res) {
     // 接收表单数据
     const submit_info = req.body.data_3_2_2_0
     // console.log(submit_info)
-    user = req.user
+    var user = req.user
     var user_fill_id = uuidv4().replace(/-/g, '')
 
     var sqls = []
@@ -325,7 +325,7 @@ exports.all_high_counts_sub = function (req, res) {
     // 接收表单数据
     const submit_info = req.body.data_3_2_2_3
     // console.log(submit_info)
-    user = req.user
+    var user = req.user
     var user_fill_id = uuidv4().replace(/-/g, '')
 
     var sqls = []
@@ -391,7 +391,7 @@ exports.nation_team_sub = function (req, res) {
     // 接收表单数据
     const submit_info = req.body.data_3_2_2_4
     // console.log(submit_info)
-    user = req.user
+    var user = req.user
     var user_fill_id = uuidv4().replace(/-/g, '')
 
     var sqls = []
@@ -457,7 +457,7 @@ exports.nation_counts_sub = function (req, res) {
     // 接收表单数据
     const submit_info = req.body.data_3_2_2_1
     // console.log(submit_info)
-    user = req.user
+    var user = req.user
     var user_fill_id = uuidv4().replace(/-/g, '')
 
     var sqls = []
@@ -524,7 +524,7 @@ exports.province_counts_sub = function (req, res) {
     // 接收表单数据
     const submit_info = req.body.data_3_2_2_2
     // console.log(submit_info)
-    user = req.user
+    var user = req.user
     var user_fill_id = uuidv4().replace(/-/g, '')
 
     var sqls = []
@@ -589,7 +589,7 @@ exports.number_struct_sub = function (req, res) {
     // 接收表单数据
     const submit_info = req.body.data_3_2_3
     // console.log(submit_info)
-    user = req.user
+    var user = req.user
     var user_fill_id = uuidv4().replace(/-/g, '')
 
     var sqls = []
@@ -654,7 +654,7 @@ exports.assistant_counts_sub = function (req, res) {
     // 接收表单数据
     const submit_info = req.body.data_3_2_4
     // console.log(submit_info)
-    user = req.user
+    var user = req.user
     var user_fill_id = uuidv4().replace(/-/g, '')
 
     var sqls = []
@@ -720,7 +720,7 @@ exports.foreign_teacher_sub = function (req, res) {
     // 接收表单数据
     const submit_info = req.body.data_3_2_5
     // console.log(submit_info)
-    user = req.user
+    var user = req.user
     var user_fill_id = uuidv4().replace(/-/g, '')
 
     var sqls = []
@@ -787,7 +787,7 @@ exports.journal_director_sub = function (req, res) {
     const submit_info = req.body.data_3_3_1
     // console.log(req.body)
     // console.log(submit_info)
-    user = req.user
+    var user = req.user
     var user_fill_id = uuidv4().replace(/-/g, '')
 
     var sqls = []
@@ -853,7 +853,7 @@ exports.conference_director_sub = function (req, res) {
     // 接收表单数据
     const submit_info = req.body.data_3_3_2
     // console.log(submit_info)
-    user = req.user
+    var user = req.user
     var user_fill_id = uuidv4().replace(/-/g, '')
 
     var sqls = []
@@ -919,7 +919,7 @@ exports.conference_report_sub = function (req, res) {
     // 接收表单数据
     const submit_info = req.body.data_3_3_3
     // console.log(submit_info)
-    user = req.user
+    var user = req.user
     var user_fill_id = uuidv4().replace(/-/g, '')
 
     var sqls = []
@@ -987,7 +987,7 @@ exports.judges_counts_sub = function (req, res) {
     // 接收表单数据
     const submit_info = req.body.data_3_3_4
     // console.log(submit_info)
-    user = req.user
+    var user = req.user
     var user_fill_id = uuidv4().replace(/-/g, '')
 
     var sqls = []
@@ -1058,7 +1058,7 @@ exports.query_is_time = function (req, res) {
     // console.log(submit_info.length)
     var resultt = []
     var sqls = []
-    userinfo = req.user
+    var userinfo = req.user
     for (let i = 0, len = submit_info.length; i < len; i++) {
         var t1 = submit_info[i] + '_%'
         sqls[i] = `select id,fill_about,flag,fill_cycle from fill where id like '${t1}'`
