@@ -4,9 +4,9 @@ var fs = require('fs'); // 引入fs模块
 
 
 exports.upload_sub = function(req, res) {
-    user = req.user
-    fill_id = req.body.fill_id
-    path_temp = req.body.path
+    var user = req.user
+    var fill_id = req.body.fill_id
+    var path_temp = req.body.path
     if (path_temp.length == 0) {
         return res.send({
             status: 1,
@@ -15,9 +15,9 @@ exports.upload_sub = function(req, res) {
     }
     var path_ora = []
     var path = []
-    timenow = new Date().getTime()
+    var timenow = new Date().getTime()
     // 附件所属的文件夹名称
-    file_dir = user.id+'-'+fill_id+'-'+timenow
+    var file_dir = user.id+'-'+fill_id+'-'+timenow
     if (!(fs.existsSync('/root/syl_backend/temp_upload/' + path_temp[0]) && path_temp[0] != '')){
         return res.cc("无待提交附件")
     }

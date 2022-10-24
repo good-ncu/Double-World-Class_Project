@@ -6,15 +6,15 @@ var fs = require('fs'); // 引入fs模块
 const path = require('path');
 
 exports.user_save_sub = function(req,res){
-    data = req.body.data
-    fill_id = req.body.fill_id
-    user = req.user
+    var data = req.body.data
+    var fill_id = req.body.fill_id
+    var user = req.user
     var user_save_id = uuidv4().replace(/-/g, '')
     console.log(data);
 
     // 写入文件内容（如果文件不存在会创建一个文件）
-    filename = user.id + '_'  + fill_id
-    filepath = '/root/syl_backend/temp_save/'+filename+'.json'
+    var filename = user.id + '_'  + fill_id
+    var filepath = '/root/syl_backend/temp_save/'+filename+'.json'
     fs.writeFileSync(filepath, JSON.stringify(data), function(err) {
         if (err) {
             console.log(err);
@@ -39,8 +39,8 @@ exports.user_save_sub = function(req,res){
 }
 
 exports.user_save_show = function(req,res){
-    fill_id = req.body.fill_id
-    user = req.user
+    var fill_id = req.body.fill_id
+    var user = req.user
     client.query(`select * from user_save where user_id = '${user.id}' and fill_id = '${fill_id}' order by create_time desc limit 1`, function(err, results){
         if(err){
             console.log(err.message);
@@ -53,7 +53,7 @@ exports.user_save_show = function(req,res){
                 data: ""
             })
         }
-        filepath = results.rows[0].path
+        var filepath = results.rows[0].path
         console.log(filepath);
         fs.readFile(filepath, 'utf-8', (err,content)=>{
             if(err){
