@@ -82,7 +82,7 @@ const data_2_2_2_1 = joi.array().items(
         publish_date:joi.string().pattern(/^(2[0][2][1-9])-(0[1-9]|1[0-2])$/).required().error(new Error('出版/再出版时间填写错误！')),
         publisher:joi.string().min(1).max(1000).required().error(new Error('出版社填报错误！')),
         revision: joi.number().integer().less(50).greater(0).required().error(new Error('版次填报错误！')),
-        textbook_using:joi.string().max(1000).allow("").error(new Error('教材使用情况在100字以内！')),
+        textbook_using:joi.string().max(200).allow("").error(new Error('教材使用情况在100字以内！')),
         remarks: joi.string().valid('国家级规划教材','’马工程‘教材','优秀教材').allow("").error(new Error('备注填报错误！')),
 
         tch_name:joi.string().min(1).max(1000).error(new Error('教师姓名填报错误！')),

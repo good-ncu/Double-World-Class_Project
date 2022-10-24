@@ -111,7 +111,7 @@ exports.query_is_time = function (req, res) {
                 },
                 function (err) {
                     if (err) {
-                        console.error(err.message);
+                        console.error(err);
                         res.cc('系统繁忙，请稍后再试')
                     } else {
                         console.log("======================");
@@ -149,7 +149,7 @@ exports.political_edu_sub = function (req, res) {
         // 遍历每条SQL并执行
         client.query(item, function (err, results) {
             if (err) {
-                console.error(err.message);
+                console.error(err);
                 // 异常后调用callback并传入err
                 err = "系统错误，请刷新页面后重试"
                 callback(err);
@@ -300,7 +300,7 @@ exports.edu_awards_num_counts_sub = function (req, res) {
         // 遍历每条SQL并执行
         client.query(item, function (err, results) {
             if (err) {
-                console.error(err.message);
+                console.error(err);
                 // 异常后调用callback并传入err
                 err = "系统错误，请刷新页面后重试"
                 callback(err);
@@ -358,7 +358,7 @@ exports.edu_awards_num_nation_counts_sub = function (req, res) {
         // 遍历每条SQL并执行
         client.query(item, function (err, results) {
             if (err) {
-                console.error(err.message);
+                console.error(err);
                 // 异常后调用callback并传入err
                 err = "系统错误，请刷新页面后重试"
                 callback(err);
@@ -417,7 +417,7 @@ exports.edu_awards_num_graduate_counts_sub = function (req, res) {
         // 遍历每条SQL并执行
         client.query(item, function (err, results) {
             if (err) {
-                console.error(err.message);
+                console.error(err);
                 // 异常后调用callback并传入err
                 err = "系统错误，请刷新页面后重试"
                 callback(err);
@@ -533,7 +533,7 @@ exports.major_class_publish_quality_sub = function (req, res) {
         // 遍历每条SQL并执行
         client.query(item, function (err, results) {
             if (err) {
-                console.log(err.message);
+                console.error(err);
                 // 异常后调用callback并传入err
                 err = "系统错误，请刷新页面后重试"
                 callback(err);
@@ -687,7 +687,7 @@ exports.major_class_nation_counts_sub = function (req, res) {
         // 遍历每条SQL并执行
         client.query(item, function (err, results) {
             if (err) {
-                console.error(err.message);
+                console.error(err);
                 // 异常后调用callback并传入err
                 err = "系统错误，请刷新页面后重试"
                 callback(err);
@@ -746,7 +746,7 @@ exports.major_class_province_counts_sub = function (req, res) {
         // 遍历每条SQL并执行
         client.query(item, function (err, results) {
             if (err) {
-                console.log(err.message);
+                console.error(err);
                 // 异常后调用callback并传入err
                 err = "系统错误，请刷新页面后重试"
                 callback(err);
@@ -811,7 +811,7 @@ exports.personnel_cultivate_platform_counts_sub = function (req, res) {
         // 遍历每条SQL并执行
         client.query(item, function (err, results) {
             if (err) {
-                console.error(err.message);
+                console.error(err);
                 // 异常后调用callback并传入err
                 err = "系统错误，请刷新页面后重试"
                 callback(err);
@@ -869,7 +869,7 @@ exports.personnel_cultivate_nation_counts_sub = function (req, res) {
         // 遍历每条SQL并执行
         client.query(item, function (err, results) {
             if (err) {
-                console.error(err.message);
+                console.error(err);
                 // 异常后调用callback并传入err
                 err = "系统错误，请刷新页面后重试"
                 callback(err);
@@ -927,7 +927,7 @@ exports.personnel_cultivate_province_counts_sub = function (req, res) {
         // 遍历每条SQL并执行
         client.query(item, function (err, results) {
             if (err) {
-                console.error(err.message);
+                console.error(err);
                 // 异常后调用callback并传入err
                 err = "系统错误，请刷新页面后重试"
                 callback(err);
@@ -985,7 +985,7 @@ exports.master_doctoral_tutor_sub = function (req, res) {
         // 遍历每条SQL并执行
         client.query(item, function (err, results) {
             if (err) {
-                console.error(err.message);
+                console.error(err);
                 // 异常后调用callback并传入err
                 err = "系统错误，请刷新页面后重试"
                 callback(err);
@@ -1043,7 +1043,7 @@ exports.professor_counts_sub = function (req, res) {
         // 遍历每条SQL并执行
         client.query(item, function (err, results) {
             if (err) {
-                console.error(err.message);
+                console.error(err);
                 // 异常后调用callback并传入err
                 err = "系统错误，请刷新页面后重试"
                 callback(err);
@@ -1100,7 +1100,7 @@ exports.student_competition_sub = function (req, res) {
         // 遍历每条SQL并执行
         client.query(item, function (err, results) {
             if (err) {
-                console.error(err.message);
+                console.error(err);
                 // 异常后调用callback并传入err
                 err = "系统错误，请刷新页面后重试"
                 callback(err);
@@ -1157,7 +1157,7 @@ exports.student_paper_sub = function (req, res) {
         // 遍历每条SQL并执行
         client.query(item, function (err, results) {
             if (err) {
-                console.error(err.message);
+                console.error(err);
                 // 异常后调用callback并传入err
                 err = "系统错误，请刷新页面后重试"
                 callback(err);
@@ -1217,7 +1217,7 @@ exports.degree_counts_sub = function (req, res) {
         // 遍历每条SQL并执行
         client.query(item, function (err, results) {
             if (err) {
-                console.error(err.message);
+                console.error(err);
                 // 异常后调用callback并传入err
                 err = "系统错误，请刷新页面后重试"
                 callback(err);
@@ -1277,7 +1277,7 @@ exports.discipline_pioneer_sub = function (req, res) {
         // 遍历每条SQL并执行
         client.query(item, function (err, results) {
             if (err) {
-                console.error(err.message);
+                console.error(err);
                 // 异常后调用callback并传入err
                 err = "系统错误，请刷新页面后重试"
                 callback(err);
@@ -1337,7 +1337,7 @@ exports.scholar_counts_sub = function (req, res) {
         // 遍历每条SQL并执行
         client.query(item, function (err, results) {
             if (err) {
-                console.error(err.message);
+                console.error(err);
                 // 异常后调用callback并传入err
                 err = "系统错误，请刷新页面后重试"
                 callback(err);
@@ -1397,7 +1397,7 @@ exports.conference_counts_sub = function (req, res) {
         // 遍历每条SQL并执行
         client.query(item, function (err, results) {
             if (err) {
-                console.error(err.message);
+                console.error(err);
                 // 异常后调用callback并传入err
                 err = "系统错误，请刷新页面后重试"
                 callback(err);
