@@ -11,6 +11,21 @@ var bodyParser = require('body-parser');
 app.use(bodyParser.json({limit: '5000mb'}));
 app.use(bodyParser.urlencoded({limit: '5000mb', extended: true}));
 
+
+const newLog = function () {
+  console.info(new Date().toLocaleString());
+  arguments.callee.oLog.apply(this, arguments);
+};
+const newError = function () {
+  console.info(new Date().toLocaleString());
+  arguments.callee.oError.apply(this, arguments);
+};
+newLog.oLog = console.log;
+newError.oError = console.error;
+console.log = newLog;
+console.error = newError;
+
+
 // 解析完成之后会挂载到req.body上
 app.use(express.json())
 // 配置解析表单数据的中间件，注意：这个中间件，只能解析 application/x-www-form-urlencoded 格式的表单数据
