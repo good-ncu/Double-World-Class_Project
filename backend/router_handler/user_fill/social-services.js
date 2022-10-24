@@ -32,7 +32,7 @@ exports.query_is_time = function (req, res) {
     // console.log(submit_info.length)
     var resultt = []
     var sqls = []
-    userinfo = req.user
+    var userinfo = req.user
     for (let i = 0, len = submit_info.length; i < len; i++) {
         var t1 = submit_info[i] + '_%'
         sqls[i] = `select id,fill_about,flag,fill_cycle from fill where id like '${t1}'`
