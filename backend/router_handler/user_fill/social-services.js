@@ -219,7 +219,7 @@ exports.get_funds_sub = function (req, res) {
     // 接收表单数据
     const submit_info = req.body.data_5_1_1
     // console.log(submit_info)
-    user = req.user
+    var user = req.user
     var user_fill_id = uuidv4().replace(/-/g, '')
 
     var sqls = []
@@ -290,7 +290,7 @@ exports.industry_nation_counts_sub = function (req, res) {
     // console.log('=======================================')
     // console.log(submit_info)
     // console.log('++++++++++++++++++++++++++++++++++++++')
-    user = req.user
+    var user = req.user
     var user_fill_id = uuidv4().replace(/-/g, '')
 
     var sqls = []
@@ -359,7 +359,7 @@ exports.industry_province_counts_sub = function (req, res) {
     // 接收表单数据
     const submit_info = req.body.data_5_2_1_2
     // console.log(submit_info)
-    user = req.user
+    var user = req.user
     var user_fill_id = uuidv4().replace(/-/g, '')
 
     var sqls = []
@@ -430,7 +430,7 @@ exports.consultative_nation_counts_sub = function (req, res) {
     // 接收表单数据
     const submit_info = req.body.data_5_2_2_1
     // console.log(submit_info)
-    user = req.user
+    var user = req.user
     var user_fill_id = uuidv4().replace(/-/g, '')
 
     var sqls = []
@@ -501,7 +501,7 @@ exports.consultative_province_counts_sub = function (req, res) {
     // 接收表单数据
     const submit_info = req.body.data_5_2_2_2
     // console.log(submit_info)
-    user = req.user
+    var user = req.user
     var user_fill_id = uuidv4().replace(/-/g, '')
 
     var sqls = []
@@ -562,7 +562,7 @@ exports.consultative_province_counts_sub = function (req, res) {
 
 // 5_4_1      docx
 exports.kjxt_sub = function (req, res) {
-    user = req.user
+    var user = req.user
 
     fil_id = '5_4_1'
 
@@ -656,7 +656,7 @@ exports.kjxt_sub = function (req, res) {
 
 // 5_4_2      docx
 exports.fwgj_sub = function (req, res) {
-    user = req.user
+    var user = req.user
 
     fil_id = '5_4_2'
 

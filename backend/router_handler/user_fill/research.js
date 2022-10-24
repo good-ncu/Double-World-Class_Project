@@ -30,7 +30,7 @@ exports.query_is_time = function (req, res) {
     // console.log(submit_info.length)
     var resultt = []
     var sqls = []
-    userinfo = req.user
+    var userinfo = req.user
     for (let i = 0, len = submit_info.length; i < len; i++) {
         var t1 = submit_info[i] + '_%'
         sqls[i] = `select id,fill_about,flag,fill_cycle from fill where id like '${t1}'`
@@ -209,7 +209,7 @@ exports.query_is_time = function (req, res) {
 exports.teacher_prize_prize_counts_sub = function (req, res) {
     // 接收表单数据
     const submit_info = req.body.data_4_1_1_0
-    user = req.user
+    var user = req.user
     var sqls = []
     var user_fill_id = uuidv4().replace(/-/g, '')
     sqls.push(`SELECT * FROM user_fill WHERE user_id='${user.id}' AND fill_id = '4_1_1_0' AND flag=1`)
@@ -270,7 +270,7 @@ exports.teacher_prize_prize_counts_sub = function (req, res) {
 exports.teacher_prize_nation_counts_sub = function (req, res) {
     // 接收表单数据
     const submit_info = req.body.data_4_1_1_1
-    user = req.user
+    var user = req.user
 
     var sqls = []
     var user_fill_id = uuidv4().replace(/-/g, '')
@@ -332,7 +332,7 @@ exports.teacher_prize_province_counts_sub = function (req, res) {
     // 接收表单数据
     const submit_info = req.body.data_4_1_1_2
     // console.log(submit_info)
-    user = req.user
+    var user = req.user
 
     var sqls = []
     var user_fill_id = uuidv4().replace(/-/g, '')
@@ -393,7 +393,7 @@ exports.teacher_prize_book_counts_sub = function (req, res) {
     // 接收表单数据
     const submit_info = req.body.data_4_1_2
     // console.log(submit_info)
-    user = req.user
+    var user = req.user
 
     var sqls = []
     var user_fill_id = uuidv4().replace(/-/g, '')
@@ -454,7 +454,7 @@ exports.paper_list_all_counts_sub = function (req, res) {
     // 接收表单数据
     const submit_info = req.body.data_4_1_3_0
     // console.log(submit_info)
-    user = req.user
+    var user = req.user
 
     var sqls = []
     var user_fill_id = uuidv4().replace(/-/g, '')
@@ -523,7 +523,7 @@ exports.paper_list_top_counts_sub = function (req, res) {
     // 接收表单数据
     const submit_info = req.body.data_4_1_3_1
     // console.log(submit_info)
-    user = req.user
+    var user = req.user
 
     var sqls = []
     var user_fill_id = uuidv4().replace(/-/g, '')
@@ -590,7 +590,7 @@ exports.paper_list_good_counts_sub = function (req, res) {
     // 接收表单数据
     const submit_info = req.body.data_4_1_3_2
     // console.log(submit_info)
-    user = req.user
+    var user = req.user
 
     var sqls = []
     var user_fill_id = uuidv4().replace(/-/g, '')
@@ -656,7 +656,7 @@ exports.paper_list_other_counts_sub = function (req, res) {
     // 接收表单数据
     const submit_info = req.body.data_4_1_3_3
     // console.log(submit_info)
-    user = req.user
+    var user = req.user
 
     var sqls = []
     var user_fill_id = uuidv4().replace(/-/g, '')
@@ -724,7 +724,7 @@ exports.design_display_sub = function (req, res) {
     // 接收表单数据
     const submit_info = req.body.data_4_1_4
     // console.log(submit_info)
-    user = req.user
+    var user = req.user
 
     var sqls = []
     var user_fill_id = uuidv4().replace(/-/g, '')
@@ -785,7 +785,7 @@ exports.innovate_platform_platform_counts_sub = function (req, res) {
     // 接收表单数据
     const submit_info = req.body.data_4_2_1_0
     // console.log(submit_info)
-    user = req.user
+    var user = req.user
 
     var sqls = []
     var user_fill_id = uuidv4().replace(/-/g, '')
@@ -848,7 +848,7 @@ exports.innovate_platform_all_nation_counts_sub = function (req, res) {
     // 接收表单数据
     const submit_info = req.body.data_4_2_1_1
     // console.log(submit_info)
-    user = req.user
+    var user = req.user
 
     var sqls = []
     var user_fill_id = uuidv4().replace(/-/g, '')
@@ -911,7 +911,7 @@ exports.innovate_platform_nation_counts_sub = function (req, res) {
     // 接收表单数据
     const submit_info = req.body.data_4_2_1_2
     // console.log(submit_info)
-    user = req.user
+    var user = req.user
 
     var sqls = []
     var user_fill_id = uuidv4().replace(/-/g, '')
@@ -974,7 +974,7 @@ exports.innovate_platform_province_counts_sub = function (req, res) {
     // 接收表单数据
     const submit_info = req.body.data_4_2_1_3
     // console.log(submit_info)
-    user = req.user
+    var user = req.user
 
     var sqls = []
     var user_fill_id = uuidv4().replace(/-/g, '')
@@ -1037,7 +1037,7 @@ exports.project_list_project_counts_sub = function (req, res) {
     // 接收表单数据
     const submit_info = req.body.data_4_2_2_0
     // console.log(submit_info)
-    user = req.user
+    var user = req.user
 
     var sqls = []
     var user_fill_id = uuidv4().replace(/-/g, '')
@@ -1100,7 +1100,7 @@ exports.project_list_top_counts_sub = function (req, res) {
     // 接收表单数据
     const submit_info = req.body.data_4_2_2_1
     // console.log(submit_info)
-    user = req.user
+    var user = req.user
 
     var sqls = []
     var user_fill_id = uuidv4().replace(/-/g, '')
@@ -1164,7 +1164,7 @@ exports.project_list_nation_counts_sub = function (req, res) {
     // 接收表单数据
     const submit_info = req.body.data_4_2_2_2
     // console.log(submit_info)
-    user = req.user
+    var user = req.user
     var sqls = []
     var user_fill_id = uuidv4().replace(/-/g, '')
     sqls.push(`SELECT * FROM user_fill WHERE user_id='${user.id}' AND fill_id = '4_2_2_2' AND flag=1`)
@@ -1226,7 +1226,7 @@ exports.project_list_province_counts_sub = function (req, res) {
     // 接收表单数据
     const submit_info = req.body.data_4_2_2_3
     // console.log(submit_info)
-    user = req.user
+    var user = req.user
     var sqls = []
     var user_fill_id = uuidv4().replace(/-/g, '')
     sqls.push(`SELECT * FROM user_fill WHERE user_id='${user.id}' AND fill_id = '4_2_2_3' AND flag=1`)
@@ -1289,7 +1289,7 @@ exports.funds_portrait_counts_sub = function (req, res) {
     // 接收表单数据
     const submit_info = req.body.data_4_2_3_1
     // console.log(submit_info)
-    user = req.user
+    var user = req.user
     var sqls = []
     var user_fill_id = uuidv4().replace(/-/g, '')
     sqls.push(`SELECT * FROM user_fill WHERE user_id='${user.id}' AND fill_id = '4_2_3_1' AND flag=1`)
@@ -1352,7 +1352,7 @@ exports.funds_transverse_counts_sub = function (req, res) {
     // 接收表单数据
     const submit_info = req.body.data_4_2_3_2
     // console.error(submit_info)
-    user = req.user
+    var user = req.user
     var sqls = []
     var user_fill_id = uuidv4().replace(/-/g, '')
     sqls.push(`SELECT * FROM user_fill WHERE user_id='${user.id}' AND fill_id = '4_2_3_2' AND flag=1`)
@@ -1415,7 +1415,7 @@ exports.hold_journals_sub = function (req, res) {
     // 接收表单数据
     const submit_info = req.body.data_4_2_4
     // console.log(submit_info)
-    user = req.user
+    var user = req.user
     var sqls = []
     var user_fill_id = uuidv4().replace(/-/g, '')
     sqls.push(`SELECT * FROM user_fill WHERE user_id='${user.id}' AND fill_id = '4_2_4' AND flag=1`)
@@ -1476,7 +1476,7 @@ exports.international_influence_standard_counts_sub = function (req, res) {
     // 接收表单数据
     const submit_info = req.body.data_4_3_1
     // console.log(submit_info)
-    user = req.user
+    var user = req.user
     var sqls = []
     var user_fill_id = uuidv4().replace(/-/g, '')
     sqls.push(`SELECT * FROM user_fill WHERE user_id='${user.id}' AND fill_id = '4_3_1' AND flag=1`)
@@ -1538,7 +1538,7 @@ exports.international_influence_paper_counts_sub = function (req, res) {
     // 接收表单数据
     const submit_info = req.body.data_4_3_2
     // console.log(submit_info)
-    user = req.user
+    var user = req.user
     var sqls = []
     var user_fill_id = uuidv4().replace(/-/g, '')
     sqls.push(`SELECT * FROM user_fill WHERE user_id='${user.id}' AND fill_id = '4_3_2' AND flag=1`)
