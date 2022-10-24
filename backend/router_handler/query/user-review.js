@@ -9,8 +9,8 @@ const client = require('../../db/index')
  * @param {*} res 
  */
 exports.query_single_table_info = function (req, res) {
-    userinfo = req.user
-    subinfo = req.body
+    var userinfo = req.user
+    var subinfo = req.body
     console.log(subinfo.fill_id)
     console.log(userinfo.id);
 
@@ -35,11 +35,11 @@ exports.query_single_table_info = function (req, res) {
             })
         } else {
             console.log(sql1)
-            user_fill_id = results.rows[0].user_fill_id
-            to_dbtable = results.rows[0].to_dbtable
+            var user_fill_id = results.rows[0].user_fill_id
+            var to_dbtable = results.rows[0].to_dbtable
             console.log(user_fill_id)
             console.log(to_dbtable)
-            sql2 = `select * from ${to_dbtable} where user_fill_id = '${user_fill_id}' AND is_delete = 0`
+            var sql2 = `select * from ${to_dbtable} where user_fill_id = '${user_fill_id}' AND is_delete = 0`
             client.query(sql2, function (err, results2) {
                 if (err) {
                     console.log(err.message)
@@ -54,7 +54,7 @@ exports.query_single_table_info = function (req, res) {
                 } else {
                     console.log(results2.rows);
                     for (var i = 0; i < results2.rows.length; i++) {
-                        if (results2.rows[i]["adopt_date"]=='undefined'){
+                        if (results2.rows[i]["adopt_date"] == 'undefined') {
                             results2.rows[i]["adopt_date"] = ""
                         }
                         // results2.rows[i]["is_seen"] = null

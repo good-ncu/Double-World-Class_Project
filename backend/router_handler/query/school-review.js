@@ -28,9 +28,9 @@ var async = require('async');
  * @param {*} res   tag(学科群还是学科),discipline_name，already_fill_num , need_fill_num, percentage
  */
 exports.query_all_discipline = function (req, res) {
-    userinfo = req.user
+    var userinfo = req.user
     console.log(userinfo.univ_code);
-    sql = `SELECT
+    var sql = `SELECT
 	b.tag,
 	b.discipline_name AS discipline_name,
 	b.already_fill_num,
@@ -92,7 +92,7 @@ GROUP BY
 	b.discipline_name,
 	b.user_num,
 	b.already_fill_num`
-    sqls = []
+    var sqls = []
     sqls.push(sql)
     // 真正返回的数组
     return_data = []
@@ -150,10 +150,10 @@ GROUP BY
  * @param {*} res   discipline_name，already_fill_num , need_fill_num, percentage
  */
 exports.query_ncu_all_discipline = function (req, res) {
-    userinfo = req.user
+    var userinfo = req.user
     // console.log(userinfo.univ_code);
-    tag = req.body.tag
-    sql = `SELECT
+    var tag = req.body.tag
+    var sql = `SELECT
 	b.discipline_name,
 	b.already_fill_num,
 	COUNT( DISTINCT fill.id)* b.user_num AS need_fill_num
@@ -199,7 +199,7 @@ GROUP BY
 	b.discipline_name,
 	b.user_num,
 	b.already_fill_num`
-    sqls = []
+    var sqls = []
     sqls.push(sql)
     // 真正返回的数组
     return_data = []
@@ -250,12 +250,12 @@ GROUP BY
  */
 exports.query_single_discipline_current = function (req, res) {
 
-    userinfo = req.user
-    discipline_name = req.body.discipline_name
+    var userinfo = req.user
+    var discipline_name = req.body.discipline_name
     console.log(discipline_name)
 
     //  约束： 账户权限必须是3 ==> 学校id    拿到它选择的学科代码        
-    sql = `select
+    var sql = `select
         user_fill.id,
         user_fill.fill_id,
         fill.fill_about,
@@ -302,9 +302,9 @@ exports.query_single_discipline_current = function (req, res) {
  * @param {*} res  成功
  */
 exports.check_single_discipline_current = function (req, res) {
-    userinfo = req.user
+    var userinfo = req.user
     // 第二步中的id  ，即uuid
-    subinfo = req.body.data_id
+    var subinfo = req.body.data_id
     console.log(subinfo)
     console.log(subinfo.length)
     var sqls = []
@@ -353,8 +353,8 @@ exports.check_single_discipline_current = function (req, res) {
  * @param {*} res 
  */
 exports.query_single_discipline_table = function (req, res) {
-    userinfo = req.user
-    subinfo = req.body
+    var userinfo = req.user
+    var subinfo = req.body
     console.log(subinfo.id, subinfo.fill_id)
 
     var resultt = []
@@ -424,8 +424,8 @@ exports.query_single_discipline_table = function (req, res) {
  * @param {*} res 
  */
 exports.delete_single_discipline_table = function (req, res) {
-    userinfo = req.user
-    subinfo = req.body.user_fill_id
+    var userinfo = req.user
+    var subinfo = req.body.user_fill_id
     console.log(subinfo)
     var sqls = []
     // var to_dbtable
@@ -467,9 +467,9 @@ exports.delete_single_discipline_table = function (req, res) {
 
 // 6个文档的审核
 exports.check_word_discipline_current = function (req, res) {
-    userinfo = req.user
+    var userinfo = req.user
     // 第二步中的id  ，即uuid
-    id = req.body.id
+    var id = req.body.id
     var sqls = []
     // var to_dbtable
 
@@ -509,8 +509,8 @@ exports.check_word_discipline_current = function (req, res) {
 
 //6个文档的驳回
 exports.delete_word_discipline_table = function (req, res) {
-    userinfo = req.user
-    id = req.body.id
+    var userinfo = req.user
+    var id = req.body.id
     var sqls = []
     // var to_dbtable
 
