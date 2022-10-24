@@ -30,7 +30,7 @@ exports.query_is_time = function (req, res) {
     // console.log(submit_info.length)
     var resultt = []
     var sqls = []
-    userinfo = req.user
+    var userinfo = req.user
     for (let i = 0, len = submit_info.length; i < len; i++) {
         var t1 = submit_info[i] + '_%'
         sqls[i] = `select id,fill_about,flag,fill_cycle from fill where id like '${t1}'`
@@ -136,7 +136,7 @@ exports.political_edu_sub = function (req, res) {
     const submit_info = req.body.data_2_1_1
     // console.log(submit_info);
     // 获取token中的user信息
-    user = req.user
+    var user = req.user
     var sqls = []
     var user_fill_id = uuidv4().replace(/-/g, '')
     sqls.push(`SELECT * FROM user_fill WHERE user_id='${user.id}' AND fill_id = '2_1_1' AND flag=1`)
@@ -188,7 +188,7 @@ exports.political_edu_sub = function (req, res) {
 // 2_1_1docx
 
 exports.political_edu_word_sub = function (req, res) {
-    user = req.user
+    var user = req.user
 
     fil_id = '2_1_1docx'
 
@@ -285,7 +285,7 @@ exports.edu_awards_num_counts_sub = function (req, res) {
     const submit_info = req.body.data_2_2_1_0
     // console.log(submit_info);
     // 获取token中的user信息
-    user = req.user
+    var user = req.user
     var sqls = []
     var user_fill_id = uuidv4().replace(/-/g, '')
     sqls.push(`SELECT * FROM user_fill WHERE user_id='${user.id}' AND fill_id = '2_2_1_0' AND flag=1`)
@@ -343,7 +343,7 @@ exports.edu_awards_num_nation_counts_sub = function (req, res) {
     const submit_info = req.body.data_2_2_1_1
     // console.log(submit_info);
     // 获取token中的user信息
-    user = req.user
+    var user = req.user
     var sqls = []
     var user_fill_id = uuidv4().replace(/-/g, '')
     sqls.push(`SELECT * FROM user_fill WHERE user_id='${user.id}' AND fill_id = '2_2_1_1' AND flag=1`)
@@ -402,7 +402,7 @@ exports.edu_awards_num_graduate_counts_sub = function (req, res) {
     const submit_info = req.body.data_2_2_1_2
     // console.log(submit_info);
     // 获取token中的user信息
-    user = req.user
+    var user = req.user
     var sqls = []
     var user_fill_id = uuidv4().replace(/-/g, '')
     sqls.push(`SELECT * FROM user_fill WHERE user_id='${user.id}' AND fill_id = '2_2_1_2' AND flag=1`)
@@ -461,7 +461,7 @@ exports.edu_awards_num_province_counts_sub = function (req, res) {
     const submit_info = req.body.data_2_2_1_3
     // console.log(submit_info);
     // 获取token中的user信息
-    user = req.user
+    var user = req.user
     var sqls = []
     var user_fill_id = uuidv4().replace(/-/g, '')
     sqls.push(`SELECT * FROM user_fill WHERE user_id='${user.id}' AND fill_id = '2_2_1_3' AND flag=1`)
@@ -519,7 +519,7 @@ exports.major_class_publish_quality_sub = function (req, res) {
     const submit_info = req.body.data_2_2_2_1
     // console.log(submit_info);
     // 获取token中的user信息
-    user = req.user
+    var user = req.user
     var sqls = []
     var user_fill_id = uuidv4().replace(/-/g, '')
     sqls.push(`SELECT * FROM user_fill WHERE user_id='${user.id}' AND fill_id = '2_2_2_1' AND flag=1`)
@@ -572,7 +572,7 @@ exports.major_class_publish_quality_sub = function (req, res) {
 // 2_2_2_2                    docx
 
 exports.major_class_situation_sub = function (req, res) {
-    user = req.user
+    var user = req.user
 
     fil_id = '2_2_2_2'
 
@@ -672,7 +672,7 @@ exports.major_class_nation_counts_sub = function (req, res) {
     const submit_info = req.body.data_2_2_2_3
     // console.log(submit_info);
     // 获取token中的user信息
-    user = req.user
+    var user = req.user
     var sqls = []
     var user_fill_id = uuidv4().replace(/-/g, '')
     sqls.push(`SELECT * FROM user_fill WHERE user_id='${user.id}' AND fill_id = '2_2_2_3' AND flag=1`)
@@ -731,7 +731,7 @@ exports.major_class_province_counts_sub = function (req, res) {
     const submit_info = req.body.data_2_2_2_4
     // console.log(submit_info);
     // 获取token中的user信息
-    user = req.user
+    var user = req.user
     var sqls = []
     var user_fill_id = uuidv4().replace(/-/g, '')
     sqls.push(`SELECT * FROM user_fill WHERE user_id='${user.id}' AND fill_id = '2_2_2_4' AND flag=1`)
@@ -789,7 +789,7 @@ exports.personnel_cultivate_platform_counts_sub = function (req, res) {
     const submit_info = req.body.data_2_2_3_0
     // console.log(submit_info);
     // 获取token中的user信息
-    user = req.user
+    var user = req.user
     var sqls = []
     var user_fill_id = uuidv4().replace(/-/g, '')
     sqls.push(`SELECT * FROM user_fill WHERE user_id='${user.id}' AND fill_id = '2_2_3_0' AND flag=1`)
@@ -854,7 +854,7 @@ exports.personnel_cultivate_nation_counts_sub = function (req, res) {
     const submit_info = req.body.data_2_2_3_1
     // console.log(submit_info);
     // 获取token中的user信息
-    user = req.user
+    var user = req.user
     var sqls = []
     var user_fill_id = uuidv4().replace(/-/g, '')
     sqls.push(`SELECT * FROM user_fill WHERE user_id='${user.id}' AND fill_id = '2_2_3_1' AND flag=1`)
@@ -912,7 +912,7 @@ exports.personnel_cultivate_province_counts_sub = function (req, res) {
     const submit_info = req.body.data_2_2_3_2
     // console.log(submit_info);
     // 获取token中的user信息
-    user = req.user
+    var user = req.user
     var sqls = []
     var user_fill_id = uuidv4().replace(/-/g, '')
     sqls.push(`SELECT * FROM user_fill WHERE user_id='${user.id}' AND fill_id = '2_2_3_2' AND flag=1`)
@@ -970,7 +970,7 @@ exports.master_doctoral_tutor_sub = function (req, res) {
     const submit_info = req.body.data_2_2_4
     // console.log(submit_info);
     // 获取token中的user信息
-    user = req.user
+    var user = req.user
     var sqls = []
     var user_fill_id = uuidv4().replace(/-/g, '')
     sqls.push(`SELECT * FROM user_fill WHERE user_id='${user.id}' AND fill_id = '2_2_4' AND flag=1`)
@@ -1028,7 +1028,7 @@ exports.professor_counts_sub = function (req, res) {
     const submit_info = req.body.data_2_2_5
     // console.log(submit_info);
     // 获取token中的user信息
-    user = req.user
+    var user = req.user
     var sqls = []
     var user_fill_id = uuidv4().replace(/-/g, '')
     sqls.push(`SELECT * FROM user_fill WHERE user_id='${user.id}' AND fill_id = '2_2_5' AND flag=1`)
@@ -1085,7 +1085,7 @@ exports.student_competition_sub = function (req, res) {
     const submit_info = req.body.data_2_2_6
     // console.log(submit_info);
     // 获取token中的user信息
-    user = req.user
+    var user = req.user
     var sqls = []
     var user_fill_id = uuidv4().replace(/-/g, '')
     sqls.push(`SELECT * FROM user_fill WHERE user_id='${user.id}' AND fill_id = '2_2_6' AND flag=1`)
@@ -1142,7 +1142,7 @@ exports.student_paper_sub = function (req, res) {
     const submit_info = req.body.data_2_2_7
     // console.log(submit_info);
     // 获取token中的user信息
-    user = req.user
+    var user = req.user
     var sqls = []
     var user_fill_id = uuidv4().replace(/-/g, '')
     sqls.push(`SELECT * FROM user_fill WHERE user_id='${user.id}' AND fill_id = '2_2_7' AND flag=1`)
@@ -1200,7 +1200,7 @@ exports.degree_counts_sub = function (req, res) {
     const submit_info = req.body.data_2_3_1
     // console.log(submit_info);
     // 获取token中的user信息
-    user = req.user
+    var user = req.user
     var sqls = []
     var user_fill_id = uuidv4().replace(/-/g, '')
     sqls.push(`SELECT * FROM user_fill WHERE user_id='${user.id}' AND fill_id = '2_3_1' AND flag=1`)
@@ -1260,7 +1260,7 @@ exports.discipline_pioneer_sub = function (req, res) {
     const submit_info = req.body.data_2_3_2
     // console.log(submit_info);
     // 获取token中的user信息
-    user = req.user
+    var user = req.user
     var sqls = []
     var user_fill_id = uuidv4().replace(/-/g, '')
     sqls.push(`SELECT * FROM user_fill WHERE user_id='${user.id}' AND fill_id = '2_3_2' AND flag=1`)
@@ -1320,7 +1320,7 @@ exports.scholar_counts_sub = function (req, res) {
     const submit_info = req.body.data_2_4_1
     // console.log(submit_info);
     // 获取token中的user信息
-    user = req.user
+    var user = req.user
     var sqls = []
     var user_fill_id = uuidv4().replace(/-/g, '')
     sqls.push(`SELECT * FROM user_fill WHERE user_id='${user.id}' AND fill_id = '2_4_1' AND flag=1`)
@@ -1380,7 +1380,7 @@ exports.conference_counts_sub = function (req, res) {
     const submit_info = req.body.data_2_4_2
     // console.log(submit_info);
     // 获取token中的user信息
-    user = req.user
+    var user = req.user
     var sqls = []
     var user_fill_id = uuidv4().replace(/-/g, '')
     sqls.push(`SELECT * FROM user_fill WHERE user_id='${user.id}' AND fill_id = '2_4_2' AND flag=1`)

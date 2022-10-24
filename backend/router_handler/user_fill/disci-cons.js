@@ -28,7 +28,7 @@ function toLiteral(str) {
  * @param {*} res 
  */
 exports.progress_situation_sub = function (req, res) {
-    user = req.user
+    var user = req.user
 
     fil_id = '1_1_1'
     path_temp = req.body.path
@@ -129,7 +129,7 @@ exports.disci_eval_situation_sub = function (req, res) {
     // 接收表单数据
     const submit_info = req.body.data_1_1_2
     // 获取token中的user信息
-    user = req.user
+    var user = req.user
     // 插入所有的数据都用同一个，与user_fill表的id相匹配
     var user_fill_id = uuidv4().replace(/-/g, '')
 
@@ -199,7 +199,7 @@ exports.disci_influence_sub = function (req, res) {
     const submit_info = req.body.data_1_1_3
     // console.log(submit_info)
     // 获取token中的user信息
-    user = req.user
+    var user = req.user
     // 插入所有的数据都用同一个，与user_fill表的id相匹配
     var user_fill_id = uuidv4().replace(/-/g, '')
 
@@ -270,7 +270,7 @@ exports.disci_funds_sub = function (req, res) {
     // 接收表单数据
     const submit_info = req.body.data_1_1_4
     // console.log(submit_info)
-    user = req.user
+    var user = req.user
     // 插入所有的数据都用同一个，与user_fill表的id相匹配
     var user_fill_id = uuidv4().replace(/-/g, '')
 
@@ -344,7 +344,7 @@ exports.disci_funds_sub = function (req, res) {
 //     // 接收表单数据
 //     const submit_info = req.body.data_1_1_2
 //     // 获取token中的user信息
-//     user = req.user
+//     var user = req.user
 
 //     // 插入所有的数据都用同一个，与user_fill表的id相匹配
 //     var user_fill_id = uuidv4().replace(/-/g, '')
@@ -491,7 +491,7 @@ exports.query_is_time = function (req, res) {
     // console.log(submit_info.length)
     var resultt = []
     var sqls = []
-    userinfo = req.user
+    var userinfo = req.user
     for (let i = 0, len = submit_info.length; i < len; i++) {
         var t1 = submit_info[i] + '_%'
         sqls[i] = `select id,fill_about,flag,fill_cycle from fill where id like '${t1}'`
@@ -603,7 +603,7 @@ exports.fill_empty = function (req, res) {
     // 接收表单数据
     const fill_id = req.body.fill_id
     console.log('插入空数据的表id是' + fill_id)
-    user = req.user
+    var user = req.user
     // 插入所有的数据都用同一个，与user_fill表的id相匹配
     var user_fill_id = uuidv4().replace(/-/g, '')
 
