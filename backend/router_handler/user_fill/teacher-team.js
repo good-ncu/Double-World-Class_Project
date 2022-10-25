@@ -141,6 +141,7 @@ exports.honor_counts_sub = function (req, res) {
         client.query(item, function (err, results) {
             // console.log(results.rows.length)
             if (err) {
+                console.error(err);
                 // 系统级别错误   异常后调用callback并传入err
                 err = "系统错误，请刷新页面后重试"
                 callback(err);
@@ -209,6 +210,7 @@ exports.subject_counts_sub = function (req, res) {
         client.query(item, function (err, results) {
             // console.log(results.rows.length)
             if (err) {
+                console.error(err);
                 // 系统级别错误   异常后调用callback并传入err
                 err = "系统错误，请刷新页面后重试"
                 callback(err);
@@ -275,6 +277,7 @@ exports.all_counts_sub = function (req, res) {
         client.query(item, function (err, results) {
             // console.log(results.rows.length)
             if (err) {
+                console.error(err);
                 // 系统级别错误   异常后调用callback并传入err
                 err = "系统错误，请刷新页面后重试"
                 callback(err);
@@ -343,6 +346,7 @@ exports.all_high_counts_sub = function (req, res) {
         client.query(item, function (err, results) {
             // console.log(results.rows.length)
             if (err) {
+                console.error(err);
                 // 系统级别错误   异常后调用callback并传入err
                 err = "系统错误，请刷新页面后重试"
                 callback(err);
@@ -409,6 +413,7 @@ exports.nation_team_sub = function (req, res) {
         client.query(item, function (err, results) {
             // console.log(results.rows.length)
             if (err) {
+                console.error(err);
                 // 系统级别错误   异常后调用callback并传入err
                 err = "系统错误，请刷新页面后重试"
                 callback(err);
@@ -474,6 +479,7 @@ exports.nation_counts_sub = function (req, res) {
         client.query(item, function (err, results) {
             // console.log(results.rows.length)
             if (err) {
+                console.error(err);
                 // 系统级别错误   异常后调用callback并传入err
                 err = "系统错误，请刷新页面后重试"
                 callback(err);
@@ -541,6 +547,7 @@ exports.province_counts_sub = function (req, res) {
         client.query(item, function (err, results) {
             // console.log(results.rows.length)
             if (err) {
+                console.error(err);
                 // 系统级别错误   异常后调用callback并传入err
                 err = "系统错误，请刷新页面后重试"
                 callback(err);
@@ -608,6 +615,7 @@ exports.number_struct_sub = function (req, res) {
         client.query(item, function (err, results) {
             // console.log(results.rows.length)
             if (err) {
+                console.error(err);
                 // 系统级别错误   异常后调用callback并传入err
                 err = "系统错误，请刷新页面后重试"
                 callback(err);
@@ -673,6 +681,7 @@ exports.assistant_counts_sub = function (req, res) {
         client.query(item, function (err, results) {
             // console.log(results.rows.length)
             if (err) {
+                console.error(err);
                 // 系统级别错误   异常后调用callback并传入err
                 err = "系统错误，请刷新页面后重试"
                 callback(err);
@@ -739,6 +748,7 @@ exports.foreign_teacher_sub = function (req, res) {
         client.query(item, function (err, results) {
             // console.log(results.rows.length)
             if (err) {
+                console.error(err);
                 // 系统级别错误   异常后调用callback并传入err
                 err = "系统错误，请刷新页面后重试"
                 callback(err);
@@ -795,6 +805,12 @@ exports.journal_director_sub = function (req, res) {
     for (let i = 0, len = submit_info.length; i < len; i++) {
         const strUUID = uuidv4(); // ⇨ '1b9d6bcd-bbfd-4b2d-9b5d-ab8dfbbd4bed'
         const strUUID2 = strUUID.replace(/-/g, '');       // 去掉-字符
+        if(submit_info[i].in_jour_code=='' || submit_info[i].in_jour_code== undefined){
+            submit_info[i].in_jour_code='/'
+        }
+        if(submit_info[i].out_jour_code=='' || submit_info[i].out_jour_code== undefined){
+            submit_info[i].out_jour_code='/'
+        }
         sqls[i + 1] = `INSERT INTO tch_head_jour(id, univ_code, discipline_code,user_fill_id,tch_name,jour_name,in_jour_code,out_jour_code,jour_collect,pos,tenure) 
         VALUES ('${strUUID2}','${user.univ_code}','${user.discipline_code}','${user_fill_id}','${toLiteral(submit_info[i].tch_name.toString())}','${toLiteral(submit_info[i].jour_name.toString())}','${toLiteral(submit_info[i].in_jour_code.toString())}',
         '${toLiteral(submit_info[i].out_jour_code.toString())}','${submit_info[i].jour_collect}','${submit_info[i].pos}','${submit_info[i].tenure}')`
@@ -805,6 +821,7 @@ exports.journal_director_sub = function (req, res) {
         client.query(item, function (err, results) {
             // console.log(results.rows.length)
             if (err) {
+                console.error(err);
                 // 系统级别错误   异常后调用callback并传入err
                 err = "系统错误，请刷新页面后重试"
                 callback(err);
@@ -871,6 +888,7 @@ exports.conference_director_sub = function (req, res) {
         client.query(item, function (err, results) {
             // console.log(results.rows.length)
             if (err) {
+                console.error(err);
                 // 系统级别错误   异常后调用callback并传入err
                 err = "系统错误，请刷新页面后重试"
                 callback(err);
@@ -938,6 +956,7 @@ exports.conference_report_sub = function (req, res) {
         client.query(item, function (err, results) {
             // console.log(results.rows.length)
             if (err) {
+                console.error(err);
                 // 系统级别错误   异常后调用callback并传入err
                 err = "系统错误，请刷新页面后重试"
                 callback(err);
@@ -1005,6 +1024,7 @@ exports.judges_counts_sub = function (req, res) {
         client.query(item, function (err, results) {
             // console.log(results.rows.length)
             if (err) {
+                console.error(err);
                 // 系统级别错误   异常后调用callback并传入err
                 err = "系统错误，请刷新页面后重试"
                 callback(err);
