@@ -141,6 +141,7 @@ exports.honor_counts_sub = function (req, res) {
         client.query(item, function (err, results) {
             // console.log(results.rows.length)
             if (err) {
+                console.error(err);
                 // 系统级别错误   异常后调用callback并传入err
                 err = "系统错误，请刷新页面后重试"
                 callback(err);
@@ -209,6 +210,7 @@ exports.subject_counts_sub = function (req, res) {
         client.query(item, function (err, results) {
             // console.log(results.rows.length)
             if (err) {
+                console.error(err);
                 // 系统级别错误   异常后调用callback并传入err
                 err = "系统错误，请刷新页面后重试"
                 callback(err);
@@ -275,6 +277,7 @@ exports.all_counts_sub = function (req, res) {
         client.query(item, function (err, results) {
             // console.log(results.rows.length)
             if (err) {
+                console.error(err);
                 // 系统级别错误   异常后调用callback并传入err
                 err = "系统错误，请刷新页面后重试"
                 callback(err);
@@ -343,6 +346,7 @@ exports.all_high_counts_sub = function (req, res) {
         client.query(item, function (err, results) {
             // console.log(results.rows.length)
             if (err) {
+                console.error(err);
                 // 系统级别错误   异常后调用callback并传入err
                 err = "系统错误，请刷新页面后重试"
                 callback(err);
@@ -409,6 +413,7 @@ exports.nation_team_sub = function (req, res) {
         client.query(item, function (err, results) {
             // console.log(results.rows.length)
             if (err) {
+                console.error(err);
                 // 系统级别错误   异常后调用callback并传入err
                 err = "系统错误，请刷新页面后重试"
                 callback(err);
@@ -474,6 +479,7 @@ exports.nation_counts_sub = function (req, res) {
         client.query(item, function (err, results) {
             // console.log(results.rows.length)
             if (err) {
+                console.error(err);
                 // 系统级别错误   异常后调用callback并传入err
                 err = "系统错误，请刷新页面后重试"
                 callback(err);
@@ -541,6 +547,7 @@ exports.province_counts_sub = function (req, res) {
         client.query(item, function (err, results) {
             // console.log(results.rows.length)
             if (err) {
+                console.error(err);
                 // 系统级别错误   异常后调用callback并传入err
                 err = "系统错误，请刷新页面后重试"
                 callback(err);
@@ -608,6 +615,7 @@ exports.number_struct_sub = function (req, res) {
         client.query(item, function (err, results) {
             // console.log(results.rows.length)
             if (err) {
+                console.error(err);
                 // 系统级别错误   异常后调用callback并传入err
                 err = "系统错误，请刷新页面后重试"
                 callback(err);
@@ -673,6 +681,7 @@ exports.assistant_counts_sub = function (req, res) {
         client.query(item, function (err, results) {
             // console.log(results.rows.length)
             if (err) {
+                console.error(err);
                 // 系统级别错误   异常后调用callback并传入err
                 err = "系统错误，请刷新页面后重试"
                 callback(err);
@@ -739,6 +748,7 @@ exports.foreign_teacher_sub = function (req, res) {
         client.query(item, function (err, results) {
             // console.log(results.rows.length)
             if (err) {
+                console.error(err);
                 // 系统级别错误   异常后调用callback并传入err
                 err = "系统错误，请刷新页面后重试"
                 callback(err);
@@ -811,6 +821,7 @@ exports.journal_director_sub = function (req, res) {
         client.query(item, function (err, results) {
             // console.log(results.rows.length)
             if (err) {
+                console.error(err);
                 // 系统级别错误   异常后调用callback并传入err
                 err = "系统错误，请刷新页面后重试"
                 callback(err);
@@ -877,6 +888,7 @@ exports.conference_director_sub = function (req, res) {
         client.query(item, function (err, results) {
             // console.log(results.rows.length)
             if (err) {
+                console.error(err);
                 // 系统级别错误   异常后调用callback并传入err
                 err = "系统错误，请刷新页面后重试"
                 callback(err);
@@ -944,6 +956,7 @@ exports.conference_report_sub = function (req, res) {
         client.query(item, function (err, results) {
             // console.log(results.rows.length)
             if (err) {
+                console.error(err);
                 // 系统级别错误   异常后调用callback并传入err
                 err = "系统错误，请刷新页面后重试"
                 callback(err);
@@ -1011,6 +1024,7 @@ exports.judges_counts_sub = function (req, res) {
         client.query(item, function (err, results) {
             // console.log(results.rows.length)
             if (err) {
+                console.error(err);
                 // 系统级别错误   异常后调用callback并传入err
                 err = "系统错误，请刷新页面后重试"
                 callback(err);

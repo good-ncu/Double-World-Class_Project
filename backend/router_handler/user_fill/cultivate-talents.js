@@ -39,6 +39,7 @@ exports.query_is_time = function (req, res) {
         // 遍历每条SQL并执行
         client.query(item, function (err, results) {
             if (err) {
+                
                 // console.log(1);
                 // 异常后调用callback并传入err
                 callback(err);

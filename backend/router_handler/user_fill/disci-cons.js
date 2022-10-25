@@ -148,6 +148,7 @@ exports.disci_eval_situation_sub = function (req, res) {
         client.query(item, function (err, results) {
             // console.log(results.rows.length)
             if (err) {
+                console.error(err)
                 // 异常后调用callback并传入err
                 err = "系统错误，请刷新页面后重试"
                 callback(err);
@@ -173,7 +174,10 @@ exports.disci_eval_situation_sub = function (req, res) {
         } else {
             // 当当前用户所填数据都成功后，说明当前周期对应的excel表已经填报完成， 则在user_fill插入一条记录，flag置为1， 说明该表
             client.query(`insert into user_fill(id, user_id, fill_id, flag) values('${user_fill_id}','${user.id}','1_1_2',1)`, function (err, result) {
-                if (err) return res.cc('填报错误,请稍后再试')
+                if (err) {
+                    console.error(err); 
+                    return res.cc('填报错误,请稍后再试')
+                }
                 if (result.rowCount !== 1) return res.cc('填报失败,请稍后再试')
                 res.send({
                     status: 0,
@@ -222,6 +226,7 @@ exports.disci_influence_sub = function (req, res) {
         client.query(item, function (err, results) {
             // console.log(results.rows.length)
             if (err) {
+                console.error(err)
                 // 系统级别错误   异常后调用callback并传入err
                 err = "系统错误，请刷新页面后重试"
                 callback(err);
@@ -247,7 +252,10 @@ exports.disci_influence_sub = function (req, res) {
             })
         } else {
             client.query(`insert into user_fill(id, user_id, fill_id, flag) values('${user_fill_id}','${user.id}','1_1_3',1)`, function (err, result) {
-                if (err) return res.cc('系统繁忙,请稍后再试')
+                if (err){ 
+                    console.error(err);
+                    return res.cc('系统繁忙,请稍后再试')
+                }
                 if (result.rowCount !== 1) return res.cc('系统繁忙,请稍后再试')
                 res.send({
                     status: 0,
@@ -295,8 +303,7 @@ exports.disci_funds_sub = function (req, res) {
             // console.log(results.rows.length)
             if (err) {
                 // 异常后调用callback并传入err
-                console.error(err.message);
-                console.log("aaaaaaaaaaaaaaaaaaaa");
+                console.error(err);
                 err = "系统错误，请刷新页面后重试"
                 callback(err);
             } else {
@@ -325,7 +332,7 @@ exports.disci_funds_sub = function (req, res) {
             client.query(`insert into user_fill(id, user_id, fill_id, flag) values('${user_fill_id}','${user.id}','1_1_4',1)`, function (err, result) {
 
                 if (err) {
-                    console.error(err.message);
+                    console.error(err);
                     return res.cc('系统繁忙,请稍后再试')
                 }
                 if (result.rowCount !== 1) return res.cc('系统繁忙,请稍后再试')
