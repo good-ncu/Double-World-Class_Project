@@ -795,10 +795,10 @@ exports.journal_director_sub = function (req, res) {
     for (let i = 0, len = submit_info.length; i < len; i++) {
         const strUUID = uuidv4(); // ⇨ '1b9d6bcd-bbfd-4b2d-9b5d-ab8dfbbd4bed'
         const strUUID2 = strUUID.replace(/-/g, '');       // 去掉-字符
-        if(submit_info[i].in_jour_code==''){
+        if(submit_info[i].in_jour_code=='' || submit_info[i].in_jour_code== undefined){
             submit_info[i].in_jour_code='/'
         }
-        if(submit_info[i].out_jour_code==''){
+        if(submit_info[i].out_jour_code=='' || submit_info[i].out_jour_code== undefined){
             submit_info[i].out_jour_code='/'
         }
         sqls[i + 1] = `INSERT INTO tch_head_jour(id, univ_code, discipline_code,user_fill_id,tch_name,jour_name,in_jour_code,out_jour_code,jour_collect,pos,tenure) 
