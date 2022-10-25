@@ -17,7 +17,9 @@ const newLog = function () {
   arguments.callee.oLog.apply(this, arguments);
 };
 const newError = function () {
-  console.info(new Date().toLocaleString());
+  // console.info(new Date().toLocaleString());
+  process.stderr.write(new Date().toLocaleString())
+  console.info();
   arguments.callee.oError.apply(this, arguments);
 };
 newLog.oLog = console.log;
