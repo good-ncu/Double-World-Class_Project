@@ -10,14 +10,14 @@ exports.user_save_sub = function(req,res){
     var fill_id = req.body.fill_id
     var user = req.user
     var user_save_id = uuidv4().replace(/-/g, '')
-    console.log(data);
+    // console.log(data);
 
     // 写入文件内容（如果文件不存在会创建一个文件）
     var filename = user.id + '_'  + fill_id
     var filepath = '/root/syl_backend/temp_save/'+filename+'.json'
     fs.writeFileSync(filepath, JSON.stringify(data), function(err) {
         if (err) {
-            console.log(err);
+            console.error(err);
             res.cc('系统繁忙，请稍后再试');
         }
     }
@@ -27,7 +27,7 @@ exports.user_save_sub = function(req,res){
     // 记录sql
     client.query(`insert into user_save(id,user_id,fill_id,path) values ('${user_save_id}', '${user.id}', '${fill_id}', '${filepath}')`, function (err, result){
         if (err) {
-            console.log(err.message);
+            console.error(err);
             return res.cc('系统繁忙,请稍后再试')
         }
         return res.send({
@@ -43,7 +43,7 @@ exports.user_save_show = function(req,res){
     var user = req.user
     client.query(`select * from user_save where user_id = '${user.id}' and fill_id = '${fill_id}' order by create_time desc limit 1`, function(err, results){
         if(err){
-            console.log(err.message);
+            console.error(err);
             return res.cc('系统繁忙,请稍后再试')
         }
         if (results.rowCount == 0){
@@ -57,11 +57,11 @@ exports.user_save_show = function(req,res){
         console.log(filepath);
         fs.readFile(filepath, 'utf-8', (err,content)=>{
             if(err){
-                console.log(err);
+                console.error(err);
                 return res.cc('系统繁忙,请稍后再试')
             }     
-            json_data = JSON.parse(content.toString())
-            console.log(json_data);
+            var json_data = JSON.parse(content.toString())
+            // console.log(json_data);
             return res.send({
                 status: 0,
                 data: json_data
