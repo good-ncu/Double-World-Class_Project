@@ -212,8 +212,8 @@ FROM
 	WHERE
 			user_fill.is_delete = '0' 
 			AND user_fill.is_seen = '1' AND fullprof_tch_underg.is_delete = '0'
-			AND fullprof_tch_underg.yr = '2020-2021'    ---改年度
-			AND fullprof_tch_underg.sem = '1'           ---改学期
+			AND fullprof_tch_underg.yr = '2021-2022'    ---改年度
+			AND fullprof_tch_underg.sem = '2'           ---改学期
 	)as a7 ON a7.univ_code = all_xk.un_code AND a7.discipline_code = all_xk.dis_code
 	LEFT JOIN(
 	SELECT
@@ -664,8 +664,8 @@ FROM
 WHERE
 	user_fill.is_delete = '0' 
 			AND user_fill.is_seen = '1' AND fullprof_tch_underg.is_delete = '0'
-	AND fullprof_tch_underg.yr = '2020-2021'    ---改年度
-	AND fullprof_tch_underg.sem = '1'           ---改学期
+	AND fullprof_tch_underg.yr = '2021-2022'    ---改年度
+	AND fullprof_tch_underg.sem = '2'           ---改学期
 )as a7 ON a7.univ_code = all_xk.un_code AND a7.discipline_code = all_xk.dis_code
 LEFT JOIN(
 SELECT
