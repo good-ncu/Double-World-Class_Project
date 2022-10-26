@@ -208,7 +208,7 @@ FROM
 			fullprof_tch_underg.num_full_prof_teach_underg as skjs_num ---某个年度某个学期给本科生上课的正教授人数
 	FROM
 			fullprof_tch_underg
-			INNER JOIN user_fill ON user_fill.ID = fullprof_tch_underg.user_fill_id
+			INNER JOIN user_fill ON user_fill.ID = fullprof_tch_underg.2021-2user_fill_id
 	WHERE
 			user_fill.is_delete = '0' 
 			AND user_fill.is_seen = '1' AND fullprof_tch_underg.is_delete = '0'
@@ -1027,7 +1027,7 @@ function results_to_front(results){
 				["国家级教学成果奖数量（项）"],
 				["国家级一流课程建设数（个）"],
 				["国家级人才培养平台/基地（个）"],
-				["给本科生上课的正教授数量（位）"],
+				// ["给本科生上课的正教授数量（位）"],
 				["年度授予博士学位数量"]
 			]
 		},
@@ -1101,10 +1101,10 @@ function results_to_front(results){
 			award: false
 		})
 		// 给本科生上课的正教授数量（位）
-		data[1].datas[3].push({
-			value: item.ptgj_count,
-			award: false
-		})
+		// data[1].datas[3].push({
+		// 	value: item.ptgj_count,
+		// 	award: false
+		// })
 		// 年度授予博士学位数量
 		data[1].datas[4].push({
 			value: item.phd_num,
