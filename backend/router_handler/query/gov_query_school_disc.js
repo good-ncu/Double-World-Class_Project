@@ -54,7 +54,7 @@ exports.gov_query_school_disc = function (req, res) {
 
 
 
-// 省厅 学校 及其对应 学科  的展示
+// 省厅 学校 及其对应 学科  的展示   查出48个学科（群）
 exports.gov_query_school_disc_eval = function (req, res) {
     // userinfo = req.user
     sql = `SELECT
@@ -83,7 +83,7 @@ exports.gov_query_school_disc_eval = function (req, res) {
     univ_discipline.discipline_name,
     concat_ws('、',univ_discipline.tag3,univ_discipline.subtag1,univ_discipline.tag2) AS tag
    FROM univ_discipline
-   WHERE univ_discipline.tag1='一流学科建设名单'
+   WHERE univ_discipline.tag1='一流学科建设名单' and univ_code != '99999'
    )) AS A
    ORDER BY univ_code,discipline_code ASC`
     client.query(sql, function (err, results) {
