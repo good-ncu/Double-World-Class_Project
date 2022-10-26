@@ -1,0 +1,621 @@
+[
+	{
+		"table": "1_1_2",
+		"title": "本学科全国学科评估情况",
+		"discipline_eval_turn": "学科评估轮次",
+		"discipline_eval_result": "学科评估结果"
+	},
+	{
+		"table": "1_1_3",
+		"title": "学科影响力情况",
+		"yr": "年度",
+		"rank_type": "排行榜/数据库名称",
+		"rank": "本学科排名名次"
+	},
+	{
+		"table": "1_1_4",
+		"title": "学科建设经费数额（万元）",
+		"yr": "年度",
+		"total_fund": "建设经费总额(w)",
+		"ctr_budg_fund": "中央专项预算经费",
+		"ctr_receive_fund": "中央专项实际到账",
+		"ctr_expend_fund": "中央专项预算",
+		"lcl_budg_fund": "地方专项预算经费",
+		"lcl_receive_fund": "地方专项实际到账",
+		"lcl_expend_fund": "地方专项实际支出",
+		"self_budg_fund": "学科自筹预算经费",
+		"self_receive_fund": "学科自筹实际到账",
+		"self_expend_fund": "学科自筹实际支出",
+		"other_budg_fund": "其他预算经费",
+		"other_receive_fund": "其他实际到账",
+		"other_expend_fund": "其他实际支出"
+	},
+	{
+		"table": "2_1_1",
+		"title": "思政教育成果情况",
+		"project_year": "获得年份",
+		"project_type": "荣誉表彰/项目类型",
+		"project_person": "获得者"
+	},
+	{
+		"table": "2_2_1_0",
+		"title": "学科教学成果奖存量情况",
+		"award_name": "成果名称",
+		"award_ltype": "成果奖级别",
+		"award_level": "奖项等级",
+		"award_type": "奖项类型",
+		"award_date": "获奖时间",
+		"tch_name": "成果完成人",
+		"yr": "获奖年度"
+	},
+	{
+		"table": "2_2_1_1",
+		"title": "学科新增国家级教学成果奖情况",
+		"award_name": "成果名称",
+		"award_ltype": "成果奖级别",
+		"award_level": "奖项等级",
+		"award_type": "奖项类型",
+		"award_date": "获奖时间",
+		"tch_name": "成果完成人",
+		"yr": "获奖年度"
+	},
+	{
+		"table": "2_2_1_2",
+		"title": "学科新增研究生教育成果奖情况",
+		"award_name": "成果名称",
+		"award_ltype": "成果奖级别",
+		"award_level": "奖项等级",
+		"award_type": "奖项类型",
+		"award_date": "获奖时间",
+		"tch_name": "成果完成人",
+		"yr": "获奖年度"
+	},
+	{
+		"table": "2_2_1_3",
+		"title": "学科新增省级教学成果奖情况",
+		"award_name": "成果名称",
+		"award_ltype": "成果奖级别",
+		"award_level": "奖项等级",
+		"award_type": "奖项类型",
+		"award_date": "获奖时间",
+		"tch_name": "成果完成人",
+		"yr": "获奖年度"
+	},
+	{
+		"table": "2_2_2_1",
+		"title": "出版教材情况",
+		"textbook": "教材名称",
+		"au_or_tans": "主要作者/译者",
+		"sig": "署名情况",
+		"publish_date": "出版/再版时间",
+		"publisher": "出版社",
+		"revision": "版次",
+		"textbook_using": "教材使用情况（限100字）",
+		"remarks": "备注"
+	},
+	{
+		"table": "2_2_2_3",
+		"title": "国家级一流课程建设情况",
+		"head_name": "负责人",
+		"cour_name": "课程名称",
+		"cour_type": "课程类别",
+		"appro_year": "批准年度",
+		"cour_level": "课程级别"
+	},
+	{
+		"table": "2_2_2_4",
+		"title": "省级一流课程建设情况",
+		"head_name": "负责人",
+		"cour_name": "课程名称",
+		"cour_type": "课程类别",
+		"appro_year": "批准年度",
+		"cour_level": "课程级别"
+	},
+	{
+		"table": "2_2_3_0",
+		"title": "人才培养平台_基地建设存量情况",
+		"head_name": "负责人",
+		"plat_base_level": "平台/基地级别",
+		"plat_base_type": "人才培养平台类型",
+		"plat_base_name": "平台/基地名称",
+		"yr": "获批年份"
+	},
+	{
+		"table": "2_2_3_1",
+		"title": "国家级人才培养平台_基地建设情况",
+		"head_name": "负责人",
+		"plat_base_level": "平台/基地级别",
+		"plat_base_type": "人才培养平台类型",
+		"plat_base_name": "平台/基地名称",
+		"yr": "获批年份"
+	},
+	{
+		"table": "2_2_3_2",
+		"title": "省部级人才培养平台_基地建设情况",
+		"head_name": "负责人",
+		"plat_base_level": "平台/基地级别",
+		"plat_base_type": "人才培养平台类型",
+		"plat_base_name": "平台/基地名称",
+		"yr": "获批年份"
+	},
+	{
+		"table": "2_2_4",
+		"title": "硕士导师和博士导师情况",
+		"yr": "学年度",
+		"master_tutor_num": "硕士研究生导师数量",
+		"doc_tutor_num": "博士研究生导师数量"
+	},
+	{
+		"table": "2_2_5",
+		"title": "给本科生上课的正教授人数",
+		"yr": "学年度",
+		"sem": "学期",
+		"num_full_prof": "学科正教授数",
+		"num_full_prof_teach_underg": "为本科生上课的正教授数"
+	},
+	{
+		"table": "2_2_6",
+		"title": "在校学生国内外竞赛获奖项目清单",
+		"stu_name": "获奖人姓名",
+		"stu_type": "学术类型",
+		"award_name": "奖项名称",
+		"award_work": "获奖作品",
+		"award_level": "获奖等级",
+		"award_date": "获奖时间",
+		"org_name": "组织单位名称",
+		"org_type": "组织单位类型"
+	},
+	{
+		"table": "2_2_7",
+		"title": "在校学生发表的代表性论文清单",
+		"stu_name": "学生姓名",
+		"paper_title": "论文标题",
+		"publish_date": "发表时间",
+		"stu_type": "学生类型",
+		"jour_name": "期刊名称",
+		"jour_volume": "发表年份及卷（期）数",
+		"jour_collec": "期刊收录情况"
+	},
+	{
+		"table": "2_3_1",
+		"title": "年度授予学士、硕士、博士学位情况",
+		"yr": "学年度",
+		"award_bd_num": "年度授予学士学位数",
+		"award_md_num": "年度授予硕士学位数",
+		"award_phd_num": "年度授予博士学位数"
+	},
+	{
+		"table": "2_3_2",
+		"title": "学科领域突出贡献者清单",
+		"grad_year": "毕业年份",
+		"stu_name": "姓名",
+		"pro_contribute_proj": "突出贡献项目"
+	},
+	{
+		"table": "2_4_1",
+		"title": "来本学科攻读学位的留学生和交流学者情况",
+		"yr": "学年度",
+		"b_enroll_year": "当年入学学生数量（攻学）",
+		"b_cur_num": "在校学生数量（攻学）",
+		"m_enroll_year": "当年入学学生数量（攻硕）",
+		"m_cur_num": "在校学生数量（攻硕）",
+		"phd_enroll_year": "当年入学学生数量（攻博）",
+		"phd_cur_num": "在校学生数量（攻博）",
+		"exch_num": "交流学者数量"
+	},
+	{
+		"table": "2_4_2",
+		"title": "学生参加本领域国内外重要学术会议并作报告人员清单",
+		"yr": "年度",
+		"stu_name": "学生姓名",
+		"stu_type": "学生类别",
+		"conf_name": "会议名称",
+		"rpt_name": "报告题目",
+		"rpt_time": "报告时间",
+		"rpt_place": "报告地点"
+	},
+	{
+		"table": "3_1_1",
+		"title": "师德师风建设情况",
+		"yr": "获得年度",
+		"tch_name": "获得者",
+		"recogn_honor": "荣誉表彰/项目类型"
+	},
+	{
+		"table": "3_2_1",
+		"title": "学科主要方向、学科带头人及中青年学术骨干清单",
+		"tch_name": "姓名",
+		"tch_type": "人员性质",
+		"tch_title": "职称",
+		"age": "年龄",
+		"rep_work": "代表性学术成果（3项）",
+		"discipline": "学科方向"
+	},
+	{
+		"table": "3_2_2_0",
+		"title": "学科高层次团队存量清单",
+		"talent_or_team": "类型",
+		"talent_team_name": "团队名称",
+		"level": "层次",
+		"honor_name": "荣誉称号",
+		"yr": "获批年度"
+	},
+	{
+		"table": "3_2_2_1",
+		"title": "学科国家级学术领军人才（含青年人才）清单",
+		"talent_or_team": "类型",
+		"talent_team_name": "人才姓名",
+		"level": "层次",
+		"honor_name": "荣誉称号",
+		"yr": "获批年度"
+	},
+	{
+		"table": "3_2_2_2",
+		"title": "学科省重点人才清单",
+		"talent_team_name": "人才姓名",
+		"level": "层次",
+		"honor_name": "荣誉称号",
+		"yr": "获批年度"
+	},
+	{
+		"table": "3_2_2_3",
+		"title": "学科高层次人才存量清单",
+		"talent_or_team": "类型",
+		"talent_team_name": "团队名称/人才姓名",
+		"level": "层次",
+		"honor_name": "荣誉称号",
+		"yr": "获批年度"
+	},
+	{
+		"table": "3_2_2_4",
+		"title": "学科国家级团队清单",
+		"talent_or_team": "类型",
+		"talent_team_name": "团队名称",
+		"level": "层次",
+		"honor_name": "荣誉称号",
+		"yr": "获批年度"
+	},
+	{
+		"table": "3_2_3",
+		"title": "学科专任教师数量及结构",
+		"yr": "学年度",
+		"full_tch_num": "专任教师总数",
+		"ageblow25": "25岁以下数量",
+		"age2535": "25-35岁数量",
+		"age3645": "36-45岁数量",
+		"age4660": "46-60岁数量",
+		"ageup60": "60岁以上数量",
+		"senior": "正高级数量",
+		"sub_senior": "副高级数量",
+		"mid_grade": "中级数量",
+		"other_grade": "其他职称数量",
+		"phd": "博士数量",
+		"m_degree": "硕士数量",
+		"b_degree": "其他学历数量"
+	},
+	{
+		"table": "3_2_4",
+		"title": "博士后和科研助理数量",
+		"yr": "年度",
+		"in_postdoc_sum": "国内毕业博士后总数",
+		"in_postdoc_newinc": "国内毕业博士后当年新增",
+		"out_postdoc_sum": "境外毕业博士后总数",
+		"out_postdoc_newinc": "境外毕业博士后当年新增",
+		"univ_ra_sum": "校聘科研助理人数总数",
+		"univ_ra_newinc": "校聘科研助理人数当年新增",
+		"inst_ra_sum": "院聘科研助理人数总数",
+		"inst_ra_newinc": "院聘科研助理人数当年新增",
+		"task_ra_sum": "课题聘科研助理人数总数",
+		"task_ra_newinc": "课题聘科研助理人数当年新增"
+	},
+	{
+		"table": "3_2_5",
+		"title": "外籍专任教师数量及结构",
+		"yr": "学年度",
+		"sum_full_ftch": "数量(总数)",
+		"sum_high_title": "正高级职称数量(总数)",
+		"lang_full_ftch": "数量(语言类外籍专任教师数)",
+		"lang_high_title": "正高级职称数量(语言类外籍专任教师)",
+		"prof_full_ftch": "数量(专业类外籍专任教师)",
+		"prof_high_title": "正高级职称数量(专业类外籍专任教师)"
+	},
+	{
+		"table": "3_3_1",
+		"title": "教师担任国内外重要期刊负责人清单",
+		"tch_name": "教师姓名",
+		"jour_name": "任职期刊名称",
+		"in_jour_code": "国内期刊编号",
+		"out_jour_code": "国际期刊编号",
+		"jour_collect": "期刊收录情况",
+		"pos": "担任职位",
+		"tenure": "任职期限"
+	},
+	{
+		"table": "3_3_2",
+		"title": "教师在国内外重要学术组织任职主要负责人清单",
+		"tch_name": "教师姓名",
+		"ac_org": "学术组织名称",
+		"pos": "担任职务",
+		"tenure": "任职期限"
+	},
+	{
+		"table": "3_3_3",
+		"title": "教师参加本领域重要国际学术会议并作报告人员清单",
+		"yr": "年度",
+		"tch_name": "教师姓名",
+		"conf_name": "会议名称",
+		"rpt_title": "报告题目",
+		"rpt_yr_mth": "报告年月",
+		"rpt_place": "报告地点"
+	},
+	{
+		"table": "3_3_4",
+		"title": "教师担任国际比赛评委、裁判人员清单",
+		"tch_name": "教师姓名",
+		"comp_name": "比赛名称",
+		"comp_yr_mth": "比赛年月",
+		"pos": "担任职务"
+	},
+	{
+		"table": "4_1_1_0",
+		"title": "教师获国内外重要奖项数存量和清单",
+		"yr": "获奖年份",
+		"award_name": "所获奖项名称",
+		"tch_name": "教师姓名",
+		"level": "层次",
+		"grade": "所获奖项等级",
+		"award_eval_org": "评奖组织单位",
+		"award_eval_org_type": "组织单位类型"
+	},
+	{
+		"table": "4_1_1_1",
+		"title": "教师获国家级奖项数及清单",
+		"yr": "获奖年份",
+		"award_name": "所获奖项名称",
+		"tch_name": "教师姓名",
+		"level": "层次",
+		"grade": "所获奖项等级",
+		"award_eval_org": "评奖组织单位",
+		"award_eval_org_type": "组织单位类型"
+	},
+	{
+		"table": "4_1_1_2",
+		"title": "教师获省部级奖项数及清单",
+		"yr": "获奖年份",
+		"award_name": "所获奖项名称",
+		"tch_name": "教师姓名",
+		"level": "层次",
+		"grade": "所获奖项等级",
+		"award_eval_org": "评奖组织单位",
+		"award_eval_org_type": "组织单位类型"
+	},
+	{
+		"table": "4_1_2",
+		"title": "教师公开出版的专著清单",
+		"yr": "年度",
+		"tch_name": "教师姓名",
+		"monograph": "专著名称",
+		"publisher": "出版社",
+		"publish_date": "出版时间"
+	},
+	{
+		"table": "4_1_3_0",
+		"title": "教师在国内外期刊发表的代表性论文存量及清单",
+		"yr": "年度",
+		"quarter": "季度",
+		"paper_title": "论文标题",
+		"paper_au": "作者姓名",
+		"jour_name": "发表期刊",
+		"jour_level": "期刊级别",
+		"yr_mth_volum": "发表年月及卷（期）数",
+		"remarks": "备注"
+	},
+	{
+		"table": "4_1_3_1",
+		"title": "教师在国内外顶级期刊发表论文清单",
+		"yr": "年度",
+		"quarter": "季度",
+		"paper_title": "论文标题",
+		"paper_au": "作者姓名",
+		"jour_name": "发表期刊",
+		"jour_level": "期刊级别",
+		"yr_mth_volum": "发表年月及卷（期）数",
+		"remarks": "备注"
+	},
+	{
+		"table": "4_1_3_2",
+		"title": "教师在国内外重要期刊发表论文清单",
+		"yr": "年度",
+		"quarter": "季度",
+		"paper_title": "论文标题",
+		"paper_au": "作者姓名",
+		"jour_name": "发表期刊",
+		"jour_level": "期刊级别",
+		"yr_mth_volum": "发表年月及卷（期）数",
+		"remarks": "备注"
+	},
+	{
+		"table": "4_1_3_3",
+		"title": "教师在其他重要期刊发表论文清单",
+		"yr": "年度",
+		"quarter": "季度",
+		"paper_title": "论文标题",
+		"paper_au": "作者姓名",
+		"jour_name": "发表期刊",
+		"jour_level": "期刊级别",
+		"yr_mth_volum": "发表年月及卷（期）数",
+		"remarks": "备注"
+	},
+	{
+		"table": "4_1_4",
+		"title": "承担国内外重大设计与展演任务清单",
+		"yr": "年度",
+		"quarter": "季度",
+		"major_desg_or_show_name": "国内外重大设计、展演名称",
+		"parti_date": "参与时间",
+		"task": "承担任务"
+	},
+	{
+		"table": "4_2_1_0",
+		"title": "科研创新平台建设存量及清单",
+		"yr": "年度",
+		"plat_name": "平台名称",
+		"palt_level": "层次",
+		"appro_time": "批准时间"
+	},
+	{
+		"table": "4_2_1_1",
+		"title": "学科国家级平台清单",
+		"yr": "年度",
+		"plat_name": "平台名称",
+		"palt_level": "层次",
+		"appro_time": "批准时间"
+	},
+	{
+		"table": "4_2_1_2",
+		"title": "学科其他国家级平台清单",
+		"yr": "年度",
+		"plat_name": "平台名称",
+		"palt_level": "层次",
+		"appro_time": "批准时间"
+	},
+	{
+		"table": "4_2_1_3",
+		"title": "学科省部级平台清单",
+		"yr": "年度",
+		"plat_name": "平台名称",
+		"palt_level": "层次",
+		"appro_time": "批准时间"
+	},
+	{
+		"table": "4_2_2_0",
+		"title": "主持科研项目存量及清单",
+		"yr": "年度",
+		"proj_name": "项目名称",
+		"proj_level": "层次",
+		"proj_type": "项目类型",
+		"proj_fromto_ymth": "项目起止年月",
+		"proj_fund": "项目经费（万元）"
+	},
+	{
+		"table": "4_2_2_1",
+		"title": "主持国家重点重大项目清单",
+		"yr": "年度",
+		"proj_name": "项目名称",
+		"proj_level": "层次",
+		"proj_type": "项目类型",
+		"proj_fromto_ymth": "项目起止年月",
+		"proj_fund": "项目经费（万元）"
+	},
+	{
+		"table": "4_2_2_2",
+		"title": "主持其他国家项目清单",
+		"yr": "年度",
+		"proj_name": "项目名称",
+		"proj_level": "层次",
+		"proj_type": "项目类型",
+		"proj_fromto_ymth": "项目起止年月",
+		"proj_fund": "项目经费（万元）"
+	},
+	{
+		"table": "4_2_2_3",
+		"title": "主持省级重点重大项目清单",
+		"yr": "年度",
+		"proj_name": "项目名称",
+		"proj_level": "层次",
+		"proj_type": "项目类型",
+		"proj_fromto_ymth": "项目起止年月",
+		"proj_fund": "项目经费（万元）"
+	},
+	{
+		"table": "4_2_3_1",
+		"title": "纵向课题到校科研经费总额",
+		"yr": "年度",
+		"quarter": "季度",
+		"total_fund": "经费总额（万元）",
+		"subj_type": "课题类型"
+	},
+	{
+		"table": "4_2_3_2",
+		"title": "横向课题到校科研经费总额",
+		"yr": "年度",
+		"quarter": "季度",
+		"total_fund": "经费总额（万元）",
+		"subj_type": "课题类型"
+	},
+	{
+		"table": "4_2_4",
+		"title": "主办高水平学术期刊清单",
+		"yr": "年度",
+		"jour_name": "期刊名称",
+		"jour_in_num": "国内期刊编号",
+		"jour_out_num": "国际期刊编号",
+		"adopt": "期刊收录情况",
+		"create_time": "创刊时间",
+		"ac_influ": "学术影响力"
+	},
+	{
+		"table": "4_3_1",
+		"title": "参与国内外标准制定项目清单",
+		"yr": "年度",
+		"quarter": "季度",
+		"proj_name": "名称",
+		"proj_type": "类型",
+		"parti_type": "参与类型"
+	},
+	{
+		"table": "4_3_2",
+		"title": "国际合作论文数量",
+		"yr": "年度",
+		"quarter": "季度",
+		"chn_nsci_num": "中文期刊论文自然科学数量",
+		"chn_hss_num": "中文期刊论文人文社科数量",
+		"for_nsci_num": "外文期刊自然科学数量",
+		"for_hss_num": "外文期刊人文社科数量",
+		"co_nsci_num": "国际合作论文自然科学数量",
+		"co_hss_num": "国际合作论文人文社科数量"
+	},
+	{
+		"table": "5_1_1",
+		"title": "成果转化到校金额",
+		"yr": "年度",
+		"quarter": "季度",
+		"achv_to_univfund": "成果转化到校资金总额（万元）"
+	},
+	{
+		"table": "5_2_1_1",
+		"title": "国家级产教融合平台建设清单",
+		"yr": "年度",
+		"plat_name": "平台名称",
+		"plat_level": "平台级别",
+		"appro_date": "批准时间"
+	},
+	{
+		"table": "5_2_1_2",
+		"title": "省部级产教融合平台建设清单",
+		"yr": "年度",
+		"plat_name": "平台名称",
+		"plat_level": "平台级别",
+		"appro_date": "批准时间"
+	},
+	{
+		"table": "5_2_2_1",
+		"title": "国家级咨政研究情况",
+		"yr": "年度",
+		"level": "层次",
+		"topic": "研究报告/政策咨询主题",
+		"adopt_leader": "批示领导",
+		"adopt_sit": "采纳情况",
+		"adopt_date": "采纳/批示时间"
+	},
+	{
+		"table": "5_2_2_2",
+		"title": "省部级咨政研究情况",
+		"yr": "年度",
+		"level": "层次",
+		"topic": "研究报告/政策咨询主题",
+		"adopt_leader": "批示领导",
+		"adopt_sit": "采纳情况",
+		"adopt_date": "采纳/批示时间"
+	}
+]

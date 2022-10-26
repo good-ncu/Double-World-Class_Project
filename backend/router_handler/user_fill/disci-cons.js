@@ -175,7 +175,7 @@ exports.disci_eval_situation_sub = function (req, res) {
             // 当当前用户所填数据都成功后，说明当前周期对应的excel表已经填报完成， 则在user_fill插入一条记录，flag置为1， 说明该表
             client.query(`insert into user_fill(id, user_id, fill_id, flag) values('${user_fill_id}','${user.id}','1_1_2',1)`, function (err, result) {
                 if (err) {
-                    console.error(err); 
+                    console.error(err);
                     return res.cc('填报错误,请稍后再试')
                 }
                 if (result.rowCount !== 1) return res.cc('填报失败,请稍后再试')
@@ -252,7 +252,7 @@ exports.disci_influence_sub = function (req, res) {
             })
         } else {
             client.query(`insert into user_fill(id, user_id, fill_id, flag) values('${user_fill_id}','${user.id}','1_1_3',1)`, function (err, result) {
-                if (err){ 
+                if (err) {
                     console.error(err);
                     return res.cc('系统繁忙,请稍后再试')
                 }
@@ -650,7 +650,7 @@ exports.fill_empty = function (req, res) {
                 message: err
             })
         } else {
-            client.query(`insert into user_fill(id, user_id, fill_id, flag) values('${user_fill_id}','${user.id}','${fill_id}',1)`, function (err, result) {
+            client.query(`insert into user_fill(id, user_id, fill_id, flag, is_none) values('${user_fill_id}','${user.id}','${fill_id}',1,1)`, function (err, result) {
 
                 if (err) {
                     console.error(err.message);

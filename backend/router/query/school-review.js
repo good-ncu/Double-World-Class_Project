@@ -69,4 +69,10 @@ router.get('/review-download-query-wordname', word_review_handler.review_downloa
 router.post('/check-word-discipline-current', school_review_handler.check_word_discipline_current)
 router.post('/delete-word-discipline-table', school_review_handler.delete_word_discipline_table)
 
+
+
+router.get('/export-all-discipline-table', school_review_handler.export_all_discipline_table, school_review_handler.download_all_data)
+
+
+
 module.exports = router

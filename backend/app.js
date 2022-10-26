@@ -8,8 +8,8 @@ const joi = require('@hapi/joi')
 const cors = require('cors')
 app.use(cors())
 var bodyParser = require('body-parser');
-app.use(bodyParser.json({limit: '5000mb'}));
-app.use(bodyParser.urlencoded({limit: '5000mb', extended: true}));
+app.use(bodyParser.json({ limit: '5000mb' }));
+app.use(bodyParser.urlencoded({ limit: '5000mb', extended: true }));
 
 
 const newLog = function () {
@@ -67,7 +67,8 @@ app.use(expressJWT({ secret: config.jwtSecretKey, algorithms: ['HS256'] }).unles
     /^\/api\/alter-pwd-internal/,
     /^\/api\/attach-filled-download/,
     /^\/api\/index\/school-query\/review-download-filled-word/,
-    /^\/api\/index\/school-query\/review-download-query-wordname/
+    /^\/api\/index\/school-query\/review-download-query-wordname/,
+    /^\/api\/index\/school-query\/export-all-discipline-table/
   ]
 }))
 
@@ -205,7 +206,7 @@ server.setTimeout(0)
 app.use(function (err, req, res, next) {
   // 数据验证失败
   if (err instanceof joi.ValidationError) return res.cc(err)
-  if(err.code=='ENAMETOOLONG') return res.cc('文件名过长，请以默认模板文件名命名文件！');
+  if (err.code == 'ENAMETOOLONG') return res.cc('文件名过长，请以默认模板文件名命名文件！');
   // 未知错误
   console.error(err);
   res.cc(err)
