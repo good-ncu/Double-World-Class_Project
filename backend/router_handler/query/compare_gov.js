@@ -1027,7 +1027,7 @@ function results_to_front(results){
 				["国家级教学成果奖数量（项）"],
 				["国家级一流课程建设数（个）"],
 				["国家级人才培养平台/基地（个）"],
-				// ["给本科生上课的正教授数量（位）"],
+				["给本科生上课的正教授数量（位）"],
 				["年度授予博士学位数量"]
 			]
 		},
@@ -1101,10 +1101,10 @@ function results_to_front(results){
 			award: false
 		})
 		// 给本科生上课的正教授数量（位）
-		// data[1].datas[3].push({
-		// 	value: item.ptgj_count,
-		// 	award: false
-		// })
+		data[1].datas[3].push({
+			value: item.ptgj_count,
+			award: false
+		})
 		// 年度授予博士学位数量
 		data[1].datas[4].push({
 			value: item.phd_num,
