@@ -4,8 +4,8 @@ const async = require('async');
 
 // 省厅查看 突击队学科 （柱状图对比数据）
 exports.gov_compare_subject = function (req, res) {
-	userinfo = req.user
-	params = req.body.params
+	var userinfo = req.user
+	var params = req.body.params
 	console.log(params)
 	// 字符串转array
 	// params = JSON.parse(params)
@@ -139,7 +139,7 @@ FROM
 			user_fill.is_delete = '0' 
 			AND user_fill.is_seen = '1'
 			AND discipline_influ.is_delete = '0'
-			AND rank_type = '软科世界一流学科排名'  --后端改参数
+			AND rank_type = '软科'  --后端改参数
 	) as a2 ON a2.univ_code = all_xk.un_code AND a2.discipline_code = all_xk.dis_code
 	LEFT JOIN(
 			SELECT
@@ -591,7 +591,7 @@ FROM
 WHERE
 	user_fill.is_delete = '0' 
 			AND user_fill.is_seen = '1' AND discipline_influ.is_delete = '0'
-	AND rank_type = '软科世界一流学科排名'
+	AND rank_type = '软科'
 ) as a2 ON a2.univ_code = all_xk.un_code AND a2.discipline_code = all_xk.dis_code
 LEFT JOIN(
 	SELECT
@@ -983,7 +983,7 @@ GROUP BY
 		 // 遍历每条SQL并执行
 		 client.query(item, function (err, results) {
             if (err) {
-                console.log(err.message);
+                console.error(err.message);
                 // 异常后调用callback并传入err
                 err = "系统错误，请刷新页面后重试"
                 callback(err);
@@ -997,7 +997,7 @@ GROUP BY
         });
 	}, function(err){
 		if (err) {
-            console.log(err);
+            console.error(err);
             return res.cc(err)
         } else {
             return res.send({
@@ -1019,7 +1019,7 @@ function results_to_front(results){
 	var data = [	
 		{
 			name: "学科建设进展",
-			datas: [["学科评估情况（第四轮）"],["学科影响力情况（软科世界一流学科排名）"],["本学科建设经费数额（万元）"]]
+			datas: [["学科评估情况（第四轮）"],["学科影响力情况（软科）"],["本学科建设经费数额（万元）"]]
 		},
 		{
 			name: "培养拔尖创新人才",
