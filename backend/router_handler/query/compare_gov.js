@@ -1102,7 +1102,7 @@ function results_to_front(results){
 		})
 		// 给本科生上课的正教授数量（位）
 		data[1].datas[3].push({
-			value: item.ptgj_count,
+			value: item.skjs_num,
 			award: false
 		})
 		// 年度授予博士学位数量
