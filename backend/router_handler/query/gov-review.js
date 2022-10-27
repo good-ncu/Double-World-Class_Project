@@ -11,7 +11,8 @@ var async = require('async');
 var Excel = require('exceljs'); // 引入模块
 const { text } = require('express');
 const fs = require('fs');
-const urlencode = require('urlencode')
+const urlencode = require('urlencode');
+const { forEach } = require('jszip');
 
 
 /**
@@ -22,11 +23,11 @@ const urlencode = require('urlencode')
  */
 exports.export_all_discipline_table = function (req, res, next) {
 
-    var fill_id = req.query.fill_id
-    console.log('省厅导出的总表中包含几个表： ' + fill_id.length)
+    // var fill_id = req.body.fill_id
+    // console.log('省厅导出的总表中包含几个表： ' + fill_id.length)
     // 存放 uuid  每个元素都是一个uuid数组
     var result_table_info = []
-
+    fill_id = ["1_1_4", "4_3_1"]
     //  sql_query 内放所有的查询语句
     var sql_query = []
 
@@ -73,14 +74,13 @@ exports.export_all_discipline_table = function (req, res, next) {
                 console.log(item + "执行成功");
                 // 执行完成后也要调用callback，不需要参数   
                 // 将查出某个fill_id的对应数据库表名和拥有的id进行保存
-                result_table_info = results.rows
+                result_table_info.push(results.rows)
                 var temp_fill_id = ''
-                result_table_info.forEach(element => {
+                results.rows.forEach(element => {
                     temp_fill_id = temp_fill_id + `'${element.id}',`
                 });
-                temp_fill_id = temp_fill_id + 'zt_good'
-                sql_query.push(`select * from ${result_table_info[0].to_dbtable} where user_fill_id in (${temp_fill_id}) and is_delete=0`)
-
+                temp_fill_id = temp_fill_id + `'zt_good'`
+                sql_query.push(`select * from ${results.rows[0].to_dbtable} where user_fill_id in (${temp_fill_id}) and is_delete=0`)
                 console.log("成功保存了sql_query~~~~~")
                 callback();
             }
@@ -96,6 +96,11 @@ exports.export_all_discipline_table = function (req, res, next) {
             //     message: result_table_info
             // })
 
+            // result_table_info.forEach(element => {
+            //     console.log(element)
+            // });
+            console.log(result_table_info[0][0].univ_name)
+
             // 这个是作为指针 移动result_table_info的   给结果加上 1_1_1 这种作为key
             var index = 0
             async.each(sql_query, function (item, callback) {
@@ -106,17 +111,28 @@ exports.export_all_discipline_table = function (req, res, next) {
                         callback(err);
                     }
                     else {
-                        if (result_table_info[index].fill_id == "3_2_2_2") {
-                            for (var i = 0; i < results.rows.length; i++) {
-                                delete results.rows[i]["talent_or_team"]
-                            }
+                        // if (result_table_info[index].fill_id == "3_2_2_2") {
+                        //     for (var i = 0; i < results.rows.length; i++) {
+                        //         delete results.rows[i]["talent_or_team"]
+                        //     }
+                        // }
+
+
+                        // 给每条记录加上学校和学科名
+                        var temp_index = 0
+                        for (var i = 0; i < results.rows.length; i++) {
+                            results.rows[i].univ_name = result_table_info[index][temp_index].univ_name
+                            results.rows[i].discipline_name = result_table_info[index][temp_index].discipline_name
+                            temp_index = temp_index + 1
                         }
-                        // results.rows.fill_id = result_table_info[index].fill_id
-                        // index += 1
-                        // 将每个表的数据都加入result_all_table_data数组中
-                        // result_all_table_data.push(results.rows)
-                        // 给不同的key 添加 value
-                        result_all_table_data[result_table_info[index].fill_id] = results.rows
+                        // results.rows.forEach(element => {
+                        //     element.univ_name = result_table_info[index][temp_index].univ_name
+                        //     element.discipline_name = result_table_info[index][temp_index].discipline_name
+                        //     temp_index = temp_index + 1
+                        // });
+                        // 给不同的key 添加 value    ,一一对应将每个表的数据都加入result_all_table_data数组中
+                        result_all_table_data[result_table_info[index][0].fill_id] = results.rows
+
                         index = index + 1
                         callback();
 
@@ -159,19 +175,24 @@ exports.download_all_data = function (req, res) {
     path_n = `/root/syl_backend/taizhang/` + temp_filename + `.xlsx`
     workbook.xlsx.writeFile(path_n)
         .then(function () {
-            res.writeHead(200, {
-                'Access-Control-Expose-Headers': 'Authorization',
-                'Content-Type': 'application/octet-stream;charset=utf8',
-                'Content-Disposition': "attachment;filename*=UTF-8''" + urlencode(temp_filename + `.xlsx`)
-            });
-            var opt = {
-                flags: 'r'
-            };
-            var stream = fs.createReadStream(path_n, opt);
-            stream.pipe(res);
-            stream.on('end', function () {
-                res.end();
-            });
+
+            // res.writeHead(200, {
+            //     'Access-Control-Expose-Headers': 'Authorization',
+            //     'Content-Type': 'application/octet-stream;charset=utf8',
+            //     'Content-Disposition': "attachment;filename*=UTF-8''" + urlencode(temp_filename + `.xlsx`)
+            // });
+            // var opt = {
+            //     flags: 'r'
+            // };
+            // var stream = fs.createReadStream(path_n, opt);
+            // stream.pipe(res);
+            // stream.on('end', function () {
+            //     res.end();
+            // });
+            res.send({
+                status: 0,
+                message: nn1
+            })
 
         });
 

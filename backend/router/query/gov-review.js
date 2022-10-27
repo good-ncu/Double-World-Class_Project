@@ -7,3 +7,20 @@ const gov_review_handler = require('../../router_handler/query/gov-review')
 //  省厅将所有此次周期下学校的表格数据导出 （总表）    导出的表格可选，（1~61张）  
 //    /api/index/gov-query/export-all-discipline-table
 router.get('/export-all-discipline-table', gov_review_handler.export_all_discipline_table, gov_review_handler.download_all_data)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+module.exports = router
