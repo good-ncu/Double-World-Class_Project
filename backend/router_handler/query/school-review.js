@@ -393,7 +393,7 @@ exports.query_single_discipline_table = function (req, res) {
             })
         } else {
             to_dbtable = resultt[0].to_dbtable
-            var sql2 = `select * from ${to_dbtable} where user_fill_id='${subinfo.id}'`
+            var sql2 = `select * from ${to_dbtable} where user_fill_id='${subinfo.id}' and is_delete=0`
             client.query(sql2, function (err, results) {
                 if (err) {
                     console.log(err.message)
@@ -632,7 +632,7 @@ exports.export_all_discipline_table = function (req, res, next) {
             //  sql_query 内放所有的查询语句
             var sql_query = []
             for (var i = 0; i < result_table_info.length; i++) {
-                sql_query.push(`select * from ${result_table_info[i].to_dbtable} where user_fill_id='${result_table_info[i].id}'`)
+                sql_query.push(`select * from ${result_table_info[i].to_dbtable} where user_fill_id='${result_table_info[i].id}' and is_delete=0`)
             }
             // 补一个睡眠
 
