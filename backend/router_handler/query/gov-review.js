@@ -31,8 +31,13 @@ exports.export_all_discipline_table = function (req, res, next) {
     //  sql_query 内放所有的查询语句
     var sql_query = []
 
+    // var univ_name = []
+    // var discipline_name = []
+
     var result_all_table_data = {}
     var sqls = []
+
+    var univ_disc_index = 0
 
     fill_id.forEach(element => {
         sqls.push(`select 
@@ -73,8 +78,21 @@ exports.export_all_discipline_table = function (req, res, next) {
             } else {
                 console.log(item + "执行成功");
                 // 执行完成后也要调用callback，不需要参数   
+
                 // 将查出某个fill_id的对应数据库表名和拥有的id进行保存
                 result_table_info.push(results.rows)
+
+                // // 保存学校名
+                // results.rows.forEach(element => {
+                //     univ_name.push(element.univ_name)
+                // })
+
+                // // 保存学科名
+                // results.rows.forEach(element => {
+                //     discipline_name.push(element.discipline_name)
+                // })
+
+
                 var temp_fill_id = ''
                 results.rows.forEach(element => {
                     temp_fill_id = temp_fill_id + `'${element.id}',`
@@ -99,7 +117,6 @@ exports.export_all_discipline_table = function (req, res, next) {
             // result_table_info.forEach(element => {
             //     console.log(element)
             // });
-            console.log(result_table_info[0][0].univ_name)
 
             // 这个是作为指针 移动result_table_info的   给结果加上 1_1_1 这种作为key
             var index = 0
@@ -111,25 +128,23 @@ exports.export_all_discipline_table = function (req, res, next) {
                         callback(err);
                     }
                     else {
-                        // if (result_table_info[index].fill_id == "3_2_2_2") {
-                        //     for (var i = 0; i < results.rows.length; i++) {
-                        //         delete results.rows[i]["talent_or_team"]
-                        //     }
-                        // }
+                        if (result_table_info[index][0].fill_id == "3_2_2_2") {
+                            for (var i = 0; i < results.rows.length; i++) {
+                                delete results.rows[i]["talent_or_team"]
+                            }
+                        }
 
 
                         // 给每条记录加上学校和学科名
-                        var temp_index = 0
-                        for (var i = 0; i < results.rows.length; i++) {
-                            results.rows[i].univ_name = result_table_info[index][temp_index].univ_name
-                            results.rows[i].discipline_name = result_table_info[index][temp_index].discipline_name
-                            temp_index = temp_index + 1
-                        }
-                        // results.rows.forEach(element => {
-                        //     element.univ_name = result_table_info[index][temp_index].univ_name
-                        //     element.discipline_name = result_table_info[index][temp_index].discipline_name
-                        //     temp_index = temp_index + 1
-                        // });
+                        // for (var i = 0; i < results.rows.length; i++) {
+                        //     // console.log(index)
+                        //     // console.log(result_table_info[0][0])
+                        //     console.log(result_table_info[index][tem_index].univ_name)
+                        //     results.rows[i].univ_name = result_table_info[index].univ_name
+                        //     results.rows[i].discipline_name = result_table_info[index].discipline_name
+                        //     tem_index = tem_index + 1
+                        // }
+
                         // 给不同的key 添加 value    ,一一对应将每个表的数据都加入result_all_table_data数组中
                         result_all_table_data[result_table_info[index][0].fill_id] = results.rows
 
@@ -157,44 +172,49 @@ exports.export_all_discipline_table = function (req, res, next) {
 exports.download_all_data = function (req, res) {
     nn1 = req.xx
 
-    // 读映射字典
-    let rawdata = fs.readFileSync('/root/syl_backend/Double-World-Class_Project/backend/router_handler/query/dict.json');
-    // 转json
-    let dict = JSON.parse(rawdata);
+    res.send({
+        status: 0,
+        message: nn1
+    })
 
-    var workbook = new Excel.Workbook(); // 实例化Excel对象
+    // // 读映射字典
+    // let rawdata = fs.readFileSync('/root/syl_backend/Double-World-Class_Project/backend/router_handler/query/dict.json');
+    // // 转json
+    // let dict = JSON.parse(rawdata);
 
-    // 拿到数据的key
-    nn_keys = Object.keys(nn1)
-    for (var i = 0; i < nn_keys.length; i++) {
-        // console.log(nn[keys[i]]); //keys[i]=1-1-2等表,data[keys[i]]为[]内容
-        test(nn1[nn_keys[i]], nn_keys[i], dict, workbook)
-    }
-    var temp_filename = uuidv4().replace(/-/g, '')
-    temp_filename = '所有学校数据总表' + temp_filename
-    path_n = `/root/syl_backend/taizhang/` + temp_filename + `.xlsx`
-    workbook.xlsx.writeFile(path_n)
-        .then(function () {
+    // var workbook = new Excel.Workbook(); // 实例化Excel对象
 
-            // res.writeHead(200, {
-            //     'Access-Control-Expose-Headers': 'Authorization',
-            //     'Content-Type': 'application/octet-stream;charset=utf8',
-            //     'Content-Disposition': "attachment;filename*=UTF-8''" + urlencode(temp_filename + `.xlsx`)
-            // });
-            // var opt = {
-            //     flags: 'r'
-            // };
-            // var stream = fs.createReadStream(path_n, opt);
-            // stream.pipe(res);
-            // stream.on('end', function () {
-            //     res.end();
-            // });
-            res.send({
-                status: 0,
-                message: nn1
-            })
+    // // 拿到数据的key
+    // nn_keys = Object.keys(nn1)
+    // for (var i = 0; i < nn_keys.length; i++) {
+    //     // console.log(nn[keys[i]]); //keys[i]=1-1-2等表,data[keys[i]]为[]内容
+    //     test(nn1[nn_keys[i]], nn_keys[i], dict, workbook)
+    // }
+    // var temp_filename = uuidv4().replace(/-/g, '')
+    // temp_filename = '所有学校数据总表' + temp_filename
+    // path_n = `/root/syl_backend/taizhang/` + temp_filename + `.xlsx`
+    // workbook.xlsx.writeFile(path_n)
+    //     .then(function () {
 
-        });
+    //         // res.writeHead(200, {
+    //         //     'Access-Control-Expose-Headers': 'Authorization',
+    //         //     'Content-Type': 'application/octet-stream;charset=utf8',
+    //         //     'Content-Disposition': "attachment;filename*=UTF-8''" + urlencode(temp_filename + `.xlsx`)
+    //         // });
+    //         // var opt = {
+    //         //     flags: 'r'
+    //         // };
+    //         // var stream = fs.createReadStream(path_n, opt);
+    //         // stream.pipe(res);
+    //         // stream.on('end', function () {
+    //         //     res.end();
+    //         // });
+    //         res.send({
+    //             status: 0,
+    //             message: nn1
+    //         })
+
+    //     });
 
 
 }
