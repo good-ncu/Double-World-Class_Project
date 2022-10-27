@@ -172,49 +172,57 @@ exports.export_all_discipline_table = function (req, res, next) {
 exports.download_all_data = function (req, res) {
     nn1 = req.xx
 
-    res.send({
-        status: 0,
-        message: nn1
-    })
+    // res.send({
+    //     status: 0,
+    //     message: nn1
+    // })
 
-    // // 读映射字典
-    // let rawdata = fs.readFileSync('/root/syl_backend/Double-World-Class_Project/backend/router_handler/query/dict.json');
-    // // 转json
-    // let dict = JSON.parse(rawdata);
+    // 读映射字典
+    let rawdata = fs.readFileSync('/root/syl_backend/Double-World-Class_Project/backend/router_handler/query/dict.json');
+    // 转json
+    let dict = JSON.parse(rawdata);
 
-    // var workbook = new Excel.Workbook(); // 实例化Excel对象
+    let univ_code = fs.readFileSync('univ_code.json');
+    univ_code = JSON.parse(univ_code)[0];
 
-    // // 拿到数据的key
-    // nn_keys = Object.keys(nn1)
-    // for (var i = 0; i < nn_keys.length; i++) {
-    //     // console.log(nn[keys[i]]); //keys[i]=1-1-2等表,data[keys[i]]为[]内容
-    //     test(nn1[nn_keys[i]], nn_keys[i], dict, workbook)
-    // }
-    // var temp_filename = uuidv4().replace(/-/g, '')
-    // temp_filename = '所有学校数据总表' + temp_filename
-    // path_n = `/root/syl_backend/taizhang/` + temp_filename + `.xlsx`
-    // workbook.xlsx.writeFile(path_n)
-    //     .then(function () {
+    let discipline_code = fs.readFileSync('discipline_code.json');
+    discipline_code = JSON.parse(discipline_code)[0];
 
-    //         // res.writeHead(200, {
-    //         //     'Access-Control-Expose-Headers': 'Authorization',
-    //         //     'Content-Type': 'application/octet-stream;charset=utf8',
-    //         //     'Content-Disposition': "attachment;filename*=UTF-8''" + urlencode(temp_filename + `.xlsx`)
-    //         // });
-    //         // var opt = {
-    //         //     flags: 'r'
-    //         // };
-    //         // var stream = fs.createReadStream(path_n, opt);
-    //         // stream.pipe(res);
-    //         // stream.on('end', function () {
-    //         //     res.end();
-    //         // });
-    //         res.send({
-    //             status: 0,
-    //             message: nn1
-    //         })
+    var workbook = new Excel.Workbook(); // 实例化Excel对象
 
-    //     });
+
+
+    // 拿到数据的key
+    nn_keys = Object.keys(nn1)
+    for (var i = 0; i < nn_keys.length; i++) {
+        // console.log(nn[keys[i]]); //keys[i]=1-1-2等表,data[keys[i]]为[]内容
+        test(nn1[nn_keys[i]], nn_keys[i], dict, workbook)
+    }
+    var temp_filename = uuidv4().replace(/-/g, '')
+    temp_filename = '所有学校数据总表' + temp_filename
+    path_n = `/root/syl_backend/taizhang/` + temp_filename + `.xlsx`
+    workbook.xlsx.writeFile(path_n)
+        .then(function () {
+
+            res.writeHead(200, {
+                'Access-Control-Expose-Headers': 'Authorization',
+                'Content-Type': 'application/octet-stream;charset=utf8',
+                'Content-Disposition': "attachment;filename*=UTF-8''" + urlencode(temp_filename + `.xlsx`)
+            });
+            var opt = {
+                flags: 'r'
+            };
+            var stream = fs.createReadStream(path_n, opt);
+            stream.pipe(res);
+            stream.on('end', function () {
+                res.end();
+            });
+            // res.send({
+            //     status: 0,
+            //     message: nn1
+            // })
+
+        });
 
 
 }
@@ -225,8 +233,8 @@ exports.download_all_data = function (req, res) {
 function deal_data(data) {
     for (var i = 0; i < data.length; i++) {
         delete data[i].id
-        delete data[i].univ_code
-        delete data[i].discipline_code
+        // delete data[i].univ_code
+        // delete data[i].discipline_code
         delete data[i].is_seen
         delete data[i].is_delete
         delete data[i].op_time
@@ -274,6 +282,10 @@ function test(data, head, dict, workbook) {
                     valAry.push("");
                 };
             });
+
+            //这里修改,将学科、学校和代号对应
+            valAry[0] = univ_code[valAry[0]]
+            valAry[1] = discipline_code[valAry[1]]
             sheetName.addRow(valAry).alignment = {
                 vertical: 'middle', horizontal: 'center'
             };
