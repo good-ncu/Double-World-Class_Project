@@ -225,6 +225,7 @@ exports.gov_tjd_leaders_detail = function (req, res) {
 	a.discipline_code,
 	a.univ_name,
 	a.discipline_name,
+  talent_team.id,
 	talent_team.yr,	--获批年度
 	talent_team.honor_name,	--荣誉称号
 	talent_team.talent_team_name AS rc_name	--人才名称
@@ -395,6 +396,7 @@ exports.gov_tjd_hold_big_project_detail = function (req, res) {
   SELECT
     a.univ_name,
     a.discipline_name,
+    host_sciproj.id,
     host_sciproj.yr,	--项目年份
     host_sciproj.proj_fromto_ymth,	--项目时间
     host_sciproj.proj_name,	--项目名称
@@ -562,6 +564,7 @@ exports.gov_tjd_big_award_detail = function (req, res) {
   // console.log(detailinfo[1])
   sql = `-- 查询各"突击队"学科的国家级教学成果奖情况的名单，对应teaching_achv
   SELECT
+    teaching_achv.id,
     teaching_achv.award_date,	--教学成果时间
     teaching_achv.tch_name,	--获奖教师姓名
     teaching_achv.award_name,	--教学成果奖名称
@@ -729,6 +732,7 @@ exports.gov_tjd_big_teacher_award_detail = function (req, res) {
   SELECT
     a.univ_name,
     a.discipline_name,
+    tch_award.id,
     tch_award.yr,	--获奖年份
     tch_award.award_name,	--所获奖项名称
     tch_award.tch_name,	--获奖教师姓名
@@ -897,6 +901,7 @@ exports.gov_tjd_big_platform_detail = function (req, res) {
   SELECT
     a.univ_name,
     a.discipline_name,
+    sci_innova_plat.id,
     sci_innova_plat.yr, 	--填报年度
     sci_innova_plat.plat_name, 	--平台名称
     sci_innova_plat.palt_level, 	--平台数量

@@ -188,6 +188,7 @@ exports.gov_overview_listen_01 = function(req,res){
          ON user_fill.id = discipline_const_fund.user_fill_id
         WHERE 
          user_fill.is_delete = '0' 
+         AND user_fill.is_seen = '1'
          AND discipline_const_fund.is_delete = '0' 
          AND discipline_const_fund.yr IN (2022) --传年份参数
         ) AS b
