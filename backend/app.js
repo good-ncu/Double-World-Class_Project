@@ -173,7 +173,9 @@ app.use('/api/index/school-query', school_reviewRouter)
 const user_reviewRouter = require('./router/query/user-review')
 app.use('/api/index/user-query', user_reviewRouter)
 
-
+// 导入 省厅用户 对已填报数据的查询（删除） 路由模块
+const gov_reviewRouter = require('./router/query/gov-review')
+app.use('/api/index/gov-query', gov_reviewRouter)
 
 // 导入 下载模板的路由模块
 const download_router = require('./router/download')
