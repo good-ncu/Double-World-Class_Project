@@ -724,8 +724,8 @@ exports.download_all_data = function (req, res) {
 function deal_data(data) {
     for (var i = 0; i < data.length; i++) {
         delete data[i].id
-        delete data[i].univ_code
-        delete data[i].discipline_code
+        // delete data[i].univ_code
+        // delete data[i].discipline_code
         delete data[i].is_seen
         delete data[i].is_delete
         delete data[i].op_time
