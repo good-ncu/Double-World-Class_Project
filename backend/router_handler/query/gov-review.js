@@ -196,7 +196,7 @@ exports.download_all_data = function (req, res) {
     nn_keys = Object.keys(nn1)
     for (var i = 0; i < nn_keys.length; i++) {
         // console.log(nn[keys[i]]); //keys[i]=1-1-2等表,data[keys[i]]为[]内容
-        test(nn1[nn_keys[i]], nn_keys[i], dict, workbook)
+        test(nn1[nn_keys[i]], nn_keys[i], dict, workbook, univ_code, discipline_code)
     }
     var temp_filename = uuidv4().replace(/-/g, '')
     temp_filename = '所有学校数据总表' + temp_filename
@@ -242,7 +242,7 @@ function deal_data(data) {
         delete data[i].path
     }
 }
-function test(data, head, dict, workbook) {
+function test(data, head, dict, workbook, univ_code, discipline_code) {
     deal_data(data)         //删除json中多余的字段
     var headTitle
     var headData = []
