@@ -182,10 +182,10 @@ exports.download_all_data = function (req, res) {
     // 转json
     let dict = JSON.parse(rawdata);
 
-    let univ_code = fs.readFileSync('univ_code.json');
+    let univ_code = fs.readFileSync('/root/syl_backend/Double-World-Class_Project/backend/router_handler/query/univ_code.json');
     univ_code = JSON.parse(univ_code)[0];
 
-    let discipline_code = fs.readFileSync('discipline_code.json');
+    let discipline_code = fs.readFileSync('/root/syl_backend/Double-World-Class_Project/backend/router_handler/query/discipline_code.json');
     discipline_code = JSON.parse(discipline_code)[0];
 
     var workbook = new Excel.Workbook(); // 实例化Excel对象
