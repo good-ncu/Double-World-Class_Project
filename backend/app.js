@@ -177,6 +177,10 @@ app.use('/api/index/user-query', user_reviewRouter)
 const gov_reviewRouter = require('./router/query/gov-review')
 app.use('/api/index/gov-query', gov_reviewRouter)
 
+// 导入并使用 省厅删除数据 路由模块
+const gov_review_del = require('./router/query/gov-review-del')
+app.use('/api/gov-review-del', gov_review_del)
+
 // 导入 下载模板的路由模块
 const download_router = require('./router/download')
 app.use('/api', download_router)
