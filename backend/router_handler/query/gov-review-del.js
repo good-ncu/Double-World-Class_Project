@@ -76,51 +76,36 @@ const client = require('../../db/index')
 
 // 省厅删除四大信息
 exports.delete_school_data = function(req, res){
-    var detail = req.body.detail
     var fill_id  = req.body.fill_id
     var row_id = req.body.row_id
-    // console.log(row_id);
-    var detailinfo = []
-    detailinfo = detail.split('-')
-    // 参数：学校、学科、fill_id、row_id
-    // 先根据学校学科名称找出univ_code，discipline_code，拼成user_id
-    sql_univ_disci = `select univ_code,discipline_code from user_info where univ_name = '${detailinfo[0]}' and discipline_name = '${detailinfo[1]}'`
-    client.query(sql_univ_disci, function(err, results){
+    // 参数：fill_id、row_id
+    // 再根据fill_id拿到对应的to_dbtable
+    sql_to_dbtable = `SELECT to_dbtable from fill where id = '${fill_id}'`
+    client.query(sql_to_dbtable, function(err,results){
         if(err){
             console.error(err);
             return res.cc('系统繁忙，请稍后再试')
         } 
-        var univ_code = results.rows[0].univ_code
-        var discipline_code = results.rows[0].discipline_code
-        var user_id = univ_code+'_'+discipline_code
-        // 再根据fill_id拿到对应的to_dbtable
-        sql_to_dbtable = `SELECT to_dbtable from fill where id = '${fill_id}'`
-        client.query(sql_to_dbtable, function(err,results){
+        var to_dbtable = results.rows[0].to_dbtable
+        // sql_del_rows 的拼接子串
+        var sub_sql_del_rows = ''
+        for(let i = 0;i<row_id.length;i++){
+            sub_sql_del_rows = sub_sql_del_rows+"'"+row_id[i]+"'"
+            if(i!=row_id.length-1){
+                sub_sql_del_rows+=","
+            }
+        }
+        var sql_del_rows = `UPDATE ${to_dbtable} SET is_delete = 1 WHERE 
+        "id" in (${sub_sql_del_rows})`
+        console.log(sql_del_rows);
+        client.query(sql_del_rows, function(err,results){
             if(err){
                 console.error(err);
                 return res.cc('系统繁忙，请稍后再试')
             } 
-            var to_dbtable = results.rows[0].to_dbtable
-            // sql_del_rows 的拼接子串
-            var sub_sql_del_rows = ''
-            for(let i = 0;i<row_id.length;i++){
-                sub_sql_del_rows = sub_sql_del_rows+"'"+row_id[i]+"'"
-                if(i!=row_id.length-1){
-                    sub_sql_del_rows+=","
-                }
-            }
-            var sql_del_rows = `UPDATE ${to_dbtable} SET is_delete = 1 WHERE 
-            "id" in (${sub_sql_del_rows})`
-            console.log(sql_del_rows);
-            client.query(sql_del_rows, function(err,results){
-                if(err){
-                    console.error(err);
-                    return res.cc('系统繁忙，请稍后再试')
-                } 
-                return res.send({
-                    status: 0,
-                    message: "删除成功！"
-                })
+            return res.send({
+                status: 0,
+                message: "删除成功！"
             })
         })
     })
