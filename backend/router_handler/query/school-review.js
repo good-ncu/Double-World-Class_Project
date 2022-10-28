@@ -686,13 +686,20 @@ exports.download_all_data = function (req, res) {
     // 转json
     let dict = JSON.parse(rawdata);
 
+    let univ_code = fs.readFileSync('/root/syl_backend/Double-World-Class_Project/backend/router_handler/query/univ_code.json');
+    univ_code = JSON.parse(univ_code)[0];
+
+    let discipline_code = fs.readFileSync('/root/syl_backend/Double-World-Class_Project/backend/router_handler/query/discipline_code.json');
+    discipline_code = JSON.parse(discipline_code)[0];
+
+
     var workbook = new Excel.Workbook(); // 实例化Excel对象
 
     // 拿到数据的key
     nn_keys = Object.keys(nn1)
     for (var i = 0; i < nn_keys.length; i++) {
         // console.log(nn[keys[i]]); //keys[i]=1-1-2等表,data[keys[i]]为[]内容
-        test(nn1[nn_keys[i]], nn_keys[i], dict, workbook)
+        test(nn1[nn_keys[i]], nn_keys[i], dict, workbook, univ_code, discipline_code)
     }
     var temp_filename = uuidv4().replace(/-/g, '')
     temp_filename = req.query.discipline_name + '_' + '数据总表' + temp_filename
@@ -724,8 +731,8 @@ exports.download_all_data = function (req, res) {
 function deal_data(data) {
     for (var i = 0; i < data.length; i++) {
         delete data[i].id
-        delete data[i].univ_code
-        delete data[i].discipline_code
+        // delete data[i].univ_code
+        // delete data[i].discipline_code
         delete data[i].is_seen
         delete data[i].is_delete
         delete data[i].op_time
@@ -733,7 +740,7 @@ function deal_data(data) {
         delete data[i].path
     }
 }
-function test(data, head, dict, workbook) {
+function test(data, head, dict, workbook, univ_code, discipline_code) {
     deal_data(data)         //删除json中多余的字段
     var headTitle
     var headData = []
@@ -773,12 +780,16 @@ function test(data, head, dict, workbook) {
                     valAry.push("");
                 };
             });
+            //这里修改,将学科、学校和代号对应
+            valAry[0] = univ_code[valAry[0]]
+            valAry[1] = discipline_code[valAry[1]]
             sheetName.addRow(valAry).alignment = {
                 vertical: 'middle', horizontal: 'center'
             };
         };
     }
 }
+
 
 
 // nn_keys = Object.keys(nn1)
