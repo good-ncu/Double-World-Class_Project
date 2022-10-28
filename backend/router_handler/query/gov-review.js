@@ -83,8 +83,9 @@ exports.export_all_discipline_table = function (req, res, next) {
                 callback(err);
             } else if (results.rowCount == 0) {
                 // 当前sql影响不为1，则错误
-                err = `当前表格无数据可导出`
-                callback(err);
+                // err = item + `当前表格无数据可导出`
+                // callback(err);
+                callback()
             } else {
                 console.log(item + "执行成功");
                 // 执行完成后也要调用callback，不需要参数   
@@ -108,7 +109,7 @@ exports.export_all_discipline_table = function (req, res, next) {
                     temp_fill_id = temp_fill_id + `'${element.id}',`
                 });
                 temp_fill_id = temp_fill_id + `'zt_good'`
-                sql_query.push(`select * from ${results.rows[0].to_dbtable} where user_fill_id in (${temp_fill_id}) and is_delete=0`)
+                sql_query.push(`select * from ${results.rows[0].to_dbtable} where user_fill_id in (${temp_fill_id}) and is_delete=0 ORDER BY univ_code,discipline_code ASC`)
                 console.log("成功保存了sql_query~~~~~")
                 callback();
             }
