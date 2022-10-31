@@ -11,6 +11,11 @@ router.get('/export-all-discipline-table', gov_review_handler.export_all_discipl
 
 
 
+/* 
+   查询 省厅查看选择某一学校学科当前周期下某个已经填报的表后，将该表的数据返回 路由
+*/
+router.post('/query-single-table-info', gov_review_handler.query_single_table_info)
+
 
 
 
