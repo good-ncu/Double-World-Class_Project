@@ -3,9 +3,10 @@ const PizZip = require("pizzip")
 const fs = require("fs");
 const path = require("path");
 exports.gen_report = function(req,res){
-    console.log(__dirname);
+    var word_dir_path = "D:\\Double-World-Class_Project"
+    // console.log(__dirname);
     const content = fs.readFileSync(
-        path.resolve(__dirname, "fuwu.docx"),
+        path.resolve(word_dir_path, "test.docx"),
         "binary"
     );
     const zip = new PizZip(content);
@@ -24,5 +25,5 @@ exports.gen_report = function(req,res){
         // For a 50MB output document, expect 500ms additional CPU time
         compression: "DEFLATE",
     });
-    fs.writeFileSync(path.resolve(__dirname, "output.docx"), buf);
+    fs.writeFileSync(path.resolve(word_dir_path, "output.docx"), buf);
 }
