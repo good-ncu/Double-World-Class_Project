@@ -315,15 +315,18 @@ function test(data, head, dict, workbook, univ_code, discipline_code) {
  */
 exports.query_single_table_info = function (req, res) {
     var userinfo = req.user
-    var subinfo = req.body
-    console.log(subinfo.fill_id)
-    console.log(subinfo.univ_name)
-    console.log(subinfo.discipline_name)
+    var fill_id = req.body.fill_id
+    var univ_name = req.body.univ_name
+    var discipline_name = req.body.discipline_name
+
+    console.log(fill_id)
+    console.log(univ_name)
+    console.log(discipline_name)
 
     // 拿到具体的数据库表名to_dbtable 以及 表中对应数据的  id  (改成user_fill_id)
     var sql1 = `select user_fill.id AS user_fill_id , fill.to_dbtable AS to_dbtable
     from user_fill,fill
-    where user_fill.fill_id = '${subinfo.fill_id}' AND fill.id='${subinfo.fill_id}' AND user_fill.flag = 1 AND user_fill.is_delete = 0  AND user_fill.user_id = (SELECT user_info.id from user_info where user_info.univ_name = '${subinfo.univ_name}' AND user_info.discipline_name = '${subinfo.discipline_name}') `
+    where user_fill.fill_id = '${fill_id}' AND fill.id='${fill_id}' AND user_fill.flag = 1 AND user_fill.is_delete = 0  AND user_fill.user_id = (SELECT user_info.id from user_info where user_info.univ_name = '${univ_name}' AND user_info.discipline_name = '${discipline_name}') `
     client.query(sql1, function (err, results) {
         if (err) {
             console.err(err)
