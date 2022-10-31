@@ -272,7 +272,7 @@ exports.query_single_discipline_current = function (req, res) {
         and user_fill.is_delete=0
         and fill.flag=1 
         and user_fill.user_id=(select user_info.id from user_info where user_info.univ_code='${userinfo.univ_code}' and user_info.discipline_name='${discipline_name}' )
-    order by user_fill.fill_id asc`    //
+    order by user_fill.is_seen, user_fill.fill_id ASC`    //
     console.log(sql)
     client.query(sql, function (err, results) {
         if (err) {
