@@ -1111,7 +1111,7 @@ exports.project_list_top_counts_sub = function (req, res) {
         // sqls[i+1] = `INSERT INTO utk_desgshow(id, univ_code, discipline_code, yr, quarter, major_desg_or_show_name, parti_date, task, path, user_fill_id) 
         // VALUES ('${strUUID2}','${user.univ_code}','${user.discipline_code}', ${submit_info[i].yr}, '${submit_info[i].quarter}', '${submit_info[i].major_desg_or_show_name}', '${submit_info[i].parti_date}', '${submit_info[i].task}', NULL, '${user_fill_id}');`
         sqls[i + 1] = `INSERT INTO host_sciproj(id, univ_code, discipline_code, yr, proj_name, proj_level, proj_type, proj_fromto_ymth, proj_fund, path, user_fill_id) 
-        VALUES ('${strUUID2}','${user.univ_code}','${user.discipline_code}', ${submit_info[i].yr}, '${toLiteral(submit_info[i].proj_name.toString())}', '国家级', '${submit_info[i].proj_type}', '${submit_info[i].proj_fromto_ymth}', ${submit_info[i].proj_fund}, NULL, '${user_fill_id}');`
+        VALUES ('${strUUID2}','${user.univ_code}','${user.discipline_code}', ${submit_info[i].yr}, '${toLiteral(submit_info[i].proj_name.toString())}', '国家重点重大项目', '${submit_info[i].proj_type}', '${submit_info[i].proj_fromto_ymth}', ${submit_info[i].proj_fund}, NULL, '${user_fill_id}');`
 
     }
 
@@ -1174,7 +1174,7 @@ exports.project_list_nation_counts_sub = function (req, res) {
         // sqls[i+1] = `INSERT INTO utk_desgshow(id, univ_code, discipline_code, yr, quarter, major_desg_or_show_name, parti_date, task, path, user_fill_id) 
         // VALUES ('${strUUID2}','${user.univ_code}','${user.discipline_code}', ${submit_info[i].yr}, '${submit_info[i].quarter}', '${submit_info[i].major_desg_or_show_name}', '${submit_info[i].parti_date}', '${submit_info[i].task}', NULL, '${user_fill_id}');`
         sqls[i + 1] = `INSERT INTO host_sciproj(id, univ_code, discipline_code, yr, proj_name, proj_level, proj_type, proj_fromto_ymth, proj_fund, path, user_fill_id) 
-        VALUES ('${strUUID2}','${user.univ_code}','${user.discipline_code}', ${submit_info[i].yr}, '${toLiteral(submit_info[i].proj_name.toString())}', '国家级', '${submit_info[i].proj_type}', '${submit_info[i].proj_fromto_ymth}', ${submit_info[i].proj_fund}, NULL, '${user_fill_id}');`
+        VALUES ('${strUUID2}','${user.univ_code}','${user.discipline_code}', ${submit_info[i].yr}, '${toLiteral(submit_info[i].proj_name.toString())}', '其他国家项目', '${submit_info[i].proj_type}', '${submit_info[i].proj_fromto_ymth}', ${submit_info[i].proj_fund}, NULL, '${user_fill_id}');`
 
     }
 
