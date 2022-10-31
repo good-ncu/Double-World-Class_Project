@@ -454,7 +454,7 @@ exports.edu_awards_num_graduate_counts_sub = function (req, res) {
 }
 
 /**
- * 省级教育成果奖情况（2-2-1-3）
+ * 省级教学成果奖情况（2-2-1-3）
  */
 exports.edu_awards_num_province_counts_sub = function (req, res) {
     // 接收表单数据
@@ -470,7 +470,7 @@ exports.edu_awards_num_province_counts_sub = function (req, res) {
         const strUUID = uuidv4(); // ⇨ '1b9d6bcd-bbfd-4b2d-9b5d-ab8dfbbd4bed'
         const strUUID2 = strUUID.replace(/-/g, '');       // 去掉-字符
         sqls[i + 1] = `INSERT INTO teaching_achv(id, award_level, award_type, award_name, award_date, award_ltype, tch_name, univ_code, discipline_code, path,user_fill_id) values(
-            '${strUUID2}','${submit_info[i].award_level}','${submit_info[i].award_type}','${toLiteral(submit_info[i].award_name.toString())}','${submit_info[i].award_date}','省级教育成果奖','${toLiteral(submit_info[i].tch_name.toString())}','${user.univ_code}','${user.discipline_code}',NULL,'${user_fill_id}')`
+            '${strUUID2}','${submit_info[i].award_level}','${submit_info[i].award_type}','${toLiteral(submit_info[i].award_name.toString())}','${submit_info[i].award_date}','省级教学成果奖','${toLiteral(submit_info[i].tch_name.toString())}','${user.univ_code}','${user.discipline_code}',NULL,'${user_fill_id}')`
 
     }
     async.eachSeries(sqls, function (item, callback) {
