@@ -589,7 +589,7 @@ exports.export_all_discipline_table = function (req, res, next) {
        where 
         user_info.univ_name = '${univ_name}'
         and user_info.discipline_name = '${discipline_name}'
-        and fill.flag = 1 
+        and fill.flag = 0 
         and fill.fill_means != '文档'
         and user_fill.flag = 1
         and user_fill.is_delete = 0
