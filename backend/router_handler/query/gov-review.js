@@ -65,13 +65,14 @@ exports.export_all_discipline_table = function (req, res, next) {
         on user_fill.user_id = user_info.id
        where 
         user_fill.fill_id = '${element}' --参数
-        and fill.flag = 0 --当前周期
+
         and fill.fill_means != '文档'
         and user_fill.flag = 1
         and user_fill.is_delete = 0
         and user_fill.is_seen = 1    
         and user_info.univ_code !='99999'`)
     });
+    //         and fill.flag = 0 --当前周期
 
     // 考虑and user_fill.is_seen = 1    是不是要加！
 
