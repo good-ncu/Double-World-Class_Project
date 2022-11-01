@@ -392,7 +392,7 @@ LEFT JOIN(
 SELECT
 	univ_code,
 	discipline_code,
-	COUNT(tch_judge_comp.id) as tjc_count ---教师参加本领域重要学术会议并作报告人员数量统计
+	COUNT(tch_judge_comp.id) as tjc_count ---教师担任国际比赛评委、裁判人员数量
 FROM
 	tch_judge_comp
 	INNER JOIN user_fill ON user_fill.ID = tch_judge_comp.user_fill_id 
@@ -654,7 +654,7 @@ function results_to_front(results){
 				["国家级学术领军人才（含青年人才）数量（位）"],
 				["学科专任教师数量（位）"],
 				["博士后和科研助理数量（位）"],
-				["本学科建设经费数额（万元）"],
+				// ["本学科建设经费数额（万元）"],
 				["教师担任国内外重要期刊负责人数量（位）"],
 				["教师在国内外重要学术组织任职主要负责人数量（位）"],
 				["教师参加本领域重要学术会议并作报告人员数量（位）"],
@@ -749,27 +749,27 @@ function results_to_front(results){
 			award: false
 		})
 		// 本学科建设经费数额（万元）
-		data[2].datas[4].push({
-			value: item.ds_tf,
-			award: false
-		})
+		// data[2].datas[4].push({
+		// 	value: item.ds_tf,
+		// 	award: false
+		// })
 		// 教师担任国内外重要期刊负责人数量（位）
-		data[2].datas[5].push({
+		data[2].datas[4].push({
 			value: item.thj_count,
 			award: false
 		})
 		// 教师在国内外重要学术组织任职主要负责人数量（位）
-		data[2].datas[6].push({
+		data[2].datas[5].push({
 			value: item.tha_count,
 			award: false
 		})
 		// 教师参加本领域重要学术会议并作报告人员数量（位）
-		data[2].datas[7].push({
+		data[2].datas[6].push({
 			value: item.taa_count,
 			award: false
 		})
 		// 教师担任国际比赛评委、裁判人员数量（位）
-		data[2].datas[8].push({
+		data[2].datas[7].push({
 			value: item.tjc_count,
 			award: false
 		})
