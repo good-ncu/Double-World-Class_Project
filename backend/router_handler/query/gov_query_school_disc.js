@@ -157,7 +157,7 @@ exports.province_subjects_of_school = function (req, res) {
     SELECT 
      user_fill.user_id
     FROM user_fill
-    WHERE user_fill.fill_id IN (SELECT id FROM fill WHERE fill.flag=1)
+    WHERE user_fill.fill_id IN (SELECT id FROM fill WHERE fill.flag2=1)
      AND user_fill.is_delete = '0'
      AND user_fill.flag = 1
      AND user_fill.is_seen = 1
@@ -169,7 +169,7 @@ exports.province_subjects_of_school = function (req, res) {
     all_xk.discipline_name
    ) AS b
    CROSS JOIN fill
-   WHERE fill.flag = 1
+   WHERE fill.flag2 = 1
    GROUP BY
     b.discipline_name,
     b.user_num,
