@@ -392,7 +392,7 @@ LEFT JOIN(
 SELECT
 	univ_code,
 	discipline_code,
-	COUNT(tch_judge_comp.id) as tjc_count ---教师参加本领域重要学术会议并作报告人员数量统计
+	COUNT(tch_judge_comp.id) as tjc_count ---教师担任国际比赛评委、裁判人员数量
 FROM
 	tch_judge_comp
 	INNER JOIN user_fill ON user_fill.ID = tch_judge_comp.user_fill_id 
@@ -635,7 +635,7 @@ function results_to_front(results){
 	var data = [	
 		{
 			name: "学科建设进展",
-			datas: [["学科评估情况（第四轮）"],["学科影响力情况（软科）"],["本学科建设经费数额（万元）"]]
+			datas: [["学科评估情况（第四轮）"],["学科影响力情况（软科）"],["2022年 本学科建设经费数额（万元）"]]
 		},
 		{
 			name: "培养拔尖创新人才",
@@ -643,8 +643,8 @@ function results_to_front(results){
 				["国家级教学成果奖数量（项）"],
 				["国家级一流课程建设数（个）"],
 				["国家级人才培养平台/基地（个）"],
-				["给本科生上课的正教授数量（位）"],
-				["年度授予博士学位数量"]
+				["2021-2022学年 给本科生上课的正教授数量（位）"],
+				["2021-2022学年 年度授予博士学位数量"]
 			]
 		},
 		{
@@ -652,12 +652,12 @@ function results_to_front(results){
 			datas: [
 				["国家级团队数量（个）"],
 				["国家级学术领军人才（含青年人才）数量（位）"],
-				["学科专任教师数量（位）"],
-				["博士后和科研助理数量（位）"],
-				["本学科建设经费数额（万元）"],
+				["2021-2022学年 学科专任教师数量（位）"],
+				["2022年 博士后和科研助理数量（位）"],
+				// ["本学科建设经费数额（万元）"],
 				["教师担任国内外重要期刊负责人数量（位）"],
 				["教师在国内外重要学术组织任职主要负责人数量（位）"],
-				["教师参加本领域重要学术会议并作报告人员数量（位）"],
+				["2022年 教师参加本领域重要学术会议并作报告人员数量（位）"],
 				["教师担任国际比赛评委、裁判人员数量（位）"],
 
 			]
@@ -669,14 +669,14 @@ function results_to_front(results){
 				["国内外顶级期刊发表论文数量（篇）"],
 				["承担国内外重大设计与展演任务数量（个）"],
 				["主持国家重点重大项目数量（项）"],
-				["纵向到校科研经费（万元）"],
-				["横向到校科研经费（万元）"],
+				["2022年 纵向到校科研经费（万元）"],
+				["2022年 横向到校科研经费（万元）"],
 			]
 		},
 		{
 			name: "社会服务",
 			datas: [
-				["成果到校金额（万元）"],
+				["2022年 成果到校金额（万元）"],
 				["国家级产教融合平台建设（个）"],
 				["国家领导人肯定性批示（条）"]
 			]
@@ -730,7 +730,7 @@ function results_to_front(results){
 		//------------------ 建设一流师资队伍
 		// 国家级团队数量（个）
 		data[2].datas[0].push({
-			value: item.dgj_count,
+			value: item.tdgj_count,
 			award: false
 		})
 		// 国家级学术领军人才（含青年人才）数量（位）
@@ -749,27 +749,27 @@ function results_to_front(results){
 			award: false
 		})
 		// 本学科建设经费数额（万元）
-		data[2].datas[4].push({
-			value: item.ds_tf,
-			award: false
-		})
+		// data[2].datas[4].push({
+		// 	value: item.ds_tf,
+		// 	award: false
+		// })
 		// 教师担任国内外重要期刊负责人数量（位）
-		data[2].datas[5].push({
+		data[2].datas[4].push({
 			value: item.thj_count,
 			award: false
 		})
 		// 教师在国内外重要学术组织任职主要负责人数量（位）
-		data[2].datas[6].push({
+		data[2].datas[5].push({
 			value: item.tha_count,
 			award: false
 		})
 		// 教师参加本领域重要学术会议并作报告人员数量（位）
-		data[2].datas[7].push({
+		data[2].datas[6].push({
 			value: item.taa_count,
 			award: false
 		})
 		// 教师担任国际比赛评委、裁判人员数量（位）
-		data[2].datas[8].push({
+		data[2].datas[7].push({
 			value: item.tjc_count,
 			award: false
 		})
