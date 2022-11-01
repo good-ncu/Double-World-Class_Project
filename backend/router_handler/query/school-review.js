@@ -79,7 +79,7 @@ LEFT JOIN
 	SELECT 
 		user_fill.user_id
 	FROM user_fill
-	WHERE user_fill.fill_id IN (SELECT id FROM fill WHERE fill.flag=1)
+	WHERE user_fill.fill_id IN (SELECT id FROM fill WHERE fill.flag2=1)
 		AND user_fill.is_delete = '0'
 		AND user_fill.flag = 1
 ) AS a ON a.user_id = user_info.id
@@ -91,7 +91,7 @@ GROUP BY
 	all_xk.discipline_name
 ) AS b
 CROSS JOIN fill
-WHERE fill.flag = 1
+WHERE fill.flag2 = 1
 GROUP BY
 	b.tag,
 	b.discipline_name,
@@ -188,7 +188,7 @@ LEFT JOIN
 	SELECT 
 		user_fill.user_id
 	FROM user_fill
-	WHERE user_fill.fill_id IN (SELECT id FROM fill WHERE fill.flag=1)
+	WHERE user_fill.fill_id IN (SELECT id FROM fill WHERE fill.flag2=1)
 		AND user_fill.is_delete = '0'
 		AND user_fill.flag = 1
 ) AS a ON a.user_id = user_info.id
@@ -199,7 +199,7 @@ GROUP BY
 	all_xk.discipline_name
 ) AS b
 CROSS JOIN fill
-WHERE fill.flag = 1
+WHERE fill.flag2 = 1
 GROUP BY
 	b.discipline_name,
 	b.user_num,
@@ -270,7 +270,7 @@ exports.query_single_discipline_current = function (req, res) {
     inner join fill on user_fill.fill_id=fill.id 
     where user_fill.flag=1 
         and user_fill.is_delete=0
-        and fill.flag=1 
+        and fill.flag2=1 
         and user_fill.user_id=(select user_info.id from user_info where user_info.univ_code='${userinfo.univ_code}' and user_info.discipline_name='${discipline_name}' )
     order by user_fill.is_seen, user_fill.fill_id ASC`    //
     console.log(sql)
@@ -589,11 +589,11 @@ exports.export_all_discipline_table = function (req, res, next) {
        where 
         user_info.univ_name = '${univ_name}'
         and user_info.discipline_name = '${discipline_name}'
-        and fill.flag = 0 
+
         and fill.fill_means != '文档'
-        and user_fill.flag = 1
         and user_fill.is_delete = 0
        order by fill_id asc`)
+    // and fill.flag = 0 
     console.log(sqls)
     async.each(sqls, function (item, callback) {
         // 遍历每条SQL并执行
