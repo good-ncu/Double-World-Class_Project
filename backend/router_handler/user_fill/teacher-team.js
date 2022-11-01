@@ -538,8 +538,8 @@ exports.province_counts_sub = function (req, res) {
     for (let i = 0, len = submit_info.length; i < len; i++) {
         const strUUID = uuidv4(); // ⇨ '1b9d6bcd-bbfd-4b2d-9b5d-ab8dfbbd4bed'
         const strUUID2 = strUUID.replace(/-/g, '');       // 去掉-字符
-        sqls[i + 1] = `INSERT INTO talent_team(id, univ_code, discipline_code,user_fill_id,talent_team_name,level,honor_name,yr) 
-        VALUES ('${strUUID2}','${user.univ_code}','${user.discipline_code}','${user_fill_id}','${toLiteral(submit_info[i].talent_team_name.toString())}','省级','${toLiteral(submit_info[i].honor_name.toString())}',${submit_info[i].yr})`
+        sqls[i + 1] = `INSERT INTO talent_team(id, univ_code, discipline_code,user_fill_id,talent_team_name,level,honor_name,yr,talent_or_team) 
+        VALUES ('${strUUID2}','${user.univ_code}','${user.discipline_code}','${user_fill_id}','${toLiteral(submit_info[i].talent_team_name.toString())}','省级','${toLiteral(submit_info[i].honor_name.toString())}',${submit_info[i].yr},'人才')`
     }
 
     async.eachSeries(sqls, function (item, callback) {
@@ -805,11 +805,11 @@ exports.journal_director_sub = function (req, res) {
     for (let i = 0, len = submit_info.length; i < len; i++) {
         const strUUID = uuidv4(); // ⇨ '1b9d6bcd-bbfd-4b2d-9b5d-ab8dfbbd4bed'
         const strUUID2 = strUUID.replace(/-/g, '');       // 去掉-字符
-        if(submit_info[i].in_jour_code=='' || submit_info[i].in_jour_code== undefined){
-            submit_info[i].in_jour_code='/'
+        if (submit_info[i].in_jour_code == '' || submit_info[i].in_jour_code == undefined) {
+            submit_info[i].in_jour_code = '/'
         }
-        if(submit_info[i].out_jour_code=='' || submit_info[i].out_jour_code== undefined){
-            submit_info[i].out_jour_code='/'
+        if (submit_info[i].out_jour_code == '' || submit_info[i].out_jour_code == undefined) {
+            submit_info[i].out_jour_code = '/'
         }
         sqls[i + 1] = `INSERT INTO tch_head_jour(id, univ_code, discipline_code,user_fill_id,tch_name,jour_name,in_jour_code,out_jour_code,jour_collect,pos,tenure) 
         VALUES ('${strUUID2}','${user.univ_code}','${user.discipline_code}','${user_fill_id}','${toLiteral(submit_info[i].tch_name.toString())}','${toLiteral(submit_info[i].jour_name.toString())}','${toLiteral(submit_info[i].in_jour_code.toString())}',
