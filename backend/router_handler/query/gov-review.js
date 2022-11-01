@@ -309,7 +309,7 @@ function test(data, head, dict, workbook, univ_code, discipline_code) {
 
 
 /**
- * 该handler用于 省厅查看！！！
+ * 该handler用于 省厅查看！！！   当个表的  如1_1_1 当前周期的  
  * 需要传入该张表的信息  fill_id
  * @param {*} req 
  * @param {*} res 
@@ -327,7 +327,7 @@ exports.query_single_table_info = function (req, res) {
     // 拿到具体的数据库表名to_dbtable 以及 表中对应数据的  id  (改成user_fill_id)
     var sql1 = `select user_fill.id AS user_fill_id , fill.to_dbtable AS to_dbtable
     from user_fill,fill
-    where user_fill.fill_id = '${fill_id}' AND fill.id='${fill_id}' AND user_fill.flag = 1 AND user_fill.is_delete = 0  AND user_fill.user_id = (SELECT user_info.id from user_info where user_info.univ_name = '${univ_name}' AND user_info.discipline_name = '${discipline_name}') `
+    where user_fill.fill_id = ${fill_id} AND fill.id=${fill_id} AND user_fill.flag = 1 AND user_fill.is_delete = 0  AND user_fill.user_id = (SELECT user_info.id from user_info where user_info.univ_name = '${univ_name}' AND user_info.discipline_name = '${discipline_name}') `
     client.query(sql1, function (err, results) {
         if (err) {
             console.err(err)
@@ -373,7 +373,218 @@ exports.query_single_table_info = function (req, res) {
                         delete results2.rows[i]["is_seen"]
                         delete results2.rows[i]["is_delete"]
                         delete results2.rows[i]["path"]
-                        delete results2.rows[i]["id"]
+                        // delete results2.rows[i]["id"]
+                        delete results2.rows[i]["op_time"]
+                        delete results2.rows[i]["user_fill_id"]
+                    }
+                    res.send({
+                        status: 0,
+                        data: results2.rows
+                    })
+                }
+
+            })
+        }
+    });
+
+
+}
+
+
+
+
+
+
+
+
+
+/**
+ * 该handler用于 省厅查看！！！   各学科建设里面的查看所有累加！     最新的用query_single_table_info
+ * 需要传入该张表的信息  fill_id
+ * @param {*} req 
+ * @param {*} res 
+ */
+exports.query_table_detail_info = function (req, res) {
+    var userinfo = req.user
+    var fill_id = req.body.fill_id
+    var univ_name = req.body.univ_name
+    var discipline_name = req.body.discipline_name
+
+    console.log(fill_id)
+    console.log(univ_name)
+    console.log(discipline_name)
+
+
+    // 拿到具体的数据库表名to_dbtable 以及 表中对应数据的  id  (改成user_fill_id)
+    var sql1 = `SELECT 
+    user_fill.id AS user_fill_id , 
+    fill.to_dbtable AS to_dbtable
+   FROM user_fill
+   INNER JOIN fill
+    ON fill.id = user_fill.fill_id
+   WHERE fill.id IN (${fill_id}) 
+    AND user_fill.is_delete = 0
+    AND user_fill.is_seen = 1 
+    AND user_fill.user_id = (SELECT user_info.id FROM user_info WHERE user_info.univ_name = '${univ_name}' AND user_info.discipline_name = '${discipline_name}')`
+
+    client.query(sql1, function (err, results) {
+        if (err) {
+            console.err(err)
+            // 异常后调用callback并传入err
+            res.send({
+                status: 1,
+                message: '系统繁忙，请稍后再试'
+            })
+        } else if (results.rowCount == 0) {
+
+            // 当前sql查询为空，则返回填报提示
+            res.send({
+                status: 1,
+                message: "该表格无相关填报记录!!"
+            })
+        } else {
+            console.log(sql1)
+            // var user_fill_id = results.rows[0].user_fill_id
+            var temp_fill_id = ''
+            results.rows.forEach(element => {
+                temp_fill_id = temp_fill_id + `'${element.user_fill_id}',`
+            });
+            temp_fill_id = temp_fill_id + `'zt_good'`
+
+            var to_dbtable = results.rows[0].to_dbtable
+            // var to_dbtable = ''
+            // results.rows.forEach(element => {
+            //     to_dbtable = to_dbtable + `${element.id},`
+            // });
+            // to_dbtable = to_dbtable.substring(0, to_dbtable.length - 1);  // 去掉最后一个 , 
+            console.log(user_fill_id, to_dbtable)
+            if (fill_id == "'3_2_2_0','3_2_2_1','3_2_2_3','3_2_2_4'") {
+                var sql2 = `SELECT
+                talent_team.talent_or_team,
+                talent_team.talent_team_name,
+                talent_team.level,
+                talent_team.honor_name,
+                talent_team.yr
+            FROM
+                talent_team
+            INNER JOIN user_fill
+                ON talent_team.user_fill_id = user_fill.id
+            INNER JOIN user_info
+                ON talent_team.univ_code = user_info.univ_code
+                AND talent_team.discipline_code = user_info.discipline_code
+            WHERE
+                user_fill.is_seen = 1
+                AND user_fill.is_delete = 0
+                AND talent_team.is_delete = 0
+                AND talent_team.level = '国家级'
+                AND user_info.univ_name= '${univ_name}'  --参数
+                AND user_info.discipline_name='${discipline_name}' --参数
+            ORDER BY talent_or_team ASC, yr DESC`
+            } else if (fill_id == "'3_2_2_2','3_2_2_3'") {
+                var sql2 = `SELECT
+                talent_team.talent_team_name,
+                talent_team.level,
+                talent_team.honor_name,
+                talent_team.yr
+            FROM
+                talent_team
+            INNER JOIN user_fill
+                ON talent_team.user_fill_id = user_fill.id
+            INNER JOIN user_info
+                ON talent_team.univ_code = user_info.univ_code
+                AND talent_team.discipline_code = user_info.discipline_code
+            WHERE
+                user_fill.is_seen = 1
+                AND user_fill.is_delete = 0
+                AND talent_team.is_delete = 0
+                AND talent_team.talent_or_team = '人才'
+                AND talent_team.level = '省级'
+                AND user_info.univ_name= '${univ_name}'  --参数
+                AND user_info.discipline_name='${discipline_name}' --参数
+            ORDER BY talent_or_team ASC, yr DESC`
+            } else if (fill_id == "'5_2_1_1'") {
+                var sql2 = `SELECT
+                consult_policy.yr,
+                consult_policy.level,
+                consult_policy.topic,
+                consult_policy.adopt_leader,
+                consult_policy.adopt_sit,
+                consult_policy.adopt_date
+            FROM
+                consult_policy
+            INNER JOIN user_fill
+                ON consult_policy.user_fill_id = user_fill.id
+            INNER JOIN user_info
+                ON consult_policy.univ_code = user_info.univ_code
+                AND consult_policy.discipline_code = user_info.discipline_code
+            WHERE
+                user_fill.is_seen = 1
+                AND user_fill.is_delete = 0
+                AND consult_policy.is_delete = 0
+                AND consult_policy.adopt_sit = '已采纳'
+                AND consult_policy.level = '国家级'
+                AND user_info.univ_name= '${univ_name}'  --参数
+                AND user_info.discipline_name='${discipline_name}' --参数
+            ORDER BY yr DESC`
+            } else if (fill_id == "'5_2_1_2'") {
+                var sql2 = `SELECT
+                consult_policy.yr,
+                consult_policy.level,
+                consult_policy.topic,
+                consult_policy.adopt_leader,
+                consult_policy.adopt_sit,
+                consult_policy.adopt_date
+            FROM
+                consult_policy
+            INNER JOIN user_fill
+                ON consult_policy.user_fill_id = user_fill.id
+            INNER JOIN user_info
+                ON consult_policy.univ_code = user_info.univ_code
+                AND consult_policy.discipline_code = user_info.discipline_code
+            WHERE
+                user_fill.is_seen = 1
+                AND user_fill.is_delete = 0
+                AND consult_policy.is_delete = 0
+                AND consult_policy.adopt_sit = '已采纳'
+                AND consult_policy.level = '省部级'
+                AND user_info.univ_name= '${univ_name}'  --参数
+                AND user_info.discipline_name='${discipline_name}' --参数
+            ORDER BY yr DESC`
+            } else {
+                var sql2 = `SELECT * FROM ${to_dbtable}
+                INNER JOIN user_fill
+                 ON ${to_dbtable}.user_fill_id = user_fill.id
+                WHERE ${to_dbtable}.user_fill_id in(${temp_fill_id})
+                 AND ${to_dbtable}.is_delete = 0`
+            }
+
+            client.query(sql2, function (err, results2) {
+                if (err) {
+                    console.log(err.message)
+                    // 异常后调用callback并传入err
+                    res.send({
+                        status: 1,
+                        message: '系统繁忙，请稍后再试'
+                    })
+                } else if (results.rowCount == 0) {
+                    // 空则返回空数组
+                    res.send({
+                        status: 0,
+                        data: []
+                    })
+                } else {
+                    console.log(results2.rows);
+                    for (var i = 0; i < results2.rows.length; i++) {
+                        if (results2.rows[i]["adopt_date"] == 'undefined') {
+                            results2.rows[i]["adopt_date"] = ""
+                        }
+                        // results2.rows[i]["is_seen"] = null
+                        // results2.rows[i]["is_delete"] = null
+                        // results2.rows[i]["path"] = null
+                        delete results2.rows[i]["is_seen"]
+                        delete results2.rows[i]["is_delete"]
+                        delete results2.rows[i]["path"]
+                        // delete results2.rows[i]["id"]
                         delete results2.rows[i]["op_time"]
                         delete results2.rows[i]["user_fill_id"]
                     }
