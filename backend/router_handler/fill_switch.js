@@ -128,3 +128,15 @@ exports.status_change_open = function (req, res) {
         }
     })
 }
+
+
+
+
+// 表格填报状态查询
+exports.check_is_out = function (req, res) {
+    user = req.user
+    res.send({
+        status: 0,
+        message: "正常登录token"
+    })
+}

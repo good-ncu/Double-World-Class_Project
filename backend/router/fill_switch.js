@@ -21,6 +21,8 @@ router.post('/status_change_close', role_audit.is_gov, fill_switch_handler.statu
 // 单一表格填报状态修改    从关闭到开启 
 router.post('/status_change_open', role_audit.is_gov, fill_switch_handler.status_change_open)
 
+// 检查token是否过期
+router.post('/check-is-out', fill_switch_handler.check_is_out)
 
 
 module.exports = router
