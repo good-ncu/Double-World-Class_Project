@@ -263,15 +263,15 @@ LIMIT 1`
 				"number": 2001
 			},
 			{
-				"title": "学科专任教师",
+				"title": "学科专任教师(最新学年度)",
 				"number": 2022
 			},
 			{
-				"title": "博士后和科研助理",
+				"title": "博士后和科研助理(最新学年度)",
 				"number": 211
 			},
 			{
-				"title": "外籍专任教师数量",
+				"title": "外籍专任教师数量(最新学年度)",
 				"number": 20
 			}]
 			results_data[0].number = results.rows[0].rc_num
