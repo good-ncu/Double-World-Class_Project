@@ -730,7 +730,7 @@ function results_to_front(results){
 		//------------------ 建设一流师资队伍
 		// 国家级团队数量（个）
 		data[2].datas[0].push({
-			value: item.dgj_count,
+			value: item.tdgj_count,
 			award: false
 		})
 		// 国家级学术领军人才（含青年人才）数量（位）
