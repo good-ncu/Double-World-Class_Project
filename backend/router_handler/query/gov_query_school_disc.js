@@ -83,7 +83,7 @@ exports.gov_query_school_disc_eval = function (req, res) {
     univ_discipline.discipline_name,
     concat_ws('、',univ_discipline.tag3,univ_discipline.subtag1,univ_discipline.tag2) AS tag
    FROM univ_discipline
-   WHERE univ_discipline.tag1='一流学科建设名单' and univ_code != '99999'
+   WHERE univ_discipline.tag1='一流学科建设名单' and univ_code != '99999' and discipline_code!='0305Q'
    )) AS A
    ORDER BY univ_code,discipline_code ASC`
     client.query(sql, function (err, results) {
