@@ -457,7 +457,8 @@ exports.query_table_detail_info = function (req, res) {
             //     to_dbtable = to_dbtable + `${element.id},`
             // });
             // to_dbtable = to_dbtable.substring(0, to_dbtable.length - 1);  // 去掉最后一个 , 
-            console.log(user_fill_id, to_dbtable)
+            console.log(temp_fill_id)
+            console.log(to_dbtable)
             if (fill_id == "'3_2_2_0','3_2_2_1','3_2_2_3','3_2_2_4'") {
                 var sql2 = `SELECT
                 talent_team.talent_or_team,
@@ -557,7 +558,7 @@ exports.query_table_detail_info = function (req, res) {
                 WHERE ${to_dbtable}.user_fill_id in(${temp_fill_id})
                  AND ${to_dbtable}.is_delete = 0`
             }
-
+            console.log(sql2)
             client.query(sql2, function (err, results2) {
                 if (err) {
                     console.log(err.message)
