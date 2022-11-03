@@ -503,7 +503,7 @@ exports.query_table_detail_info = function (req, res) {
                 AND user_info.univ_name= '${univ_name}'  --参数
                 AND user_info.discipline_name='${discipline_name}' --参数
             ORDER BY talent_or_team ASC, yr DESC`
-            } else if (fill_id == "'5_2_1_1'") {
+            } else if (fill_id == "'5_2_2_1'") {
                 var sql2 = `SELECT
                 consult_policy.yr,
                 consult_policy.level,
@@ -527,7 +527,7 @@ exports.query_table_detail_info = function (req, res) {
                 AND user_info.univ_name= '${univ_name}'  --参数
                 AND user_info.discipline_name='${discipline_name}' --参数
             ORDER BY yr DESC`
-            } else if (fill_id == "'5_2_1_2'") {
+            } else if (fill_id == "'5_2_2_2'") {
                 var sql2 = `SELECT
                 consult_policy.yr,
                 consult_policy.level,

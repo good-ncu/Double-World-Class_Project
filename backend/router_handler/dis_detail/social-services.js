@@ -156,7 +156,7 @@ LEFT JOIN
 		user_fill.is_delete = '0' 
 		AND user_fill.is_seen = '1'
 		AND prodedu_plat.is_delete = '0'
-		AND prodedu_plat.plat_level = '省级'
+		AND prodedu_plat.plat_level = '省部级'
 	GROUP BY
 		prodedu_plat.univ_code,
 		prodedu_plat.discipline_code,
@@ -196,7 +196,7 @@ LEFT JOIN
 		user_fill.is_delete = '0' 
 		AND user_fill.is_seen = '1'
 		AND consult_policy.is_delete = '0'
-		AND consult_policy.level = '省级'
+		AND consult_policy.level = '省部级'
 	GROUP BY
 		consult_policy.univ_code,
 		consult_policy.discipline_code,
