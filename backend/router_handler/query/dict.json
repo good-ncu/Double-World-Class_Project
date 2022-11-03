@@ -222,7 +222,7 @@
 		"univ_code":"学校",
 		"discipline_code": "学科",
 		"stu_name":"获奖人姓名",
-		"stu_type": "学术类型",
+		"stu_type": "学生类型",
 		"award_name": "奖项名称",
 		"award_work": "获奖作品",
 		"award_level":"获奖等级",
