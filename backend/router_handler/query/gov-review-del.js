@@ -75,6 +75,8 @@ const client = require('../../db/index')
 // }
 
 // 省厅删除四大信息
+// 逻辑：因为省厅查看的数据是由多个表混合，比如4-2-2-0 4-2-2-1...，这些表都是对应同一个to_dbtable，所以前端参数可以只传一个4-2-2-0参数给我，但他无法传每行数据id对应哪一个fill_id，
+// 因为delete_record需要准确的记录id对应的fill_id，所以后端要根据id查一遍对应的fill_id，再插入。
 exports.delete_school_data = function(req, res){
     var school_descipline = req.body.school_descipline
     var fill_id  = req.body.fill_id
@@ -98,41 +100,58 @@ exports.delete_school_data = function(req, res){
         var sub_sql_del_record = ''
         for(let i = 0;i<row_id.length;i++){
             sub_sql_del_rows = sub_sql_del_rows+"'"+row_id[i]+"'"
-            sub_sql_del_record +=`(`+ `'${row_id[i]}',` + `'${fill_id}',` + `'${school}',` + `'${to_dbtable}',` + `'${descipline}'` + `)`
+            // sub_sql_del_record +=`(`+ `'${row_id[i]}',` + `'${fill_id}',` + `'${school}',` + `'${to_dbtable}',` + `'${descipline}'` + `)`
             if(i!=row_id.length-1){
                 sub_sql_del_rows+=","
-                sub_sql_del_record +=","
+                // sub_sql_del_record +=","
             }
         }
         // 删除行
         var sql_del_rows = `UPDATE ${to_dbtable} SET is_delete = 1 WHERE 
         "id" in (${sub_sql_del_rows})`
-        // 记录删除记录
-        var sql_del_record = `insert into delete_record (id, fill_id, univ_name, to_dbtable, discipline_name) values ${sub_sql_del_record}`
+        // 插每个id对应的fill_id
+        var sql_query_id_fill_id = `SELECT ${to_dbtable}.id, fill_id FROM user_fill INNER JOIN ${to_dbtable} ON ${to_dbtable}.user_fill_id = user_fill.id
+        WHERE user_fill.id IN (SELECT user_fill_id FROM ${to_dbtable} WHERE id IN (${sub_sql_del_rows})) AND ${to_dbtable}.id IN (${sub_sql_del_rows})`
         client.query('BEGIN', function(err){
             if (shouldAbort(err)){
                 console.error(err);
                 return res.cc('系统繁忙，请稍后再试')
             }
-            client.query(sql_del_rows, function(err,results){
+            console.log(sql_query_id_fill_id);
+            client.query(sql_query_id_fill_id,function(err,results){
                 if(shouldAbort(err)){
                     console.error(err);
                     return res.cc('系统繁忙，请稍后再试')
-                } 
-                client.query(sql_del_record, function(err,results){
+                }
+                // 记录删除记录
+                for(let i = 0 ;i<results.rowCount;i++){
+                    sub_sql_del_record +=`(`+ `'${results.rows[i].id}',` + `'${results.rows[i].fill_id}',` + `'${school}',` + `'${to_dbtable}',` + `'${descipline}'` + `)`
+                    if(i!=results.rowCount-1){
+                        sub_sql_del_record +=","
+                    }
+                }
+                var sql_del_record = `insert into delete_record (id, fill_id, univ_name, to_dbtable, discipline_name) values ${sub_sql_del_record}`
+                console.log(sql_del_record);
+                client.query(sql_del_rows, function(err,results){
                     if(shouldAbort(err)){
                         console.error(err);
                         return res.cc('系统繁忙，请稍后再试')
-                    }
-                    client.query('COMMIT', function(err){
+                    } 
+                    client.query(sql_del_record, function(err,results){
                         if(shouldAbort(err)){
                             console.error(err);
                             return res.cc('系统繁忙，请稍后再试')
                         }
-                        return res.send({
-                            status: 0,
-                            message: "删除成功！"
-                        }) 
+                        client.query('COMMIT', function(err){
+                            if(shouldAbort(err)){
+                                console.error(err);
+                                return res.cc('系统繁忙，请稍后再试')
+                            }
+                            return res.send({
+                                status: 0,
+                                message: "删除成功！"
+                            }) 
+                        })
                     })
                 })
             })
