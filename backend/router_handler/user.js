@@ -87,7 +87,7 @@ exports.pre_register = function (req, res) {
 // 智慧教育平台 auth2 登录
 exports.auth2login = function (req, res) {
 
-  const accessToken = req.body.accessToken
+  const accessToken = req.query.accessToken
   if (accessToken == undefined) {
     return res.cc("accessToken 为空！");
   }
