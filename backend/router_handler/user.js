@@ -322,7 +322,7 @@ function loginByUser(user, res) {
     } else if (user.role_id == 2) {
       var flag = '省厅'
     }
-    return res.send({
+    var userInfo = JSON.stringify({
       status: 0,
       msg: '登录成功',
       username: user.username,
@@ -332,6 +332,8 @@ function loginByUser(user, res) {
       discipline_name: '',
       token: 'Bearer ' + tokenStr
     })
+    res.cookie('userInfo', userInfo);
+    return res.redirect(config.sylURL);
   }
   // 只用查学校，不用查学科
   if (user.role_id == 3) {
@@ -343,16 +345,18 @@ function loginByUser(user, res) {
       if (results.rowCount == 0) {
         return res.cc('查无此学校或学科')
       }
-      return res.send({
+      var userInfo = JSON.stringify({
         status: 0,
         msg: '登录成功',
         username: user.username,
-        roleid: rid,
+        roleid: user.role_id,
         role: roleStr,
-        univ_name: user.univ_name,
+        univ_name: flag,
         discipline_name: '',
         token: 'Bearer ' + tokenStr
       })
+      res.cookie('userInfo', userInfo);
+      return res.redirect(config.sylURL);
     })
   }
   // 学校、学科全部都要查
@@ -366,16 +370,18 @@ function loginByUser(user, res) {
       if (results.rowCount == 0) {
         return res.cc('查无此学校或学科')
       }
-      return res.send({
+      var userInfo = JSON.stringify({
         status: 0,
         msg: '登录成功',
         username: user.username,
-        roleid: rid,
+        roleid: user.role_id,
         role: roleStr,
-        univ_name: user.univ_name,
-        discipline_name: user.discipline_name,
+        univ_name: flag,
+        discipline_name: '',
         token: 'Bearer ' + tokenStr
       })
+      res.cookie('userInfo', userInfo);
+      return res.redirect(config.sylURL);
     })
   }
 }
